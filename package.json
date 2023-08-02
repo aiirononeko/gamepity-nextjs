@@ -1,5 +1,5 @@
 {
-  "name": "sumatore",
+  "name": "gamepity",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.31.0",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.9.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "supabase": "^1.82.2"
   }
 }
