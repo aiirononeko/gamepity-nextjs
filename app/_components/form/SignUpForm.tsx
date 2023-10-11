@@ -15,7 +15,7 @@ export default function SignUpForm() {
   const handleSubmit = async () => {
     const { error } = await signUp(email, password)
     if (!error) {
-      router.push('/')
+      router.push('/') // TODO
     }
   }
 

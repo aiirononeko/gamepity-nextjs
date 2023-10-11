@@ -15,7 +15,11 @@ export const useAuth = () => {
     }
     error: AuthError | null
   }> => {
+    // Supabase Authにユーザー登録
     const { data, error } = await supabase.auth.signUp({ email, password })
+
+    // ユーザー情報をDBに登録
+
     return { data, error }
   }
 

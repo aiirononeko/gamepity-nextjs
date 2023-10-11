@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@prisma/client": "^5.4.2",
     "@supabase/supabase-js": "^2.31.0",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.9.0",
     "prettier": "^3.0.0",
+    "prisma": "^5.4.2",
     "supabase": "^1.82.2"
   }
 }
