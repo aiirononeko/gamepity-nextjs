@@ -1,26 +1,26 @@
-'use client'
+// 'use client'
 
 import { useAuth } from '@/app/_hooks/useAuth'
 import { useUser } from '@/app/_hooks/useUser'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 export default function SignUpForm() {
   const { signUp } = useAuth()
   const { registUser } = useUser()
 
-  const [userName, setUserName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  // const [userName, setUserName] = useState('')
+  // const [email, setEmail] = useState('')
+  // const [password, setPassword] = useState('')
 
   const handleSubmit = async () => {
-    const { error } = await signUp(email, password)
+    // const { error } = await signUp(email, password)
     // if (!error) {
-    //   await registUser(userName, email)
+    // await registUser(userName, email)
     // }
   }
 
   return (
-    <form className='w-full max-w-sm'>
+    <form className='w-full max-w-sm' action={registUser}>
       <div className='md:flex md:items-center mb-6'>
         <div className='md:w-1/3'>
           <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
@@ -32,8 +32,8 @@ export default function SignUpForm() {
             className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
             id='inline-full-name'
             type='text'
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            // value={userName}
+            // onChange={(e) => setUserName(e.target.value)}
             placeholder='player'
           />
         </div>
@@ -49,8 +49,8 @@ export default function SignUpForm() {
             className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
             id='inline-email'
             type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
             placeholder='gamepity@exampla.com'
           />
         </div>
@@ -66,8 +66,8 @@ export default function SignUpForm() {
             className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
             id='inline-password'
             type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            // value={password}
+            // onChange={(e) => setPassword(e.target.value)}
             placeholder='******************'
           />
         </div>
@@ -86,8 +86,8 @@ export default function SignUpForm() {
         <div className='md:w-2/3'>
           <button
             className='shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
-            type='button'
-            onClick={handleSubmit}
+            type='submit'
+            // onClick={handleSubmit}
           >
             ユーザー登録する
           </button>
