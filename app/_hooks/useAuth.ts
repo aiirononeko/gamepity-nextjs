@@ -3,7 +3,7 @@ import { AuthError } from '@supabase/supabase-js'
 
 export const useAuth = () => {
   /**
-   * メールアドレスとパスワードでサインアップする.
+   * サインアップ.
    */
   const signUp = async (
     email: string,
@@ -17,9 +17,6 @@ export const useAuth = () => {
   }> => {
     // Supabase Authにユーザー登録
     const { data, error } = await supabase.auth.signUp({ email, password })
-
-    // ユーザー情報をDBに登録
-
     return { data, error }
   }
 

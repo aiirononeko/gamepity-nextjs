@@ -1,12 +1,12 @@
 'use client'
 
 import { useAuth } from '@/app/_hooks/useAuth'
-import { useRouter } from 'next/navigation'
+import { useUser } from '@/app/_hooks/useUser'
 import { useState } from 'react'
 
 export default function SignUpForm() {
-  const router = useRouter()
   const { signUp } = useAuth()
+  const { registUser } = useUser()
 
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
@@ -14,9 +14,9 @@ export default function SignUpForm() {
 
   const handleSubmit = async () => {
     const { error } = await signUp(email, password)
-    if (!error) {
-      router.push('/') // TODO
-    }
+    // if (!error) {
+    //   await registUser(userName, email)
+    // }
   }
 
   return (
