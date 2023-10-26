@@ -13,18 +13,24 @@ export const useAuth = () => {
       user: any
       session: any
     }
-    error: AuthError | null
   }> => {
+    'use server'
+
     // Supabase Authにユーザー登録
     const { data, error } = await supabase.auth.signUp({ email, password })
-    return { data, error }
+    if (error) throw new AuthError('Failed to sign up.')
+
+    return { data }
   }
 
   /**
    * サインアウト.
    */
   const signOut = async () => {
-    await supabase.auth.signOut()
+    'use server'
+
+    const { error } = await supabase.auth.signOut()
+    if (error) throw new AuthError('Failed to sign out.')
   }
 
   return { signUp, signOut }
