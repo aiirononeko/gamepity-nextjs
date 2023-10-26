@@ -13,7 +13,7 @@ export default function Header() {
             <a href='/signin'>
               <OutlinedButton>ログイン</OutlinedButton>
             </a>
-            <a href='/signup'>
+            <a href='/users/signup'>
               <CommonButton>新規登録</CommonButton>
             </a>
           </div>

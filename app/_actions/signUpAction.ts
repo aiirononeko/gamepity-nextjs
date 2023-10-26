@@ -1,11 +1,8 @@
-import { useAuth } from '@/app/_hooks/useAuth'
-import { useUser } from '@/app/_hooks/useUser'
+import { signUp } from '@/app/_hooks/useAuth'
+import { registUser } from '@/app/_hooks/useUser'
 import { redirect } from 'next/navigation'
 
 export const SignUpAction = () => {
-  const { signUp } = useAuth()
-  const { registUser } = useUser()
-
   const signUpAction = async (formData: FormData) => {
     'use server'
 
@@ -14,18 +11,20 @@ export const SignUpAction = () => {
     const password = formData.get('password')
 
     if (name && email && password) {
-      try {
-        // Supabase Auth にユーザー登録.
-        const { data } = await signUp(email.toString(), password.toString())
+      // try {
+      // Supabase Auth にユーザー登録.
+      const { data } = await signUp(email.toString(), password.toString())
 
-        // DB にユーザーレコード登録.
-        await registUser(name.toString(), email.toString())
+      // ログイン処理.
 
-        // マイページに遷移.
-        redirect(`/users/${data.user.id}`)
-      } catch (error) {
-        console.error(error) // TODO
-      }
+      // DB にユーザーレコード登録.
+      const { id } = await registUser(name.toString(), email.toString())
+
+      // マイページに遷移.
+      redirect(`/users/${id}`)
+      // } catch (error) {
+      // console.error(error) // TODO
+      // }
     }
   }
 
