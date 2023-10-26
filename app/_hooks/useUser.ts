@@ -4,15 +4,13 @@ export const useUser = () => {
   /**
    * ユーザー情報をDBに登録.
    */
-  const registUser = async (email: string) => {
-    'use server'
-
+  const registUser = async (name: string, email: string) => {
     try {
       await prisma.$connect()
       const user = await prisma.user.create({
         data: {
-          name: '',
-          email: email,
+          name: name.toString(),
+          email: email.toString(),
           iconUrl: '',
           profile: '',
           reservations: undefined,
@@ -23,7 +21,7 @@ export const useUser = () => {
         },
       })
 
-      console.log(user)
+      console.log(user) // TODO
     } catch (err) {
       console.log(err) // TODO
     } finally {
@@ -31,35 +29,5 @@ export const useUser = () => {
     }
   }
 
-  /**
-   * ストリーマー情報をDBに登録.
-   */
-  const registStreamer = async (email: string) => {
-    'use server'
-
-    try {
-      await prisma.$connect()
-      const streamer = await prisma.user.create({
-        data: {
-          name: '',
-          email: email,
-          iconUrl: '',
-          profile: '',
-          reservations: undefined,
-          isAdmin: false,
-          isStreamer: true,
-          plans: undefined,
-          availableDateTimes: undefined,
-        },
-      })
-
-      console.log(streamer)
-    } catch (err) {
-      console.log(err) // TODO
-    } finally {
-      await prisma.$disconnect()
-    }
-  }
-
-  return { registUser, registStreamer }
+  return { registUser }
 }
