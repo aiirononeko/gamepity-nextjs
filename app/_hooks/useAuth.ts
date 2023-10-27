@@ -13,7 +13,6 @@ export const signUp = async (
     session: any
   }
 }> => {
-  // Supabase Authにユーザー登録
   const { data, error } = await supabase.auth.signUp({ email, password })
   if (error) throw new AuthError('Failed to sign up.')
 

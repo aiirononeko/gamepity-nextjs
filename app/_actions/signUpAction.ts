@@ -11,20 +11,11 @@ export const SignUpAction = () => {
     const password = formData.get('password')
 
     if (name && email && password) {
-      // try {
-      // Supabase Auth にユーザー登録.
-      const { data } = await signUp(email.toString(), password.toString())
-
-      // ログイン処理.
-
-      // DB にユーザーレコード登録.
+      await signUp(email.toString(), password.toString())
       const { id } = await registUser(name.toString(), email.toString(), false)
 
       // マイページに遷移.
       redirect(`/users/${id}`)
-      // } catch (error) {
-      // console.error(error) // TODO
-      // }
     }
   }
 
@@ -36,20 +27,11 @@ export const SignUpAction = () => {
     const password = formData.get('password')
 
     if (name && email && password) {
-      // try {
-      // Supabase Auth にユーザー登録.
-      const { data } = await signUp(email.toString(), password.toString())
-
-      // ログイン処理.
-
-      // DB にユーザーレコード登録.
+      await signUp(email.toString(), password.toString())
       const { id } = await registUser(name.toString(), email.toString(), true)
 
       // マイページに遷移.
       redirect(`/users/${id}`)
-      // } catch (error) {
-      // console.error(error) // TODO
-      // }
     }
   }
 

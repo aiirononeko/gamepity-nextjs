@@ -9,15 +9,10 @@ export const SignInAction = () => {
     const password = formData.get('password')
 
     if (email && password) {
-      // try {
-      // ログイン処理.
-      const user = await signIn(email.toString(), password.toString())
+      await signIn(email.toString(), password.toString())
 
       // マイページに遷移.
-      redirect(`/users/${user.id}`)
-      // } catch (error) {
-      // console.error(error) // TODO
-      // }
+      redirect(`/users/1`)
     }
   }
 
