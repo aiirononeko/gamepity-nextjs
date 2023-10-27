@@ -1,7 +1,9 @@
-export default function SignInForm() {
+import Link from 'next/link'
+
+export default function SignInForm(action: any) {
   return (
     <div className='w-full max-w-xs'>
-      <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+      <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' action={action}>
         <div className='mb-4'>
           <label className='block text-gray-700 text-sm font-bold mb-2'>
             メールアドレス
@@ -30,12 +32,12 @@ export default function SignInForm() {
           >
             ログイン
           </button>
-          <a
+          <Link
             className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
             href='#'
           >
             パスワードを忘れですか？
-          </a>
+          </Link>
         </div>
       </form>
     </div>

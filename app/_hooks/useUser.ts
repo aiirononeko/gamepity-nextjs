@@ -4,7 +4,7 @@ import { AuthApiError } from '@supabase/supabase-js'
 /**
  * ユーザー情報をDBに登録.
  */
-export const registUser = async (name: string, email: string) => {
+export const registUser = async (name: string, email: string, isStreamer: boolean) => {
   'use server'
 
   try {
@@ -17,13 +17,30 @@ export const registUser = async (name: string, email: string) => {
         profile: '',
         reservations: undefined,
         isAdmin: false,
-        isStreamer: false,
+        isStreamer: isStreamer,
         plans: undefined,
         availableDateTimes: undefined,
       },
     })
 
     return user
+  } catch (error) {
+    throw new AuthApiError('Failed to operate database.', 500)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+/**
+ * ストリーマーユーザー情報一覧を取得.
+ */
+export const fetchStreamers = async () => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const streamers = await prisma.user.findMany({ where: { isStreamer: true } })
+    return streamers
   } catch (error) {
     throw new AuthApiError('Failed to operate database.', 500)
   } finally {

@@ -1,5 +1,5 @@
 import supabase from '@/app/_lib/supabase'
-import { AuthError } from '@supabase/supabase-js'
+import { AuthTokenResponse, AuthError } from '@supabase/supabase-js'
 
 /**
  * サインアップ.
@@ -18,6 +18,18 @@ export const signUp = async (
   if (error) throw new AuthError('Failed to sign up.')
 
   return { data }
+}
+
+/**
+ * サインイン.
+ */
+export const signIn = async (email: string, password: string) => {
+  const { data, error }: AuthTokenResponse = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+  if (error) throw new AuthError('Failed to sign in.')
+  return data.user
 }
 
 /**

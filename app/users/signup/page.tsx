@@ -1,5 +1,8 @@
+import { SignUpAction } from '@/app/_actions/SignUpAction'
 import SignUpForm from '@/app/_components/form/SignUpForm'
 
 export default async function UserSignUp() {
-  return <SignUpForm />
+  const { userSignUpAction } = SignUpAction()
+
+  return <SignUpForm action={userSignUpAction} />
 }
