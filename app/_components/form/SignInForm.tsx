@@ -1,9 +1,28 @@
+import { signIn } from '@/app/_hooks/useAuth'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-export default function SignInForm(action: any) {
+const signInAction = async (formData: FormData) => {
+  'use server'
+
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  if (email && password) {
+    await signIn(email.toString(), password.toString())
+
+    // マイページに遷移.
+    redirect(`/users/1`)
+  }
+}
+
+export default function SignInForm() {
   return (
     <div className='w-full max-w-xs'>
-      <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' action={action}>
+      <form
+        className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'
+        action={signInAction}
+      >
         <div className='mb-4'>
           <label className='block text-gray-700 text-sm font-bold mb-2'>
             メールアドレス

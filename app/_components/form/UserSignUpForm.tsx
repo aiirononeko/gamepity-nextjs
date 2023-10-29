@@ -1,6 +1,26 @@
-export default function SignUpForm(action: any) {
+import { signUp } from '@/app/_hooks/useAuth'
+import { registUser } from '@/app/_hooks/useUser'
+import { redirect } from 'next/navigation'
+
+const signUpAction = async (formData: FormData) => {
+  'use server'
+
+  const name = formData.get('name')
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  if (name && email && password) {
+    await signUp(email.toString(), password.toString())
+    const { id } = await registUser(name.toString(), email.toString(), false)
+
+    // マイページに遷移.
+    redirect(`/users/${id}`)
+  }
+}
+
+export default function UserSignUpForm() {
   return (
-    <form className='w-full max-w-sm' action={action}>
+    <form className='w-full max-w-sm' action={signUpAction}>
       <div className='md:flex md:items-center mb-6'>
         <div className='md:w-1/3'>
           <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
