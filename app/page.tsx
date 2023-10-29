@@ -1,5 +1,5 @@
 import { fetchStreamers } from '@/app/_hooks/useUser'
-import StreamerCard from './_components/card/StreamerCard'
+import StreamerCard from '@/app/_components/card/StreamerCard'
 
 export default async function Home() {
   const streamers = await fetchStreamers()

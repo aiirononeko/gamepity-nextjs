@@ -1,8 +1,8 @@
-import './globals.css'
+import '@/app/globals.css'
 import type { Metadata } from 'next'
 import { Playfair_Display } from 'next/font/google'
-import Header from './header'
-import Footer from './footer'
+import Header from '@/app/header'
+import Footer from '@/app/footer'
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
