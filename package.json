@@ -9,7 +9,7 @@
     "stop": "npx supabase stop",
     "lint": "next lint",
     "format": "prettier --write .",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
