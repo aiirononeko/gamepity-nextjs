@@ -8,7 +8,8 @@
     "start": "npx supabase start && next start",
     "stop": "npx supabase stop",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
