@@ -68,3 +68,24 @@ export const fetchUser = async (id: number) => {
     await prisma.$disconnect()
   }
 }
+
+/**
+ * 指定されたユーザー情報を取得.
+ */
+export const fetchUserWithEmail = async (email: string) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    })
+    return user
+  } catch (error) {
+    throw new AuthApiError('Failed to operate database.', 500)
+  } finally {
+    await prisma.$disconnect()
+  }
+}

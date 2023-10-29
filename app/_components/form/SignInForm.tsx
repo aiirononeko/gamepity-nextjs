@@ -30,7 +30,7 @@ const signInAction = async (formData: FormData) => {
   const password = formData.get('password')
 
   if (email && password) {
-    await supabase.auth.signUp({
+    await supabase.auth.signInWithPassword({
       email: email.toString(),
       password: password.toString(),
     })
