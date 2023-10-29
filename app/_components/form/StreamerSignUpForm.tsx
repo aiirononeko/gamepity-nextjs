@@ -1,16 +1,40 @@
-import { signUp } from '@/app/_hooks/useAuth'
-import { registUser } from '@/app/_hooks/useUser'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { registUser } from '@/app/_hooks/useUser'
 
 const signUpAction = async (formData: FormData) => {
   'use server'
+
+  const cookieStore = cookies()
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          cookieStore.set({ name, value, ...options })
+        },
+        remove(name: string, options: CookieOptions) {
+          cookieStore.set({ name, value: '', ...options })
+        },
+      },
+    },
+  )
 
   const name = formData.get('name')
   const email = formData.get('email')
   const password = formData.get('password')
 
   if (name && email && password) {
-    await signUp(email.toString(), password.toString())
+    await supabase.auth.signUp({
+      email: email.toString(),
+      password: password.toString(),
+    })
     const { id } = await registUser(name.toString(), email.toString(), true)
 
     // マイページに遷移.
