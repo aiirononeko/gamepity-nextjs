@@ -42,6 +42,7 @@ export const fetchStreamers = async () => {
     const streamers = await prisma.user.findMany({ where: { isStreamer: true } })
     return streamers
   } catch (error) {
+    console.error(error)
     throw new AuthApiError('Failed to operate database.', 500)
   } finally {
     await prisma.$disconnect()
