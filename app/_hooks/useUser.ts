@@ -89,3 +89,29 @@ export const fetchUserWithEmail = async (email: string) => {
     await prisma.$disconnect()
   }
 }
+
+/**
+ * ユーザー情報を更新.
+ */
+export const editUser = async (id: number, name: string, profile: string) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const user = await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name: name.toString(),
+        profile: profile.toString(),
+      },
+    })
+
+    return user
+  } catch (error) {
+    throw new AuthApiError('Failed to operate database.', 500)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
