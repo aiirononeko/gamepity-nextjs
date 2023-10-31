@@ -1,4 +1,4 @@
-import { fetchStreamers } from '@/app/_hooks/useUser'
+import { fetchStreamers } from '@/app/_services/streamerService'
 import StreamerCard from '@/app/_components/card/StreamerCard'
 
 export default async function Home() {

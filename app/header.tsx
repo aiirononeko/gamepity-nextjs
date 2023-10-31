@@ -1,30 +1,13 @@
 import CommonButton from './_components/button/CommonButton'
 import OutlinedButton from './_components/button/OutlinedButton'
 import Link from 'next/link'
+import { fetchUserWithEmail } from './_services/userService'
+import { createSupabaseClient } from '@/app/_lib/supabase'
 import { cookies } from 'next/headers'
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { fetchUserWithEmail } from './_hooks/useUser'
 
 export default async function Header() {
   const cookieStore = cookies()
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options })
-        },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: '', ...options })
-        },
-      },
-    },
-  )
+  const supabase = createSupabaseClient(cookieStore)
 
   const { data, error } = await supabase.auth.getSession()
   const { session } = data

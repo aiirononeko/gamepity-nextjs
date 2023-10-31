@@ -1,8 +1,8 @@
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
-import { cookies } from 'next/headers'
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { editUser, fetchUserWithEmail } from '@/app/_hooks/useUser'
+import { editUser, fetchUserWithEmail } from '@/app/_services/userService'
 import { redirect } from 'next/navigation'
+import { createSupabaseClient } from '@/app/_lib/supabase'
+import { cookies } from 'next/headers'
 
 const editUserAction = async (formData: FormData) => {
   'use server'
@@ -20,24 +20,7 @@ const editUserAction = async (formData: FormData) => {
 
 export default async function UserEditPage() {
   const cookieStore = cookies()
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options })
-        },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: '', ...options })
-        },
-      },
-    },
-  )
+  const supabase = createSupabaseClient(cookieStore)
 
   const { data, error } = await supabase.auth.getSession()
   const { session } = data
