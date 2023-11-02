@@ -50,12 +50,12 @@ export default async function Page({ params }: Props) {
           {user.isStreamer && (
             <>
               <p>プランのリストアイテムがここに並ぶ</p>
-              <Link href={`/users/${params.id}/edit`}>
-                <OutlinedButton>プランを作成/編集</OutlinedButton>
+              <Link href={`/users/${params.id}/plans/create`}>
+                <OutlinedButton>プランを作成</OutlinedButton>
               </Link>
               <p>予約可能日時のリストアイテムがここに並ぶ</p>
-              <Link href={`/users/${params.id}/edit`}>
-                <OutlinedButton>予約可能日時を作成/編集</OutlinedButton>
+              <Link href={`/users/${params.id}/availableDateTimes/create`}>
+                <OutlinedButton>予約可能日時を作成</OutlinedButton>
               </Link>
             </>
           )}

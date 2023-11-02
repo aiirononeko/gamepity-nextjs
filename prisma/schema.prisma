@@ -25,7 +25,7 @@ model Plan {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String  @db.VarChar(255)
-  amount      String  @db.VarChar(255)
+  amount      Int     @db.Integer
   user        User    @relation(fields: [userId], references: [id])
   userId      Int
   game        Game    @relation(fields: [gameId], references: [id])
@@ -51,6 +51,7 @@ model Reservation {
   id            Int       @id @default(autoincrement())
   planId        String    @db.VarChar(255)
   startDateTime DateTime  @db.Timestamp(3)
+  endDateTime   DateTime  @db.Timestamp(3)
   streamer      User      @relation(name: "Streamer", fields: [streamerId], references: [id])
   streamerId    Int
   user          User      @relation(name: "User", fields: [userId], references: [id])

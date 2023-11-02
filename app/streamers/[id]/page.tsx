@@ -1,8 +1,6 @@
-import {
-  fetchAvailableDateTimesWithId,
-  fetchPlansWithId,
-  fetchStreamerWithId,
-} from '@/app/_services/streamerService'
+import { fetchAvailableDateTimesWithId } from '@/app/_services/availableDateTimeService'
+import { fetchPlansWithId } from '@/app/_services/planService'
+import { fetchStreamerWithId } from '@/app/_services/streamerService'
 
 type Props = {
   params: {

@@ -13,7 +13,6 @@ export const fetchUserWithId = async (id: number) => {
     const user = await prisma.user.findUnique({
       where: {
         id: id,
-        isStreamer: false,
       },
     })
     return user
