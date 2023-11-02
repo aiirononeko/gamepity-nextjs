@@ -22,9 +22,9 @@ export default async function Header() {
             <h1 className='text-game-yellow text-5xl font-bold pb-2'>Gamepity</h1>
           </a>
           <div className='flex items-center space-x-2 lg:order-2'>
-            {session ? (
+            {session && user ? (
               <>
-                <Link href={`/users/${user?.id}`}>
+                <Link href={`/users/${user.id}`}>
                   <OutlinedButton>マイページ</OutlinedButton>
                 </Link>
                 <Link href='/signout'>

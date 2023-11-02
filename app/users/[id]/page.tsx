@@ -1,7 +1,8 @@
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
-import { fetchUserWithId } from '@/app/_services/userService'
+import { createSupabaseClient } from '@/app/_lib/supabase'
+import { fetchUserWithEmail, fetchUserWithId } from '@/app/_services/userService'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
@@ -10,32 +11,37 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  // TODO: ここでマイページの持ち主であるユーザーを取得しているが、
-  // ページにアクセスしてきているユーザーと区別するようにする
-  const user = await fetchUserWithId(Number(params.id))
-  if (!user) redirect('/')
+  const cookieStore = cookies()
+  const supabase = createSupabaseClient(cookieStore)
 
-  // TODO: 本実装
-  const availableTimes = user.isStreamer ? [] : []
+  const { data } = await supabase.auth.getSession()
+  const { session } = data
+
+  // ログインユーザー取得
+  const me = session && (await fetchUserWithEmail(session.user.email!))
+
+  // マイページの持ち主ユーザー取得
+  const user = await fetchUserWithId(Number(params.id))
+
+  // ログインユーザー自身のマイページかどうか
+  const isMypage = me && user && user.id === me.id
 
   return (
     <>
-      <p>マイページ</p>
-      {user.isStreamer && <p>ストリーマーユーザーです</p>}
-      <p>ユーザーネーム: {user.name}</p>
-      <p>プロフィール: {user.profile}</p>
-      <Link href={`/users/${params.id}/edit`}>
-        <OutlinedButton>プロフィールを編集</OutlinedButton>
-      </Link>
-      {availableTimes.length === 0 ? (
-        <p>予約可能日時がありません</p>
+      {user ? (
+        <>
+          <p>ユーザーネーム: {user.name}</p>
+          <p>プロフィール: {user.profile}</p>
+          {isMypage && (
+            <>
+              <Link href={`/users/${params.id}/edit`}>
+                <OutlinedButton>プロフィールを編集</OutlinedButton>
+              </Link>
+            </>
+          )}
+        </>
       ) : (
-        <p>予約可能日時があります</p>
-      )}
-      {user.isStreamer && (
-        <Link href={`/users/${params.id}/availabletime/edit`}>
-          <OutlinedButton>予約可能日時を登録</OutlinedButton>
-        </Link>
+        <p>お探しのユーザーは存在しません</p>
       )}
     </>
   )
