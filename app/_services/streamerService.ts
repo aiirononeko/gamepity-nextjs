@@ -43,19 +43,19 @@ export const fetchStreamerWithId = async (id: number) => {
 }
 
 /**
- * 指定されたIDのストリーマーに紐づくコース情報を取得.
+ * 指定されたIDのストリーマーに紐づくプラン情報を取得.
  */
-export const fetchCourseWithId = async (id: number) => {
+export const fetchPlansWithId = async (id: number) => {
   'use server'
 
   try {
     await prisma.$connect()
-    const courses = await prisma.plan.findMany({
+    const plans = await prisma.plan.findMany({
       where: {
         userId: id,
       },
     })
-    return courses
+    return plans
   } catch (error) {
     throw new AuthApiError('Failed to operate database.', 500)
   } finally {
@@ -66,7 +66,7 @@ export const fetchCourseWithId = async (id: number) => {
 /**
  * 指定されたIDのストリーマーに紐づく予約可能日時情報を取得.
  */
-export const fetchAvailableDateTimeWithId = async (id: number) => {
+export const fetchAvailableDateTimesWithId = async (id: number) => {
   'use server'
 
   try {

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import { createSupabaseClient } from '@/app/_lib/supabase'
 import { fetchUserWithEmail, fetchUserWithId } from '@/app/_services/userService'
+import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
@@ -14,7 +15,7 @@ type Props = {
 /**
  * ユーザーのマイページです.
  * 一般ユーザーもストリーマーユーザーも、自身の情報を確認/編集することができます.
- * 分岐が多くなるためストリーマーユーザーの詳細ページはstreamers/[id]に切り分けています.
+ * 自身のマイページ以外はアクセス不可.
  */
 export default async function Page({ params }: Props) {
   const cookieStore = cookies()
@@ -29,8 +30,13 @@ export default async function Page({ params }: Props) {
   // マイページの持ち主ユーザー取得
   const user = await fetchUserWithId(Number(params.id))
 
-  // ログインユーザー自身のマイページかどうか
-  const isMypage = me && user && user.id === me.id
+  // 何らかのエラーによりユーザー情報が取得できない場合
+  // トップページにリダイレクト
+  if (!me || !user) redirect('/')
+
+  // 自身のマイページ以外にアクセスしようとした場合
+  // トップページにリダイレクト
+  if (me.id !== user.id) redirect('/')
 
   return (
     <>
@@ -38,23 +44,19 @@ export default async function Page({ params }: Props) {
         <>
           <p>ユーザーネーム: {user.name}</p>
           <p>プロフィール: {user.profile}</p>
-          {isMypage && (
+          <Link href={`/users/${params.id}/edit`}>
+            <OutlinedButton>プロフィールを編集</OutlinedButton>
+          </Link>
+          {user.isStreamer && (
             <>
+              <p>プランのリストアイテムがここに並ぶ</p>
               <Link href={`/users/${params.id}/edit`}>
-                <OutlinedButton>プロフィールを編集</OutlinedButton>
+                <OutlinedButton>プランを作成/編集</OutlinedButton>
               </Link>
-              {user.isStreamer && (
-                <>
-                  <p>コースのリストアイテムがここに並ぶ</p>
-                  <Link href={`/users/${params.id}/edit`}>
-                    <OutlinedButton>コースを作成/編集</OutlinedButton>
-                  </Link>
-                  <p>予約可能日時のリストアイテムがここに並ぶ</p>
-                  <Link href={`/users/${params.id}/edit`}>
-                    <OutlinedButton>予約可能日時を作成/編集</OutlinedButton>
-                  </Link>
-                </>
-              )}
+              <p>予約可能日時のリストアイテムがここに並ぶ</p>
+              <Link href={`/users/${params.id}/edit`}>
+                <OutlinedButton>予約可能日時を作成/編集</OutlinedButton>
+              </Link>
             </>
           )}
         </>

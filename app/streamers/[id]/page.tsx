@@ -1,6 +1,6 @@
 import {
-  fetchAvailableDateTimeWithId,
-  fetchCourseWithId,
+  fetchAvailableDateTimesWithId,
+  fetchPlansWithId,
   fetchStreamerWithId,
 } from '@/app/_services/streamerService'
 
@@ -13,8 +13,8 @@ type Props = {
 export default async function Page({ params }: Props) {
   const streamerId = Number(params.id)
   const streamer = await fetchStreamerWithId(streamerId)
-  const course = await fetchCourseWithId(streamerId)
-  const availableTimes = await fetchAvailableDateTimeWithId(streamerId)
+  const plans = await fetchPlansWithId(streamerId)
+  const availableTimes = await fetchAvailableDateTimesWithId(streamerId)
 
   return (
     <>
@@ -22,10 +22,10 @@ export default async function Page({ params }: Props) {
         <>
           <p>ユーザーネーム: {streamer.name}</p>
           <p>プロフィール: {streamer.profile}</p>
-          {course && course.length === 0 ? (
-            <p>コースがありません</p>
+          {plans && plans.length === 0 ? (
+            <p>プランがありません</p>
           ) : (
-            <p>コースのリストアイテムを表示します</p>
+            <p>プランのリストアイテムを表示します</p>
           )}
           {availableTimes && availableTimes.length === 0 ? (
             <p>予約可能日時がありません</p>
