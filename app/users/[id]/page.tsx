@@ -1,8 +1,9 @@
+import { cookies } from 'next/headers'
+import Link from 'next/link'
+
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import { createSupabaseClient } from '@/app/_lib/supabase'
 import { fetchUserWithEmail, fetchUserWithId } from '@/app/_services/userService'
-import { cookies } from 'next/headers'
-import Link from 'next/link'
 
 type Props = {
   params: {

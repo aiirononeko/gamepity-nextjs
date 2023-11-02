@@ -1,7 +1,8 @@
-import { redirect } from 'next/navigation'
-import { registUser } from '@/app/_services/userService'
-import { createSupabaseClient } from '@/app/_lib/supabase'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+import { createSupabaseClient } from '@/app/_lib/supabase'
+import { registUser } from '@/app/_services/userService'
 
 const signUpAction = async (formData: FormData) => {
   'use server'

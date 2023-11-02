@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function StreamerCard(data: any) {
+export default function Streamer(data: any) {
   const { streamer } = data
   return (
     <Link href={`/streamers/${streamer.id}`}>

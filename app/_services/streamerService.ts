@@ -1,5 +1,6 @@
-import prisma from '@/app/_lib/prisma'
 import { AuthApiError } from '@supabase/supabase-js'
+
+import prisma from '@/app/_lib/prisma'
 
 /**
  * ストリーマーユーザー情報一覧を取得.

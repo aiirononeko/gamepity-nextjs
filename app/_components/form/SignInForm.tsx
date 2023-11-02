@@ -1,7 +1,8 @@
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+
 import { createSupabaseClient } from '@/app/_lib/supabase'
-import { cookies } from 'next/headers'
 
 const signInAction = async (formData: FormData) => {
   'use server'

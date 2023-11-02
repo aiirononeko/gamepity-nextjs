@@ -1,8 +1,10 @@
-import OutlinedButton from '@/app/_components/button/OutlinedButton'
-import { editUser, fetchUserWithEmail } from '@/app/_services/userService'
-import { redirect } from 'next/navigation'
-import { createSupabaseClient } from '@/app/_lib/supabase'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+import OutlinedButton from '@/app/_components/button/OutlinedButton'
+import { createSupabaseClient } from '@/app/_lib/supabase'
+import { editUser, fetchUserWithEmail } from '@/app/_services/userService'
+
 
 const editUserAction = async (formData: FormData) => {
   'use server'

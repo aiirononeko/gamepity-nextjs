@@ -1,5 +1,5 @@
+import Streamer from '@/app/_components/listItem/Streamer'
 import { fetchStreamers } from '@/app/_services/streamerService'
-import StreamerCard from '@/app/_components/card/StreamerCard'
 
 export default async function Home() {
   const streamers = await fetchStreamers()
@@ -12,7 +12,7 @@ export default async function Home() {
       ) : (
         <>
           {streamers.map((streamer) => (
-            <StreamerCard key={streamer.id} streamer={streamer} />
+            <Streamer key={streamer.id} streamer={streamer} />
           ))}
         </>
       )}

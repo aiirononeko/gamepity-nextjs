@@ -1,15 +1,17 @@
+import { cookies } from 'next/headers'
+import Link from 'next/link'
+
 import CommonButton from './_components/button/CommonButton'
 import OutlinedButton from './_components/button/OutlinedButton'
-import Link from 'next/link'
 import { fetchUserWithEmail } from './_services/userService'
+
 import { createSupabaseClient } from '@/app/_lib/supabase'
-import { cookies } from 'next/headers'
 
 export default async function Header() {
   const cookieStore = cookies()
   const supabase = createSupabaseClient(cookieStore)
 
-  const { data, error } = await supabase.auth.getSession()
+  const { data } = await supabase.auth.getSession()
   const { session } = data
 
   const user = session && (await fetchUserWithEmail(session.user.email!))
