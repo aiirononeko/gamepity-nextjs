@@ -6,8 +6,7 @@ export default async function Home() {
 
   return (
     <>
-      <p>トップページ</p>
-      {streamers.length === 0 ? (
+      {!streamers || streamers.length === 0 ? (
         <p>ストリーマーがいません</p>
       ) : (
         <>
