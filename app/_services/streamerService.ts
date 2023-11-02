@@ -41,3 +41,45 @@ export const fetchStreamerWithId = async (id: number) => {
     await prisma.$disconnect()
   }
 }
+
+/**
+ * 指定されたIDのストリーマーに紐づくコース情報を取得.
+ */
+export const fetchCourseWithId = async (id: number) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const courses = await prisma.plan.findMany({
+      where: {
+        userId: id,
+      },
+    })
+    return courses
+  } catch (error) {
+    throw new AuthApiError('Failed to operate database.', 500)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+/**
+ * 指定されたIDのストリーマーに紐づく予約可能日時情報を取得.
+ */
+export const fetchAvailableDateTimeWithId = async (id: number) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const availableDateTimes = await prisma.availableDateTime.findMany({
+      where: {
+        userId: id,
+      },
+    })
+    return availableDateTimes
+  } catch (error) {
+    throw new AuthApiError('Failed to operate database.', 500)
+  } finally {
+    await prisma.$disconnect()
+  }
+}

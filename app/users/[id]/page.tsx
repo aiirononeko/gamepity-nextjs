@@ -11,6 +11,11 @@ type Props = {
   }
 }
 
+/**
+ * ユーザーのマイページです.
+ * 一般ユーザーもストリーマーユーザーも、自身の情報を確認/編集することができます.
+ * 分岐が多くなるためストリーマーユーザーの詳細ページはstreamers/[id]に切り分けています.
+ */
 export default async function Page({ params }: Props) {
   const cookieStore = cookies()
   const supabase = createSupabaseClient(cookieStore)
@@ -38,6 +43,18 @@ export default async function Page({ params }: Props) {
               <Link href={`/users/${params.id}/edit`}>
                 <OutlinedButton>プロフィールを編集</OutlinedButton>
               </Link>
+              {user.isStreamer && (
+                <>
+                  <p>コースのリストアイテムがここに並ぶ</p>
+                  <Link href={`/users/${params.id}/edit`}>
+                    <OutlinedButton>コースを作成/編集</OutlinedButton>
+                  </Link>
+                  <p>予約可能日時のリストアイテムがここに並ぶ</p>
+                  <Link href={`/users/${params.id}/edit`}>
+                    <OutlinedButton>予約可能日時を作成/編集</OutlinedButton>
+                  </Link>
+                </>
+              )}
             </>
           )}
         </>
