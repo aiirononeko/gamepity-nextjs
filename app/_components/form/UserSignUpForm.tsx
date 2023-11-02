@@ -19,10 +19,10 @@ const signUpAction = async (formData: FormData) => {
       email: email.toString(),
       password: password.toString(),
     })
-    const { id } = await registUser(name.toString(), email.toString(), false)
+    const user = await registUser(name.toString(), email.toString(), false)
 
     // マイページに遷移.
-    redirect(`/users/${id}`)
+    redirect(`/users/${user?.id}`)
   }
 }
 
