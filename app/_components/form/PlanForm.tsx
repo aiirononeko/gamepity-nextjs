@@ -9,7 +9,7 @@ const createAction = async (formData: FormData) => {
   const userId = formData.get('userId')
   const gameId = formData.get('gameId')
 
-  if (name && description && amount) {
+  if (name && description && amount && userId && gameId) {
     await createPlan({
       name: name.toString(),
       description: description.toString(),
@@ -28,7 +28,7 @@ const updateAction = async (formData: FormData) => {
   const description = formData.get('description')
   const amount = formData.get('amount')
 
-  if (name && description && amount) {
+  if (id && name && description && amount) {
     await updatePlan({
       id: Number(id),
       name: name.toString(),

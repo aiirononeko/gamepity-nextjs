@@ -48,7 +48,7 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
     await prisma.$connect()
     await prisma.user.update({
       where: {
-        id: 17, // TODO
+        id: userId,
       },
       data: {
         plans: {
@@ -59,7 +59,7 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
               amount,
               game: {
                 connect: {
-                  id: 1, // TODO
+                  id: gameId,
                 },
               },
             },

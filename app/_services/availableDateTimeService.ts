@@ -27,7 +27,7 @@ export const fetchAvailableDateTimesWithId = async (id: number) => {
     })
     return availableDateTimes
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.log(error)
   } finally {
     await prisma.$disconnect()
   }
@@ -57,7 +57,7 @@ export const createAvailableDateTime = async (
     })
     return availableDateTimes
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.log(error)
   } finally {
     await prisma.$disconnect()
   }
@@ -85,7 +85,7 @@ export const updateAvailableDateTime = async (
     })
     return availableDateTimes
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.log(error)
   } finally {
     await prisma.$disconnect()
   }

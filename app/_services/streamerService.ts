@@ -14,7 +14,6 @@ export const fetchStreamers = async () => {
     return streamers
   } catch (error) {
     console.error(error)
-    throw new AuthApiError('Failed to operate database.', 500)
   } finally {
     await prisma.$disconnect()
   }
@@ -36,7 +35,7 @@ export const fetchStreamerWithId = async (id: number) => {
     })
     return user
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.error(error)
   } finally {
     await prisma.$disconnect()
   }

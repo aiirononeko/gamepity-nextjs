@@ -17,7 +17,7 @@ export const fetchUserWithId = async (id: number) => {
     })
     return user
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.error(error)
   } finally {
     await prisma.$disconnect()
   }
@@ -38,7 +38,7 @@ export const fetchUserWithEmail = async (email: string) => {
     })
     return user
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.error(error)
   } finally {
     await prisma.$disconnect()
   }
@@ -68,7 +68,7 @@ export const registUser = async (name: string, email: string, isStreamer: boolea
 
     return user
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.error(error)
   } finally {
     await prisma.$disconnect()
   }
@@ -94,7 +94,7 @@ export const editUser = async (id: number, name: string, profile: string) => {
 
     return user
   } catch (error) {
-    throw new AuthApiError('Failed to operate database.', 500)
+    console.error(error)
   } finally {
     await prisma.$disconnect()
   }
