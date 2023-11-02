@@ -1,5 +1,3 @@
-import { AuthApiError } from '@supabase/supabase-js'
-
 import prisma from '@/app/_lib/prisma'
 
 /**

@@ -5,18 +5,18 @@ import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import { createSupabaseClient } from '@/app/_lib/supabase'
 import { editUser, fetchUserWithEmail } from '@/app/_services/userService'
 
-
 const editUserAction = async (formData: FormData) => {
   'use server'
 
   const name = formData.get('name')
   const profile = formData.get('profile')
+  const userId = formData.get('userId')
 
-  if (name && profile) {
-    await editUser(15, name.toString(), profile.toString())
+  if (name && profile && userId) {
+    await editUser(Number(userId), name.toString(), profile.toString())
 
     // マイページに遷移.
-    redirect(`/users/15`)
+    redirect(`/users/${Number(userId).toString()}`)
   }
 }
 
@@ -24,7 +24,7 @@ export default async function UserEditPage() {
   const cookieStore = cookies()
   const supabase = createSupabaseClient(cookieStore)
 
-  const { data, error } = await supabase.auth.getSession()
+  const { data } = await supabase.auth.getSession()
   const { session } = data
 
   const user = session && (await fetchUserWithEmail(session.user.email!))
@@ -51,7 +51,7 @@ export default async function UserEditPage() {
           className='w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring'
         />
       </div>
-
+      <input name='userId' hidden type='number' defaultValue={user?.id} />
       <div className='flex items-center justify-between sm:col-span-2'>
         <OutlinedButton>プロフィールを更新</OutlinedButton>
       </div>
