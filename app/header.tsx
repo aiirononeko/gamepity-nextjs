@@ -29,9 +29,6 @@ export default async function Header() {
                 <Link href={`/users/${user.id}`}>
                   <OutlinedButton>マイページ</OutlinedButton>
                 </Link>
-                <Link href='/signout'>
-                  <OutlinedButton>ログアウト</OutlinedButton>
-                </Link>
               </>
             ) : (
               <>
