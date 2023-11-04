@@ -22,7 +22,7 @@ const signUpAction = async (formData: FormData) => {
     await registUser(name.toString(), email.toString(), false)
 
     // サインアップ完了ページに遷移
-    redirect('/signup/completed')
+    redirect('/users/signup/completed')
   }
 }
 
