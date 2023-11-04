@@ -31,6 +31,7 @@ export default async function Page({ params }: Props) {
     <>
       {streamer && (
         <>
+          <p>{streamer.name}の予約ページです</p>
           <p>プランを選択してください</p>
           {plans && plans.length > 0 ? (
             <>

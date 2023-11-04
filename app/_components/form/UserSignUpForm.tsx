@@ -19,10 +19,10 @@ const signUpAction = async (formData: FormData) => {
       email: email.toString(),
       password: password.toString(),
     })
-    const user = await registUser(name.toString(), email.toString(), false)
+    await registUser(name.toString(), email.toString(), false)
 
-    // マイページに遷移.
-    redirect(`/users/${user?.id}`)
+    // サインアップ完了ページに遷移
+    redirect('/signup/completed')
   }
 }
 
