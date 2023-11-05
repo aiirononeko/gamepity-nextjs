@@ -15,6 +15,7 @@ model User {
   profile               String                @db.VarChar(255)
   isAdmin               Boolean               @db.Boolean
   isStreamer            Boolean               @db.Boolean
+  stripeAccountId       String                @db.VarChar(255) @unique
   plans                 Plan[]
   availableDateTimes    AvailableDateTime[]
   reservations          Reservation[]         @relation(name: "User")
@@ -22,14 +23,15 @@ model User {
 }
 
 model Plan {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  description String  @db.VarChar(255)
-  amount      Int     @db.Integer
-  user        User    @relation(fields: [userId], references: [id])
-  userId      Int
-  game        Game    @relation(fields: [gameId], references: [id])
-  gameId      Int
+  id              Int     @id @default(autoincrement())
+  name            String  @db.VarChar(255)
+  description     String  @db.VarChar(255)
+  amount          Int     @db.Integer
+  stripePriceId   String  @db.VarChar(255)
+  user            User    @relation(fields: [userId], references: [id])
+  userId          Int
+  game            Game    @relation(fields: [gameId], references: [id])
+  gameId          Int
 }
 
 model Game {

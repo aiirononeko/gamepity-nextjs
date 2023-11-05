@@ -1,8 +1,9 @@
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 import { createSupabaseClient } from '@/app/_lib/supabase'
-import { registUser } from '@/app/_services/userService'
+import { editUser, registUser } from '@/app/_services/userService'
+import { stripe } from '@/app/_lib/stripe'
+import { redirect } from 'next/navigation'
 
 const signUpAction = async (formData: FormData) => {
   'use server'
@@ -19,10 +20,34 @@ const signUpAction = async (formData: FormData) => {
       email: email.toString(),
       password: password.toString(),
     })
-    const user = await registUser(name.toString(), email.toString(), true)
+    const user = await registUser({
+      name: name.toString(),
+      email: email.toString(),
+      isStreamer: true,
+    })
 
-    // マイページに遷移.
-    redirect(`/users/${user?.id}`)
+    if (user) {
+      const account = await stripe.accounts.create({
+        type: 'standard',
+      })
+
+      await editUser({
+        id: user.id,
+        name: user.name,
+        profile: user.profile,
+        stripeAccountId: account.id,
+      })
+
+      const accountLink = await stripe.accountLinks.create({
+        account: account.id,
+        refresh_url: 'http://localhost:3000', // TODO
+        return_url: `http://localhost:3000/users/${user?.id}`,
+        type: 'account_onboarding',
+      })
+
+      // Stripeのアカウント作成ページに遷移
+      redirect(accountLink.url)
+    }
   }
 }
 

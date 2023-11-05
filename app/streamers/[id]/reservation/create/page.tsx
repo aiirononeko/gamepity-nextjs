@@ -27,6 +27,9 @@ const createAction = async (formData: FormData) => {
         },
       ],
       application_fee_amount: 100, // TODO
+      // after_completion: {
+      // redirect: new URL('http://localhost:3000'), // TODO
+      // }
     },
     {
       stripeAccount: 'acct_1O91bNBHuYSV4Bq6', // TODO

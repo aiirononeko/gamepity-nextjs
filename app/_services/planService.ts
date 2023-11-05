@@ -13,6 +13,7 @@ interface UpdatePlanInput {
   name: string
   description: string
   amount: number
+  stripePriceId: string
 }
 
 /**
@@ -57,6 +58,7 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
               name,
               description,
               amount,
+              stripePriceId: '',
               game: {
                 connect: {
                   id: gameId,
@@ -80,7 +82,7 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
 export const updatePlan = async (plan: UpdatePlanInput): Promise<void> => {
   'use server'
 
-  const { id, name, description, amount } = plan
+  const { id, name, description, amount, stripePriceId } = plan
 
   try {
     await prisma.$connect()
@@ -92,6 +94,7 @@ export const updatePlan = async (plan: UpdatePlanInput): Promise<void> => {
         name,
         description,
         amount,
+        stripePriceId,
       },
     })
   } catch (error) {
