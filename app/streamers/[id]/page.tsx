@@ -42,11 +42,19 @@ export default async function Page({ params }: Props) {
           {availableDateTimes && (
             <>
               <p>予約可能日時一覧</p>
-              {availableDateTimes && availableDateTimes.length === 0 ? (
-                <p>予約可能日時がありません</p>
-              ) : (
-                <p>予約可能日時のUIを表示します</p>
-              )}
+              <ul>
+                {availableDateTimes && availableDateTimes.length === 0 ? (
+                  <p>予約可能日時がありません</p>
+                ) : (
+                  <>
+                    {availableDateTimes.map((availableDateTime) => (
+                      <li key={availableDateTime.id}>
+                        {availableDateTime.startDateTime.toString()}
+                      </li>
+                    ))}
+                  </>
+                )}
+              </ul>
             </>
           )}
           <Link href={`/streamers/${streamer.id}/reservation/create`}>
