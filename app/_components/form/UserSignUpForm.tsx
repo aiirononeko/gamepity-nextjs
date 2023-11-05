@@ -19,7 +19,11 @@ const signUpAction = async (formData: FormData) => {
       email: email.toString(),
       password: password.toString(),
     })
-    await registUser(name.toString(), email.toString(), false)
+    await registUser({
+      name: name.toString(),
+      email: email.toString(),
+      isStreamer: false,
+    })
 
     // サインアップ完了ページに遷移
     redirect('/users/signup/completed')
