@@ -7,6 +7,7 @@ import { fetchStreamerWithId } from '@/app/_services/streamerService'
 import { fetchUserWithEmail } from '@/app/_services/userService'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { stripe } from '@/app/_lib/stripe'
 
 type Props = {
   params: {
@@ -17,12 +18,27 @@ type Props = {
 const createAction = async (formData: FormData) => {
   'use server'
 
+  const paymentLink = await stripe.paymentLinks.create(
+    {
+      line_items: [
+        {
+          price: 'price_1O91jUBHuYSV4Bq6TTaJtzNH', // TODO
+          quantity: 1,
+        },
+      ],
+      application_fee_amount: 100, // TODO
+    },
+    {
+      stripeAccount: 'acct_1O91bNBHuYSV4Bq6', // TODO
+    },
+  )
+
+  console.log(paymentLink.url)
+
   const planId = formData.get('planId')
   const startDateTime = formData.get('startDateTime')
   const streamerId = formData.get('streamerId')
   const userId = formData.get('userId')
-
-  console.log(planId)
 
   if (planId && startDateTime && streamerId && userId) {
     await createReservation({
@@ -103,7 +119,7 @@ export default async function Page({ params }: Props) {
             )}
             <input name='streamerId' hidden type='number' defaultValue={streamer.id} />
             <input name='userId' hidden type='number' defaultValue={me.id} />
-            <OutlinedButton type='submit'>予約内容を確認する</OutlinedButton>
+            <OutlinedButton type='submit'>この内容で予約する</OutlinedButton>
           </form>
         </>
       )}
