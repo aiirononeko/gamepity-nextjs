@@ -7,29 +7,50 @@ interface CreateReservationInput {
   userId: number
 }
 
-// /**
-//  * 指定されたIDのストリーマーに紐づくプラン情報を取得.
-//  */
-// export const fetchPlansWithId = async (id: number) => {
-//   'use server'
-//
-//   try {
-//     await prisma.$connect()
-//     const plans = await prisma.plan.findMany({
-//       where: {
-//         userId: id,
-//       },
-//     })
-//     return plans
-//   } catch (error) {
-//     console.error(error)
-//   } finally {
-//     await prisma.$disconnect()
-//   }
-// }
+/**
+ * 指定された一般ユーザーのIDに紐づく予約データを取得.
+ */
+export const fetchUserReservationWithId = async (id: number) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const plans = await prisma.reservation.findMany({
+      where: {
+        userId: id,
+      },
+    })
+    return plans
+  } catch (error) {
+    console.error(error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
 
 /**
- * 指定されたIDのストリーマーに紐づくプラン情報を作成.
+ * 指定されたストリーマーユーザーのIDに紐づく予約データを取得.
+ */
+export const fetchStreamerReservationWithId = async (id: number) => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const plans = await prisma.reservation.findMany({
+      where: {
+        streamerId: id,
+      },
+    })
+    return plans
+  } catch (error) {
+    console.error(error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+/**
+ * 予約データを作成.
  */
 export const createReservation = async (plan: CreateReservationInput): Promise<void> => {
   'use server'
