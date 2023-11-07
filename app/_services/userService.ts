@@ -10,7 +10,7 @@ interface UpdateUserInput {
   id: number
   name: string
   profile: string
-  stripeAccountId: string
+  stripeAccountId?: string
 }
 
 /**

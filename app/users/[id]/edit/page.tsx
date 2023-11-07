@@ -13,7 +13,11 @@ const editUserAction = async (formData: FormData) => {
   const userId = formData.get('userId')
 
   if (name && profile && userId) {
-    await editUser(Number(userId), name.toString(), profile.toString())
+    await editUser({
+      id: Number(userId),
+      name: name.toString(),
+      profile: name.toString(),
+    })
 
     // マイページに遷移.
     redirect(`/users/${Number(userId).toString()}`)

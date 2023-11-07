@@ -16,15 +16,19 @@ const signUpAction = async (formData: FormData) => {
   const password = formData.get('password')
 
   if (name && email && password) {
-    await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email.toString(),
       password: password.toString(),
     })
-    const user = await registUser({
-      name: name.toString(),
-      email: email.toString(),
-      isStreamer: true,
-    })
+
+    const user =
+      data && !error
+        ? await registUser({
+            name: name.toString(),
+            email: email.toString(),
+            isStreamer: true,
+          })
+        : console.error(error)
 
     if (user) {
       const account = await stripe.accounts.create({
