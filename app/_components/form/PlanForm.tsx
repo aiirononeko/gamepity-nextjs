@@ -1,4 +1,5 @@
 import { createPlan, updatePlan } from '@/app/_services/planService'
+import { stripe } from '@/app/_lib/stripe'
 
 const createAction = async (formData: FormData) => {
   'use server'
@@ -10,13 +11,29 @@ const createAction = async (formData: FormData) => {
   const gameId = formData.get('gameId')
 
   if (name && description && amount && userId && gameId) {
-    await createPlan({
+    // StripeのProductsを作成
+    const product = await stripe.products.create({
       name: name.toString(),
-      description: description.toString(),
-      amount: Number(amount),
-      userId: Number(userId),
-      gameId: Number(gameId),
     })
+
+    // StripeのPriceを作成
+    const price =
+      product &&
+      (await stripe.prices.create({
+        unit_amount: Number(amount),
+        currency: 'jpy',
+        product: product.id,
+      }))
+
+    price &&
+      (await createPlan({
+        name: name.toString(),
+        description: description.toString(),
+        amount: Number(amount),
+        userId: Number(userId),
+        gameId: Number(gameId),
+        stripePriceId: price.id,
+      }))
   }
 }
 
@@ -29,6 +46,7 @@ const updateAction = async (formData: FormData) => {
   const amount = formData.get('amount')
 
   if (id && name && description && amount) {
+    // DBにプラン情報を登録
     await updatePlan({
       id: Number(id),
       name: name.toString(),
