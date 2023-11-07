@@ -6,15 +6,9 @@ interface CreatePlanInput {
   amount: number
   userId: number
   gameId: number
+  stripeProductId: string
   stripePriceId: string
-}
-
-interface UpdatePlanInput {
-  id: number
-  name: string
-  description: string
-  amount: number
-  stripePriceId?: string
+  stripePaymentLinkId: string
 }
 
 /**
@@ -44,7 +38,16 @@ export const fetchPlansWithId = async (id: number) => {
 export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
   'use server'
 
-  const { name, description, amount, userId, gameId, stripePriceId } = plan
+  const {
+    name,
+    description,
+    amount,
+    userId,
+    gameId,
+    stripeProductId,
+    stripePriceId,
+    stripePaymentLinkId,
+  } = plan
 
   try {
     await prisma.$connect()
@@ -59,7 +62,9 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
               name,
               description,
               amount,
+              stripeProductId,
               stripePriceId,
+              stripePaymentLinkId,
               game: {
                 connect: {
                   id: gameId,
@@ -68,34 +73,6 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
             },
           ],
         },
-      },
-    })
-  } catch (error) {
-    console.error(error)
-  } finally {
-    await prisma.$disconnect()
-  }
-}
-
-/**
- * 指定されたIDのストリーマーに紐づくプラン情報を更新.
- */
-export const updatePlan = async (plan: UpdatePlanInput): Promise<void> => {
-  'use server'
-
-  const { id, name, description, amount, stripePriceId } = plan
-
-  try {
-    await prisma.$connect()
-    await prisma.plan.update({
-      where: {
-        id,
-      },
-      data: {
-        name,
-        description,
-        amount,
-        stripePriceId,
       },
     })
   } catch (error) {

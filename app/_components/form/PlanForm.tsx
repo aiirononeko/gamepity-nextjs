@@ -1,4 +1,4 @@
-import { createPlan, updatePlan } from '@/app/_services/planService'
+import { createPlan } from '@/app/_services/planService'
 import { stripe } from '@/app/_lib/stripe'
 
 const createAction = async (formData: FormData) => {
@@ -25,47 +25,41 @@ const createAction = async (formData: FormData) => {
         product: product.id,
       }))
 
-    price &&
+    // StripeのPaymentLinkを作成
+    const paymentLink =
+      price &&
+      (await stripe.paymentLinks.create({
+        line_items: [
+          {
+            price: price.id,
+            quantity: 1,
+          },
+        ],
+      }))
+
+    paymentLink &&
       (await createPlan({
         name: name.toString(),
         description: description.toString(),
         amount: Number(amount),
         userId: Number(userId),
         gameId: Number(gameId),
+        stripeProductId: product.id,
         stripePriceId: price.id,
+        stripePaymentLinkId: paymentLink.id,
       }))
   }
 }
 
-const updateAction = async (formData: FormData) => {
-  'use server'
-
-  const id = formData.get('id')
-  const name = formData.get('name')
-  const description = formData.get('description')
-  const amount = formData.get('amount')
-
-  if (id && name && description && amount) {
-    // DBにプラン情報を登録
-    await updatePlan({
-      id: Number(id),
-      name: name.toString(),
-      description: description.toString(),
-      amount: Number(amount),
-    })
-  }
-}
-
 type Props = {
-  isNew: boolean
   userId: number
 }
 
 export default function PlanForm(props: Props) {
-  const { isNew, userId } = props
+  const { userId } = props
 
   return (
-    <form className='w-full max-w-sm' action={isNew ? createAction : updateAction}>
+    <form className='w-full max-w-sm' action={createAction}>
       <div className='md:flex md:items-center mb-6'>
         <div className='md:w-1/3'>
           <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>

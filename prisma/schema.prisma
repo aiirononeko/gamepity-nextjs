@@ -23,15 +23,17 @@ model User {
 }
 
 model Plan {
-  id              Int     @id @default(autoincrement())
-  name            String  @db.VarChar(255)
-  description     String  @db.VarChar(255)
-  amount          Int     @db.Integer
-  stripePriceId   String  @db.VarChar(255)
-  user            User    @relation(fields: [userId], references: [id])
-  userId          Int
-  game            Game    @relation(fields: [gameId], references: [id])
-  gameId          Int
+  id                    Int     @id @default(autoincrement())
+  name                  String  @db.VarChar(255)
+  description           String  @db.VarChar(255)
+  amount                Int     @db.Integer
+  stripeProductId       String  @db.VarChar(255)
+  stripePriceId         String  @db.VarChar(255)
+  stripePaymentLinkId   String  @db.VarChar(255)
+  user                  User    @relation(fields: [userId], references: [id])
+  userId                Int
+  game                  Game    @relation(fields: [gameId], references: [id])
+  gameId                Int
 }
 
 model Game {
