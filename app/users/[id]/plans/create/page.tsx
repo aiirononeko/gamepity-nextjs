@@ -1,4 +1,6 @@
 import PlanForm from '@/app/_components/form/PlanForm'
+import { fetchUserWithId } from '@/app/_services/userService'
+import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
@@ -6,8 +8,9 @@ type Props = {
   }
 }
 
-export default function Page({ params }: Props) {
-  const streamerId = Number(params.id)
+export default async function Page({ params }: Props) {
+  const user = await fetchUserWithId(Number(params.id))
+  if (!user) redirect('/')
 
-  return <PlanForm isNew={true} userId={streamerId} />
+  return <PlanForm userId={user.id} stripeAccountId={user.stripeAccountId} />
 }

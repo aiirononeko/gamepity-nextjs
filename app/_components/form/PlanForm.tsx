@@ -8,9 +8,10 @@ const createAction = async (formData: FormData) => {
   const description = formData.get('description')
   const amount = formData.get('amount')
   const userId = formData.get('userId')
+  const stripeAccountId = formData.get('stripeAccountId')
   const gameId = formData.get('gameId')
 
-  if (name && description && amount && userId && gameId) {
+  if (name && description && amount && userId && gameId && stripeAccountId) {
     // StripeのProductsを作成
     const product = await stripe.products.create({
       name: name.toString(),
@@ -35,6 +36,17 @@ const createAction = async (formData: FormData) => {
             quantity: 1,
           },
         ],
+        currency: 'jpy',
+        application_fee_amount: Number(amount) / 10,
+        after_completion: {
+          type: 'redirect',
+          redirect: {
+            url: 'http://localhost:3000', // TODO
+          },
+        },
+        transfer_data: {
+          destination: stripeAccountId?.toString() ?? '',
+        },
       }))
 
     paymentLink &&
@@ -53,10 +65,11 @@ const createAction = async (formData: FormData) => {
 
 type Props = {
   userId: number
+  stripeAccountId: string
 }
 
 export default function PlanForm(props: Props) {
-  const { userId } = props
+  const { userId, stripeAccountId } = props
 
   return (
     <form className='w-full max-w-sm' action={createAction}>
@@ -125,6 +138,7 @@ export default function PlanForm(props: Props) {
         </div>
       </div>
       <input name='userId' hidden type='number' defaultValue={userId} />
+      <input name='stripeAccountId' hidden type='text' defaultValue={stripeAccountId} />
       <div className='md:flex md:items-center'>
         <div className='md:w-1/3'></div>
         <div className='md:w-2/3'>
