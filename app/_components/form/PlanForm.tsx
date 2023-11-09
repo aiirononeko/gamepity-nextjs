@@ -51,8 +51,13 @@ const createAction = async (formData: FormData) => {
         transfer_data: {
           destination: stripeAccountId?.toString() ?? '', // TODO: ちゃんと動作してるか確認
         },
+        metadata: {
+          streamerId: userId.toString(),
+          planId: '',
+        },
       }))
 
+    // DBにPlanデータ作成
     paymentLink &&
       (await createPlan({
         name: name.toString(),

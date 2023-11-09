@@ -56,6 +56,7 @@ model Reservation {
   planId        String    @db.VarChar(255)
   startDateTime DateTime  @db.Timestamp(3)
   endDateTime   DateTime  @db.Timestamp(3)
+  isAvailable   Boolean   @db.Boolean() @default(false)
   streamer      User      @relation(name: "Streamer", fields: [streamerId], references: [id])
   streamerId    Int
   user          User      @relation(name: "User", fields: [userId], references: [id])

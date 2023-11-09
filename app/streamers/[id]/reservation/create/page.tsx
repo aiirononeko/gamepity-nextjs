@@ -2,12 +2,12 @@ import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import { createSupabaseClient } from '@/app/_lib/supabase'
 import { fetchAvailableDateTimesWithId } from '@/app/_services/availableDateTimeService'
 import { fetchPlanWithId, fetchPlansWithId } from '@/app/_services/planService'
-import { createReservation } from '@/app/_services/reservationService'
 import { fetchStreamerWithId } from '@/app/_services/streamerService'
 import { fetchUserWithEmail } from '@/app/_services/userService'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { stripe } from '@/app/_lib/stripe'
+import { createReservation } from '@/app/_services/reservationService'
 
 type Props = {
   params: {
@@ -29,16 +29,16 @@ const createAction = async (formData: FormData) => {
       plan?.stripePaymentLinkId ?? '',
     )
 
-    redirect(paymentLink.url)
+    // バックエンドで予約可能日時のトランザクションを実施するため
+    // この時点で仮予約を作成する(isAvailable: false)
+    await createReservation({
+      planId: planId.toString(),
+      startDateTime: '', // TODO
+      streamerId: Number(streamerId),
+      userId: Number(userId),
+    })
 
-    // await createReservation({
-    //   planId: planId.toString(),
-    //   startDateTime: startDateTime.toString(),
-    //   streamerId: Number(streamerId),
-    //   userId: Number(userId),
-    // })
-    //
-    // redirect(`/users/${streamerId}`)
+    redirect(paymentLink.url)
   }
 }
 
