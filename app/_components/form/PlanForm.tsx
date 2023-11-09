@@ -26,6 +26,8 @@ const createAction = async (formData: FormData) => {
         product: product.id,
       }))
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
     // StripeのPaymentLinkを作成
     const paymentLink =
       price &&
@@ -41,11 +43,13 @@ const createAction = async (formData: FormData) => {
         after_completion: {
           type: 'redirect',
           redirect: {
-            url: 'http://localhost:3000', // TODO
+            url: baseUrl
+              ? `${baseUrl}/streamers/${userId}/reservation/completed`
+              : 'https://gamepity.com',
           },
         },
         transfer_data: {
-          destination: stripeAccountId?.toString() ?? '',
+          destination: stripeAccountId?.toString() ?? '', // TODO: ちゃんと動作してるか確認
         },
       }))
 
