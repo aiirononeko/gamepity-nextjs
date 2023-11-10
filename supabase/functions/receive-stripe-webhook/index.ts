@@ -67,7 +67,10 @@ const verifyClientSecret = async (signature: any, body: any) => {
 
     console.log(`🔔 Event received: ${receivedEvent.id}`)
 
-    return receivedEvent
+    // EventIDからイベントデータを取得
+    const eventData = await stripe.events.retrieve(receivedEvent.id)
+
+    return eventData
   } catch (err) {
     console.error(err)
     return new Response(err.message, { status: 400 })
