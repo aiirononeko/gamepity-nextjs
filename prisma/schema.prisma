@@ -16,8 +16,8 @@ model User {
   isAdmin               Boolean               @db.Boolean
   isStreamer            Boolean               @db.Boolean
   stripeAccountId       String                @db.VarChar(255) @unique
-  createdAt             DateTime  @db.Timestamp(3)
-  updatedAt             DateTime  @db.Timestamp(3)
+  createdAt             DateTime              @db.Timestamp(3)
+  updatedAt             DateTime              @db.Timestamp(3)
   plans                 Plan[]
   availableDateTimes    AvailableDateTime[]
   reservations          Reservation[]         @relation(name: "User")
@@ -41,12 +41,12 @@ model Plan {
 }
 
 model Game {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  description String  @db.VarChar(255)
-  iconUrl     String  @db.VarChar(255)
-  createdAt     DateTime  @db.Timestamp(3)
-  updatedAt     DateTime  @db.Timestamp(3)
+  id          Int         @id @default(autoincrement())
+  name        String      @db.VarChar(255)
+  description String      @db.VarChar(255)
+  iconUrl     String      @db.VarChar(255)
+  createdAt   DateTime    @db.Timestamp(3)
+  updatedAt   DateTime    @db.Timestamp(3)
   plans       Plan[]
 }
 

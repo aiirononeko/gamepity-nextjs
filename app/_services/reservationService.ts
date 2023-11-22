@@ -70,6 +70,8 @@ export const createReservation = async (plan: CreateReservationInput): Promise<v
               startDateTime: new Date(startDateTime),
               endDateTime: new Date(startDateTime),
               planId,
+              createdAt: new Date(),
+              updatedAt: new Date(),
               streamer: {
                 connect: {
                   id: streamerId,

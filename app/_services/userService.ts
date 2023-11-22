@@ -77,6 +77,8 @@ export const registUser = async (user: CreateUserInput) => {
         stripeAccountId: '',
         plans: undefined,
         availableDateTimes: undefined,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     })
 
@@ -106,6 +108,7 @@ export const editUser = async (user: UpdateUserInput) => {
         name: name.toString(),
         profile: profile.toString(),
         stripeAccountId: stripeAccountId ?? '',
+        updatedAt: new Date(),
       },
     })
 

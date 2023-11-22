@@ -89,6 +89,8 @@ export const createPlan = async (plan: CreatePlanInput): Promise<void> => {
               stripeProductId,
               stripePriceId,
               stripePaymentLinkId,
+              createdAt: new Date(),
+              updatedAt: new Date(),
               game: {
                 connect: {
                   id: gameId,

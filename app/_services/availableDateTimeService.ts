@@ -46,6 +46,8 @@ export const createAvailableDateTime = async (
     const availableDateTimes = await prisma.availableDateTime.create({
       data: {
         startDateTime,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         user: {
           connect: {
             id: userId,
@@ -79,6 +81,7 @@ export const updateAvailableDateTime = async (
       },
       data: {
         startDateTime,
+        updatedAt: new Date(),
       },
     })
     return availableDateTimes
