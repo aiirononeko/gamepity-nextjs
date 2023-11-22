@@ -16,6 +16,8 @@ model User {
   isAdmin               Boolean               @db.Boolean
   isStreamer            Boolean               @db.Boolean
   stripeAccountId       String                @db.VarChar(255) @unique
+  createdAt             DateTime  @db.Timestamp(3)
+  updatedAt             DateTime  @db.Timestamp(3)
   plans                 Plan[]
   availableDateTimes    AvailableDateTime[]
   reservations          Reservation[]         @relation(name: "User")
@@ -23,16 +25,18 @@ model User {
 }
 
 model Plan {
-  id                    Int     @id @default(autoincrement())
-  name                  String  @db.VarChar(255)
-  description           String  @db.VarChar(255)
-  amount                Int     @db.Integer
-  stripeProductId       String  @db.VarChar(255)
-  stripePriceId         String  @db.VarChar(255)
-  stripePaymentLinkId   String  @db.VarChar(255)
-  user                  User    @relation(fields: [userId], references: [id])
+  id                    Int       @id @default(autoincrement())
+  name                  String    @db.VarChar(255)
+  description           String    @db.VarChar(255)
+  amount                Int       @db.Integer
+  stripeProductId       String    @db.VarChar(255)
+  stripePriceId         String    @db.VarChar(255)
+  stripePaymentLinkId   String    @db.VarChar(255)
+  createdAt             DateTime  @db.Timestamp(3)
+  updatedAt             DateTime  @db.Timestamp(3)
+  user                  User      @relation(fields: [userId], references: [id])
   userId                Int
-  game                  Game    @relation(fields: [gameId], references: [id])
+  game                  Game      @relation(fields: [gameId], references: [id])
   gameId                Int
 }
 
@@ -41,12 +45,16 @@ model Game {
   name        String  @db.VarChar(255)
   description String  @db.VarChar(255)
   iconUrl     String  @db.VarChar(255)
+  createdAt     DateTime  @db.Timestamp(3)
+  updatedAt     DateTime  @db.Timestamp(3)
   plans       Plan[]
 }
 
 model AvailableDateTime {
   id            Int       @id @default(autoincrement())
   startDateTime DateTime  @db.Timestamp(3)
+  createdAt     DateTime  @db.Timestamp(3)
+  updatedAt     DateTime  @db.Timestamp(3)
   user          User      @relation(fields: [userId], references: [id])
   userId        Int
 }
@@ -57,6 +65,8 @@ model Reservation {
   startDateTime DateTime  @db.Timestamp(3)
   endDateTime   DateTime  @db.Timestamp(3)
   isAvailable   Boolean   @db.Boolean() @default(false)
+  createdAt     DateTime  @db.Timestamp(3)
+  updatedAt     DateTime  @db.Timestamp(3)
   streamer      User      @relation(name: "Streamer", fields: [streamerId], references: [id])
   streamerId    Int
   user          User      @relation(name: "User", fields: [userId], references: [id])

@@ -19,36 +19,34 @@ Deno.serve(async (request: any) => {
   const body = await request.text()
 
   // イベントデータを取得
-  const receivedEvent = verifyClientSecret(signature, body)
+  const receivedEvent = await verifyClientSecret(signature, body)
 
   // イベントデータから各種データを抽出
   const { userId, streamerId } = await extractDataFromEvent(receivedEvent)
 
-  console.log(userId, streamerId)
+  try {
+    // 仮予約データを取得し、予約可能日時のトランザクション処理
+    const { data, error } = await supabase
+      .from('Reservation')
+      .select('*')
+      .eq('userId', userId)
+      .eq('streamerId', streamerId)
+      .order('created_at', { ascending: false })
+      .limit(1)
 
-  // try {
-  //   // 仮予約データを取得し、予約可能日時のトランザクション処理
-  //   const { data, error } = await supabase
-  //     .from('Reservation')
-  //     .select('*')
-  //     .eq('userId', userId)
-  //     .eq('streamerId', streamerId)
-  //     .order('created_at', { ascending: false })
-  //     .limit(1)
-  //
-  //   if (error) {
-  //     throw error
-  //   }
-  //
-  //   // 予約データ更新
-  //
-  //   return new Response(JSON.stringify({ data }), {
-  //     headers: { 'Content-Type': 'application/json' },
-  //     status: 200,
-  //   })
-  // } catch (e) {
-  //   console.log(e)
-  // }
+    if (error) {
+      throw error
+    }
+
+    // 予約データ更新
+
+    return new Response(JSON.stringify({ data }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 200,
+    })
+  } catch (e) {
+    console.log(e)
+  }
 })
 
 /**
@@ -65,12 +63,7 @@ const verifyClientSecret = async (signature: any, body: any) => {
       cryptoProvider,
     )
 
-    console.log(`🔔 Event received: ${receivedEvent.id}`)
-
-    // EventIDからイベントデータを取得
-    const eventData = await stripe.events.retrieve(receivedEvent.id)
-
-    return eventData
+    return receivedEvent
   } catch (err) {
     console.error(err)
     return new Response(err.message, { status: 400 })
@@ -87,8 +80,8 @@ const extractDataFromEvent = async (
   userId: number
   streamerId: number
 }> => {
-  const userId = await getUserId(event.payment_method)
-  const streamerId = await getStreamerId(event.transfer_data.destination)
+  const userId = await getUserId(event.data.object.payment_method)
+  const streamerId = await getStreamerId(event.data.object.transfer_data.destination)
 
   return {
     userId,
@@ -101,7 +94,6 @@ const extractDataFromEvent = async (
  */
 const getUserId = async (paymentMethodId: string): Promise<number> => {
   const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId)
-  console.log(paymentMethod)
 
   const email = paymentMethod.billing_details.email
 
