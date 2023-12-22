@@ -1,6 +1,9 @@
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import { createSupabaseClient } from '@/app/_lib/supabase'
-import { fetchAvailableDateTimesWithId } from '@/app/_services/availableDateTimeService'
+import {
+  fetchAvailableDateTimeWithId,
+  fetchAvailableDateTimesWithStreamerId,
+} from '@/app/_services/availableDateTimeService'
 import { fetchPlanWithId, fetchPlansWithId } from '@/app/_services/planService'
 import { fetchStreamerWithId } from '@/app/_services/streamerService'
 import { fetchUserWithEmail } from '@/app/_services/userService'
@@ -8,6 +11,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { stripe } from '@/app/_lib/stripe'
 import { createReservation } from '@/app/_services/reservationService'
+import { AvailableDateTime } from '@prisma/client'
 
 type Props = {
   params: {
@@ -19,26 +23,33 @@ const createAction = async (formData: FormData) => {
   'use server'
 
   const planId = formData.get('planId')
-  const startDateTime = formData.get('startDateTime')
+  const availableDateTimeId = formData.get('availableDateTimeId')
   const streamerId = formData.get('streamerId')
   const userId = formData.get('userId')
 
-  if (planId && startDateTime && streamerId && userId) {
+  if (planId && availableDateTimeId && streamerId && userId) {
     const plan = await fetchPlanWithId(Number(planId))
     const paymentLink = await stripe.paymentLinks.retrieve(
       plan?.stripePaymentLinkId ?? '',
     )
 
-    // バックエンドで予約可能日時のトランザクションを実施するため
-    // この時点で仮予約を作成する(isAvailable: false)
-    await createReservation({
-      planId: planId.toString(),
-      startDateTime: '', // TODO
-      streamerId: Number(streamerId),
-      userId: Number(userId),
-    })
+    const availableDateTime = await fetchAvailableDateTimeWithId(
+      Number(availableDateTimeId),
+    )
+    if (availableDateTime) {
+      // バックエンドで予約可能日時のトランザクションを実施するため
+      // この時点で仮予約を作成する(isAvailable: false)
+      await createReservation({
+        planId: planId.toString(),
+        startDateTime: availableDateTime.startDateTime,
+        streamerId: Number(streamerId),
+        userId: Number(userId),
+        // 今後複数availableDateTimeIdを指定できるようにするかもだけど、一旦1つ
+        availableDateTimeIds: [Number(availableDateTimeId)],
+      })
 
-    redirect(paymentLink.url)
+      redirect(paymentLink.url)
+    }
   }
 }
 
@@ -56,7 +67,7 @@ export default async function Page({ params }: Props) {
   const streamerId = Number(params.id)
   const streamer = await fetchStreamerWithId(streamerId)
   const plans = await fetchPlansWithId(streamerId)
-  const availableDateTimes = await fetchAvailableDateTimesWithId(streamerId)
+  const availableDateTimes = await fetchAvailableDateTimesWithStreamerId(streamerId)
 
   return (
     <>
@@ -90,15 +101,12 @@ export default async function Page({ params }: Props) {
                   予約可能日時を選択してください
                 </label>
                 <select
-                  name='startDateTime'
+                  name='availableDateTimeId'
                   id='availableDateTime'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 >
-                  {availableDateTimes.map((availableDateTime) => (
-                    <option
-                      value={availableDateTime.startDateTime.toString()}
-                      key={availableDateTime.id}
-                    >
+                  {availableDateTimes.map((availableDateTime: AvailableDateTime) => (
+                    <option value={availableDateTime.id} key={availableDateTime.id}>
                       {availableDateTime.startDateTime.toString()}
                     </option>
                   ))}

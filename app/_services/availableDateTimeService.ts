@@ -1,4 +1,5 @@
 import prisma from '@/app/_lib/prisma'
+import { AvailableDateTime } from '@prisma/client'
 
 interface CreateAvailableDateTimeInput {
   startDateTime: Date
@@ -11,9 +12,36 @@ interface UpdateAvailableDateTimeInput {
 }
 
 /**
+ * 指定されたIDの予約可能日時情報を取得.
+ */
+export const fetchAvailableDateTimeWithId = async (
+  id: number,
+): Promise<AvailableDateTime | undefined> => {
+  'use server'
+
+  try {
+    await prisma.$connect()
+    const availableDateTime = await prisma.availableDateTime.findFirst({
+      where: {
+        id,
+      },
+    })
+    if (availableDateTime) {
+      return availableDateTime
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+/**
  * 指定されたIDのストリーマーに紐づく予約可能日時情報を取得.
  */
-export const fetchAvailableDateTimesWithId = async (id: number) => {
+export const fetchAvailableDateTimesWithStreamerId = async (
+  id: number,
+): Promise<AvailableDateTime[] | undefined> => {
   'use server'
 
   try {

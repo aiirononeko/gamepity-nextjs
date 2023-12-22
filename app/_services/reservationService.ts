@@ -2,9 +2,10 @@ import prisma from '@/app/_lib/prisma'
 
 interface CreateReservationInput {
   planId: string
-  startDateTime: string
+  startDateTime: Date
   streamerId: number
   userId: number
+  availableDateTimeIds: number[]
 }
 
 /**
@@ -55,7 +56,10 @@ export const fetchStreamerReservationWithId = async (id: number) => {
 export const createReservation = async (plan: CreateReservationInput): Promise<void> => {
   'use server'
 
-  const { planId, startDateTime, streamerId, userId } = plan
+  const { planId, startDateTime, streamerId, userId, availableDateTimeIds } = plan
+
+  // 基本的に1チケット1時間になるため、現状は固定で1時間加算した値をendDateTimeとする
+  const endDateTime = new Date(startDateTime.setHours(startDateTime.getHours() + 1))
 
   try {
     await prisma.$connect()
@@ -67,8 +71,8 @@ export const createReservation = async (plan: CreateReservationInput): Promise<v
         reservations: {
           create: [
             {
-              startDateTime: new Date(startDateTime),
-              endDateTime: new Date(startDateTime),
+              startDateTime: startDateTime,
+              endDateTime: endDateTime,
               planId,
               createdAt: new Date(),
               updatedAt: new Date(),
@@ -76,6 +80,13 @@ export const createReservation = async (plan: CreateReservationInput): Promise<v
                 connect: {
                   id: streamerId,
                 },
+              },
+              availableDateTimes: {
+                connect: availableDateTimeIds.map((availableDateTimeId: number) => {
+                  return {
+                    id: availableDateTimeId,
+                  }
+                }),
               },
             },
           ],

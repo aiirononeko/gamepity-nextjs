@@ -1,6 +1,6 @@
 import OutlinedButton from '@/app/_components/button/OutlinedButton'
 import Plan from '@/app/_components/listItem/Plan'
-import { fetchAvailableDateTimesWithId } from '@/app/_services/availableDateTimeService'
+import { fetchAvailableDateTimesWithStreamerId } from '@/app/_services/availableDateTimeService'
 import { fetchPlansWithId } from '@/app/_services/planService'
 import { fetchStreamerWithId } from '@/app/_services/streamerService'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
   const streamerId = Number(params.id)
   const streamer = await fetchStreamerWithId(streamerId)
   const plans = await fetchPlansWithId(streamerId)
-  const availableDateTimes = await fetchAvailableDateTimesWithId(streamerId)
+  const availableDateTimes = await fetchAvailableDateTimesWithStreamerId(streamerId)
 
   return (
     <>

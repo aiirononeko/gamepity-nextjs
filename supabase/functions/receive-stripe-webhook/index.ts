@@ -1,5 +1,6 @@
 import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+import { AvailableDateTime } from '@prisma/client'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_API_KEY') as string, {
   apiVersion: '2022-11-15',
@@ -25,20 +26,43 @@ Deno.serve(async (request: any) => {
   const { userId, streamerId } = await extractDataFromEvent(receivedEvent)
 
   try {
-    // 仮予約データを取得し、予約可能日時のトランザクション処理
-    const { data, error } = await supabase
+    // 仮予約データを取得
+    const { data, fetchError } = await supabase
       .from('Reservation')
       .select('*')
       .eq('userId', userId)
       .eq('streamerId', streamerId)
-      .order('created_at', { ascending: false })
+      .order('createdAt', { ascending: false })
       .limit(1)
 
-    if (error) {
-      throw error
+    if (fetchError) {
+      throw fetchError
     }
 
-    // 予約データ更新
+    const { id, availableDateTimes } = data
+
+    // 予約可能日時のトランザクション処理
+    // Reservationに紐づいてる予約可能日時のレコードを消す
+    availableDateTimes.forEach((availableDateTime: AvailableDateTime) => {
+      const { deleteError } = supabase
+        .from('AvailableDateTime')
+        .delete()
+        .eq('id', availableDateTime.id)
+
+      if (deleteError) {
+        throw deleteError
+      }
+    })
+
+    // 仮予約データを更新し、本予約データにする
+    const { updateError } = await supabase
+      .from('Reservation')
+      .update({ isAvailable: true, updatedAt: new Date() })
+      .eq('id', id)
+
+    if (updateError) {
+      throw updateError
+    }
 
     return new Response(JSON.stringify({ data }), {
       headers: { 'Content-Type': 'application/json' },
