@@ -82,11 +82,11 @@ export const createReservation = async (plan: CreateReservationInput): Promise<v
                 },
               },
               availableDateTimes: {
-                connect: availableDateTimeIds.map((availableDateTimeId: number) => {
-                  return {
-                    id: availableDateTimeId,
-                  }
-                }),
+                connect: [
+                  {
+                    id: availableDateTimeIds[0], // 一旦1時間ずつしか予約できない仕様にするため、固定
+                  },
+                ],
               },
             },
           ],
