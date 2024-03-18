@@ -1,7 +1,7 @@
-import { Plan } from '@prisma/client'
+import * as client from '@prisma/client'
 
 type Props = {
-  plan: Plan
+  plan: client.Plan
 }
 
 export default function Plan(data: Props) {
