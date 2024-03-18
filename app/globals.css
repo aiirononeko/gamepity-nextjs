@@ -3,9 +3,5 @@
 @tailwind utilities;
 
 html {
-  background-color: #292e37;
-}
-
-p {
-  color: #ffe246;
+  background-color: #202020;
 }

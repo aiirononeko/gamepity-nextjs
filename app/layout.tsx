@@ -1,15 +1,9 @@
 import '@/app/globals.css'
-import { Playfair_Display } from 'next/font/google'
 
 import type { Metadata } from 'next'
 
 import Footer from '@/app/footer'
 import Header from '@/app/header'
-
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'Gamepity',
@@ -19,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ja' className={playfairDisplay.className}>
+    <html lang='ja'>
       <body>
         <Header />
         {children}

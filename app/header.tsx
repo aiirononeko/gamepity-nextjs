@@ -1,48 +1,67 @@
-import { cookies } from 'next/headers'
+'use client'
+
 import Link from 'next/link'
 
-import CommonButton from './_components/button/CommonButton'
-import OutlinedButton from './_components/button/OutlinedButton'
-import { fetchUserWithEmail } from './_services/userService'
-
-import { createSupabaseClient } from '@/app/_lib/supabase'
+import CommonButton from '@/app/_components/button/CommonButton'
 
 export default async function Header() {
-  const cookieStore = cookies()
-  const supabase = createSupabaseClient(cookieStore)
+  const user = undefined // TODO
 
-  const { data } = await supabase.auth.getSession()
-  const { session } = data
-
-  const user = session && (await fetchUserWithEmail(session.user.email!))
+  const loginModalOpen = () => {
+    console.log('open login modal!') // TODO
+  }
 
   return (
-    <header className='shadow-md'>
-      <nav className='px-16 py-6 mb-6'>
-        <div className='flex flex-wrap justify-between items-center mx-auto'>
-          <a href='/' className='flex items-center'>
-            <h1 className='text-game-yellow text-5xl font-bold pb-2'>Gamepity</h1>
-          </a>
-          <div className='flex items-center space-x-2 lg:order-2'>
-            {session && user ? (
-              <>
-                <Link href={`/users/${user.id}`}>
-                  <OutlinedButton>マイページ</OutlinedButton>
+    <nav className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
+      <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
+        <Link
+          href='/'
+          className='self-center text-4xl font-bold whitespace-nowrap text-game-white'
+        >
+          Gamepity
+        </Link>
+        <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
+          <ul className='font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0'>
+            <li>
+              <Link
+                href='#'
+                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                aria-current='page'
+              >
+                TOP
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='#'
+                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+              >
+                ストリーマー
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='#'
+                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+              >
+                遊び方
+              </Link>
+            </li>
+            {user ? (
+              <li>
+                <Link
+                  href='#'
+                  className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                >
+                  マイページ
                 </Link>
-              </>
+              </li>
             ) : (
-              <>
-                <Link href='/signin'>
-                  <OutlinedButton>ログイン</OutlinedButton>
-                </Link>
-                <Link href='/users/signup'>
-                  <CommonButton>新規登録</CommonButton>
-                </Link>
-              </>
+              <CommonButton onClick={loginModalOpen}>ログイン</CommonButton>
             )}
-          </div>
+          </ul>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   )
 }
