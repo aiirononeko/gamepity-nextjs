@@ -28,12 +28,12 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <div className='container mx-8'>
+      <div className='container mx-auto'>
         <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
         <p className='mb-5 text-xs text-game-gray-300'>
           注目のストリーマーと一緒にゲームを楽しもう！
         </p>
-        <div className='flex flex-row space-x-6'>
+        <div className='flex flex-row space-x-6 overflow-x-auto'>
           {streamers.map((streamer) => (
             <StreamerCard key={streamer.id} streamer={streamer} />
           ))}
