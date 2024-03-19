@@ -19,15 +19,15 @@ export default function StreamerCard(data: Props) {
           height={200}
         />
       ) : (
-        <div className='bg-game-gray-500 text-game-gray-300 rounded-t-xl h-52 w-96'></div>
+        <div className='h-52 w-96 rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>
       )}
 
-      <div className='bg-game-gray-700 rounded-b-xl p-6 h-48 w-96'>
-        <p className='text-game-white text-2xl font-bold mb-4'>{streamer.name}</p>
-        <p className='text-game-gray-300 text-xs mb-6 line-clamp-3'>{streamer.profile}</p>
-        <div className='flex justify-center w-full'>
+      <div className='h-48 w-96 rounded-b-xl bg-game-gray-700 p-6'>
+        <p className='mb-4 text-2xl font-bold text-game-white'>{streamer.name}</p>
+        <p className='mb-6 line-clamp-3 text-xs text-game-gray-300'>{streamer.profile}</p>
+        <div className='flex w-full justify-center'>
           <Link href='/'>
-            <button className='border-solid border-2 border-game-white rounded py-1 px-2 bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] text-game-white text-xs'>
+            <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-2 py-1 text-xs text-game-white'>
               詳細はこちら
             </button>
           </Link>

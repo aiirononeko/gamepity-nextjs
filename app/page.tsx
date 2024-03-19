@@ -13,24 +13,24 @@ export default async function Home() {
 
   return (
     <>
-      <div className='flex flex-col pt-10 pb-5 mb-10 items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA]'>
-        <p className='text-game-white text-center font-bold text-xl mb-5'>
+      <div className='mb-10 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] pb-5 pt-10'>
+        <p className='mb-5 text-center text-xl font-bold text-game-white'>
           憧れのストリーマーとゲームができる
           <br />
           ゲーマー向けマッチングプラットフォーム
         </p>
-        <p className='text-game-white text-center font-bold text-7xl mb-8'>Gamepity</p>
-        <div className='flex justify-center w-full'>
+        <p className='mb-8 text-center text-7xl font-bold text-game-white'>Gamepity</p>
+        <div className='flex w-full justify-center'>
           <Link href='/'>
-            <button className='border-solid border-2 border-game-white rounded py-3 px-8 bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] text-game-white'>
+            <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'>
               新規登録はこちら
             </button>
           </Link>
         </div>
       </div>
       <div className='container mx-8'>
-        <h2 className='text-game-white font-bold text-xl'>注目ストリーマー</h2>
-        <p className='text-game-gray-300 text-xs mb-5'>
+        <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
+        <p className='mb-5 text-xs text-game-gray-300'>
           注目のストリーマーと一緒にゲームを楽しもう！
         </p>
         <div className='flex flex-row space-x-6'>

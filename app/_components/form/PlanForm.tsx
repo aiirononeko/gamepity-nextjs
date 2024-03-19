@@ -82,64 +82,64 @@ export default function PlanForm(props: Props) {
 
   return (
     <form className='w-full max-w-sm' action={createAction}>
-      <div className='md:flex md:items-center mb-6'>
+      <div className='mb-6 md:flex md:items-center'>
         <div className='md:w-1/3'>
-          <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
+          <label className='mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right'>
             プラン名
           </label>
         </div>
         <div className='md:w-2/3'>
           <input
             name='name'
-            className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+            className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
             id='inline-full-name'
             type='text'
             placeholder='1時間一緒に遊べるプラン'
           />
         </div>
       </div>
-      <div className='md:flex md:items-center mb-6'>
+      <div className='mb-6 md:flex md:items-center'>
         <div className='md:w-1/3'>
-          <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
+          <label className='mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right'>
             プランの説明
           </label>
         </div>
         <div className='md:w-2/3'>
           <input
             name='description'
-            className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+            className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
             id='inline-email'
             type='text'
             placeholder='このプランはホゲホゲです'
           />
         </div>
       </div>
-      <div className='md:flex md:items-center mb-6'>
+      <div className='mb-6 md:flex md:items-center'>
         <div className='md:w-1/3'>
-          <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
+          <label className='mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right'>
             プランの料金
           </label>
         </div>
         <div className='md:w-2/3'>
           <input
             name='amount'
-            className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+            className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
             id='inline-email'
             type='number'
             placeholder='1000'
           />
         </div>
       </div>
-      <div className='md:flex md:items-center mb-6'>
+      <div className='mb-6 md:flex md:items-center'>
         <div className='md:w-1/3'>
-          <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4'>
+          <label className='mb-1 block pr-4 font-bold text-gray-500 md:mb-0 md:text-right'>
             ゲーム
           </label>
         </div>
         <div className='md:w-2/3'>
           <input
             name='gameId'
-            className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+            className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
             id='inline-email'
             type='number'
             placeholder='1'
@@ -152,7 +152,7 @@ export default function PlanForm(props: Props) {
         <div className='md:w-1/3'></div>
         <div className='md:w-2/3'>
           <button
-            className='shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+            className='focus:shadow-outline rounded bg-purple-500 px-4 py-2 font-bold text-white shadow hover:bg-purple-400 focus:outline-none'
             type='submit'
           >
             プランを登録する

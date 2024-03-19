@@ -1,4 +1,5 @@
 /** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
-  extends: ['next/core-web-vitals', 'prettier'],
+  plugins: ['tailwindcss'],
+  extends: ['next/core-web-vitals', 'prettier', 'plugin:tailwindcss/recommended'],
 }

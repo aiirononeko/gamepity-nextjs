@@ -13,19 +13,19 @@ export default async function Header() {
 
   return (
     <nav className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
-      <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
+      <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4'>
         <Link
           href='/'
-          className='self-center text-4xl font-bold whitespace-nowrap text-game-white'
+          className='self-center whitespace-nowrap text-4xl font-bold text-game-white'
         >
           Gamepity
         </Link>
         <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
-          <ul className='font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0'>
+          <ul className='mt-4 flex flex-col rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse'>
             <li>
               <Link
                 href='#'
-                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 aria-current='page'
               >
                 TOP
@@ -34,7 +34,7 @@ export default async function Header() {
             <li>
               <Link
                 href='#'
-                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 ストリーマー
               </Link>
@@ -42,7 +42,7 @@ export default async function Header() {
             <li>
               <Link
                 href='#'
-                className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
               </Link>
@@ -51,7 +51,7 @@ export default async function Header() {
               <li>
                 <Link
                   href='#'
-                  className='font-bold block py-2 px-3 rounded md:border-0 md:p-0 text-game-white md:hover:text-blue-500 hover:bg-gray-700 hover:game-white md:hover:bg-transparent leading-10'
+                  className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ
                 </Link>
