@@ -1,17 +1,21 @@
 import prisma from '@/app/_lib/prisma'
+import { User } from '@prisma/client'
 
 /**
  * ストリーマーユーザー情報一覧を取得.
  */
-export const fetchStreamers = async () => {
+export const fetchStreamers = async (): Promise<User[]> => {
   'use server'
 
   try {
     await prisma.$connect()
-    const streamers = await prisma.user.findMany({ where: { isStreamer: true } })
+    const streamers: User[] | undefined = await prisma.user.findMany({
+      where: { isStreamer: true },
+    })
+    if (!streamers) throw Error('Streamers is undefined.')
     return streamers
-  } catch (error) {
-    console.error(error)
+  } catch (e) {
+    throw Error('Failed to fetch streamers.')
   } finally {
     await prisma.$disconnect()
   }

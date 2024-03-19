@@ -1,9 +1,19 @@
 import Link from 'next/link'
+import { fetchStreamers } from './_services/streamerService'
+import { User } from '@prisma/client'
+import StreamerCard from './_components/listItem/StreamerCard'
+
+async function getStreamers() {
+  const streamers: User[] = await fetchStreamers()
+  return streamers
+}
 
 export default async function Home() {
+  const streamers = await getStreamers()
+
   return (
     <>
-      <div className='flex flex-col pt-10 pb-5 mb-8 items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA]'>
+      <div className='flex flex-col pt-10 pb-5 mb-10 items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA]'>
         <p className='text-game-white text-center font-bold text-xl mb-5'>
           憧れのストリーマーとゲームができる
           <br />
@@ -20,9 +30,14 @@ export default async function Home() {
       </div>
       <div className='container mx-8'>
         <h2 className='text-game-white font-bold text-xl'>注目ストリーマー</h2>
-        <p className='text-game-gray-300 text-xs'>
+        <p className='text-game-gray-300 text-xs mb-5'>
           注目のストリーマーと一緒にゲームを楽しもう！
         </p>
+        <div className='flex flex-row space-x-6'>
+          {streamers.map((streamer) => (
+            <StreamerCard key={streamer.id} streamer={streamer} />
+          ))}
+        </div>
       </div>
     </>
   )
