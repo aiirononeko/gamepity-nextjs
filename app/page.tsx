@@ -1,15 +1,21 @@
 import Link from 'next/link'
-import { fetchStreamers } from './_services/streamerService'
-import { User } from '@prisma/client'
 import StreamerCard from './_components/listItem/StreamerCard'
+import { supabase } from './_lib/supabase'
+import Image from 'next/image'
 
 async function getStreamers() {
-  const streamers: User[] = await fetchStreamers()
-  return streamers
+  const { data: streamers, error } = await supabase.from('users').select('*')
+  return streamers ?? []
+}
+
+async function getGames() {
+  const { data: games, error } = await supabase.from('games').select('*')
+  return games ?? []
 }
 
 export default async function Home() {
   const streamers = await getStreamers()
+  const games = await getGames()
 
   return (
     <>
@@ -28,7 +34,7 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <div className='container mx-auto'>
+      <div className='container mx-10'>
         <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
         <p className='mb-5 text-xs text-game-gray-300'>
           注目のストリーマーと一緒にゲームを楽しもう！
@@ -36,6 +42,15 @@ export default async function Home() {
         <div className='flex flex-row space-x-6 overflow-x-auto'>
           {streamers.map((streamer) => (
             <StreamerCard key={streamer.id} streamer={streamer} />
+          ))}
+        </div>
+        <h2 className='text-xl font-bold text-game-white mt-10'>注目ゲームタイトル</h2>
+        <p className='mb-5 text-xs text-game-gray-300'>
+          注目のゲームタイトルからストリーマーを探そう！
+        </p>
+        <div className='flex flex-row space-x-6 overflow-x-auto'>
+          {games.map((game) => (
+            <Image key={game.id} alt='ゲームアイコン' src={game.icon_url} />
           ))}
         </div>
       </div>

@@ -10,7 +10,7 @@ export default function StreamerCard(data: Props) {
   const { streamer } = data
 
   return (
-    <Link href={`/streamers/${streamer.id}`} className='mb-10'>
+    <div>
       {streamer.iconUrl !== '' ? (
         <Image
           alt={`${streamer.name}のアイコン`}
@@ -26,13 +26,13 @@ export default function StreamerCard(data: Props) {
         <p className='mb-4 text-2xl font-bold text-game-white'>{streamer.name}</p>
         <p className='mb-6 line-clamp-3 text-xs text-game-gray-300'>{streamer.profile}</p>
         <div className='flex w-full justify-center'>
-          <Link href='/'>
+          <Link href={`/streamers/${streamer.id}`}>
             <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-2 py-1 text-xs text-game-white'>
               詳細はこちら
             </button>
           </Link>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
