@@ -35,7 +35,7 @@ export default async function Home() {
             <StreamerCard key={streamer.id} streamer={streamer} />
           ))}
         </div>
-        <h2 className='text-xl font-bold text-game-white mt-10'>注目ゲームタイトル</h2>
+        <h2 className='mt-10 text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
         <p className='mb-5 text-xs text-game-gray-300'>
           注目のゲームタイトルからストリーマーを探そう！
         </p>

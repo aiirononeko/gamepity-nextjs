@@ -1,5 +1,5 @@
-import { supabase } from "@/app/service/supabase"
-import { Database } from "@/supabase/schema"
+import { supabase } from '@/app/service/supabase'
+import { Database } from '@/supabase/schema'
 
 type Game = Database['public']['Tables']['Game']['Row']
 

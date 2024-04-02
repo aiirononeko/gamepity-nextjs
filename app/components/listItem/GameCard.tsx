@@ -12,7 +12,7 @@ export default function GameCard(data: Props) {
   return (
     <div>
       {game.iconUrl ? (
-        <Link href="/">
+        <Link href='/'>
           <Image
             alt={`${game.name}のアイコン`}
             src={game.iconUrl}
