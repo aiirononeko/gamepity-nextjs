@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import GameCard from '@/app/components/listItem/GameCard'
 import StreamerCard from '@/app/components/listItem/StreamerCard'
-import { getStreamers } from '@/app/data/streamer'
 import { getGames } from '@/app/data/game'
+import { getStreamers } from '@/app/data/streamer'
 
 export default async function Home() {
   const streamers = await getStreamers()
@@ -25,23 +25,59 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <div className='container mx-10'>
-        <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
-        <p className='mb-5 text-xs text-game-gray-300'>
-          注目のストリーマーと一緒にゲームを楽しもう！
-        </p>
+      <div className='mx-16'>
+        <div className='grid grid-cols-5'>
+          <div className='col-span-4'>
+            <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
+            <p className='mb-5 text-xs text-game-gray-300'>
+              注目のストリーマーと一緒にゲームを楽しもう！
+            </p>
+          </div>
+          <Link
+            href='/streamers'
+            className='col-span-1 pt-3 text-end text-game-white underline'
+          >
+            すべてのストリーマーをみる →
+          </Link>
+        </div>
         <div className='flex flex-row space-x-6 overflow-x-auto'>
           {streamers.map((streamer) => (
             <StreamerCard key={streamer.id} streamer={streamer} />
           ))}
         </div>
-        <h2 className='mt-10 text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
-        <p className='mb-5 text-xs text-game-gray-300'>
-          注目のゲームタイトルからストリーマーを探そう！
-        </p>
-        <div className='flex flex-row space-x-6 overflow-x-auto'>
+        <div className='mt-10 grid grid-cols-5'>
+          <div className='col-span-4'>
+            <h2 className='text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
+            <p className='mb-5 text-xs text-game-gray-300'>
+              注目のゲームタイトルからストリーマーを探そう！
+            </p>
+          </div>
+          <Link href='/games' className='col-span-1 pt-3 text-end text-game-white underline'>
+            すべてのゲームタイトルをみる →
+          </Link>
+        </div>
+        <div className='flex flex-row space-x-8 overflow-x-auto'>
           {games.map((game) => (
             <GameCard key={game.id} game={game} />
+          ))}
+        </div>
+        <div className='mt-10 grid grid-cols-5'>
+          <div className='col-span-4'>
+            <h2 className='text-xl font-bold text-game-white'>すべてのストリーマー</h2>
+            <p className='mb-5 text-xs text-game-gray-300'>
+              お気に入りのストリーマーを見つけよう！
+            </p>
+          </div>
+          <Link
+            href='/streamers'
+            className='col-span-1 pt-3 text-end text-game-white underline'
+          >
+            すべてのストリーマーをみる →
+          </Link>
+        </div>
+        <div className='grid grid-cols-5 gap-6'>
+          {streamers.slice(0, 10).map((streamer) => (
+            <StreamerCard key={streamer.id} streamer={streamer} />
           ))}
         </div>
       </div>

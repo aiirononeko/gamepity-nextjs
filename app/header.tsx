@@ -6,12 +6,8 @@ import CommonButton from '@/app/components/button/Button'
 export default function Header() {
   const user = undefined // TODO
 
-  const loginModalOpen = () => {
-    console.log('open login modal!') // TODO
-  }
-
   return (
-    <header className='container bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
+    <header className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
       <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-6'>
         <Link
           href='/'
@@ -24,7 +20,7 @@ export default function Header() {
             <li>
               <Link
                 href='#'
-                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 aria-current='page'
               >
                 TOP
@@ -33,7 +29,7 @@ export default function Header() {
             <li>
               <Link
                 href='#'
-                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 ストリーマー
               </Link>
@@ -41,7 +37,7 @@ export default function Header() {
             <li>
               <Link
                 href='#'
-                className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
               </Link>
@@ -50,13 +46,13 @@ export default function Header() {
               <li>
                 <Link
                   href='#'
-                  className='hover:game-white block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                  className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ
                 </Link>
               </li>
             ) : (
-              <CommonButton onClick={loginModalOpen}>ログイン</CommonButton>
+              <CommonButton>ログイン</CommonButton>
             )}
           </ul>
         </div>
