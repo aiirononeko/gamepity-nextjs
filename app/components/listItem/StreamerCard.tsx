@@ -1,9 +1,9 @@
-import { User } from '@prisma/client'
+import { Database } from '@/supabase/schema'
 import Image from 'next/image'
 import Link from 'next/link'
 
 type Props = {
-  streamer: User
+  streamer: Database['public']['Tables']['User']['Row']
 }
 
 export default function StreamerCard(data: Props) {
@@ -11,7 +11,7 @@ export default function StreamerCard(data: Props) {
 
   return (
     <div>
-      {streamer.iconUrl !== '' ? (
+      {streamer.iconUrl ? (
         <Image
           alt={`${streamer.name}のアイコン`}
           src={streamer.iconUrl}

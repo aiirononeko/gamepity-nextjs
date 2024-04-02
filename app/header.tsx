@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import CommonButton from '@/app/components/button/Button'
 
-import CommonButton from '@/app/_components/button/CommonButton'
-
-export default async function Header() {
+export default function Header() {
   const user = undefined // TODO
 
   const loginModalOpen = () => {
@@ -12,8 +11,8 @@ export default async function Header() {
   }
 
   return (
-    <nav className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
-      <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4'>
+    <header className='container bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
+      <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-6'>
         <Link
           href='/'
           className='self-center whitespace-nowrap text-4xl font-bold text-game-white'
@@ -62,6 +61,6 @@ export default async function Header() {
           </ul>
         </div>
       </div>
-    </nav>
+    </header>
   )
 }

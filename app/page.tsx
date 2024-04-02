@@ -1,17 +1,8 @@
 import Link from 'next/link'
-import StreamerCard from './_components/listItem/StreamerCard'
-import { supabase } from './_lib/supabase'
-import Image from 'next/image'
-
-async function getStreamers() {
-  const { data: streamers, error } = await supabase.from('users').select('*')
-  return streamers ?? []
-}
-
-async function getGames() {
-  const { data: games, error } = await supabase.from('games').select('*')
-  return games ?? []
-}
+import GameCard from '@/app/components/listItem/GameCard'
+import StreamerCard from '@/app/components/listItem/StreamerCard'
+import { getStreamers } from '@/app/data/streamer'
+import { getGames } from '@/app/data/game'
 
 export default async function Home() {
   const streamers = await getStreamers()
@@ -50,7 +41,7 @@ export default async function Home() {
         </p>
         <div className='flex flex-row space-x-6 overflow-x-auto'>
           {games.map((game) => (
-            <Image key={game.id} alt='ゲームアイコン' src={game.icon_url} />
+            <GameCard key={game.id} game={game} />
           ))}
         </div>
       </div>
