@@ -8,11 +8,9 @@
     "start": "npx supabase start && next start",
     "stop": "npx supabase stop",
     "lint": "next lint",
-    "format": "prettier --write .",
-    "postinstall": "prisma generate && prisma migrate deploy"
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "@prisma/client": "^5.11.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.8",
     "@types/node": "18.11.9",
@@ -35,7 +33,6 @@
     "eslint-plugin-tailwindcss": "^3.15.1",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "prisma": "^5.11.0",
     "supabase": "^1.148.6"
   }
 }

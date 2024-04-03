@@ -34,252 +34,220 @@ export type Database = {
   }
   public: {
     Tables: {
-      _prisma_migrations: {
+      available_date_times: {
         Row: {
-          applied_steps_count: number
-          checksum: string
-          finished_at: string | null
-          id: string
-          logs: string | null
-          migration_name: string
-          rolled_back_at: string | null
-          started_at: string
-        }
-        Insert: {
-          applied_steps_count?: number
-          checksum: string
-          finished_at?: string | null
-          id: string
-          logs?: string | null
-          migration_name: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Update: {
-          applied_steps_count?: number
-          checksum?: string
-          finished_at?: string | null
-          id?: string
-          logs?: string | null
-          migration_name?: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Relationships: []
-      }
-      AvailableDateTime: {
-        Row: {
-          createdAt: string
+          created_at: string
           id: number
-          reservationId: number | null
-          startDateTime: string
-          updatedAt: string
-          userId: number
+          reservation_id: number | null
+          start_date_time: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
-          createdAt: string
+          created_at: string
           id?: number
-          reservationId?: number | null
-          startDateTime: string
-          updatedAt: string
-          userId: number
+          reservation_id?: number | null
+          start_date_time: string
+          updated_at: string
+          user_id: string
         }
         Update: {
-          createdAt?: string
+          created_at?: string
           id?: number
-          reservationId?: number | null
-          startDateTime?: string
-          updatedAt?: string
-          userId?: number
+          reservation_id?: number | null
+          start_date_time?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'AvailableDateTime_reservationId_fkey'
-            columns: ['reservationId']
+            foreignKeyName: "available_date_times_reservation_id_fkey"
+            columns: ["reservation_id"]
             isOneToOne: false
-            referencedRelation: 'Reservation'
-            referencedColumns: ['id']
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'AvailableDateTime_userId_fkey'
-            columns: ['userId']
+            foreignKeyName: "available_date_times_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: 'User'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
-      Game: {
+      games: {
         Row: {
-          createdAt: string
-          description: string
-          iconUrl: string
+          created_at: string
+          description: string | null
+          icon_url: string | null
           id: number
           name: string
-          updatedAt: string
+          updated_at: string
         }
         Insert: {
-          createdAt: string
-          description: string
-          iconUrl: string
+          created_at: string
+          description?: string | null
+          icon_url?: string | null
           id?: number
           name: string
-          updatedAt: string
+          updated_at: string
         }
         Update: {
-          createdAt?: string
-          description?: string
-          iconUrl?: string
+          created_at?: string
+          description?: string | null
+          icon_url?: string | null
           id?: number
           name?: string
-          updatedAt?: string
+          updated_at?: string
         }
         Relationships: []
       }
-      Plan: {
+      plans: {
         Row: {
           amount: number
-          createdAt: string
-          description: string
-          gameId: number
+          created_at: string
+          description: string | null
+          game_id: number
           id: number
           name: string
-          stripePaymentLinkId: string
-          stripePriceId: string
-          stripeProductId: string
-          updatedAt: string
-          userId: number
+          stripe_payment_link_id: string
+          stripe_price_id: string
+          stripe_product_id: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
           amount: number
-          createdAt: string
-          description: string
-          gameId: number
+          created_at: string
+          description?: string | null
+          game_id: number
           id?: number
           name: string
-          stripePaymentLinkId: string
-          stripePriceId: string
-          stripeProductId: string
-          updatedAt: string
-          userId: number
+          stripe_payment_link_id: string
+          stripe_price_id: string
+          stripe_product_id: string
+          updated_at: string
+          user_id: string
         }
         Update: {
           amount?: number
-          createdAt?: string
-          description?: string
-          gameId?: number
+          created_at?: string
+          description?: string | null
+          game_id?: number
           id?: number
           name?: string
-          stripePaymentLinkId?: string
-          stripePriceId?: string
-          stripeProductId?: string
-          updatedAt?: string
-          userId?: number
+          stripe_payment_link_id?: string
+          stripe_price_id?: string
+          stripe_product_id?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'Plan_gameId_fkey'
-            columns: ['gameId']
+            foreignKeyName: "plans_game_id_fkey"
+            columns: ["game_id"]
             isOneToOne: false
-            referencedRelation: 'Game'
-            referencedColumns: ['id']
+            referencedRelation: "games"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'Plan_userId_fkey'
-            columns: ['userId']
+            foreignKeyName: "plans_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: 'User'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
-      Reservation: {
+      reservations: {
         Row: {
-          createdAt: string
-          endDateTime: string
+          created_at: string
+          end_date_time: string
           id: number
-          isAvailable: boolean
-          planId: string
-          startDateTime: string
-          streamerId: number
-          updatedAt: string
-          userId: number
+          is_available: boolean
+          plan_id: number
+          start_date_dime: string
+          streamer_id: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
-          createdAt: string
-          endDateTime: string
+          created_at: string
+          end_date_time: string
           id?: number
-          isAvailable?: boolean
-          planId: string
-          startDateTime: string
-          streamerId: number
-          updatedAt: string
-          userId: number
+          is_available?: boolean
+          plan_id: number
+          start_date_dime: string
+          streamer_id: string
+          updated_at: string
+          user_id: string
         }
         Update: {
-          createdAt?: string
-          endDateTime?: string
+          created_at?: string
+          end_date_time?: string
           id?: number
-          isAvailable?: boolean
-          planId?: string
-          startDateTime?: string
-          streamerId?: number
-          updatedAt?: string
-          userId?: number
+          is_available?: boolean
+          plan_id?: number
+          start_date_dime?: string
+          streamer_id?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'Reservation_streamerId_fkey'
-            columns: ['streamerId']
+            foreignKeyName: "reservations_plan_id_fkey"
+            columns: ["plan_id"]
             isOneToOne: false
-            referencedRelation: 'User'
-            referencedColumns: ['id']
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'Reservation_userId_fkey'
-            columns: ['userId']
+            foreignKeyName: "reservations_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'User'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
-      User: {
+      users: {
         Row: {
-          createdAt: string
-          email: string
-          iconUrl: string
-          id: number
-          isAdmin: boolean
-          isStreamer: boolean
+          created_at: string
+          icon_url: string | null
+          id: string
+          is_streamer: boolean
           name: string
-          profile: string
-          stripeAccountId: string
-          updatedAt: string
+          profile: string | null
+          stripe_account_id: string | null
+          updated_at: string
         }
         Insert: {
-          createdAt: string
-          email: string
-          iconUrl: string
-          id?: number
-          isAdmin: boolean
-          isStreamer: boolean
+          created_at: string
+          icon_url?: string | null
+          id: string
+          is_streamer?: boolean
           name: string
-          profile: string
-          stripeAccountId: string
-          updatedAt: string
+          profile?: string | null
+          stripe_account_id?: string | null
+          updated_at: string
         }
         Update: {
-          createdAt?: string
-          email?: string
-          iconUrl?: string
-          id?: number
-          isAdmin?: boolean
-          isStreamer?: boolean
+          created_at?: string
+          icon_url?: string | null
+          id?: string
+          is_streamer?: boolean
           name?: string
-          profile?: string
-          stripeAccountId?: string
-          updatedAt?: string
+          profile?: string | null
+          stripe_account_id?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -401,11 +369,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'objects_bucketId_fkey'
-            columns: ['bucket_id']
+            foreignKeyName: "objects_bucketId_fkey"
+            columns: ["bucket_id"]
             isOneToOne: false
-            referencedRelation: 'buckets'
-            referencedColumns: ['id']
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -478,83 +446,85 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, 'public'>]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
-      PublicSchema['Views'])
-  ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
-      Row: infer R
-    }
-    ? R
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
-      Insert: infer I
-    }
-    ? I
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
-      Update: infer U
-    }
-    ? U
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema['Enums']
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
-  ? PublicSchema['Enums'][PublicEnumNameOrOptions]
-  : never
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+

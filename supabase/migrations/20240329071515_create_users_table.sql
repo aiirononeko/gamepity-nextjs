@@ -1,56 +1,54 @@
-CREATE TABLE users (
-  id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL UNIQUE,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  icon_url VARCHAR(255),
-  profile VARCHAR(255),
-  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
-  is_streamer BOOLEAN NOT NULL DEFAULT FALSE,
-  stripe_account_id VARCHAR(255) UNIQUE,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+create table users (
+  id uuid primary key,
+  name varchar(255) not null unique,
+  icon_url varchar(255),
+  profile varchar(255),
+  is_streamer boolean not null default false,
+  stripe_account_id varchar(255) unique,
+  created_at timestamp with time zone not null,
+  updated_at timestamp with time zone not null
 );
 
-CREATE TABLE games (
-  id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  description VARCHAR(255),
-  icon_url VARCHAR(255),
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+create table games (
+  id bigserial primary key,
+  name varchar(255) not null,
+  description varchar(255),
+  icon_url varchar(255),
+  created_at timestamp with time zone not null,
+  updated_at timestamp with time zone not null
 );
 
-CREATE TABLE plans (
-  id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  description VARCHAR(255),
-  amount INTEGER NOT NULL,
-  stripe_product_id VARCHAR(255) NOT NULL,
-  stripe_price_id VARCHAR(255) NOT NULL,
-  stripe_payment_link_id VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  user_id BIGINT NOT NULL REFERENCES users(id),
-  game_id BIGINT NOT NULL REFERENCES games(id)
+create table plans (
+  id bigserial primary key,
+  name varchar(255) not null,
+  description varchar(255),
+  amount integer not null,
+  stripe_product_id varchar(255) not null,
+  stripe_price_id varchar(255) not null,
+  stripe_payment_link_id varchar(255) not null,
+  created_at timestamp with time zone not null,
+  updated_at timestamp with time zone not null,
+  user_id uuid not null references auth.users(id),
+  game_id bigint not null references public.games(id)
 );
 
-CREATE TABLE reservations (
-  id BIGSERIAL PRIMARY KEY,
-  start_date_dime TIMESTAMP WITH TIME ZONE NOT NULL,
-  end_date_time TIMESTAMP WITH TIME ZONE NOT NULL,
-  is_available BOOLEAN NOT NULL DEFAULT FALSE,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  streamer_id BIGINT NOT NULL REFERENCES users(id),
-  user_id BIGINT NOT NULL REFERENCES users(id),
-  plan_id BIGINT NOT NULL REFERENCES plans(id)
+create table reservations (
+  id bigserial primary key,
+  start_date_dime timestamp with time zone not null,
+  end_date_time timestamp with time zone not null,
+  is_available boolean not null default false,
+  created_at timestamp with time zone not null,
+  updated_at timestamp with time zone not null,
+  streamer_id uuid not null references auth.users(id),
+  user_id uuid not null references auth.users(id),
+  plan_id bigint not null references public.plans(id)
 );
 
-CREATE TABLE available_date_times (
-  id BIGSERIAL PRIMARY KEY,
-  start_date_time TIMESTAMP WITH TIME ZONE NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  user_id BIGINT NOT NULL REFERENCES users(id),
-  reservation_id BIGINT REFERENCES reservations(id)
+create table available_date_times (
+  id bigserial primary key,
+  start_date_time timestamp with time zone not null,
+  created_at timestamp with time zone not null,
+  updated_at timestamp with time zone not null,
+  user_id uuid not null references auth.users(id),
+  reservation_id bigint references public.reservations(id)
 );

@@ -1,5 +1,5 @@
-import UserSignUpForm from '@/app/_components/form/UserSignUpForm'
+import SignUpForm from "@/app/users/signup/components/SignUpForm";
 
 export default async function UserSignUp() {
-  return <UserSignUpForm />
+  return <SignUpForm />
 }
