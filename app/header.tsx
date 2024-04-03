@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import CommonButton from '@/app/components/button/Button'
+import Button from '@/app/components/button/Button'
 
 export default function Header() {
   const user = undefined // TODO
@@ -52,7 +52,7 @@ export default function Header() {
                 </Link>
               </li>
             ) : (
-              <CommonButton>ログイン</CommonButton>
+              <Button>ログイン</Button>
             )}
           </ul>
         </div>

@@ -52,7 +52,10 @@ export default async function Home() {
               注目のゲームタイトルからストリーマーを探そう！
             </p>
           </div>
-          <Link href='/games' className='col-span-1 pt-3 text-end text-game-white underline'>
+          <Link
+            href='/games'
+            className='col-span-1 pt-3 text-end text-game-white underline'
+          >
             すべてのゲームタイトルをみる →
           </Link>
         </div>

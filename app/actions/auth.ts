@@ -1,15 +1,18 @@
 'use server'
 
-import type { User, Session } from "@supabase/supabase-js"
-import { supabase } from "@/app/service/supabase"
+import type { User, Session } from '@supabase/supabase-js'
+import { supabase } from '@/app/service/supabase'
 
-export async function signUpUserWithPassword(formData: FormData): Promise<{
-  user: User | null,
-  session: Session | null
-} | {
-  user: null,
-  session: null
-}> {
+export async function signUpUserWithPassword(formData: FormData): Promise<
+  | {
+      user: User | null
+      session: Session | null
+    }
+  | {
+      user: null
+      session: null
+    }
+> {
   const name = formData.get('name')?.toString()
   const email = formData.get('email')?.toString()
   const password = formData.get('password')?.toString()
@@ -17,7 +20,7 @@ export async function signUpUserWithPassword(formData: FormData): Promise<{
   if (!name || !email || !password) {
     return {
       user: null,
-      session: null
+      session: null,
     }
   }
 
@@ -27,29 +30,32 @@ export async function signUpUserWithPassword(formData: FormData): Promise<{
     options: {
       data: {
         is_streamer: false,
-        name
-      }
-    }
+        name,
+      },
+    },
   })
 
   if (error) {
     console.error(error)
     return {
       user: null,
-      session: null
+      session: null,
     }
   }
 
   return data
 }
 
-export async function signUpStreamerWithPassword(formData: FormData): Promise<{
-  user: User | null,
-  session: Session | null
-} | {
-  user: null,
-  session: null
-}> {
+export async function signUpStreamerWithPassword(formData: FormData): Promise<
+  | {
+      user: User | null
+      session: Session | null
+    }
+  | {
+      user: null
+      session: null
+    }
+> {
   const name = formData.get('name')?.toString()
   const email = formData.get('email')?.toString()
   const password = formData.get('password')?.toString()
@@ -57,7 +63,7 @@ export async function signUpStreamerWithPassword(formData: FormData): Promise<{
   if (!name || !email || !password) {
     return {
       user: null,
-      session: null
+      session: null,
     }
   }
 
@@ -67,16 +73,16 @@ export async function signUpStreamerWithPassword(formData: FormData): Promise<{
     options: {
       data: {
         is_streamer: true,
-        name
-      }
-    }
+        name,
+      },
+    },
   })
 
   if (error) {
     console.error(error)
     return {
       user: null,
-      session: null
+      session: null,
     }
   }
 
