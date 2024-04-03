@@ -1,10 +1,10 @@
 'use client'
 
-import { signUpUserWithPassword } from '@/app/actions/auth'
+import { signUpUserWithEmail } from '@/app/actions/auth'
 
 export default function SignUpForm() {
   return (
-    <form className='mx-auto mt-32 w-full max-w-sm' action={signUpUserWithPassword}>
+    <form className='mx-auto mt-32 w-full max-w-sm' action={signUpUserWithEmail}>
       <div className='mb-6 flex flex-col'>
         <label className='mb-1 block pr-4 text-left font-bold text-game-gray-500'>
           ユーザー名

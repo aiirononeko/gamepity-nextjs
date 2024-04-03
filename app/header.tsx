@@ -52,7 +52,9 @@ export default function Header() {
                 </Link>
               </li>
             ) : (
-              <Button>ログイン</Button>
+              <Link href='/signin'>
+                <Button>ログイン</Button>
+              </Link>
             )}
           </ul>
         </div>

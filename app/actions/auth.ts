@@ -3,7 +3,7 @@
 import type { User, Session } from '@supabase/supabase-js'
 import { supabase } from '@/app/service/supabase'
 
-export async function signUpUserWithPassword(formData: FormData): Promise<
+export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
       user: User | null
       session: Session | null
@@ -46,7 +46,7 @@ export async function signUpUserWithPassword(formData: FormData): Promise<
   return data
 }
 
-export async function signUpStreamerWithPassword(formData: FormData): Promise<
+export async function signUpStreamerWithEmail(formData: FormData): Promise<
   | {
       user: User | null
       session: Session | null
@@ -87,4 +87,22 @@ export async function signUpStreamerWithPassword(formData: FormData): Promise<
   }
 
   return data
+}
+
+export async function signInWithEmail(formData: FormData) {
+  const email = formData.get('email')?.toString()
+  const password = formData.get('password')?.toString()
+
+  if (!email || !password) {
+    return // TODO: エラーハンドリング
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+}
+
+export async function signOut() {
+  const { error } = await supabase.auth.signOut()
 }
