@@ -1,8 +1,8 @@
-import { signUpWithPassword } from "@/app/actions/auth";
+import { signUpUserWithPassword } from "@/app/actions/auth";
 
 export default function SignUpForm() {
   return (
-    <form action={signUpWithPassword}>
+    <form action={signUpUserWithPassword}>
       <input type='text' name='name' placeholder='ゲームピティ男' />
       <input type='email' name='email' placeholder='gamepity@example.com' />
       <input type='password' name='password' placeholder='password12345@' />

@@ -22,24 +22,6 @@ create policy "Users can update own data."
   on users for update
   using ( auth.uid() = id );
 
--- inserts a row into public.users
-create function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer set search_path = public
-as $$
-begin
-  insert into public.users (id, name, created_at, updated_at)
-  values (new.id, new.raw_user_meta_data ->> 'name', NOW(), NOW());
-  return new;
-end;
-$$;
-
--- trigger the function every time a user is created
-create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute procedure public.handle_new_user();
-
 create table public.streamers (
   id uuid not null references auth.users on delete cascade,
   name varchar(255) not null unique,
@@ -65,6 +47,29 @@ create policy "Streamers can insert their own data."
 create policy "Streamers can update own data."
   on streamers for update
   using ( auth.uid() = id );
+
+-- inserts a row into public.users
+create function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  if (new.raw_user_meta_data ->> 'is_streamer') then
+    insert into public.streamers (id, name, created_at, updated_at)
+    values (new.id, new.raw_user_meta_data ->> 'name', NOW(), NOW());
+  else
+    insert into public.users (id, name, created_at, updated_at)
+    values (new.id, new.raw_user_meta_data ->> 'name', NOW(), NOW());
+  end if;
+  return new;
+end;
+$$;
+
+-- trigger the function every time a user is created
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
 
 create table public.games (
   id bigserial primary key,
