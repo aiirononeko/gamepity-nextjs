@@ -29,12 +29,7 @@ export async function signUpWithPassword(formData: FormData): Promise<{
     password,
     options: {
       data: {
-        name: name,
-        profile: null,
-        icon_url: null,
-        is_admin: false,
-        is_streamer: false,
-        stripe_account_id: null,
+        name
       }
     }
   })
