@@ -50,8 +50,7 @@ export default async function Home() {
                   <Image
                     alt={`${streamer.name}のアイコン`}
                     src={streamer.icon_url}
-                    width={250}
-                    height={200}
+                    className='h-52 w-80'
                   />
                 ) : (
                   <div className='h-52 w-80 rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>

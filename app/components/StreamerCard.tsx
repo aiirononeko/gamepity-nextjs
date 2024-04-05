@@ -16,8 +16,7 @@ export default function StreamerCard(data: Props) {
           <Image
             alt={`${streamer.name}のアイコン`}
             src={streamer.icon_url}
-            width={250}
-            height={200}
+            className='h-64 w-full'
           />
         ) : (
           <div className='h-52 w-full rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>

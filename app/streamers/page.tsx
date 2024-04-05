@@ -6,7 +6,9 @@ export default async function Page() {
 
   return (
     <div className='container mx-auto'>
-      <h2 className='m-10 text-center text-xl text-game-white'>すべてのストリーマー</h2>
+      <h2 className='m-10 text-center text-xl font-bold text-game-white'>
+        すべてのストリーマー
+      </h2>
       <div className='grid grid-cols-4 gap-6'>
         {streamers.map((streamer) => (
           <StreamerCard key={streamer.id} streamer={streamer} />

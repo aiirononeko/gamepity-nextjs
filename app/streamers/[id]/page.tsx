@@ -1,69 +1,51 @@
-// import OutlinedButton from '@/app/_components/button/OutlinedButton'
-// import Plan from '@/app/_components/listItem/Plan'
-// import { fetchAvailableDateTimesWithStreamerId } from '@/app/_services/availableDateTimeService'
-// import { fetchPlansWithId } from '@/app/_services/planService'
-// import { fetchStreamerWithId } from '@/app/_services/streamerService'
-// import Link from 'next/link'
-//
-// type Props = {
-//   params: {
-//     id: string
-//   }
-// }
-//
-// export default async function Page({ params }: Props) {
-//   const streamerId = Number(params.id)
-//   const streamer = await fetchStreamerWithId(streamerId)
-//   const plans = await fetchPlansWithId(streamerId)
-//   const availableDateTimes = await fetchAvailableDateTimesWithStreamerId(streamerId)
-//
-//   return (
-//     <>
-//       {streamer ? (
-//         <>
-//           <p>ユーザーネーム: {streamer.name}</p>
-//           <p>プロフィール: {streamer.profile}</p>
-//           {plans && (
-//             <>
-//               <p>プラン一覧</p>
-//               {plans.length === 0 ? (
-//                 <p>プランがありません</p>
-//               ) : (
-//                 <>
-//                   {plans.map((plan) => (
-//                     <>
-//                       <Plan key={plan.id} plan={plan} />
-//                     </>
-//                   ))}
-//                 </>
-//               )}
-//             </>
-//           )}
-//           {availableDateTimes && (
-//             <>
-//               <p>予約可能日時一覧</p>
-//               <ul>
-//                 {availableDateTimes && availableDateTimes.length === 0 ? (
-//                   <p>予約可能日時がありません</p>
-//                 ) : (
-//                   <>
-//                     {availableDateTimes.map((availableDateTime) => (
-//                       <li key={availableDateTime.id}>
-//                         {availableDateTime.startDateTime.toString()}
-//                       </li>
-//                     ))}
-//                   </>
-//                 )}
-//               </ul>
-//             </>
-//           )}
-//           <Link href={`/streamers/${streamer.id}/reservation/create`}>
-//             <OutlinedButton>予約する</OutlinedButton>
-//           </Link>
-//         </>
-//       ) : (
-//         <p>お探しのストリーマーは存在しません</p>
-//       )}
-//     </>
-//   )
-// }
+import GameCard from '@/app/components/GameCard'
+import { getGames } from '@/app/data/game'
+import { getStreamer } from '@/app/data/streamer'
+import Image from 'next/image'
+
+export default async function Page({ params }: { params: { id: string } }) {
+  const streamer = await getStreamer(params.id)
+  const games = await getGames() // TODO
+  const plans = undefined // TODO
+  const rate = undefined // TODO
+
+  return (
+    <div className='container mx-auto mt-10'>
+      {streamer.icon_url ? (
+        <div className='mb-6 w-full' style={{ backgroundImage: streamer.icon_url }}>
+          <Image
+            alt={`${streamer.name}のアイコン`}
+            src={streamer.icon_url}
+            className='h-64 w-1/2'
+          />
+        </div>
+      ) : (
+        <div className='mx-auto mb-6 h-64 w-1/2 bg-game-gray-500 text-game-gray-300'></div>
+      )}
+      <div className='mb-6 w-full'>
+        <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>
+        <p className='mb-4 line-clamp-3 text-xs text-game-gray-300'>{streamer.profile}</p>
+        <div className='flex flex-row space-x-6'>
+          <p>youtubeのアイコン</p>
+          <p>twichのアイコン</p>
+          <p>xのアイコン</p>
+        </div>
+      </div>
+      {games && (
+        <div>
+          <h2 className='mb-4 text-xl font-bold text-game-white'>一緒に遊べるゲーム</h2>
+          <div className='flex flex-row space-x-6 overflow-y-auto'>
+            {games.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+        </div>
+      )}
+      {plans && (
+        <div>
+          <h2>プラン</h2>
+        </div>
+      )}
+    </div>
+  )
+}
