@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import GameCard from '@/app/components/listItem/GameCard'
-import StreamerCard from '@/app/components/listItem/StreamerCard'
+import GameCard from '@/app/components/GameCard'
+import StreamerCard from '@/app/components/StreamerCard'
 import { getGames } from '@/app/data/game'
 import { getStreamers } from '@/app/data/streamer'
+import Image from 'next/image'
 
 export default async function Home() {
   // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する
@@ -26,7 +27,7 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <div className='mx-16'>
+      <div className='container mx-auto'>
         <div className='grid grid-cols-5'>
           <div className='col-span-4'>
             <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
@@ -41,9 +42,30 @@ export default async function Home() {
             すべてのストリーマーをみる →
           </Link>
         </div>
-        <div className='flex flex-row space-x-6 overflow-x-auto'>
+        <div className='flex flex-nowrap space-x-6 overflow-y-auto'>
           {streamers.map((streamer) => (
-            <StreamerCard key={streamer.id} streamer={streamer} />
+            <Link key={streamer.id} href={`/streamers/${streamer.id}`}>
+              <div>
+                {streamer.icon_url ? (
+                  <Image
+                    alt={`${streamer.name}のアイコン`}
+                    src={streamer.icon_url}
+                    width={250}
+                    height={200}
+                  />
+                ) : (
+                  <div className='h-52 w-80 rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>
+                )}
+                <div className='h-48 w-80 rounded-b-xl bg-game-gray-700 p-5'>
+                  <p className='mb-4 text-xl font-bold text-game-white'>
+                    {streamer.name}
+                  </p>
+                  <p className='mb-6 line-clamp-3 text-xs text-game-gray-300'>
+                    {streamer.profile}
+                  </p>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
@@ -60,7 +82,7 @@ export default async function Home() {
             すべてのゲームタイトルをみる →
           </Link>
         </div>
-        <div className='flex flex-row space-x-8 overflow-x-auto'>
+        <div className='flex flex-row space-x-6 overflow-x-auto'>
           {games.map((game) => (
             <GameCard key={game.id} game={game} />
           ))}
@@ -79,8 +101,8 @@ export default async function Home() {
             すべてのストリーマーをみる →
           </Link>
         </div>
-        <div className='grid grid-cols-5 gap-6'>
-          {streamers.slice(0, 10).map((streamer) => (
+        <div className='grid grid-cols-4 gap-6'>
+          {streamers.slice(0, 8).map((streamer) => (
             <StreamerCard key={streamer.id} streamer={streamer} />
           ))}
         </div>

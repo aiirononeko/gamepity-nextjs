@@ -34,7 +34,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
         is_streamer: false,
         name,
       },
-      emailRedirectTo: 'https://gamepity.com/'
+      emailRedirectTo: 'https://gamepity.com/',
     },
   })
 
@@ -79,7 +79,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
         is_streamer: true,
         name,
       },
-      emailRedirectTo: 'https://gamepity.com/'
+      emailRedirectTo: 'https://gamepity.com/',
     },
   })
 

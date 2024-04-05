@@ -1,5 +1,5 @@
-import { getUser } from "@/app/data/auth"
-import { redirect } from "next/navigation"
+import { getUser } from '@/app/data/auth'
+import { redirect } from 'next/navigation'
 
 export default async function Page() {
   const user = await getUser()
@@ -7,5 +7,7 @@ export default async function Page() {
     redirect('/signin')
   }
 
-  return <p className='mx-auto mt-10 text-center text-game-white'>{`${user.id}のマイページ`}</p>
+  return (
+    <p className='mx-auto mt-10 text-center text-game-white'>{`${user.id}のマイページ`}</p>
+  )
 }

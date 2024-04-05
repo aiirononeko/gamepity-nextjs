@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Button from '@/app/components/button/Button'
+import Button from '@/app/components/Button'
 import { getUser } from '@/app/data/auth'
 
 export default async function Header() {
