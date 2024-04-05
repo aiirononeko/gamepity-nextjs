@@ -1,8 +1,8 @@
 'use server'
 
 import type { User, Session } from '@supabase/supabase-js'
-import { supabase } from '@/app/service/supabase'
 import { redirect } from 'next/navigation'
+import { createClient } from '@/app/service/supabase/server'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
@@ -25,6 +25,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
     }
   }
 
+  const supabase = createClient()
   const { error } = await supabase.auth.signUp({
     email,
     password,
@@ -33,7 +34,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
         is_streamer: false,
         name,
       },
-      emailRedirectTo: process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? 'https://gamepity.com/'
+      emailRedirectTo: 'https://gamepity.com/'
     },
   })
 
@@ -69,7 +70,8 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
     }
   }
 
-  const { data, error } = await supabase.auth.signUp({
+  const supabase = createClient()
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -77,6 +79,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
         is_streamer: true,
         name,
       },
+      emailRedirectTo: 'https://gamepity.com/'
     },
   })
 
@@ -88,7 +91,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
     }
   }
 
-  return data
+  redirect('/streamers/signup/completed')
 }
 
 export async function signInWithEmail(formData: FormData) {
@@ -96,17 +99,30 @@ export async function signInWithEmail(formData: FormData) {
   const password = formData.get('password')?.toString()
 
   if (!email || !password) {
-    return // TODO: エラーハンドリング
+    return
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const supabase = createClient()
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
 
-  return data
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  redirect('/')
 }
 
 export async function signOut() {
+  const supabase = createClient()
   const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.error(error)
+    return
+  }
+
+  redirect('/')
 }

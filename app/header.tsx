@@ -1,10 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import Button from '@/app/components/button/Button'
+import { getUser } from '@/app/data/auth'
 
-export default function Header() {
-  const user = undefined // TODO
+export default async function Header() {
+  const user = await getUser()
 
   return (
     <header className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
