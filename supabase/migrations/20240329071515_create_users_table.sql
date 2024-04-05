@@ -90,7 +90,7 @@ create table public.plans (
   stripe_payment_link_id varchar(255) not null,
   created_at timestamp with time zone not null,
   updated_at timestamp with time zone not null,
-  user_id uuid not null references auth.users(id),
+  streamer_id uuid not null references auth.users(id),
   game_id bigint not null references public.games(id)
 );
 

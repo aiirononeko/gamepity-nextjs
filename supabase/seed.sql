@@ -15,10 +15,13 @@ values
   ('00000000-0000-0000-0000-000000000008', '185f2f83-d63a-4c9b-b4a0-7e4a885799e0', 'authenticated', 'authenticated', 'streamer9@email.com', '$2a$10$6gPtvpqCAiwavx1EOnjIgOykKMgzRdiBuejUQGIRRjvUi/ZgMh.9C', '{"provider":"email","providers":["email"]}', '{"name": "ゲテモノピロ毛9", "is_streamer": true}', timezone('utc'::text, now()), timezone('utc'::text, now())),
   ('00000000-0000-0000-0000-000000000009', '185f2f83-d63a-4c9b-b4a0-7e4a885799e1', 'authenticated', 'authenticated', 'streamer10@email.com', '$2a$10$6gPtvpqCAiwavx1EOnjIgOykKMgzRdiBuejUQGIRRjvUi/ZgMh.9C', '{"provider":"email","providers":["email"]}', '{"name": "ゲテモノピロ毛10", "is_streamer": true}', timezone('utc'::text, now()), timezone('utc'::text, now()));
 
+update public.streamers
+set profile = '一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！';
+
 /**
  * Games
  */
-insert into games
+insert into public.games
   (name, description, created_at, updated_at)
 values
   ('Apex Legends', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!', NOW(), NOW()),
@@ -31,3 +34,15 @@ values
   ('Battle Flelds3', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!', NOW(), NOW()),
   ('Battle Flelds4', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!', NOW(), NOW()),
   ('Battle Flelds5', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!', NOW(), NOW());
+
+/**
+ * Plans
+ */
+insert into public.plans
+  (name, description, amount, stripe_product_id, stripe_price_id, stripe_payment_link_id, created_at, updated_at, streamer_id, game_id)
+values
+  ('一緒に遊べるプラン1', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12345', '12345', '12345', NOW(), NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e2', 1),
+  ('一緒に遊べるプラン2', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12341', '12341', '12341', NOW(), NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e2', 2),
+  ('一緒に遊べるプラン3', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 5000, '12342', '12342', '12342', NOW(), NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e2', 2),
+  ('一緒に遊べるプラン4', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12343', '12343', '12343', NOW(), NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e3', 1),
+  ('一緒に遊べるプラン5', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12344', '12344', '12344', NOW(), NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e3', 2);

@@ -111,11 +111,11 @@ export type Database = {
           game_id: number
           id: number
           name: string
+          streamer_id: string
           stripe_payment_link_id: string
           stripe_price_id: string
           stripe_product_id: string
           updated_at: string
-          user_id: string
         }
         Insert: {
           amount: number
@@ -124,11 +124,11 @@ export type Database = {
           game_id: number
           id?: number
           name: string
+          streamer_id: string
           stripe_payment_link_id: string
           stripe_price_id: string
           stripe_product_id: string
           updated_at: string
-          user_id: string
         }
         Update: {
           amount?: number
@@ -137,11 +137,11 @@ export type Database = {
           game_id?: number
           id?: number
           name?: string
+          streamer_id?: string
           stripe_payment_link_id?: string
           stripe_price_id?: string
           stripe_product_id?: string
           updated_at?: string
-          user_id?: string
         }
         Relationships: [
           {
@@ -152,8 +152,8 @@ export type Database = {
             referencedColumns: ['id']
           },
           {
-            foreignKeyName: 'plans_user_id_fkey'
-            columns: ['user_id']
+            foreignKeyName: 'plans_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
             referencedRelation: 'users'
             referencedColumns: ['id']

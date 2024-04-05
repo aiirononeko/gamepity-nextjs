@@ -1,12 +1,14 @@
+import Image from 'next/image'
 import GameCard from '@/app/components/GameCard'
 import { getGames } from '@/app/data/game'
+import { getPlans } from '@/app/data/plan'
 import { getStreamer } from '@/app/data/streamer'
-import Image from 'next/image'
+import PlanCard from './components/PlanCard'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
   const games = await getGames() // TODO
-  const plans = undefined // TODO
+  const plans = await getPlans(params.id)
   const rate = undefined // TODO
 
   return (
@@ -22,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       ) : (
         <div className='mx-auto mb-6 h-64 w-1/2 bg-game-gray-500 text-game-gray-300'></div>
       )}
-      <div className='mb-6 w-full'>
+      <div className='mb-10'>
         <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>
         <p className='mb-4 line-clamp-3 text-xs text-game-gray-300'>{streamer.profile}</p>
         <div className='flex flex-row space-x-6'>
@@ -32,8 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
       {games && (
-        <div>
-          <h2 className='mb-4 text-xl font-bold text-game-white'>一緒に遊べるゲーム</h2>
+        <div className='mb-10'>
           <div className='flex flex-row space-x-6 overflow-y-auto'>
             {games.map((game) => (
               <GameCard key={game.id} game={game} />
@@ -42,8 +43,13 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       )}
       {plans && (
-        <div>
-          <h2>プラン</h2>
+        <div className='mb-10'>
+          <h2 className='mb-4 text-xl font-bold text-game-white'>プラン</h2>
+          <div className='space-y-6'>
+            {plans.map((plan) => (
+              <PlanCard key={plan.id} plan={plan} />
+            ))}
+          </div>
         </div>
       )}
     </div>
