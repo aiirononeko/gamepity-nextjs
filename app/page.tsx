@@ -5,6 +5,7 @@ import { getGames } from '@/app/data/game'
 import { getStreamers } from '@/app/data/streamer'
 
 export default async function Home() {
+  // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する
   const streamers = await getStreamers()
   const games = await getGames()
 

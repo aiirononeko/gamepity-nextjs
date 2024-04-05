@@ -4,14 +4,14 @@ import { signUpUserWithEmail } from '@/app/actions/auth'
 
 export default function SignUpForm() {
   return (
-    <form className='mx-auto mt-32 w-full max-w-sm' action={signUpUserWithEmail}>
+    <form className='mx-auto mt-20 w-full max-w-sm' action={signUpUserWithEmail}>
       <div className='mb-6 flex flex-col'>
         <label className='mb-1 block pr-4 text-left font-bold text-game-gray-500'>
           ユーザー名
         </label>
         <input
           className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
-          id='inline-full-name'
+          name='name'
           type='text'
           placeholder='ゲームピティ男'
         />
@@ -22,7 +22,7 @@ export default function SignUpForm() {
         </label>
         <input
           className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
-          id='inline-full-name'
+          name='email'
           type='email'
           placeholder='gamepity@example.com'
         />
@@ -33,7 +33,7 @@ export default function SignUpForm() {
         </label>
         <input
           className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
-          id='inline-password'
+          name='password'
           type='password'
           placeholder='******************'
         />
@@ -53,7 +53,7 @@ export default function SignUpForm() {
       <div className='md:flex md:items-center'>
         <button
           className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'
-          type='button'
+          type='submit'
         >
           新規会員登録
         </button>

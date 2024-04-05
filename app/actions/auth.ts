@@ -2,6 +2,7 @@
 
 import type { User, Session } from '@supabase/supabase-js'
 import { supabase } from '@/app/service/supabase'
+import { redirect } from 'next/navigation'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
@@ -24,7 +25,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
     }
   }
 
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -32,6 +33,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
         is_streamer: false,
         name,
       },
+      emailRedirectTo: process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? 'https://gamepity.com/'
     },
   })
 
@@ -43,7 +45,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
     }
   }
 
-  return data
+  redirect('/users/signup/completed')
 }
 
 export async function signUpStreamerWithEmail(formData: FormData): Promise<
@@ -101,6 +103,8 @@ export async function signInWithEmail(formData: FormData) {
     email,
     password,
   })
+
+  return data
 }
 
 export async function signOut() {

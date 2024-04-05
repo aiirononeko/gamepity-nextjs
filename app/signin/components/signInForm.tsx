@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function SignInForm() {
   return (
     <>
-      <form className='mx-auto mt-32 w-full max-w-sm' action={signInWithEmail}>
+      <form className='mx-auto mt-20 w-full max-w-sm' action={signInWithEmail}>
         <div className='mb-6 flex flex-col'>
           <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>
             メールアドレス
@@ -18,7 +18,7 @@ export default function SignInForm() {
             placeholder='gamepity@example.com'
           />
         </div>
-        <div className='mb-16 flex flex-col'>
+        <div className='mb-14 flex flex-col'>
           <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>
             パスワード
           </label>
@@ -39,7 +39,7 @@ export default function SignInForm() {
         </div>
       </form>
       <div className='mx-auto w-full max-w-sm'>
-        <p className='my-10 text-center text-game-gray-500'>または</p>
+        <p className='my-6 text-center text-game-gray-500'>または</p>
         <Link href='/users/signup'>
           <button
             className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r px-8 py-3 text-game-white'
