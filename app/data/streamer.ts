@@ -14,7 +14,11 @@ export async function getStreamers(): Promise<Streamer[]> {
 
 export async function getStreamer(id: string): Promise<Streamer> {
   const supabase = createClient()
-  const { data, error } = await supabase.from('streamers').select('*').eq('id', id)
+  const { data, error } = await supabase
+    .from('streamers')
+    .select('*')
+    .eq('id', id)
+    .limit(1)
 
   if (error || !data) {
     throw Error('Failed to fetch streamer.')

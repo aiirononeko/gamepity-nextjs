@@ -16,3 +16,14 @@ export async function getPlans(streamerId: string): Promise<Plan[]> {
 
   return data ?? []
 }
+
+export async function getPlan(planId: number): Promise<Plan> {
+  const supabase = createClient()
+  const { data, error } = await supabase.from('plans').select('*').eq('id', planId).limit(1)
+
+  if (error) {
+    throw Error(error.message)
+  }
+
+  return data[0]
+}

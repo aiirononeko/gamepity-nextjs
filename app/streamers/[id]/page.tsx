@@ -3,7 +3,7 @@ import GameCard from '@/app/components/GameCard'
 import { getGames } from '@/app/data/game'
 import { getPlans } from '@/app/data/plan'
 import { getStreamer } from '@/app/data/streamer'
-import PlanCard from './components/PlanCard'
+import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
@@ -14,13 +14,11 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className='container mx-auto mt-10'>
       {streamer.icon_url ? (
-        <div className='mb-6 w-full' style={{ backgroundImage: streamer.icon_url }}>
-          <Image
-            alt={`${streamer.name}のアイコン`}
-            src={streamer.icon_url}
-            className='h-64 w-1/2'
-          />
-        </div>
+        <Image
+          alt={`${streamer.name}のアイコン`}
+          src={streamer.icon_url}
+          className='h-64 w-1/2'
+        />
       ) : (
         <div className='mx-auto mb-6 h-64 w-1/2 bg-game-gray-500 text-game-gray-300'></div>
       )}
