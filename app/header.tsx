@@ -18,7 +18,7 @@ export default async function Header() {
           <ul className='mt-4 flex flex-col rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse'>
             <li>
               <Link
-                href='#'
+                href='/'
                 className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 aria-current='page'
               >
@@ -27,7 +27,7 @@ export default async function Header() {
             </li>
             <li>
               <Link
-                href='#'
+                href='/streamers'
                 className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 ストリーマー
@@ -35,7 +35,7 @@ export default async function Header() {
             </li>
             <li>
               <Link
-                href='#'
+                href='/about'
                 className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
@@ -44,7 +44,7 @@ export default async function Header() {
             {user ? (
               <li>
                 <Link
-                  href='#'
+                  href={`/users/${user.id}`}
                   className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ
