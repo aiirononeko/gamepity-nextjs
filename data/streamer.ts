@@ -9,7 +9,7 @@ export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select('*')
 
-  if (error) throw error
+  if (error) throw new Error(error.message)
 
   return data ?? []
 }
@@ -38,6 +38,28 @@ export async function getStreamer(id: string) {
         icon_url,
         created_at,
         updated_at
+      ),
+      plans (
+        id,
+        name,
+        description,
+        amount,
+        stripe_product_id,
+        stripe_price_id,
+        stripe_payment_link_id,
+        created_at,
+        updated_at,
+        streamer_id,
+        game_id
+      ),
+      reviews (
+        id,
+        rating,
+        comment,
+        created_at,
+        streamer_id,
+        user_id,
+        plan_id
       )
     `,
     )
@@ -45,7 +67,7 @@ export async function getStreamer(id: string) {
     .limit(1)
 
   const { data, error } = await streamersWithGamesQuery
-  if (error) throw error
+  if (error) throw new Error(error.message)
 
   return data[0]
 }

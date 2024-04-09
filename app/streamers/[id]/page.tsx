@@ -1,16 +1,12 @@
 import Image from 'next/image'
-import { getPlans } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import GameCard from '@/app/streamers/[id]/components/GameCard'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
-import { getReviews } from '@/data/review'
 import Review from './components/Review'
 import SnsCard from './components/SnsCard'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
-  const plans = await getPlans(params.id)
-  const reviews = await getReviews(params.id)
 
   return (
     <div className='container mx-auto mt-10'>
@@ -38,7 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           )}
         </div>
       </div>
-      {streamer.games.length > 0 && (
+      {streamer.games && streamer.games.length > 0 && (
         <div className='mb-10'>
           <div className='flex flex-row space-x-6 overflow-y-auto'>
             {streamer.games.map((game) => (
@@ -47,11 +43,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       )}
-      {plans.length > 0 && (
+      {streamer.plans && streamer.plans.length > 0 && (
         <div className='mb-10'>
           <h2 className='mb-4 text-2xl font-bold text-game-white'>プラン</h2>
           <div className='space-y-6'>
-            {plans.map((plan) => (
+            {streamer.plans.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />
             ))}
           </div>
@@ -59,8 +55,8 @@ export default async function Page({ params }: { params: { id: string } }) {
       )}
       <div className='mb-10'>
         <h2 className='mb-4 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
-        {reviews.length > 0 ? (
-          <Review reviews={reviews} streamer={streamer} />
+        {streamer.reviews && streamer.reviews.length > 0 ? (
+          <Review reviews={streamer.reviews} streamer={streamer} />
         ) : (
           <p className='text-game-white'>まだ評価されていないストリーマーです</p>
         )}

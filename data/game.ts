@@ -9,7 +9,7 @@ export async function getGames(): Promise<Game[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('games').select('*')
 
-  if (error) throw error
+  if (error) throw new Error(error.message)
 
   return data ?? []
 }

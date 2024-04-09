@@ -3,8 +3,8 @@ create table public.reviews (
   rating integer not null check (rating >= 1 and rating <= 5),
   comment text,
   created_at timestamp with time zone not null,
-  streamer_id uuid not null references auth.users(id),
-  user_id uuid not null references auth.users(id),
+  streamer_id uuid not null references public.streamers(id),
+  user_id uuid not null references public.users(id),
   plan_id bigint not null references public.plans(id),
 
   primary key (id)
