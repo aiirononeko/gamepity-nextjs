@@ -1,4 +1,4 @@
-import { getUser } from '@/app/data/auth'
+import { getUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {

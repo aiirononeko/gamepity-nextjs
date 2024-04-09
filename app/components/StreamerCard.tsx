@@ -19,7 +19,7 @@ export default function StreamerCard(data: Props) {
             className='h-64 w-full'
           />
         ) : (
-          <div className='h-52 w-full rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>
+          <div className='h-52 w-full rounded-t-xl bg-game-gray-600'></div>
         )}
         <div className='h-48 w-full rounded-b-xl bg-game-gray-700 p-5'>
           <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>

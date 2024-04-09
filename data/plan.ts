@@ -1,7 +1,7 @@
 'use server'
 
 import { Database } from '@/supabase/schema'
-import { createClient } from '../service/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 type Plan = Database['public']['Tables']['plans']['Row']
 

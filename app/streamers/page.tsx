@@ -1,4 +1,4 @@
-import { getStreamers } from '@/app/data/streamer'
+import { getStreamers } from '@/data/streamer'
 import StreamerCard from '@/app/streamers/components/StreamerCard'
 
 export default async function Page() {

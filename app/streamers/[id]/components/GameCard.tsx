@@ -13,10 +13,10 @@ export default function GameCard(data: Props) {
     <div>
       {game.icon_url ? (
         <Link href='/'>
-          <Image alt={`${game.name}のアイコン`} src={game.icon_url} className='size-44' />
+          <Image alt={`${game.name}のアイコン`} src={game.icon_url} className='size-20' />
         </Link>
       ) : (
-        <div className='size-44 rounded-xl bg-game-gray-600'></div>
+        <div className='size-20 rounded-xl bg-game-gray-600'></div>
       )}
     </div>
   )

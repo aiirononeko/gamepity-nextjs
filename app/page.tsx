@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import GameCard from '@/app/components/GameCard'
 import StreamerCard from '@/app/components/StreamerCard'
-import { getGames } from '@/app/data/game'
-import { getStreamers } from '@/app/data/streamer'
+import { getGames } from '@/data/game'
+import { getStreamers } from '@/data/streamer'
 import Image from 'next/image'
 
 export default async function Home() {
@@ -20,7 +20,7 @@ export default async function Home() {
         </p>
         <p className='mb-8 text-center text-7xl font-bold text-game-white'>Gamepity</p>
         <div className='flex w-full justify-center'>
-          <Link href='/'>
+          <Link href='/users/signup'>
             <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'>
               新規登録はこちら
             </button>
@@ -53,7 +53,7 @@ export default async function Home() {
                     className='h-52 w-80'
                   />
                 ) : (
-                  <div className='h-52 w-80 rounded-t-xl bg-game-gray-500 text-game-gray-300'></div>
+                  <div className='h-52 w-80 rounded-t-xl bg-game-gray-600'></div>
                 )}
                 <div className='h-48 w-80 rounded-b-xl bg-game-gray-700 p-5'>
                   <p className='mb-4 text-xl font-bold text-game-white'>

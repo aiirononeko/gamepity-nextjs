@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/app/service/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 export async function getUser() {
   const supabase = createClient()
@@ -8,6 +8,8 @@ export async function getUser() {
     data: { user },
     error,
   } = await supabase.auth.getUser()
+
+  // MEMO: エラーハンドリングしようとするとバグるので一旦放置
 
   return user
 }

@@ -2,7 +2,7 @@
 
 import type { User, Session } from '@supabase/supabase-js'
 import { redirect } from 'next/navigation'
-import { createClient } from '@/app/service/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
@@ -39,11 +39,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
   })
 
   if (error) {
-    console.error(error)
-    return {
-      user: null,
-      session: null,
-    }
+    throw new Error(error.message)
   }
 
   redirect('/users/signup/completed')
@@ -84,11 +80,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
   })
 
   if (error) {
-    console.error(error)
-    return {
-      user: null,
-      session: null,
-    }
+    throw new Error(error.message)
   }
 
   redirect('/streamers/signup/completed')
@@ -120,8 +112,7 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    console.error(error)
-    return
+    throw new Error(error.message)
   }
 
   redirect('/')

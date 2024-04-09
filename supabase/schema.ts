@@ -218,8 +218,61 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          created_at: string
+          id: number
+          plan_id: number
+          rating: number
+          review: string | null
+          streamer_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at: string
+          id?: number
+          plan_id: number
+          rating: number
+          review?: string | null
+          streamer_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          plan_id?: number
+          rating?: number
+          review?: string | null
+          streamer_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'reviews_plan_id_fkey'
+            columns: ['plan_id']
+            isOneToOne: false
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'reviews_streamer_id_fkey'
+            columns: ['streamer_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'reviews_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       streamers: {
         Row: {
+          avg_rating: number | null
           created_at: string
           icon_url: string | null
           id: string
@@ -229,6 +282,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          avg_rating?: number | null
           created_at: string
           icon_url?: string | null
           id: string
@@ -238,6 +292,7 @@ export type Database = {
           updated_at: string
         }
         Update: {
+          avg_rating?: number | null
           created_at?: string
           icon_url?: string | null
           id?: string
@@ -290,7 +345,21 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      streamer_avg_ratings: {
+        Row: {
+          avg_rating: number | null
+          streamer_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'reviews_streamer_id_fkey'
+            columns: ['streamer_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

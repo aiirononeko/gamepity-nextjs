@@ -1,5 +1,5 @@
-import { getAvailableDateTimes } from '@/app/data/availableDateTime'
-import { getPlan } from '@/app/data/plan'
+import { getAvailableDateTimes } from '@/data/availableDateTime'
+import { getPlan } from '@/data/plan'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className='container mx-auto mt-10'>
-      <p>選択中のプラン</p>
+      <p className='mb-4 text-xl font-bold text-game-white'>選択中のプラン</p>
       <PlanCard plan={plan} />
     </div>
   )

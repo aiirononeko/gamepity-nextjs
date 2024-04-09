@@ -1,13 +1,17 @@
 'use server'
 
 import { Database } from '@/supabase/schema'
-import { createClient } from '@/app/service/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 type Streamer = Database['public']['Tables']['streamers']['Row']
 
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select('*')
+
+  if (error) {
+    throw new Error(error.message)
+  }
 
   return data ?? []
 }

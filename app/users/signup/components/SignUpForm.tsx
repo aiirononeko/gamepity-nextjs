@@ -1,6 +1,6 @@
 'use client'
 
-import { signUpUserWithEmail } from '@/app/actions/auth'
+import { signUpUserWithEmail } from '@/actions/auth'
 
 export default function SignUpForm() {
   return (
