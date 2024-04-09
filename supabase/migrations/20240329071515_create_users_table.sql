@@ -29,6 +29,9 @@ create table public.streamers (
   profile varchar(255),
   stripe_account_id varchar(255) unique,
   avg_rating numeric(2, 1) default 0,
+  youtube_url varchar(255),
+  x_url varchar(255),
+  twitch_url varchar(255),
   created_at timestamp with time zone not null,
   updated_at timestamp with time zone not null,
 

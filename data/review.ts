@@ -12,9 +12,7 @@ export async function getReviews(streamerId: string): Promise<Review[]> {
     .select('*')
     .eq('streamer_id', streamerId)
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   return data ?? []
 }

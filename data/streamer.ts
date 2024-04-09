@@ -9,24 +9,43 @@ export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select('*')
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   return data ?? []
 }
 
-export async function getStreamer(id: string): Promise<Streamer> {
+export async function getStreamer(id: string) {
   const supabase = createClient()
-  const { data, error } = await supabase
+  const streamersWithGamesQuery = supabase
     .from('streamers')
-    .select('*')
+    .select(
+      `
+      id,
+      name,
+      icon_url,
+      profile,
+      stripe_account_id,
+      avg_rating,
+      youtube_url,
+      twitch_url,
+      x_url,
+      created_at,
+      updated_at,
+      games (
+        id,
+        name,
+        description,
+        icon_url,
+        created_at,
+        updated_at
+      )
+    `,
+    )
     .eq('id', id)
     .limit(1)
 
-  if (error || !data) {
-    throw Error('Failed to fetch streamer.')
-  }
+  const { data, error } = await streamersWithGamesQuery
+  if (error) throw error
 
   return data[0]
 }

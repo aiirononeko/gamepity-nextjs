@@ -16,7 +16,16 @@ values
   ('00000000-0000-0000-0000-000000000009', '185f2f83-d63a-4c9b-b4a0-7e4a885799e1', 'authenticated', 'authenticated', 'streamer10@email.com', '$2a$10$6gPtvpqCAiwavx1EOnjIgOykKMgzRdiBuejUQGIRRjvUi/ZgMh.9C', '{"provider":"email","providers":["email"]}', '{"name": "ゲテモノピロ毛10", "is_streamer": true}', timezone('utc'::text, now()), timezone('utc'::text, now()));
 
 update public.streamers
-set profile = '一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！';
+set profile = '一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう！一緒に遊びましょう';
+
+update public.streamers
+set x_url = 'https://localhost:3000/';
+
+update public.streamers
+set twitch_url = 'https://localhost:3000/';
+
+update public.streamers
+set youtube_url = 'https://localhost:3000/';
 
 /**
  * Games

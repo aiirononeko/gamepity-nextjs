@@ -12,9 +12,7 @@ export async function getPlans(streamerId: string): Promise<Plan[]> {
     .select('*')
     .eq('streamer_id', streamerId)
 
-  if (error) {
-    throw Error(error.message)
-  }
+  if (error) throw error
 
   return data ?? []
 }
@@ -27,9 +25,7 @@ export async function getPlan(planId: number): Promise<Plan> {
     .eq('id', planId)
     .limit(1)
 
-  if (error) {
-    throw Error(error.message)
-  }
+  if (error) throw error
 
   return data[0]
 }

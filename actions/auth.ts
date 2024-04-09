@@ -38,9 +38,7 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
     },
   })
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   redirect('/users/signup/completed')
 }
@@ -79,9 +77,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
     },
   })
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   redirect('/streamers/signup/completed')
 }
@@ -100,9 +96,7 @@ export async function signInWithEmail(formData: FormData) {
     password,
   })
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   redirect('/')
 }
@@ -111,9 +105,7 @@ export async function signOut() {
   const supabase = createClient()
   const { error } = await supabase.auth.signOut()
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  if (error) throw error
 
   redirect('/')
 }

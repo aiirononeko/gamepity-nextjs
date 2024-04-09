@@ -1,5 +1,5 @@
 create table public.reservations (
-  id bigserial primary key,
+  id bigserial,
   start_date_dime timestamp with time zone not null,
   end_date_time timestamp with time zone not null,
   is_available boolean not null default false,
@@ -7,5 +7,7 @@ create table public.reservations (
   updated_at timestamp with time zone not null,
   streamer_id uuid not null references auth.users(id),
   user_id uuid not null references auth.users(id),
-  plan_id bigint not null references public.plans(id)
+  plan_id bigint not null references public.plans(id),
+
+  primary key (id)
 );

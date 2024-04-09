@@ -270,6 +270,36 @@ export type Database = {
           },
         ]
       }
+      streamer_games: {
+        Row: {
+          game_id: number
+          streamer_id: string
+        }
+        Insert: {
+          game_id: number
+          streamer_id: string
+        }
+        Update: {
+          game_id?: number
+          streamer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'streamer_games_game_id_fkey'
+            columns: ['game_id']
+            isOneToOne: false
+            referencedRelation: 'games'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'streamer_games_streamer_id_fkey'
+            columns: ['streamer_id']
+            isOneToOne: false
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       streamers: {
         Row: {
           avg_rating: number | null
@@ -279,7 +309,10 @@ export type Database = {
           name: string
           profile: string | null
           stripe_account_id: string | null
+          twitch_url: string | null
           updated_at: string
+          x_url: string | null
+          youtube_url: string | null
         }
         Insert: {
           avg_rating?: number | null
@@ -289,7 +322,10 @@ export type Database = {
           name: string
           profile?: string | null
           stripe_account_id?: string | null
+          twitch_url?: string | null
           updated_at: string
+          x_url?: string | null
+          youtube_url?: string | null
         }
         Update: {
           avg_rating?: number | null
@@ -299,7 +335,10 @@ export type Database = {
           name?: string
           profile?: string | null
           stripe_account_id?: string | null
+          twitch_url?: string | null
           updated_at?: string
+          x_url?: string | null
+          youtube_url?: string | null
         }
         Relationships: [
           {

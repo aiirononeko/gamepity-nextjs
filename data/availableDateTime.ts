@@ -15,9 +15,7 @@ export async function getAvailableDateTimes(
     .eq('streamer_id', streamerId)
     .limit(1)
 
-  if (error) {
-    throw Error(error.message)
-  }
+  if (error) throw error
 
   return data ?? []
 }
