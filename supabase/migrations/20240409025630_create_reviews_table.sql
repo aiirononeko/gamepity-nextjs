@@ -1,7 +1,7 @@
 create table public.reviews (
   id bigserial primary key,
   rating integer not null check (rating >= 1 and rating <= 5),
-  review text,
+  comment text,
   created_at timestamp with time zone not null,
   streamer_id uuid not null references auth.users(id),
   user_id uuid not null references auth.users(id),

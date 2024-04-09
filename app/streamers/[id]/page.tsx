@@ -5,6 +5,7 @@ import { getStreamer } from '@/data/streamer'
 import GameCard from '@/app/streamers/[id]/components/GameCard'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import { getReviews } from '@/data/review'
+import Review from './components/Review'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
@@ -25,14 +26,14 @@ export default async function Page({ params }: { params: { id: string } }) {
       )}
       <div className='mb-10'>
         <p className='mb-4 text-3xl font-bold text-game-white'>{streamer.name}</p>
-        <p className='mb-4 line-clamp-3 text-xs text-game-white'>{streamer.profile}</p>
+        <p className='mb-4 text-game-white'>{streamer.profile}</p>
         <div className='flex flex-row space-x-6'>
           <p>youtubeのアイコン</p>
           <p>twichのアイコン</p>
           <p>xのアイコン</p>
         </div>
       </div>
-      {games && (
+      {games.length > 0 && (
         <div className='mb-10'>
           <div className='flex flex-row space-x-6 overflow-y-auto'>
             {games.map((game) => (
@@ -41,7 +42,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       )}
-      {plans && (
+      {plans.length > 0 && (
         <div className='mb-10'>
           <h2 className='mb-4 text-2xl font-bold text-game-white'>プラン</h2>
           <div className='space-y-6'>
@@ -51,21 +52,14 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       )}
-      {reviews ? (
-        <div className='mb-10'>
-          <h2 className='mb-4 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
-          <div className='space-y-6'>
-            {plans.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className='mb-10'>
-          <h2 className='mb-4 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
+      <div className='mb-10'>
+        <h2 className='mb-4 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
+        {reviews.length > 0 ? (
+          <Review reviews={reviews} streamer={streamer} />
+        ) : (
           <p className='text-game-white'>まだ評価されていないストリーマーです</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
