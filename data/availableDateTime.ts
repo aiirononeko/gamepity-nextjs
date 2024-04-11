@@ -13,7 +13,6 @@ export async function getAvailableDateTimes(
     .from('available_date_times')
     .select('*')
     .eq('streamer_id', streamerId)
-    .limit(1)
 
   if (error) throw new Error(error.message)
 
