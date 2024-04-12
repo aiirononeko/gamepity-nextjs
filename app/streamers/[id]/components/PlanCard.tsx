@@ -18,7 +18,10 @@ export default function PlanCard(props: Props) {
       </p>
       <p className='col-span-1 text-center font-bold text-game-white'>60分</p>
       <p className='col-span-1 text-center font-bold text-game-white'>{plan.amount}円</p>
-      <Link href={`/plans/${plan.id}`} className='col-span-2 mx-auto'>
+      <Link
+        href={`/streamers/${plan.streamer_id}/reservation/?planId=${plan.id}`}
+        className='col-span-2 mx-auto'
+      >
         <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-3 text-game-white'>
           このプランで予約
         </button>

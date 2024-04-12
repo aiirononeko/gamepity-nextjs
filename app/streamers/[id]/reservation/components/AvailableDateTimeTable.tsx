@@ -1,5 +1,5 @@
 import type { Database } from '@/supabase/schema'
-import { DAYS_LABEL } from '@/app/plans/[id]/constants'
+import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 
 type Props = {
   availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
