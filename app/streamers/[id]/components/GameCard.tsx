@@ -1,6 +1,6 @@
-import { Database } from '@/supabase/schema'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Database } from '@/supabase/schema'
 
 type Props = {
   game: Database['public']['Tables']['games']['Row']

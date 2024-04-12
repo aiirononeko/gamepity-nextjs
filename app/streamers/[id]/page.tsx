@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { getStreamer } from '@/data/streamer'
-import GameCard from '@/app/streamers/[id]/components/GameCard'
-import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Review from './components/Review'
 import SnsCard from './components/SnsCard'
+import GameCard from '@/app/streamers/[id]/components/GameCard'
+import PlanCard from '@/app/streamers/[id]/components/PlanCard'
+import { getStreamer } from '@/data/streamer'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)

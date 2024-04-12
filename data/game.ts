@@ -1,7 +1,7 @@
 'use server'
 
-import { Database } from '@/supabase/schema'
 import { createClient } from '@/lib/supabase/server'
+import { Database } from '@/supabase/schema'
 
 type Game = Database['public']['Tables']['games']['Row']
 

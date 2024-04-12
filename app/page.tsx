@@ -1,9 +1,9 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import GameCard from '@/app/components/GameCard'
 import StreamerCard from '@/app/components/StreamerCard'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
-import Image from 'next/image'
 
 export default async function Home() {
   // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する

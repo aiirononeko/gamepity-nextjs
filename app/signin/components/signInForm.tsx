@@ -1,7 +1,7 @@
 'use client'
 
-import { signInWithEmail } from '@/actions/auth'
 import Link from 'next/link'
+import { signInWithEmail } from '@/actions/auth'
 
 export default function SignInForm() {
   return (

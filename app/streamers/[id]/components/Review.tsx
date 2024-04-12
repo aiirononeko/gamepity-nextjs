@@ -1,5 +1,5 @@
-import { Database } from '@/supabase/schema'
 import ReviewCard from '@/app/streamers/[id]/components/ReviewCard'
+import { Database } from '@/supabase/schema'
 
 type Props = {
   reviews: Database['public']['Tables']['reviews']['Row'][]

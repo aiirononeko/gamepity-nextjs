@@ -1,5 +1,5 @@
-import { getUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
+import { getUser } from '@/data/auth'
 
 export default async function Page() {
   const user = await getUser()

@@ -1,5 +1,5 @@
-import { getStreamers } from '@/data/streamer'
 import StreamerCard from '@/app/streamers/components/StreamerCard'
+import { getStreamers } from '@/data/streamer'
 
 export default async function Page() {
   const streamers = await getStreamers()

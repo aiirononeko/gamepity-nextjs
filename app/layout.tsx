@@ -1,8 +1,6 @@
-import '@/app/globals.css'
-
 import type { Metadata } from 'next'
-
 import Footer from '@/app/footer'
+import '@/app/globals.css'
 import Header from '@/app/header'
 
 export const metadata: Metadata = {

@@ -1,13 +1,16 @@
-import type { Database } from '@/supabase/schema'
+import Link from 'next/link'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
+import type { Database } from '@/supabase/schema'
 
 type Props = {
   availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
+  plan: Database['public']['Tables']['plans']['Row']
   oneWeekDateTimes: Date[]
 }
 
 export default function AvailableDateTimeTable({
   availableDateTimes,
+  plan,
   oneWeekDateTimes,
 }: Props) {
   return (
@@ -29,7 +32,7 @@ export default function AvailableDateTimeTable({
             <tr key={hour}>
               <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
-                const isAvailable = availableDateTimes.some((dateTime) => {
+                const matchingDateTimes = availableDateTimes.filter((dateTime) => {
                   const jstStartDate = new Date(dateTime.start_date_time)
                   return (
                     jstStartDate.getDate() === day.getDate() &&
@@ -38,7 +41,14 @@ export default function AvailableDateTimeTable({
                 })
                 return (
                   <td key={`${i}_${day}`} className='border border-solid'>
-                    {isAvailable && <div className='h-20 bg-game-white'></div>}
+                    {matchingDateTimes.map((dateTime) => (
+                      <Link
+                        key={dateTime.id}
+                        href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${dateTime.id}`}
+                      >
+                        <div className='block h-20 cursor-pointer bg-game-white'></div>
+                      </Link>
+                    ))}
                   </td>
                 )
               })}

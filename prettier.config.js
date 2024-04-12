@@ -7,5 +7,24 @@ module.exports = {
   tabWidth: 2, // スペースの単位
   trailingComma: 'all', // ケツカンマつける
   jsxSingleQuote: true, //　JSXでシングルクォートを使用
-  importOrder: ['^react', '^@?\\w', '^[./]'],
+  importOrder: [
+    '^(react/(.*)$)|^(react$)',
+    '^(next/(.*)$)|^(next$)',
+    '<THIRD_PARTY_MODULES>',
+    '',
+    '^types$',
+    '^@local/(.*)$',
+    '^@/config/(.*)$',
+    '^@/lib/(.*)$',
+    '^@/components/(.*)$',
+    '^@/styles/(.*)$',
+    '^[./]',
+  ],
+  importOrderSeparation: false,
+  importOrderSortSpecifiers: true,
+  importOrderBuiltinModulesToTop: true,
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderMergeDuplicateImports: true,
+  importOrderCombineTypeAndValueImports: true,
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
 }

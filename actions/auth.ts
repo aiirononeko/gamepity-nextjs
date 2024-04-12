@@ -1,8 +1,8 @@
 'use server'
 
-import type { User, Session } from '@supabase/supabase-js'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import type { Session, User } from '@supabase/supabase-js'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {

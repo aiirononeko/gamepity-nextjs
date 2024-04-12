@@ -1,5 +1,5 @@
-import { Database } from '@/supabase/schema'
 import Link from 'next/link'
+import { Database } from '@/supabase/schema'
 
 type Props = {
   plan: Database['public']['Tables']['plans']['Row']

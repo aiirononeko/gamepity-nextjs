@@ -1,6 +1,6 @@
-import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 import { AvailableDateTime } from '@prisma/client'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_API_KEY') as string, {
   apiVersion: '2022-11-15',

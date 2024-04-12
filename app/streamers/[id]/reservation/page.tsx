@@ -1,8 +1,8 @@
-import { getAvailableDateTimes } from '@/data/availableDateTime'
-import { getPlan } from '@/data/plan'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import AvailableDateTimeTable from '@/app/streamers/[id]/reservation/components/AvailableDateTimeTable'
 import { getOneWeekDateTimes } from '@/app/streamers/[id]/reservation/utils'
+import { getAvailableDateTimes } from '@/data/availableDateTime'
+import { getPlan } from '@/data/plan'
 
 export default async function Page({
   searchParams,
@@ -23,6 +23,7 @@ export default async function Page({
         {availableDateTimes && (
           <AvailableDateTimeTable
             availableDateTimes={availableDateTimes}
+            plan={plan}
             oneWeekDateTimes={oneWeekDateTimes}
           />
         )}
