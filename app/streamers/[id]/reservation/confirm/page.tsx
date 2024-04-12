@@ -1,6 +1,6 @@
-import { getAvailableDateTime } from "@/data/availableDateTime"
-import { getPlan } from "@/data/plan"
-import { getStreamer } from "@/data/streamer"
+import { getAvailableDateTime } from '@/data/availableDateTime'
+import { getPlan } from '@/data/plan'
+import { getStreamer } from '@/data/streamer'
 
 export default async function Page({
   searchParams,
@@ -8,7 +8,9 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const plan = await getPlan(Number(searchParams.planId))
-  const availableDateTime = await getAvailableDateTime(Number(searchParams.availableDateTimeId))
+  const availableDateTime = await getAvailableDateTime(
+    Number(searchParams.availableDateTimeId),
+  )
   const streamer = await getStreamer(plan.streamer_id)
 
   return (

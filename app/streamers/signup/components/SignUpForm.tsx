@@ -1,8 +1,8 @@
-import { signUpUserWithEmail } from '@/actions/auth'
+import { signUpStreamerWithEmail } from '@/actions/auth'
 
 export default function SignUpForm() {
   return (
-    <form className='mx-auto mt-20 w-full max-w-sm' action={signUpUserWithEmail}>
+    <form className='mx-auto mt-20 w-full max-w-sm' action={signUpStreamerWithEmail}>
       <div className='mb-6 flex flex-col'>
         <label className='mb-1 block pr-4 text-left font-bold text-game-gray-500'>
           ユーザー名
