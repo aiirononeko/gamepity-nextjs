@@ -28,11 +28,6 @@ export default async function Page({
           />
         )}
       </div>
-      <div className='mb-10'>
-        <p className='mb-4 text-center text-xl font-bold text-game-white'>
-          ※予約時の注意事項
-        </p>
-      </div>
     </div>
   )
 }

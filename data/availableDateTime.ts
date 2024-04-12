@@ -18,3 +18,18 @@ export async function getAvailableDateTimes(
 
   return data ?? []
 }
+
+export async function getAvailableDateTime(
+  availableDateTimeId: number,
+): Promise<AvailableDateTime> {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('available_date_times')
+    .select('*')
+    .eq('id', availableDateTimeId)
+    .limit(1)
+
+  if (error) throw new Error(error.message)
+
+  return data[0]
+}
