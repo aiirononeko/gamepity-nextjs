@@ -16,7 +16,11 @@ export async function getGames(): Promise<Game[]> {
 
 export async function getGame(gameId: number): Promise<Game> {
   const supabase = createClient()
-  const { data, error } = await supabase.from('games').select('*').eq('id', gameId).limit(1)
+  const { data, error } = await supabase
+    .from('games')
+    .select('*')
+    .eq('id', gameId)
+    .limit(1)
 
   if (error) throw new Error(error.message)
 

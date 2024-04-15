@@ -81,7 +81,7 @@ export default async function Home() {
         </div>
         <div className='grid grid-cols-4 gap-6'>
           {streamers.slice(0, 8).map((streamer) => (
-            <Streamer key={streamer.id} streamer={streamer} />
+            <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
           ))}
         </div>
       </div>
