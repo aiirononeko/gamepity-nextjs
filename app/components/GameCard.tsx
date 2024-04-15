@@ -11,13 +11,13 @@ export default function GameCard(data: Props) {
 
   return (
     <div>
-      {game.icon_url ? (
-        <Link href='/'>
+      <Link href={`/games/${game.id}`}>
+        {game.icon_url ? (
           <Image alt={`${game.name}のアイコン`} src={game.icon_url} className='size-44' />
-        </Link>
-      ) : (
-        <div className='size-44 rounded-xl bg-game-gray-600'></div>
-      )}
+        ) : (
+          <div className='size-44 rounded-xl bg-game-gray-600'></div>
+        )}
+      </Link>
     </div>
   )
 }

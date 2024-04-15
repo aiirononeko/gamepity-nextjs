@@ -1,12 +1,13 @@
 import Image from 'next/image'
-import Review from './components/Review'
-import SnsCard from './components/SnsCard'
 import GameCard from '@/app/streamers/[id]/components/GameCard'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
+import Review from '@/app/streamers/[id]/components/Review'
+import SnsCard from '@/app/streamers/[id]/components/SnsCard'
 import { getStreamer } from '@/data/streamer'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
+  const { games, plans, reviews } = streamer
 
   return (
     <div className='container mx-auto mt-10'>
@@ -34,20 +35,20 @@ export default async function Page({ params }: { params: { id: string } }) {
           )}
         </div>
       </div>
-      {streamer.games && streamer.games.length > 0 && (
+      {games && games.length > 0 && (
         <div className='mb-10'>
           <div className='flex flex-row space-x-6 overflow-y-auto'>
-            {streamer.games.map((game) => (
+            {games.map((game) => (
               <GameCard key={game.id} game={game} />
             ))}
           </div>
         </div>
       )}
-      {streamer.plans && streamer.plans.length > 0 && (
+      {plans && plans.length > 0 && (
         <div className='mb-10'>
           <h2 className='mb-4 text-2xl font-bold text-game-white'>プラン</h2>
           <div className='space-y-6'>
-            {streamer.plans.map((plan) => (
+            {plans.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />
             ))}
           </div>
@@ -55,8 +56,8 @@ export default async function Page({ params }: { params: { id: string } }) {
       )}
       <div className='mb-10'>
         <h2 className='mb-4 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
-        {streamer.reviews && streamer.reviews.length > 0 ? (
-          <Review reviews={streamer.reviews} streamer={streamer} />
+        {reviews && reviews.length > 0 ? (
+          <Review reviews={reviews} streamer={streamer} />
         ) : (
           <p className='text-game-white'>まだ評価されていないストリーマーです</p>
         )}
