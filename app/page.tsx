@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import GameCard from '@/app/components/GameCard'
-import StreamerCard from '@/app/components/StreamerCard'
+import Streamer from '@/components/Streamer'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 
@@ -44,27 +43,7 @@ export default async function Home() {
         </div>
         <div className='flex flex-nowrap space-x-6 overflow-y-auto'>
           {streamers.map((streamer) => (
-            <Link key={streamer.id} href={`/streamers/${streamer.id}`}>
-              <div>
-                {streamer.icon_url ? (
-                  <Image
-                    alt={`${streamer.name}のアイコン`}
-                    src={streamer.icon_url}
-                    className='h-52 w-80'
-                  />
-                ) : (
-                  <div className='h-52 w-80 rounded-t-xl bg-game-gray-600'></div>
-                )}
-                <div className='h-48 w-80 rounded-b-xl bg-game-gray-700 p-5'>
-                  <p className='mb-4 text-xl font-bold text-game-white'>
-                    {streamer.name}
-                  </p>
-                  <p className='mb-6 line-clamp-3 text-xs text-game-gray-300'>
-                    {streamer.profile}
-                  </p>
-                </div>
-              </div>
-            </Link>
+            <Streamer key={streamer.id} streamer={streamer} width={'w-80'} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
@@ -102,7 +81,7 @@ export default async function Home() {
         </div>
         <div className='grid grid-cols-4 gap-6'>
           {streamers.slice(0, 8).map((streamer) => (
-            <StreamerCard key={streamer.id} streamer={streamer} />
+            <Streamer key={streamer.id} streamer={streamer} />
           ))}
         </div>
       </div>

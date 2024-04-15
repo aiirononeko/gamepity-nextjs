@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import StreamerCard from '@/app/streamers/components/StreamerCard'
+import Streamer from '@/components/Streamer'
 import { getGame } from '@/data/game'
 import { getStreamersWithGameId } from '@/data/streamer'
 
@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </h2>
         <div className='grid grid-cols-4 gap-6'>
           {streamers.map((streamer) => (
-            <StreamerCard key={streamer.id} streamer={streamer} />
+            <Streamer key={streamer.id} streamer={streamer} />
           ))}
         </div>
       </div>
