@@ -8,6 +8,6 @@ export default async function Page() {
   }
 
   return (
-    <p className='mx-auto mt-10 text-center text-game-white'>{`${user.id}のマイページ`}</p>
+    <p className='mx-auto mt-12 text-center text-game-white'>{`${user.id}のマイページ`}</p>
   )
 }

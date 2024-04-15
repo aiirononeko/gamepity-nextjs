@@ -9,11 +9,11 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className='container mx-auto mt-10'>
+      <div className='container mx-auto mt-12'>
         {game.icon_url ? (
           <Image alt={`${game.name}のアイコン`} src={game.icon_url} />
         ) : (
-          <div className='mx-auto mb-6 h-64 w-1/2 bg-game-gray-600'></div>
+          <div className='mx-auto mb-6 h-72 w-1/2 bg-game-gray-600'></div>
         )}
       </div>
       <div className='container mx-auto'>

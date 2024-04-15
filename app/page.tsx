@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import GameCard from '@/app/components/GameCard'
+import Game from '@/components/Game'
 import Streamer from '@/components/Streamer'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
@@ -11,13 +11,13 @@ export default async function Home() {
 
   return (
     <>
-      <div className='mb-10 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] pb-5 pt-10'>
+      <div className='mb-12 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] pb-8 pt-10'>
         <p className='mb-5 text-center text-xl font-bold text-game-white'>
           憧れのストリーマーとゲームができる
           <br />
           ゲーマー向けマッチングプラットフォーム
         </p>
-        <p className='mb-8 text-center text-7xl font-bold text-game-white'>Gamepity</p>
+        <p className='mb-10 text-center text-7xl font-bold text-game-white'>Gamepity</p>
         <div className='flex w-full justify-center'>
           <Link href='/users/signup'>
             <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'>
@@ -62,7 +62,7 @@ export default async function Home() {
         </div>
         <div className='flex flex-row space-x-6 overflow-x-auto'>
           {games.map((game) => (
-            <GameCard key={game.id} game={game} />
+            <Game key={game.id} game={game} size={'size-44'} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
