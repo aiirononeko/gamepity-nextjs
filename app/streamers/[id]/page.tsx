@@ -5,8 +5,10 @@ import Review from '@/app/streamers/[id]/components/Review'
 import SnsCard from '@/app/streamers/[id]/components/SnsCard'
 import { getStreamer } from '@/data/streamer'
 
+// TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
+  // @ts-ignore
   const { games, plans, reviews } = streamer
 
   return (
@@ -38,6 +40,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       {games && games.length > 0 && (
         <div className='mb-10'>
           <div className='flex flex-row space-x-6 overflow-y-auto'>
+            {/* @ts-ignore */}
             {games.map((game) => (
               <GameCard key={game.id} game={game} />
             ))}
@@ -48,6 +51,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className='mb-10'>
           <h2 className='mb-4 text-2xl font-bold text-game-white'>プラン</h2>
           <div className='space-y-6'>
+            {/* @ts-ignore */}
             {plans.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />
             ))}
