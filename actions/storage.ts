@@ -7,7 +7,9 @@ export const uploadFile = async (file: File, userId: string): Promise<string> =>
   const { error } = await supabase.storage
     .from('gamepity-images')
     .upload(filePath, file)
-  if (error) throw new Error(error.message)
+
+  // すでにアップロード済みのファイルの場合はiconUrlのみ設定する
+  if (error && error.message !== 'The resource already exists') throw new Error(error.message)
 
   const { data } = supabase.storage.from('gamepity-images').getPublicUrl(filePath)
   return data.publicUrl
