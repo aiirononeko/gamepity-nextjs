@@ -91,14 +91,14 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   const supabase = createClient()
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
 
   if (error) throw error
 
-  redirect('/')
+  redirect(`/mypage/${data.user.id}`)
 }
 
 export async function signOut() {
