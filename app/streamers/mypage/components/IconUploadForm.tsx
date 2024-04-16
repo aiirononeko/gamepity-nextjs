@@ -1,8 +1,8 @@
 'use client'
 
-import { insertIconUrl, uploadFile } from "@/actions/storage"
-import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { insertIconUrl, uploadFile } from '@/actions/storage'
 
 type Props = {
   userId: string
@@ -12,7 +12,7 @@ type Props = {
 export default function IconUploadForm({ userId, initialIconUrl }: Props) {
   const [iconUrl, setIconUrl] = useState<string>()
 
-  const handleFileChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files || e.currentTarget.files.length < 1) return
     const iconUrl = await uploadFile(e.currentTarget.files[0], userId)
     await insertIconUrl(true, userId, iconUrl)

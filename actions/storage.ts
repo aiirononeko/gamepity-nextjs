@@ -4,19 +4,28 @@ const supabase = createClient()
 
 export const uploadFile = async (file: File, userId: string): Promise<string> => {
   const filePath = `icons/${userId}/${file.name}`
-  const { error } = await supabase.storage
-    .from('gamepity-images')
-    .upload(filePath, file)
+  const { error } = await supabase.storage.from('gamepity-images').upload(filePath, file)
 
   // すでにアップロード済みのファイルの場合はiconUrlのみ設定する
-  if (error && error.message !== 'The resource already exists') throw new Error(error.message)
+  if (error && error.message !== 'The resource already exists')
+    throw new Error(error.message)
 
   const { data } = supabase.storage.from('gamepity-images').getPublicUrl(filePath)
   return data.publicUrl
 }
 
-export const insertIconUrl = async(isStreamer: boolean, userId: string, iconUrl: string): Promise<void> => {
-  const query = isStreamer ? supabase.from('streamers').update({ icon_url: iconUrl }).eq('id', userId).select('*') : supabase.from('users').update({ icon_url: iconUrl }).eq('id', userId)
+export const insertIconUrl = async (
+  isStreamer: boolean,
+  userId: string,
+  iconUrl: string,
+): Promise<void> => {
+  const query = isStreamer
+    ? supabase
+        .from('streamers')
+        .update({ icon_url: iconUrl })
+        .eq('id', userId)
+        .select('*')
+    : supabase.from('users').update({ icon_url: iconUrl }).eq('id', userId)
   const { error } = await query
   if (error) {
     await deleteFile(iconUrl)
@@ -24,7 +33,7 @@ export const insertIconUrl = async(isStreamer: boolean, userId: string, iconUrl:
   }
 }
 
-const deleteFile = async(filePath: string): Promise<void> => {
+const deleteFile = async (filePath: string): Promise<void> => {
   const { error } = await supabase.storage.from('gamepity-images').remove([filePath])
   if (error) throw new Error(error.message)
 }

@@ -5,6 +5,7 @@ import SnsCard from '@/app/streamers/[id]/components/SnsCard'
 import Game from '@/components/Game'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
+
 // import { getUser } from '@/data/auth'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
