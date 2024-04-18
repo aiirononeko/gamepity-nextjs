@@ -1,9 +1,9 @@
 'use server'
 
-import { createClient } from "@/lib/supabase/server"
-import { createStripeProductAndPrice } from "@/actions/stripe"
-import { redirect } from "next/navigation"
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { createStripeProductAndPrice } from '@/actions/stripe'
+import { createClient } from '@/lib/supabase/server'
 
 export const createPlan = async (formData: FormData) => {
   const streamerId = formData.get('streamerId')?.toString()
@@ -12,25 +12,41 @@ export const createPlan = async (formData: FormData) => {
   const description = formData.get('description')?.toString()
   const amount = Number(formData.get('amount'))
 
-  if (!streamerId || !gameIds || gameIds.length === 0 || !name || !description || !amount) {
-    console.error(`invalid input values: ${streamerId}, ${gameIds}, ${name}, ${description}, ${amount}`)
+  if (
+    !streamerId ||
+    !gameIds ||
+    gameIds.length === 0 ||
+    !name ||
+    !description ||
+    !amount
+  ) {
+    console.error(
+      `invalid input values: ${streamerId}, ${gameIds}, ${name}, ${description}, ${amount}`,
+    )
     return
   }
 
-  const { stripeProductId, stripePriceId } = await createStripeProductAndPrice({ name, amount })
+  const { stripeProductId, stripePriceId } = await createStripeProductAndPrice({
+    name,
+    amount,
+  })
 
   const supabase = createClient()
-  const { data, error } = await supabase.from('plans').insert({
-    streamer_id: streamerId,
-    name,
-    description,
-    amount,
-    stripe_product_id: stripeProductId,
-    stripe_price_id: stripePriceId,
-    stripe_payment_link_id: '',
-    created_at: new Date().toLocaleString(),
-    updated_at: new Date().toLocaleString()
-  }).select().single()
+  const { data, error } = await supabase
+    .from('plans')
+    .insert({
+      streamer_id: streamerId,
+      name,
+      description,
+      amount,
+      stripe_product_id: stripeProductId,
+      stripe_price_id: stripePriceId,
+      stripe_payment_link_id: '',
+      created_at: new Date().toLocaleString(),
+      updated_at: new Date().toLocaleString(),
+    })
+    .select()
+    .single()
   if (error) throw new Error(error.message)
 
   createPlansGames(data.id, gameIds)
@@ -44,7 +60,7 @@ const createPlansGames = async (planId: number, gameIds: FormDataEntryValue[]) =
   const relationRecords = gameIds.map((gameId) => {
     return {
       plan_id: planId,
-      game_id: Number(gameId)
+      game_id: Number(gameId),
     }
   })
 

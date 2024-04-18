@@ -1,7 +1,7 @@
 'use client'
 
-import { updateProfile } from '@/actions/streamer'
 import { ChangeEvent, useState } from 'react'
+import { updateProfile } from '@/actions/streamer'
 
 type Props = {
   streamerId: string

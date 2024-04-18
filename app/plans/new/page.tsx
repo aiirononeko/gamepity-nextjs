@@ -1,6 +1,6 @@
-import { createPlan } from "@/actions/plan";
-import { getGames } from "@/data/game";
-import { getStreamer } from "@/data/streamer";
+import { createPlan } from '@/actions/plan'
+import { getGames } from '@/data/game'
+import { getStreamer } from '@/data/streamer'
 
 export default async function Page() {
   const streamer = await getStreamer('185f2f83-d63a-4c9b-b4a0-7e4a885799e3')
@@ -30,9 +30,7 @@ export default async function Page() {
         />
       </div>
       <div className='mb-10 flex flex-col'>
-        <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>
-          値段
-        </label>
+        <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>値段</label>
         <input
           className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
           name='amount'
@@ -45,7 +43,11 @@ export default async function Page() {
           ゲームタイトル(複数選択可)
         </label>
         <select name='gameIds' multiple>
-          {games.map((game) => <option key={game.id} value={game.id}>{game.name}</option> )}
+          {games.map((game) => (
+            <option key={game.id} value={game.id}>
+              {game.name}
+            </option>
+          ))}
         </select>
       </div>
       <input name='streamerId' type='text' value={streamer.id} hidden readOnly />

@@ -1,10 +1,10 @@
+import Link from 'next/link'
 import IconUploadForm from './components/IconUploadForm'
 import ProfileForm from './components/ProfileForm'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Game from '@/components/Game'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
-import Link from 'next/link'
 
 // import { getUser } from '@/data/auth'
 
@@ -48,10 +48,12 @@ export default async function Page() {
       {plans && plans.length > 0 && (
         <div className='mb-10'>
           <div className='mb-2 mt-10 grid grid-cols-12'>
-            <h2 className='h-full leading-loose col-span-10 text-2xl font-bold text-game-white'>プラン</h2>
+            <h2 className='col-span-10 h-full text-2xl font-bold leading-loose text-game-white'>
+              プラン
+            </h2>
             <div className='col-span-2 mx-auto'>
               <Link href='/plans/new'>
-                <button className='text-end rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-game-white'>
+                <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end text-game-white'>
                   新しいプランを作成
                 </button>
               </Link>
