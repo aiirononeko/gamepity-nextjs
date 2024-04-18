@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Button from '@/app/components/Button'
-import { getUser } from '@/data/auth'
+import { getCurrentUser } from '@/data/auth'
 
 export default async function Header() {
-  const user = await getUser()
+  const user = await getCurrentUser()
 
   return (
     <header className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
@@ -44,7 +44,7 @@ export default async function Header() {
             {user ? (
               <li>
                 <Link
-                  href={`/users/${user.id}`}
+                  href={'/users/mypage'}
                   className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ

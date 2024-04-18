@@ -4,21 +4,19 @@ import ProfileForm from './components/ProfileForm'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Game from '@/components/Game'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
+import { getCurrentUser, isStreamer } from '@/data/auth'
+import { redirect } from 'next/navigation'
 import { getStreamer } from '@/data/streamer'
-
-// import { getUser } from '@/data/auth'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
-  // const streamer = await getUser()
-  // if (!streamer || streamer.user_metadata.is_streamer) {
-  //   // TODO: アクセス不可
-  // }
+  const user = await getCurrentUser()
+  if (!user || !isStreamer(user)) {
+    redirect('/')
+  }
 
-  const streamer = await getStreamer('185f2f83-d63a-4c9b-b4a0-7e4a885799e3')
-  const availableDateTimes = await getAvailableDateTimes(
-    '185f2f83-d63a-4c9b-b4a0-7e4a885799e3',
-  )
+  const streamer = await getStreamer(user.id)
+  const availableDateTimes = await getAvailableDateTimes(user.id)
   // @ts-ignore
   const { games, plans } = streamer
 

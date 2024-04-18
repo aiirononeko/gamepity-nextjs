@@ -1,15 +1,22 @@
-'use server'
-
 import { createClient } from '@/lib/supabase/server'
+import { User } from '@supabase/supabase-js'
 
-export async function getUser() {
+export async function getCurrentUser() {
+  'use server'
+
   const supabase = createClient()
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser()
 
-  // MEMO: エラーハンドリングしようとするとバグるので一旦放置
+  if (error) {
+    console.error(error)
+    return null
+  }
 
-  return user
+  return data.user
+}
+
+export function isStreamer(user: User) {
+  'use client'
+
+  return user.user_metadata['is_streamer']
 }

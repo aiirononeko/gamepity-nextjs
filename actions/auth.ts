@@ -96,9 +96,13 @@ export async function signInWithEmail(formData: FormData) {
     password,
   })
 
-  if (error) throw error
+  if (!data || !data.user) {
+    return
+  }
 
-  redirect(`/mypage/${data.user.id}`)
+  if (error) console.error(error.message)
+
+  redirect('/users/mypage')
 }
 
 export async function signOut() {

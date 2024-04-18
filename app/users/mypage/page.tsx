@@ -1,13 +1,20 @@
 import { redirect } from 'next/navigation'
-import { getUser } from '@/data/auth'
+import { getCurrentUser } from '@/data/auth'
+import Button from '@/app/components/Button'
+import { signOut } from '@/actions/auth'
 
 export default async function Page() {
-  const user = await getUser()
+  const user = await getCurrentUser()
   if (!user) {
-    redirect('/signin')
+    redirect('/users/signin')
   }
 
   return (
-    <p className='mx-auto mt-12 text-center text-game-white'>{`${user.id}のマイページ`}</p>
+    <div>
+      <p className='mx-auto mt-12 text-center text-game-white'>{`${user.id}のマイページ`}</p>
+      <form action={signOut}>
+        <Button type='submit'>ログアウト</Button>
+      </form>
+    </div>
   )
 }
