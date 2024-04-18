@@ -1,14 +1,14 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 import IconUploadForm from './components/IconUploadForm'
 import ProfileForm from './components/ProfileForm'
+import { getOneWeekDateTimes } from './utils'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Game from '@/components/Game'
-import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getCurrentUser, isStreamer } from '@/data/auth'
-import { redirect } from 'next/navigation'
+import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
-import AvailableDateTimeTable from './components/AvailableDateTimeTable'
-import { getOneWeekDateTimes } from './utils'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
@@ -66,9 +66,9 @@ export default async function Page() {
             ))}
           </div>
         </div>
-      ): (
+      ) : (
         <div className='mb-10 mt-6 flex flex-col items-center justify-center space-y-10'>
-          <p className='text-xl text-game-white font-bold'>プランがありません</p>
+          <p className='text-xl font-bold text-game-white'>プランがありません</p>
           <Link href='/plans/new'>
             <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end text-game-white'>
               新しいプランを作成
@@ -80,7 +80,11 @@ export default async function Page() {
         <h2 className='mb-4 h-full text-2xl font-bold leading-loose text-game-white'>
           予約可能日時登録
         </h2>
-        <AvailableDateTimeTable availableDateTimes={availableDateTimes} oneWeekDateTimes={oneWeekDateTimes} streamerId={streamer.id} />
+        <AvailableDateTimeTable
+          availableDateTimes={availableDateTimes}
+          oneWeekDateTimes={oneWeekDateTimes}
+          streamerId={streamer.id}
+        />
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
-import { getCurrentUser, isStreamer } from '@/data/auth'
-import Button from '@/app/components/Button'
 import { signOut } from '@/actions/auth'
+import Button from '@/app/components/Button'
+import { getCurrentUser, isStreamer } from '@/data/auth'
 
 export default async function Page() {
   const user = await getCurrentUser()
