@@ -7,16 +7,18 @@ import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { redirect } from 'next/navigation'
 import { getStreamer } from '@/data/streamer'
+import AvailableDateTimeTable from './components/AvailableDateTimeTable'
+import { getOneWeekDateTimes } from './utils'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
   const user = await getCurrentUser()
-  if (!user || !isStreamer(user)) {
-    redirect('/')
-  }
+  if (!user) redirect('/signin')
+  if (!isStreamer(user)) redirect('/users/mypage')
 
   const streamer = await getStreamer(user.id)
   const availableDateTimes = await getAvailableDateTimes(user.id)
+  const oneWeekDateTimes = getOneWeekDateTimes()
   // @ts-ignore
   const { games, plans } = streamer
 
@@ -43,7 +45,7 @@ export default async function Page() {
           </div>
         </div>
       )}
-      {plans && plans.length > 0 && (
+      {plans && plans.length > 0 ? (
         <div className='mb-10'>
           <div className='mb-2 mt-10 grid grid-cols-12'>
             <h2 className='col-span-10 h-full text-2xl font-bold leading-loose text-game-white'>
@@ -64,7 +66,22 @@ export default async function Page() {
             ))}
           </div>
         </div>
+      ): (
+        <div className='mb-10 mt-6 flex flex-col items-center justify-center space-y-10'>
+          <p className='text-xl text-game-white font-bold'>プランがありません</p>
+          <Link href='/plans/new'>
+            <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end text-game-white'>
+              新しいプランを作成
+            </button>
+          </Link>
+        </div>
       )}
+      <div className='mb-10'>
+        <h2 className='mb-4 h-full text-2xl font-bold leading-loose text-game-white'>
+          予約可能日時登録
+        </h2>
+        <AvailableDateTimeTable availableDateTimes={availableDateTimes} oneWeekDateTimes={oneWeekDateTimes} streamerId={streamer.id} />
+      </div>
     </div>
   )
 }

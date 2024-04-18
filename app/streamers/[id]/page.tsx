@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className='flex flex-row space-x-6 overflow-y-auto'>
             {/* @ts-ignore */}
             {games.map((game) => (
-              <Game key={game.id} game={game} size={'size-20'} />
+              <Game key={game.id} game={game} />
             ))}
           </div>
         </div>

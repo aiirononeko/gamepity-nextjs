@@ -1,9 +1,12 @@
 import { createPlan } from '@/actions/plan'
+import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
-import { getStreamer } from '@/data/streamer'
+import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const streamer = await getStreamer('185f2f83-d63a-4c9b-b4a0-7e4a885799e3')
+  const user = await getCurrentUser()
+  if (!user || !isStreamer(user)) redirect('/')
+
   const games = await getGames()
 
   return (
@@ -50,7 +53,7 @@ export default async function Page() {
           ))}
         </select>
       </div>
-      <input name='streamerId' type='text' value={streamer.id} hidden readOnly />
+      <input name='streamerId' type='text' value={user.id} hidden readOnly />
       <div className='md:flex md:items-center'>
         <button
           className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'
