@@ -9,7 +9,6 @@ create table public.plans (
   created_at timestamp with time zone not null,
   updated_at timestamp with time zone not null,
   streamer_id uuid not null references public.streamers(id),
-  game_id bigint not null references public.games(id),
 
   primary key (id)
 );
@@ -18,16 +17,23 @@ create or replace function public.handle_new_plan()
 returns trigger
 language plpgsql
 as $$
+declare
+  game_id bigint;
 begin
-  insert into public.streamer_games (streamer_id, game_id)
-  values (new.streamer_id, new.game_id)
-  on conflict do nothing;
-
+  foreach game_id in array new.game_ids
+  loop
+    insert into public.streamer_games (streamer_id, game_id)
+    values (new.streamer_id, game_id)
+    on conflict do nothing;
+  end loop;
+  
   return new;
 end;
 $$;
 
-create trigger on_plan_created
-after insert on public.plans
-for each row
-  execute procedure public.handle_new_plan();
+create table public.plans_games (
+  plan_id bigint not null references public.plans(id),
+  game_id bigint not null references public.games(id),
+
+  primary key (plan_id, game_id)
+);

@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import IconUploadForm from './components/IconUploadForm'
+import ProfileForm from './components/ProfileForm'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
-import SnsCard from '@/app/streamers/[id]/components/SnsCard'
 import Game from '@/components/Game'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
+import Link from 'next/link'
 
 // import { getUser } from '@/data/auth'
 
@@ -26,39 +26,38 @@ export default async function Page() {
     <div className='container mx-auto mt-12'>
       <div className='flex flex-row px-32 pb-12'>
         <IconUploadForm userId={streamer.id} initialIconUrl={streamer.icon_url} />
-        <div className='relative basis-3/5 space-y-6 pl-10'>
-          <p className='text-3xl font-bold text-game-white'>{streamer.name}</p>
-          <p className='text-game-white'>{streamer.profile}</p>
-          <div className='absolute right-0 top-56 flex flex-row items-center space-x-6'>
-            {streamer.youtube_url && (
-              <SnsCard
-                sns_url={streamer.youtube_url}
-                image_src={'/sns/youtube_logo.png'}
-              />
-            )}
-            {streamer.twitch_url && (
-              <SnsCard sns_url={streamer.twitch_url} image_src={'/sns/twitch_logo.png'} />
-            )}
-            {streamer.x_url && (
-              <SnsCard sns_url={streamer.x_url} image_src={'/sns/x_logo.png'} />
-            )}
-          </div>
-        </div>
+        <ProfileForm
+          streamerId={streamer.id}
+          initialName={streamer.name}
+          initialProfile={streamer.profile}
+          initialYoutubeUrl={streamer.youtube_url}
+          initialTwitchUrl={streamer.twitch_url}
+          initialXUrl={streamer.x_url}
+        />
       </div>
       {games && games.length > 0 && (
         <div className='mb-10'>
-          <div className='flex flex-row space-x-6 overflow-y-auto'>
+          <div className='flex flex-row space-x-4 overflow-y-auto'>
             {/* @ts-ignore */}
             {games.map((game) => (
-              <Game key={game.id} game={game} size={'size-20'} />
+              <Game key={game.id} game={game} />
             ))}
           </div>
         </div>
       )}
       {plans && plans.length > 0 && (
         <div className='mb-10'>
-          <h2 className='mb-4 text-2xl font-bold text-game-white'>プラン</h2>
-          <div className='space-y-6'>
+          <div className='mb-2 mt-10 grid grid-cols-12'>
+            <h2 className='h-full leading-loose col-span-10 text-2xl font-bold text-game-white'>プラン</h2>
+            <div className='col-span-2 mx-auto'>
+              <Link href='/plans/new'>
+                <button className='text-end rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-game-white'>
+                  新しいプランを作成
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className='space-y-4'>
             {/* @ts-ignore */}
             {plans.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />

@@ -60,9 +60,9 @@ export default async function Home() {
             すべてのゲームタイトルをみる →
           </Link>
         </div>
-        <div className='flex flex-row space-x-6 overflow-x-auto'>
+        <div className='flex flex-row space-x-4 overflow-x-auto'>
           {games.map((game) => (
-            <Game key={game.id} game={game} size={'size-44'} />
+            <Game key={game.id} game={game} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>

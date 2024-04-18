@@ -33,7 +33,6 @@ export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]
         id,
         name,
         description,
-        icon_url,
         created_at,
         updated_at
       ),
@@ -47,8 +46,7 @@ export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]
         stripe_payment_link_id,
         created_at,
         updated_at,
-        streamer_id,
-        game_id
+        streamer_id
       ),
       reviews (
         id,
@@ -98,7 +96,6 @@ export async function getStreamer(id: string): Promise<Streamer> {
         id,
         name,
         description,
-        icon_url,
         created_at,
         updated_at
       ),
@@ -112,8 +109,7 @@ export async function getStreamer(id: string): Promise<Streamer> {
         stripe_payment_link_id,
         created_at,
         updated_at,
-        streamer_id,
-        game_id
+        streamer_id
       ),
       reviews (
         id,
@@ -128,9 +124,10 @@ export async function getStreamer(id: string): Promise<Streamer> {
     )
     .eq('id', id)
     .limit(1)
+    .single()
 
   const { data, error } = await streamersWithGamesQuery
   if (error) throw new Error(error.message)
 
-  return data[0]
+  return data
 }

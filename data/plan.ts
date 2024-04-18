@@ -12,8 +12,9 @@ export async function getPlan(planId: number): Promise<Plan> {
     .select('*')
     .eq('id', planId)
     .limit(1)
+    .single()
 
   if (error) throw new Error(error.message)
 
-  return data[0]
+  return data
 }

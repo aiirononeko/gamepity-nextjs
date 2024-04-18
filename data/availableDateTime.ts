@@ -28,8 +28,9 @@ export async function getAvailableDateTime(
     .select('*')
     .eq('id', availableDateTimeId)
     .limit(1)
+    .single()
 
   if (error) throw new Error(error.message)
 
-  return data[0]
+  return data
 }
