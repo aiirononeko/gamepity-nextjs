@@ -20,7 +20,7 @@ export default function AvailableDateTimeTable({
           <tr>
             <th className='w-12'></th>
             {oneWeekDateTimes.map((dateTime) => (
-              <th key={dateTime.toUTCString()} className='w-28'>
+              <th key={dateTime.toLocaleString()} className='w-28'>
                 <span className='block'>{DAYS_LABEL[dateTime.getDay()]}</span>
                 <p className='text-3xl'>{dateTime.getDate()}</p>
               </th>
