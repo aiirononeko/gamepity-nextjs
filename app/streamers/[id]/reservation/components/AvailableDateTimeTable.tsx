@@ -20,7 +20,7 @@ export default function AvailableDateTimeTable({
           <tr>
             <th className='w-12'></th>
             {oneWeekDateTimes.map((dateTime) => (
-              <th key={dateTime.toLocaleString()} className='w-28'>
+              <th key={dateTime.toISOString()} className='w-28'>
                 <span className='block'>{DAYS_LABEL[dateTime.getDay()]}</span>
                 <p className='text-3xl'>{dateTime.getDate()}</p>
               </th>
@@ -33,14 +33,14 @@ export default function AvailableDateTimeTable({
               <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
                 const matchingDateTimes = availableDateTimes.filter((dateTime) => {
-                  const jstStartDate = new Date(dateTime.start_date_time)
+                  const localStartDate = new Date(dateTime.start_date_time)
                   return (
-                    jstStartDate.getDate() === day.getDate() &&
-                    jstStartDate.getHours() === hour + 1
+                    localStartDate.getDate() === day.getDate() &&
+                    localStartDate.getHours() === hour + 1
                   )
                 })
                 return (
-                  <td key={`${i}_${day}`} className='border border-solid'>
+                  <td key={`${i}_${day.toISOString()}`} className='border border-solid'>
                     {matchingDateTimes.map((dateTime) => (
                       <Link
                         key={dateTime.id}

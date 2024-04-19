@@ -1,2 +1,2 @@
 alter database postgres
-set timezone to 'Asia/Tokyo';
+set timezone to 'UTC';
