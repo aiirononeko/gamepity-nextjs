@@ -12,6 +12,7 @@ export async function getAvailableDateTimes(
   const { data, error } = await supabase
     .from('available_date_times')
     .select('*')
+    .gte('start_date_time', new Date().toLocaleString())
     .eq('streamer_id', streamerId)
 
   if (error) throw new Error(error.message)
