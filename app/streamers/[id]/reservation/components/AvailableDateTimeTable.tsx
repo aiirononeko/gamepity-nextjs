@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { Database } from '@/supabase/schema'
