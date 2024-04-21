@@ -1,9 +1,12 @@
 import { createClient } from '@/lib/supabase/client'
+import { Database } from '@/supabase/schema'
+
+type AvailableDateTime = Database['public']['Tables']['available_date_times']['Row']
 
 export const createAvailableDateTime = async (
   startDateTime: string,
   streamerId: string,
-) => {
+): Promise<AvailableDateTime> => {
   'use client'
 
   const supabase = createClient()
@@ -16,6 +19,7 @@ export const createAvailableDateTime = async (
       updated_at: new Date().toLocaleString(),
     })
     .select()
+    .single()
 
   if (error) throw new Error(error.message)
   return data

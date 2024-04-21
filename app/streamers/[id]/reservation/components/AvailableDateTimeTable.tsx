@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { Database } from '@/supabase/schema'
+import { tzDate } from '@formkit/tempo'
 
 type Props = {
   availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
@@ -33,10 +34,10 @@ export default function AvailableDateTimeTable({
               <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
                 const matchingDateTimes = availableDateTimes.filter((dateTime) => {
-                  const localStartDate = new Date(dateTime.start_date_time)
+                  const jstStartDateTime = tzDate(dateTime.start_date_time, 'Asia/Tokyo')
                   return (
-                    localStartDate.getDate() === day.getDate() &&
-                    localStartDate.getHours() === hour + 1
+                    jstStartDateTime.getDate() === tzDate(day, 'Asia/Tokyo').getDate() &&
+                    jstStartDateTime.getHours() === hour + 1
                   )
                 })
                 return (

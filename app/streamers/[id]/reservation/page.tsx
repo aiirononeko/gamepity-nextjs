@@ -1,6 +1,6 @@
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import AvailableDateTimeTable from '@/app/streamers/[id]/reservation/components/AvailableDateTimeTable'
-import { getOneWeekDateTimes } from '@/app/streamers/[id]/reservation/utils'
+import { getOneWeekDateTimes } from '@/app/streamers/utils'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 
