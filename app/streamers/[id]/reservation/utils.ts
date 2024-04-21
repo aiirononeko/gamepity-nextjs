@@ -1,4 +1,4 @@
-import { date, range } from "@formkit/tempo"
+import { date, range } from '@formkit/tempo'
 
 /**
  * 1週間分のDateオブジェクトを返します.

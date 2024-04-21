@@ -7,7 +7,16 @@ import {
 } from '@/actions/availableDateTime'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { Database } from '@/supabase/schema'
-import { addHour, date, dayStart, format, hourStart, isEqual, parse, tzDate } from '@formkit/tempo'
+import {
+  addHour,
+  date,
+  dayStart,
+  format,
+  hourStart,
+  isEqual,
+  parse,
+  tzDate,
+} from '@formkit/tempo'
 
 type Props = {
   availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
@@ -16,7 +25,7 @@ type Props = {
 }
 
 type AvailableDateTimesMap = {
-  [ key: string ]: Database['public']['Tables']['available_date_times']['Row']
+  [key: string]: Database['public']['Tables']['available_date_times']['Row']
 }
 
 export default function AvailableDateTimeTable({
@@ -24,20 +33,27 @@ export default function AvailableDateTimeTable({
   oneWeekDateTimes,
   streamerId,
 }: Props) {
-  const [availableDateTimesMap, setAvailableDateTimesMap] = useState<AvailableDateTimesMap>({})
+  const [availableDateTimesMap, setAvailableDateTimesMap] =
+    useState<AvailableDateTimesMap>({})
 
   useEffect(() => {
-    const dateTimeMap: AvailableDateTimesMap = {};
+    const dateTimeMap: AvailableDateTimesMap = {}
     availableDateTimes.forEach((availableDateTime) => {
       const jstStartDateTime = tzDate(availableDateTime.start_date_time, 'Asia/Tokyo')
-      const key = format({ date: hourStart(jstStartDateTime), format: 'YYYY-MM-DDTHH:mm:ss' })
-      dateTimeMap[key] = availableDateTime;
-    });
+      const key = format({
+        date: hourStart(jstStartDateTime),
+        format: 'YYYY-MM-DDTHH:mm:ss',
+      })
+      dateTimeMap[key] = availableDateTime
+    })
     setAvailableDateTimesMap(dateTimeMap)
   }, [availableDateTimes])
 
   const toggleDateTime = async (targetDateTime: Date, targetHour: number) => {
-    const jstTargetDateTimeString = addHour(dayStart(tzDate(targetDateTime, 'Asia/Tokyo')), targetHour)
+    const jstTargetDateTimeString = addHour(
+      dayStart(tzDate(targetDateTime, 'Asia/Tokyo')),
+      targetHour,
+    )
 
     const found = Object.entries(availableDateTimesMap).find(([startDateTime, _]) => {
       return isEqual(startDateTime, jstTargetDateTimeString)
@@ -46,14 +62,19 @@ export default function AvailableDateTimeTable({
     if (found) {
       // 予約可能日時を削除
       await deleteAvailableDateTime(found[1].id)
-      const newAvailableDateTimeMap = Object.entries(availableDateTimesMap).filter(([_, value]) => value.id !== found[1].id)
+      const newAvailableDateTimeMap = Object.entries(availableDateTimesMap).filter(
+        ([_, value]) => value.id !== found[1].id,
+      )
       setAvailableDateTimesMap(Object.fromEntries(newAvailableDateTimeMap))
     } else {
       // 予約可能日時を追加
-      const targetDateTime = format({ date: hourStart(jstTargetDateTimeString), format: 'YYYY-MM-DDTHH:mm:ss' })
-      const data = await createAvailableDateTime(targetDateTime, streamerId);
+      const targetDateTime = format({
+        date: hourStart(jstTargetDateTimeString),
+        format: 'YYYY-MM-DDTHH:mm:ss',
+      })
+      const data = await createAvailableDateTime(targetDateTime, streamerId)
       if (data) {
-        const newMap = {...availableDateTimesMap}
+        const newMap = { ...availableDateTimesMap }
         newMap[targetDateTime] = data
         setAvailableDateTimesMap(newMap)
       }
@@ -75,31 +96,38 @@ export default function AvailableDateTimeTable({
           </tr>
         </thead>
         {availableDateTimesMap && (
-        <tbody>
-          {[...Array(24)].map((_, hour) => (
-            <tr key={hour}>
-              <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
-              {oneWeekDateTimes.map((day, i) => {
-                const isActive = Object.entries(availableDateTimesMap).some(
-                  ([_, availableDateTime]) =>
-                    tzDate(availableDateTime.start_date_time, 'Asia/Tokyo').getDate() === tzDate(day, 'Asia/Tokyo').getDate() &&
-                    tzDate(availableDateTime.start_date_time, 'Asia/Tokyo').getHours() === hour + 1,
-                )
-                return (
-                  <td
-                    key={`${i}_${day}`}
-                    className='border border-solid'
-                    onClick={() => toggleDateTime(day, hour - 8)} // UTC時刻として渡す
-                  >
-                    {isActive && (
-                      <div className='block h-20 cursor-pointer bg-game-white'></div>
-                    )}
-                  </td>
-                )
-              })}
-            </tr>
-          ))}
-        </tbody>
+          <tbody>
+            {[...Array(24)].map((_, hour) => (
+              <tr key={hour}>
+                <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
+                {oneWeekDateTimes.map((day, i) => {
+                  const isActive = Object.entries(availableDateTimesMap).some(
+                    ([_, availableDateTime]) =>
+                      tzDate(
+                        availableDateTime.start_date_time,
+                        'Asia/Tokyo',
+                      ).getDate() === tzDate(day, 'Asia/Tokyo').getDate() &&
+                      tzDate(
+                        availableDateTime.start_date_time,
+                        'Asia/Tokyo',
+                      ).getHours() ===
+                        hour + 1,
+                  )
+                  return (
+                    <td
+                      key={`${i}_${day}`}
+                      className='border border-solid'
+                      onClick={() => toggleDateTime(day, hour - 8)} // UTC時刻として渡す
+                    >
+                      {isActive && (
+                        <div className='block h-20 cursor-pointer bg-game-white'></div>
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
         )}
       </table>
     </div>

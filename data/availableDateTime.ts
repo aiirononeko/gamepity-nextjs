@@ -10,7 +10,7 @@ export async function getAvailableDateTimes(
   streamerId: string,
 ): Promise<AvailableDateTime[]> {
   const supabase = createClient()
-  const today = date(new Date)
+  const today = date(new Date())
   const { data, error } = await supabase
     .from('available_date_times')
     .select('*')
