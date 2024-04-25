@@ -1,18 +1,49 @@
-import { createClient } from '@/lib/stripe'
+'use server'
 
-type CreateParams = {
+import { createClient } from '@/lib/stripe'
+import { redirect } from 'next/navigation'
+import Stripe from 'stripe'
+
+type CreateProductParams = {
   name: string
   amount: number
 }
 
-type DeleteParams = {
-  stripeProductId: string
-  stripePriceId: string
+export const createStripeAccount = async (email: string): Promise<Stripe.Response<Stripe.Account>> => {
+  const stripe = createClient()
+  const account = await stripe.accounts.create({
+    type: 'standard',
+    country: 'JP',
+    email,
+  })
+  return account
 }
 
-const stripe = createClient()
+export const hasDetailsSubmittedToStripe = async (stripeAccountId: string | null): Promise<boolean> => {
+  if (!stripeAccountId) return false
 
-export const createStripeProductAndPrice = async ({ name, amount }: CreateParams) => {
+  const stripe = createClient()
+  const { details_submitted } = await stripe.accounts.retrieve(stripeAccountId)
+  return details_submitted
+}
+
+export const linkToStripeAccount = async (formData: FormData) => {
+  const stripeAccountId = formData.get('stripeAccountId')?.toString()
+  if (!stripeAccountId) return
+
+  const stripe = createClient()
+  const accountLink = await stripe.accountLinks.create({
+    account: stripeAccountId,
+    refresh_url: 'https://www.gamepity.com/streamers/mypage',
+    return_url: 'https://www.gamepity.com/streamers/mypage',
+    type: 'account_onboarding'
+  })
+
+  redirect(accountLink.url)
+}
+
+export const createStripeProductAndPrice = async ({ name, amount }: CreateProductParams): Promise<{stripeProductId: string, stripePriceId: string}> => {
+  const stripe = createClient()
   const product = await stripe.products.create({
     name,
     description: `プラン名: ${name}`,

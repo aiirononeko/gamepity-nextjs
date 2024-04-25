@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { Session, User } from '@supabase/supabase-js'
+import { createStripeAccount } from '@/actions/stripe'
+import { updateStripeAccountId } from '@/actions/streamer'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
@@ -65,7 +67,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
   }
 
   const supabase = createClient()
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -76,8 +78,16 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
       emailRedirectTo: 'https://gamepity.com/',
     },
   })
-
   if (error) throw error
+  if (!data.user) {
+    return {
+      user: null,
+      session: null
+    }
+  }
+
+  const stripeAccount = await createStripeAccount(email)
+  await updateStripeAccountId(data.user.id, stripeAccount.id)
 
   redirect('/streamers/signup/completed')
 }
@@ -91,16 +101,11 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   const supabase = createClient()
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
-
-  if (!data || !data.user) {
-    return
-  }
-
-  if (error) console.error(error.message)
+  if (error) throw error
 
   redirect('/users/mypage')
 }
