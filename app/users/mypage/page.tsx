@@ -5,7 +5,6 @@ import { getCurrentUser, isStreamer } from '@/data/auth'
 
 export default async function Page() {
   const user = await getCurrentUser()
-  if (!user) redirect('/signin')
   if (isStreamer(user)) redirect('/streamers/mypage')
 
   return (

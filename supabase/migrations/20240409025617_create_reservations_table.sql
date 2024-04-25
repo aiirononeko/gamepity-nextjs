@@ -1,7 +1,6 @@
 create table public.reservations (
   id bigserial,
   start_date_dime timestamp with time zone not null,
-  end_date_time timestamp with time zone not null,
   is_available boolean not null default false,
   created_at timestamp with time zone not null,
   updated_at timestamp with time zone not null,

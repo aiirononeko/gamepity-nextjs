@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 import IconUploadForm from './components/IconUploadForm'
 import ProfileForm from './components/ProfileForm'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
 import Game from '@/components/Game'
-import { getCurrentUser, isStreamer } from '@/data/auth'
+import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
 import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
@@ -14,9 +13,6 @@ import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stri
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
   const user = await getCurrentUser()
-  if (!user) redirect('/signin')
-  if (!isStreamer(user)) redirect('/users/mypage')
-
   const streamer = await getStreamer(user.id)
   const availableDateTimes = await getAvailableDateTimes(user.id)
   const oneWeekDateTimes = getOneWeekDateTimes()
