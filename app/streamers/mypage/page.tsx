@@ -1,24 +1,30 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 import IconUploadForm from './components/IconUploadForm'
 import ProfileForm from './components/ProfileForm'
+import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
 import Game from '@/components/Game'
-import { getCurrentUser } from '@/data/auth'
+import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
-import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
   const user = await getCurrentUser()
+  if (!user || isStreamer(user)) redirect('/signin')
+
   const streamer = await getStreamer(user.id)
-  const availableDateTimes = await getAvailableDateTimes(user.id)
-  const oneWeekDateTimes = getOneWeekDateTimes()
   // @ts-ignore
   const { games, plans } = streamer
-  const hasSubmittedDetails =  await hasDetailsSubmittedToStripe(streamer.stripe_account_id)
+  const availableDateTimes = await getAvailableDateTimes(user.id)
+  const hasSubmittedDetails = await hasDetailsSubmittedToStripe(
+    streamer.stripe_account_id,
+  )
+
+  const oneWeekDateTimes = getOneWeekDateTimes()
 
   return (
     <div className='container mx-auto mt-12'>
@@ -88,10 +94,17 @@ export default async function Page() {
           </div>
         </>
       ) : (
-        <div className='mb-10 flex flex-col space-y-6 items-center'>
-          <p className='text-xl font-bold text-game-white text-center'>Stripeでビジネス情報を登録してください</p>
+        <div className='mb-10 flex flex-col items-center space-y-6'>
+          <p className='text-center text-xl font-bold text-game-white'>
+            Stripeでビジネス情報を登録してください
+          </p>
           <form action={linkToStripeAccount}>
-            <input type='hidden' name='stripeAccountId' value={streamer.stripe_account_id ?? ''} readOnly />
+            <input
+              type='hidden'
+              name='stripeAccountId'
+              value={streamer.stripe_account_id ?? ''}
+              readOnly
+            />
             <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-10 py-2 text-end text-game-white'>
               登録する
             </button>

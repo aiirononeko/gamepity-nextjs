@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { AuthUser, User } from '@supabase/supabase-js'
-import { redirect } from 'next/navigation'
 
-export async function getCurrentUser(): Promise<AuthUser> {
+export async function getCurrentUser(): Promise<AuthUser | null> {
   'use server'
 
   const supabase = createClient()
@@ -10,10 +9,7 @@ export async function getCurrentUser(): Promise<AuthUser> {
 
   if (error) {
     console.error(error)
-    redirect('/signin')
   }
-
-  if (!data.user) redirect('/signin')
 
   return data.user
 }

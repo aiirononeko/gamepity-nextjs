@@ -1,7 +1,7 @@
 'use server'
 
-import { createClient } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 type CreateProductParams = {
@@ -9,7 +9,9 @@ type CreateProductParams = {
   amount: number
 }
 
-export const createStripeAccount = async (email: string): Promise<Stripe.Response<Stripe.Account>> => {
+export const createStripeAccount = async (
+  email: string,
+): Promise<Stripe.Response<Stripe.Account>> => {
   const stripe = createClient()
   const account = await stripe.accounts.create({
     type: 'standard',
@@ -19,7 +21,9 @@ export const createStripeAccount = async (email: string): Promise<Stripe.Respons
   return account
 }
 
-export const hasDetailsSubmittedToStripe = async (stripeAccountId: string | null): Promise<boolean> => {
+export const hasDetailsSubmittedToStripe = async (
+  stripeAccountId: string | null,
+): Promise<boolean> => {
   if (!stripeAccountId) return false
 
   const stripe = createClient()
@@ -36,13 +40,16 @@ export const linkToStripeAccount = async (formData: FormData) => {
     account: stripeAccountId,
     refresh_url: 'https://www.gamepity.com/streamers/mypage',
     return_url: 'https://www.gamepity.com/streamers/mypage',
-    type: 'account_onboarding'
+    type: 'account_onboarding',
   })
 
   redirect(accountLink.url)
 }
 
-export const createStripeProductAndPrice = async ({ name, amount }: CreateProductParams): Promise<{stripeProductId: string, stripePriceId: string}> => {
+export const createStripeProductAndPrice = async ({
+  name,
+  amount,
+}: CreateProductParams): Promise<{ stripeProductId: string; stripePriceId: string }> => {
   const stripe = createClient()
   const product = await stripe.products.create({
     name,
@@ -67,9 +74,9 @@ export const createStripePaymentLink = async (stripePriceId: string) => {
     line_items: [
       {
         price: stripePriceId,
-        quantity: 1
-      }
-    ]
+        quantity: 1,
+      },
+    ],
   })
   return paymentLink
 }

@@ -1,9 +1,12 @@
+import { redirect } from 'next/navigation'
 import { createPlan } from '@/actions/plan'
-import { getCurrentUser } from '@/data/auth'
+import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
 
 export default async function Page() {
   const user = await getCurrentUser()
+  if (!user || !isStreamer(user)) redirect('/signin')
+
   const games = await getGames()
 
   return (

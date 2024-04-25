@@ -1,10 +1,10 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { updateStripeAccountId } from '@/actions/streamer'
+import { createStripeAccount } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
 import type { Session, User } from '@supabase/supabase-js'
-import { createStripeAccount } from '@/actions/stripe'
-import { updateStripeAccountId } from '@/actions/streamer'
 
 export async function signUpUserWithEmail(formData: FormData): Promise<
   | {
@@ -75,14 +75,14 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
         is_streamer: true,
         name,
       },
-      emailRedirectTo: 'https://gamepity.com/',
+      emailRedirectTo: 'https://gamepity.com/signin',
     },
   })
   if (error) throw error
   if (!data.user) {
     return {
       user: null,
-      session: null
+      session: null,
     }
   }
 

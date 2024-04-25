@@ -12,11 +12,17 @@ type UpdateParams = {
   xUrl?: string
 }
 
-export const updateStripeAccountId = async (streamerId: string, stripeAccountId: string) => {
+export const updateStripeAccountId = async (
+  streamerId: string,
+  stripeAccountId: string,
+) => {
   const supabase = createServerClient()
-  const { error } = await supabase.from('streamers').update({
-    stripe_account_id: stripeAccountId
-  }).eq('id', streamerId)
+  const { error } = await supabase
+    .from('streamers')
+    .update({
+      stripe_account_id: stripeAccountId,
+    })
+    .eq('id', streamerId)
   if (error) throw error
 }
 

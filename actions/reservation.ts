@@ -1,8 +1,8 @@
 'use server'
 
-import { redirect } from "next/navigation"
-import { createStripePaymentLink } from "@/actions/stripe"
-import { createClient } from "@/lib/supabase/server"
+import { redirect } from 'next/navigation'
+import { createStripePaymentLink } from '@/actions/stripe'
+import { createClient } from '@/lib/supabase/server'
 
 export const createReservation = async (formData: FormData) => {
   const startDateTime = formData.get('startDateTime')?.toString()
@@ -21,7 +21,7 @@ export const createReservation = async (formData: FormData) => {
     updated_at: new Date().toString(),
     streamer_id: streamerId,
     user_id: userId,
-    plan_id: planId
+    plan_id: planId,
   })
   if (error) throw error
 
@@ -30,7 +30,7 @@ export const createReservation = async (formData: FormData) => {
 
   // 作成したpayment_linkに遷移
   redirect(paymentLink.url)
-  
+
   // 遷移先で支払いが成功した場合、webhookで検知してreservationデータを有効化する
   // 支払いが成功していないreservationがある場合、マイページに表示する
 }

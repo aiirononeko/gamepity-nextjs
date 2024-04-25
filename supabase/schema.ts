@@ -61,18 +61,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "available_date_times_reservation_id_fkey"
-            columns: ["reservation_id"]
+            foreignKeyName: 'available_date_times_reservation_id_fkey'
+            columns: ['reservation_id']
             isOneToOne: false
-            referencedRelation: "reservations"
-            referencedColumns: ["id"]
+            referencedRelation: 'reservations'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "available_date_times_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'available_date_times_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -139,11 +139,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "plans_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'plans_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -162,18 +162,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "plans_games_game_id_fkey"
-            columns: ["game_id"]
+            foreignKeyName: 'plans_games_game_id_fkey'
+            columns: ['game_id']
             isOneToOne: false
-            referencedRelation: "games"
-            referencedColumns: ["id"]
+            referencedRelation: 'games'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "plans_games_plan_id_fkey"
-            columns: ["plan_id"]
+            foreignKeyName: 'plans_games_plan_id_fkey'
+            columns: ['plan_id']
             isOneToOne: false
-            referencedRelation: "plans"
-            referencedColumns: ["id"]
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -210,25 +210,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "reservations_plan_id_fkey"
-            columns: ["plan_id"]
+            foreignKeyName: 'reservations_plan_id_fkey'
+            columns: ['plan_id']
             isOneToOne: false
-            referencedRelation: "plans"
-            referencedColumns: ["id"]
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reservations_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'reservations_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reservations_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'reservations_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -262,25 +262,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "reviews_plan_id_fkey"
-            columns: ["plan_id"]
+            foreignKeyName: 'reviews_plan_id_fkey'
+            columns: ['plan_id']
             isOneToOne: false
-            referencedRelation: "plans"
-            referencedColumns: ["id"]
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'reviews_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'reviews_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -299,18 +299,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "streamer_games_game_id_fkey"
-            columns: ["game_id"]
+            foreignKeyName: 'streamer_games_game_id_fkey'
+            columns: ['game_id']
             isOneToOne: false
-            referencedRelation: "games"
-            referencedColumns: ["id"]
+            referencedRelation: 'games'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "streamer_games_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'streamer_games_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -356,11 +356,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "streamers_id_fkey"
-            columns: ["id"]
+            foreignKeyName: 'streamers_id_fkey'
+            columns: ['id']
             isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -388,11 +388,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
+            foreignKeyName: 'users_id_fkey'
+            columns: ['id']
             isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -405,11 +405,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "reviews_streamer_id_fkey"
-            columns: ["streamer_id"]
+            foreignKeyName: 'reviews_streamer_id_fkey'
+            columns: ['streamer_id']
             isOneToOne: false
-            referencedRelation: "streamers"
-            referencedColumns: ["id"]
+            referencedRelation: 'streamers'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -528,11 +528,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
+            foreignKeyName: 'objects_bucketId_fkey'
+            columns: ['bucket_id']
             isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            referencedRelation: 'buckets'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -569,11 +569,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey"
-            columns: ["bucket_id"]
+            foreignKeyName: 's3_multipart_uploads_bucket_id_fkey'
+            columns: ['bucket_id']
             isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            referencedRelation: 'buckets'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -616,18 +616,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey"
-            columns: ["bucket_id"]
+            foreignKeyName: 's3_multipart_uploads_parts_bucket_id_fkey'
+            columns: ['bucket_id']
             isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            referencedRelation: 'buckets'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey"
-            columns: ["upload_id"]
+            foreignKeyName: 's3_multipart_uploads_parts_upload_id_fkey'
+            columns: ['upload_id']
             isOneToOne: false
-            referencedRelation: "s3_multipart_uploads"
-            referencedColumns: ["id"]
+            referencedRelation: 's3_multipart_uploads'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -731,85 +731,83 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, 'public'>]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+        Database[PublicTableNameOrOptions['schema']]['Views'])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
+  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
+      PublicSchema['Views'])
+  ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
     : never
+  : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+    | keyof PublicSchema['Tables']
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
     : never
+  : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+    | keyof PublicSchema['Tables']
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
     : never
+  : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
+    | keyof PublicSchema['Enums']
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
-
+  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
+  ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+  : never

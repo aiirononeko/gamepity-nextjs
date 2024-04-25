@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { createReservation } from '@/actions/reservation'
 import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
@@ -10,6 +11,8 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const user = await getCurrentUser()
+  if (!user) redirect('/signin')
+
   const plan = await getPlan(Number(searchParams.planId))
   const availableDateTime = await getAvailableDateTime(
     Number(searchParams.availableDateTimeId),
@@ -28,7 +31,12 @@ export default async function Page({
             ※予約時の注意事項
           </p>
         </div>
-        <input name='startDateTime' value={availableDateTime.start_date_time} hidden readOnly />
+        <input
+          name='startDateTime'
+          value={availableDateTime.start_date_time}
+          hidden
+          readOnly
+        />
         <input name='streamerId' value={streamer.id} hidden readOnly />
         <input name='userId' value={user.id} hidden readOnly />
         <input name='planId' value={plan.id} hidden readOnly />
