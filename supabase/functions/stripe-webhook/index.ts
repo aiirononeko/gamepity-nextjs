@@ -1,5 +1,5 @@
-import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.42.6'
+import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_API_KEY') as string, {
   apiVersion: '2023-10-16',
@@ -25,20 +25,19 @@ Deno.serve(async (req) => {
       signature!,
       Deno.env.get('STRIPE_WEBHOOK_SIGNING_SECRET')!,
       undefined,
-      cryptoProvider
+      cryptoProvider,
     )
     console.log(`🔔 Event received: ${receivedEvent.id}`)
 
     // 決済したユーザーの仮予約データを取得
-    const { userId, streamerId } = receivedEvent.metadata
+    const { userId, streamerId } = receivedEvent.data.object.metadata
     const temporaryReservation = await getTempReservation(userId, streamerId)
 
     // 仮予約データを有効化
-    await activateTempReservation(temporaryReservation)
+    await activateTempReservation(temporaryReservation.id)
 
-
-    // available_datetimesはここで操作すると、仮予約が二つ生まれる可能性があるため、
-    // アプリケーション側で制御する
+    // 予約可能日時を削除
+    await deleteReservedAvailableDateTime(temporaryReservation.id)
 
     // 仮予約データは作成後1時間で削除するように実装し、その際にavailable_datetimeもロールバックする
 
@@ -49,13 +48,39 @@ Deno.serve(async (req) => {
 })
 
 const getTempReservation = async (userId: string, streamerId: string) => {
-  const { data, error } = await supabase.from('reservations').select('*').eq('user_id', userId).eq('streamer_id', streamerId).single()
-  if (error) throw error
+  const { data, error } = await supabase
+    .from('reservations')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('streamer_id', streamerId)
+    .single()
+  if (error) {
+    console.error(error)
+    throw error
+  }
+  if (!data) console.error('Reservation data is not found.')
 
   return data
 }
 
-const activateTempReservation = async (tempReservationId: string) => {
-  const { error } = await supabase.from('reservations').update({ 'is_active': true }).eq('id', tempReservationId)
-  if (error) throw error
+const activateTempReservation = async (tempReservationId: number) => {
+  const { error } = await supabase
+    .from('reservations')
+    .update({ is_available: true })
+    .eq('id', tempReservationId)
+  if (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const deleteReservedAvailableDateTime = async (tempReservationId: number) => {
+  const { error } = await supabase
+    .from('available_date_times')
+    .delete()
+    .eq({ reservation_id: tempReservationId, is_reserved: true })
+  if (error) {
+    console.error(error)
+    throw error
+  }
 }

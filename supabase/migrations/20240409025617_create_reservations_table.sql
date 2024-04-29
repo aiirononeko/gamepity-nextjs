@@ -5,7 +5,7 @@ create table public.reservations (
   created_at timestamp with time zone not null,
   updated_at timestamp with time zone not null,
   streamer_id uuid not null references public.streamers(id),
-  user_id uuid not null references public.users(id),
+  user_id uuid not null references auth.users(id),
   plan_id bigint not null references public.plans(id),
 
   primary key (id)

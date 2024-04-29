@@ -57,7 +57,7 @@ export const createStripeProductAndPrice = async ({
   })
 
   const price = await stripe.prices.create({
-    unit_amount: amount * 100,
+    unit_amount: amount,
     currency: 'jpy',
     product: product.id,
   })
@@ -68,7 +68,11 @@ export const createStripeProductAndPrice = async ({
   }
 }
 
-export const createStripePaymentLink = async (stripePriceId: string, userId: string, streamerId: string) => {
+export const createStripePaymentLink = async (
+  stripePriceId: string,
+  userId: string,
+  streamerId: string,
+) => {
   const stripe = createClient()
   const paymentLink = await stripe.paymentLinks.create({
     line_items: [
@@ -77,10 +81,17 @@ export const createStripePaymentLink = async (stripePriceId: string, userId: str
         quantity: 1,
       },
     ],
+    // application_fee_percent: 0, // TODO: Betaが完了したら修正する
     metadata: {
       userId,
-      streamerId
-    }
+      streamerId,
+    },
+    after_completion: {
+      type: 'redirect',
+      redirect: {
+        url: 'https://www.gamepity.com/users/mypage',
+      },
+    },
   })
   return paymentLink
 }

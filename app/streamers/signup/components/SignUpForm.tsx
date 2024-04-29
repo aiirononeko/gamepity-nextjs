@@ -1,18 +1,18 @@
 'use client'
 
-import { signUpStreamerWithEmail } from '@/actions/auth'
 import { useState } from 'react'
+import { signUpStreamerWithEmail } from '@/actions/auth'
 
 export default function SignUpForm() {
   const [hasAgreedToTerms, setHasAgreedToTerms] = useState<boolean>(false)
   const [hasAgreedToPrivacyPolicy, setHasAgreedToPrivacyPolicy] = useState<boolean>(false)
 
   const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHasAgreedToTerms(e.target.checked);
+    setHasAgreedToTerms(e.target.checked)
   }
 
   const handlePrivacyPolicyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHasAgreedToPrivacyPolicy(e.target.checked);
+    setHasAgreedToPrivacyPolicy(e.target.checked)
   }
 
   return (
@@ -58,7 +58,13 @@ export default function SignUpForm() {
             onChange={handleTermsChange}
             checked={hasAgreedToTerms}
           />
-          <a href='https://www.notion.so/9f18b38032884fe8915c7addad0e7f0e?pvs=4' target='_blank' className='text-sm'><span className='underline'>利用規約</span>に同意する</a>
+          <a
+            href='https://www.notion.so/9f18b38032884fe8915c7addad0e7f0e?pvs=4'
+            target='_blank'
+            className='text-sm'
+          >
+            <span className='underline'>利用規約</span>に同意する
+          </a>
         </label>
       </div>
       <div className='mb-10 flex flex-col'>
@@ -69,13 +75,21 @@ export default function SignUpForm() {
             onChange={handlePrivacyPolicyChange}
             checked={hasAgreedToPrivacyPolicy}
           />
-          <a href='https://www.notion.so/116df216216d478d9ab909e53d6475a9?pvs=4' target='_blank' className='text-sm'><span className='underline'>プライバシーポリシー</span>に同意する</a>
+          <a
+            href='https://www.notion.so/116df216216d478d9ab909e53d6475a9?pvs=4'
+            target='_blank'
+            className='text-sm'
+          >
+            <span className='underline'>プライバシーポリシー</span>に同意する
+          </a>
         </label>
       </div>
       <div className='md:flex md:items-center'>
         <button
           className={`w-full rounded border-2 border-solid border-game-white px-8 py-3 text-game-white ${
-            !hasAgreedToTerms || !hasAgreedToPrivacyPolicy ? 'bg-gray-300' : 'bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF]'
+            !hasAgreedToTerms || !hasAgreedToPrivacyPolicy
+              ? 'bg-gray-300'
+              : 'bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF]'
           }`}
           type='submit'
           disabled={!hasAgreedToTerms || !hasAgreedToPrivacyPolicy}
