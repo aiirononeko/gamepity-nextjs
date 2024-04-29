@@ -60,8 +60,8 @@ security definer set search_path = public
 as $$
 begin
   if (new.raw_user_meta_data ->> 'is_streamer') then
-    insert into public.streamers (id, name, created_at, updated_at)
-    values (new.id, new.raw_user_meta_data ->> 'name', NOW(), NOW());
+    insert into public.streamers (id, name, stripe_account_id, created_at, updated_at)
+    values (new.id, new.raw_user_meta_data ->> 'name', new.raw_user_meta_data ->> 'stripe_account_id', NOW(), NOW());
   else
     insert into public.users (id, name, created_at, updated_at)
     values (new.id, new.raw_user_meta_data ->> 'name', NOW(), NOW());

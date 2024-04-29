@@ -66,6 +66,8 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
     }
   }
 
+  const stripeAccount = await createStripeAccount(email)
+
   const supabase = createClient()
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -74,6 +76,7 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
       data: {
         is_streamer: true,
         name,
+        stripe_account_id: stripeAccount.id,
       },
       emailRedirectTo: 'https://gamepity.com/signin',
     },
@@ -85,9 +88,6 @@ export async function signUpStreamerWithEmail(formData: FormData): Promise<
       session: null,
     }
   }
-
-  const stripeAccount = await createStripeAccount(email)
-  await updateStripeAccountId(data.user.id, stripeAccount.id)
 
   redirect('/streamers/signup/completed')
 }
