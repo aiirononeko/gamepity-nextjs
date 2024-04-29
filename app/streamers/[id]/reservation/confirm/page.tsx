@@ -31,6 +31,7 @@ export default async function Page({
             ※予約時の注意事項
           </p>
         </div>
+        <input name='availableDateTimeId' value={availableDateTime.id} hidden readOnly />
         <input
           name='startDateTime'
           value={availableDateTime.start_date_time}

@@ -1,5 +1,5 @@
-import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.42.6'
+import Stripe from 'https://esm.sh/stripe@11.1.0?target=deno'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_API_KEY') as string, {
   apiVersion: '2023-10-16',
@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
       signature!,
       Deno.env.get('STRIPE_WEBHOOK_SIGNING_SECRET')!,
       undefined,
-      cryptoProvider
+      cryptoProvider,
     )
     console.log(`🔔 Event received: ${receivedEvent.id}`)
 
@@ -48,7 +48,12 @@ Deno.serve(async (req) => {
 })
 
 const getTempReservation = async (userId: string, streamerId: string) => {
-  const { data, error } = await supabase.from('reservations').select('*').eq('user_id', userId).eq('streamer_id', streamerId).single()
+  const { data, error } = await supabase
+    .from('reservations')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('streamer_id', streamerId)
+    .single()
   if (error) {
     console.error(error)
     throw error
@@ -59,7 +64,10 @@ const getTempReservation = async (userId: string, streamerId: string) => {
 }
 
 const activateTempReservation = async (tempReservationId: number) => {
-  const { error } = await supabase.from('reservations').update({ 'is_available': true }).eq('id', tempReservationId)
+  const { error } = await supabase
+    .from('reservations')
+    .update({ is_available: true })
+    .eq('id', tempReservationId)
   if (error) {
     console.error(error)
     throw error
@@ -67,7 +75,10 @@ const activateTempReservation = async (tempReservationId: number) => {
 }
 
 const deleteReservedAvailableDateTime = async (tempReservationId: number) => {
-  const { error } = await supabase.from('available_date_times').delete().eq({ 'reservation_id': tempReservationId, 'is_reserved': true })
+  const { error } = await supabase
+    .from('available_date_times')
+    .delete()
+    .eq({ reservation_id: tempReservationId, is_reserved: true })
   if (error) {
     console.error(error)
     throw error

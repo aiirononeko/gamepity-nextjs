@@ -68,7 +68,11 @@ export const createStripeProductAndPrice = async ({
   }
 }
 
-export const createStripePaymentLink = async (stripePriceId: string, userId: string, streamerId: string) => {
+export const createStripePaymentLink = async (
+  stripePriceId: string,
+  userId: string,
+  streamerId: string,
+) => {
   const stripe = createClient()
   const paymentLink = await stripe.paymentLinks.create({
     line_items: [
@@ -80,7 +84,7 @@ export const createStripePaymentLink = async (stripePriceId: string, userId: str
     // application_fee_percent: 0, // TODO: Betaが完了したら修正する
     metadata: {
       userId,
-      streamerId
+      streamerId,
     },
     after_completion: {
       type: 'redirect',

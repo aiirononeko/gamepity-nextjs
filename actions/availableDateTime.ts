@@ -1,3 +1,5 @@
+'use server'
+
 import { createClient } from '@/lib/supabase/client'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { Database } from '@/supabase/schema'
@@ -37,10 +39,16 @@ export const deleteAvailableDateTime = async (availableDateTimeId: number) => {
   if (error) throw new Error(error.message)
 }
 
-export const disableAvailableDateTime = async (availableDateTimeId: number, reservationId: number) => {
+export const disableAvailableDateTime = async (
+  availableDateTimeId: number,
+  reservationId: number,
+) => {
   'use server'
 
   const supabase = createServerClient()
-  const { error } = await supabase.from('available_date_times').update({ 'is_reserved': true, 'reservation_id': reservationId }).eq('id', availableDateTimeId)
+  const { error } = await supabase
+    .from('available_date_times')
+    .update({ is_reserved: true, reservation_id: reservationId })
+    .eq('id', availableDateTimeId)
   if (error) throw error
 }

@@ -1,9 +1,9 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { disableAvailableDateTime } from './availableDateTime'
 import { createStripePaymentLink } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
-import { disableAvailableDateTime } from './availableDateTime'
 
 export const createReservation = async (formData: FormData) => {
   const availableDateTimeId = Number(formData.get('availableDateTimeId'))
@@ -13,18 +13,30 @@ export const createReservation = async (formData: FormData) => {
   const planId = Number(formData.get('planId'))
   const stripePriceId = formData.get('stripePriceId')?.toString()
 
-  if (!availableDateTimeId || !startDateTime || !streamerId || !userId || !planId || !stripePriceId) return
+  if (
+    !availableDateTimeId ||
+    !startDateTime ||
+    !streamerId ||
+    !userId ||
+    !planId ||
+    !stripePriceId
+  )
+    return
 
   // reservationデータ作成
   const supabase = createClient()
-  const { data, error } = await supabase.from('reservations').insert({
-    start_date_dime: startDateTime,
-    created_at: new Date().toUTCString(),
-    updated_at: new Date().toUTCString(),
-    streamer_id: streamerId,
-    user_id: userId,
-    plan_id: planId,
-  }).select('*').single()
+  const { data, error } = await supabase
+    .from('reservations')
+    .insert({
+      start_date_dime: startDateTime,
+      created_at: new Date().toUTCString(),
+      updated_at: new Date().toUTCString(),
+      streamer_id: streamerId,
+      user_id: userId,
+      plan_id: planId,
+    })
+    .select('*')
+    .single()
   if (error) throw error
 
   await disableAvailableDateTime(availableDateTimeId, data.id)
