@@ -30,16 +30,14 @@ Deno.serve(async (req) => {
     console.log(`🔔 Event received: ${receivedEvent.id}`)
 
     // 決済したユーザーの仮予約データを取得
-    const { userId, streamerId } = receivedEvent.metadata
+    const { userId, streamerId } = receivedEvent.data.object.metadata
     const temporaryReservation = await getTempReservation(userId, streamerId)
 
     // 仮予約データを有効化
-    await activateTempReservation(temporaryReservation)
-
+    await activateTempReservation(temporaryReservation.id)
 
     // available_datetimesはここで操作すると、仮予約が二つ生まれる可能性があるため、
     // アプリケーション側で制御する
-
     // 仮予約データは作成後1時間で削除するように実装し、その際にavailable_datetimeもロールバックする
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
@@ -50,12 +48,19 @@ Deno.serve(async (req) => {
 
 const getTempReservation = async (userId: string, streamerId: string) => {
   const { data, error } = await supabase.from('reservations').select('*').eq('user_id', userId).eq('streamer_id', streamerId).single()
-  if (error) throw error
+  if (error) {
+    console.error(error)
+    throw error
+  }
+  if (!data) console.error('Reservation data is not found.')
 
   return data
 }
 
 const activateTempReservation = async (tempReservationId: string) => {
   const { error } = await supabase.from('reservations').update({ 'is_active': true }).eq('id', tempReservationId)
-  if (error) throw error
+  if (error) {
+    console.error(error)
+    throw error
+  }
 }

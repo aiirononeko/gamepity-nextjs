@@ -77,10 +77,17 @@ export const createStripePaymentLink = async (stripePriceId: string, userId: str
         quantity: 1,
       },
     ],
+    // application_fee_percent: 0, // TODO: Betaが完了したら修正する
     metadata: {
       userId,
       streamerId
-    }
+    },
+    after_completion: {
+      type: 'redirect',
+      redirect: {
+        url: 'https://www.gamepity.com/users/mypage',
+      },
+    },
   })
   return paymentLink
 }
