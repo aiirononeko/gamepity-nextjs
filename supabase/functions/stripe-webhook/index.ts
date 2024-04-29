@@ -58,7 +58,7 @@ const getTempReservation = async (userId: string, streamerId: string) => {
 }
 
 const activateTempReservation = async (tempReservationId: string) => {
-  const { error } = await supabase.from('reservations').update({ 'is_active': true }).eq('id', tempReservationId)
+  const { error } = await supabase.from('reservations').update({ 'is_available': true }).eq('id', tempReservationId)
   if (error) {
     console.error(error)
     throw error
