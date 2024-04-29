@@ -5,26 +5,47 @@
 
 # 使用技術
 
-- Nextjs 14.0.0
+## Development
+- Nextjs AppRouter
 - TypeScript
 - TailwindCSS
-- Prisma
+
+## BaaS
 - Supabase
+
+## Hosting
 - Vercel
 
-# 起動コマンド
+# コマンド
+
+## アプリケーションサーバー起動
 
 ```
 npm run dev
 ```
 
-# マイグレーションコマンド
-
-## ローカル環境
+## マイグレーション or DB Clean Up
 
 ```
-npx prisma migrate dev --name ${任意の名前}
+supabase db reset
 ```
+
+## 型生成
+
 ```
-npx prisma generate
+supabase gen types typescript --local > supabase/schema.ts
+```
+
+## Functions起動
+
+```
+supabase functions serve --no-verify-jwt
+```
+
+## Stripe Webhookローカル
+
+```
+stripe login
+stripe listen --forward-to localhost:54321/functions/v1/stripe-webhoo
+stripe trigger payment_intent.succeeded
 ```

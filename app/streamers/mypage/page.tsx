@@ -14,7 +14,7 @@ import { getStreamer } from '@/data/streamer'
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page() {
   const user = await getCurrentUser()
-  if (!user || isStreamer(user)) redirect('/signin')
+  if (!user || !isStreamer(user)) redirect('/signin')
 
   const streamer = await getStreamer(user.id)
   // @ts-ignore

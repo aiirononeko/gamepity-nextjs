@@ -17,8 +17,8 @@ export const createReservation = async (formData: FormData) => {
   const supabase = createClient()
   const { error } = await supabase.from('reservations').insert({
     start_date_dime: startDateTime,
-    created_at: new Date().toString(),
-    updated_at: new Date().toString(),
+    created_at: new Date().toUTCString(),
+    updated_at: new Date().toUTCString(),
     streamer_id: streamerId,
     user_id: userId,
     plan_id: planId,
@@ -26,7 +26,7 @@ export const createReservation = async (formData: FormData) => {
   if (error) throw error
 
   // payment_link作成
-  const paymentLink = await createStripePaymentLink(stripePriceId)
+  const paymentLink = await createStripePaymentLink(stripePriceId, userId, streamerId)
 
   // 作成したpayment_linkに遷移
   redirect(paymentLink.url)

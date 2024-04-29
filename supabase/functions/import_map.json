@@ -1,1 +1,5 @@
-{ "imports": {} }
+{
+  "imports": {
+    "database": "./supabase/schema.ts"
+  }
+}

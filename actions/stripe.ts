@@ -68,7 +68,7 @@ export const createStripeProductAndPrice = async ({
   }
 }
 
-export const createStripePaymentLink = async (stripePriceId: string) => {
+export const createStripePaymentLink = async (stripePriceId: string, userId: string, streamerId: string) => {
   const stripe = createClient()
   const paymentLink = await stripe.paymentLinks.create({
     line_items: [
@@ -77,6 +77,10 @@ export const createStripePaymentLink = async (stripePriceId: string) => {
         quantity: 1,
       },
     ],
+    metadata: {
+      userId,
+      streamerId
+    }
   })
   return paymentLink
 }
