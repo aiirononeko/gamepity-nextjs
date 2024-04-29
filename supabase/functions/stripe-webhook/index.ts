@@ -36,8 +36,9 @@ Deno.serve(async (req) => {
     // 仮予約データを有効化
     await activateTempReservation(temporaryReservation.id)
 
-    // available_datetimesはここで操作すると、仮予約が二つ生まれる可能性があるため、
-    // アプリケーション側で制御する
+    // 予約可能日時を削除
+    await deleteReservedAvailableDateTime(temporaryReservation.id)
+
     // 仮予約データは作成後1時間で削除するように実装し、その際にavailable_datetimeもロールバックする
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
@@ -57,8 +58,16 @@ const getTempReservation = async (userId: string, streamerId: string) => {
   return data
 }
 
-const activateTempReservation = async (tempReservationId: string) => {
+const activateTempReservation = async (tempReservationId: number) => {
   const { error } = await supabase.from('reservations').update({ 'is_available': true }).eq('id', tempReservationId)
+  if (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const deleteReservedAvailableDateTime = async (tempReservationId: number) => {
+  const { error } = await supabase.from('available_date_times').delete().eq({ 'reservation_id': tempReservationId, 'is_reserved': true })
   if (error) {
     console.error(error)
     throw error
