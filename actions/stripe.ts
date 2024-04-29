@@ -57,7 +57,7 @@ export const createStripeProductAndPrice = async ({
   })
 
   const price = await stripe.prices.create({
-    unit_amount: amount * 100,
+    unit_amount: amount,
     currency: 'jpy',
     product: product.id,
   })
