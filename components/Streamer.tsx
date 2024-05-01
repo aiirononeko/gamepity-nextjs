@@ -9,7 +9,8 @@ type Props = {
 
 export default function Streamer({ streamer, width }: Props) {
   return (
-    <Link href={`/streamers/${streamer.id}`}>
+    <div className='transition hover:-translate-y-1 duration-300'>
+      <Link href={`/streamers/${streamer.id}`}>
       {streamer.icon_url ? (
         <div className={`relative h-52 ${width}`}>
           <Image alt={`${streamer.name}のアイコン`} src={streamer.icon_url} fill={true} />
@@ -22,5 +23,6 @@ export default function Streamer({ streamer, width }: Props) {
         <p className='mb-4 line-clamp-6 text-xs text-game-gray-300'>{streamer.profile}</p>
       </div>
     </Link>
+    </div>
   )
 }

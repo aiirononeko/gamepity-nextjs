@@ -29,8 +29,8 @@ export default async function Home() {
       <div className='container mx-auto'>
         <div className='grid grid-cols-5'>
           <div className='col-span-4'>
-            <h2 className='text-xl font-bold text-game-white'>注目ストリーマー</h2>
-            <p className='mb-5 text-xs text-game-gray-300'>
+            <h2 className='mb-1 text-xl font-bold text-game-white'>注目ストリーマー</h2>
+            <p className='mb-2 text-xs text-game-gray-300'>
               注目のストリーマーと一緒にゲームを楽しもう！
             </p>
           </div>
@@ -41,33 +41,27 @@ export default async function Home() {
             すべてのストリーマーをみる →
           </Link>
         </div>
-        <div className='flex flex-nowrap space-x-6 overflow-y-auto'>
+        <div className='flex flex-nowrap space-x-6 overflow-y-auto py-3'>
           {streamers.map((streamer) => (
             <Streamer key={streamer.id} streamer={streamer} width={'w-80'} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
           <div className='col-span-4'>
-            <h2 className='text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
-            <p className='mb-5 text-xs text-game-gray-300'>
+            <h2 className='mb-1 text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
+            <p className='mb-2 text-xs text-game-gray-300'>
               注目のゲームタイトルからストリーマーを探そう！
             </p>
           </div>
-          <Link
-            href='/games'
-            className='col-span-1 pt-3 text-end text-game-white underline'
-          >
-            すべてのゲームタイトルをみる →
-          </Link>
         </div>
-        <div className='flex flex-row space-x-4 overflow-x-auto'>
+        <div className='flex flex-row space-x-4 overflow-y-auto h-20 py-3'>
           {games.map((game) => (
             <Game key={game.id} game={game} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
           <div className='col-span-4'>
-            <h2 className='text-xl font-bold text-game-white'>すべてのストリーマー</h2>
+            <h2 className='mb-1 text-xl font-bold text-game-white'>すべてのストリーマー</h2>
             <p className='mb-5 text-xs text-game-gray-300'>
               お気に入りのストリーマーを見つけよう！
             </p>
