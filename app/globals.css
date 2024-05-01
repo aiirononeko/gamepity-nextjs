@@ -5,3 +5,21 @@
 html {
   background-color: #202020;
 }
+
+html,
+body {
+  height: 100%; /* htmlとbodyの高さを100%に設定 */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  min-height: 100vh; /* 最小の高さをビューポートの100%に設定 */
+  flex: 1; /* flex子要素としてフレックスを持たせる */
+}
+
+footer {
+  margin-top: auto; /* 余白を自動で最大にしてフッターを下に押し出す */
+}
