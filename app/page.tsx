@@ -54,14 +54,16 @@ export default async function Home() {
             </p>
           </div>
         </div>
-        <div className='flex flex-row space-x-4 overflow-y-auto h-20 py-3'>
+        <div className='flex h-20 flex-row space-x-4 overflow-y-auto py-3'>
           {games.map((game) => (
             <Game key={game.id} game={game} />
           ))}
         </div>
         <div className='mt-10 grid grid-cols-5'>
           <div className='col-span-4'>
-            <h2 className='mb-1 text-xl font-bold text-game-white'>すべてのストリーマー</h2>
+            <h2 className='mb-1 text-xl font-bold text-game-white'>
+              すべてのストリーマー
+            </h2>
             <p className='mb-5 text-xs text-game-gray-300'>
               お気に入りのストリーマーを見つけよう！
             </p>

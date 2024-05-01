@@ -7,7 +7,7 @@ type Props = {
 
 export default function PlanCard({ plan }: Props) {
   return (
-    <div className='h-32 bg-game-gray-600 transition hover:-translate-y-1 duration-300'></div>
+    <div className='h-32 bg-game-gray-600 transition duration-300 hover:-translate-y-1'></div>
   )
   // return (
   //   <div className='grid h-20 grid-cols-12 items-center rounded-lg bg-game-gray-600'>
