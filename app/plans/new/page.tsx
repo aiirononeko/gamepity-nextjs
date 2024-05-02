@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { DropDownSelect } from './components/DropDownSelect'
 import { createPlan } from '@/actions/plan'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
@@ -8,6 +9,10 @@ export default async function Page() {
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const games = await getGames()
+  const options = games.map((game) => ({
+    label: game.name,
+    value: game.name,
+  }))
 
   return (
     <form className='mx-auto mt-20 w-full max-w-sm' action={createPlan}>
@@ -32,7 +37,7 @@ export default async function Page() {
           placeholder='ガチでランク回しましょう！Apexダイヤランク以上推奨です。'
         />
       </div>
-      <div className='mb-10 flex flex-col'>
+      <div className='mb-6 flex flex-col'>
         <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>値段</label>
         <input
           className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
@@ -45,13 +50,7 @@ export default async function Page() {
         <label className='mb-1 block pr-4 text-left font-bold text-gray-500'>
           ゲームタイトル(複数選択可)
         </label>
-        <select name='gameIds' multiple>
-          {games.map((game) => (
-            <option key={game.id} value={game.id}>
-              {game.name}
-            </option>
-          ))}
-        </select>
+        <DropDownSelect options={options} />
       </div>
       <input name='streamerId' type='text' value={user.id} hidden readOnly />
       <div className='md:flex md:items-center'>
