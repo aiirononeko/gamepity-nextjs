@@ -66,7 +66,7 @@ export default async function Page({
           <a
             className='text-center font-bold text-game-white underline hover:text-blue-500'
             target='_blank'
-            href='/'
+            href='https://brash-ferry-996.notion.site/54ac9ecf2f41440dac1744f1bc94aedc'
           >
             ※ご購入前に予約時の注意事項をご確認ください
           </a>
