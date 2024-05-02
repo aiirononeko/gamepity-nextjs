@@ -1,9 +1,11 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createReservation } from '@/actions/reservation'
 import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
+import { addHour, date, format } from '@formkit/tempo'
 
 export default async function Page({
   searchParams,
@@ -19,17 +21,55 @@ export default async function Page({
   )
   const streamer = await getStreamer(plan.streamer_id)
 
+  const startDateTime = format(
+    date(availableDateTime.start_date_time),
+    'YYYY/MM/DD hh:mm',
+    'ja',
+  )
+  const endDateTime = format(
+    addHour(date(availableDateTime.start_date_time), 1),
+    'YYYY/MM/DD hh:mm',
+    'ja',
+  )
+
   return (
     <div className='container mx-auto mt-10'>
       <form action={createReservation}>
-        <h2 className='mb-4 text-2xl font-bold text-game-white'>予約内容の確認</h2>
-        <p>{streamer.name}</p>
-        <p>{plan.name}</p>
-        <p>{availableDateTime.start_date_time}</p>
-        <div className='mb-10'>
-          <p className='mb-4 text-center text-xl font-bold text-game-white'>
-            ※予約時の注意事項
-          </p>
+        <h2 className='mb-6 text-2xl font-bold text-game-white'>予約内容の確認</h2>
+        <div className='flex flex-row px-32 pb-12'>
+          {streamer.icon_url ? (
+            <div className='relative mx-auto h-72 w-80 basis-2/5'>
+              <Image
+                alt={`${streamer.name}のアイコン`}
+                src={streamer.icon_url}
+                fill={true}
+              />
+            </div>
+          ) : (
+            <div className='relative mx-auto h-72 w-80 basis-2/5 bg-game-gray-600'></div>
+          )}
+          <div className='relative flex basis-3/5 flex-col space-y-6 pl-10'>
+            <p className='basis-1/6 text-3xl font-bold text-game-white'>
+              {streamer.name}
+            </p>
+            <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
+            <p className='basis-3/6 text-game-white'>{plan.description}</p>
+            <p className='basis-1/6 text-xl font-bold text-game-white'>
+              {startDateTime} ~ {endDateTime}
+            </p>
+            <p className='basis-1/6 text-xl font-bold text-game-white'>
+              {plan.amount}円 / 60分
+            </p>
+          </div>
+        </div>
+        <div className='mb-10 flex justify-center'>
+          <a
+            className='text-center font-bold text-game-white underline hover:text-blue-500'
+            target='_blank'
+            href='/'
+          >
+            ※ご購入前に予約時の注意事項をご確認ください
+          </a>
         </div>
         <input name='availableDateTimeId' value={availableDateTime.id} hidden readOnly />
         <input
@@ -42,9 +82,11 @@ export default async function Page({
         <input name='userId' value={user.id} hidden readOnly />
         <input name='planId' value={plan.id} hidden readOnly />
         <input name='stripePriceId' value={plan.stripe_price_id} hidden readOnly />
-        <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'>
-          この内容で予約する
-        </button>
+        <div className='flex justify-center'>
+          <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white hover:-translate-y-1'>
+            この内容で予約する
+          </button>
+        </div>
       </form>
     </div>
   )
