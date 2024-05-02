@@ -2,7 +2,9 @@ import AvailableDateTimeTable from '@/app/streamers/[id]/reservation/components/
 import PlanCard from '@/app/streamers/[id]/reservation/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
+import { getGames } from '@/data/game'
 import { getPlan } from '@/data/plan'
+import { getStreamer } from '@/data/streamer'
 
 export default async function Page({
   searchParams,
@@ -10,6 +12,8 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const plan = await getPlan(Number(searchParams.planId))
+  const streamer = await getStreamer(plan.streamer_id)
+  const tempGames = await getGames()
   const availableDateTimes = await getAvailableDateTimes(plan.streamer_id)
   const oneWeekDateTimes = getOneWeekDateTimes()
 
@@ -17,7 +21,7 @@ export default async function Page({
     <div className='container mx-auto mt-10'>
       <div className='mb-10'>
         <p className='mb-4 text-xl font-bold text-game-white'>選択中のプラン</p>
-        <PlanCard plan={plan} />
+        <PlanCard plan={plan} streamer={streamer} games={[tempGames[0], tempGames[1]]} />
       </div>
       <div className='mb-10'>
         {availableDateTimes && (

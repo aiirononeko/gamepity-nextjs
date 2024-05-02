@@ -49,7 +49,7 @@ export default function AvailableDateTimeTable({
                         key={dateTime.id}
                         href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${dateTime.id}`}
                       >
-                        <div className='block h-20 cursor-pointer bg-game-white'></div>
+                        <div className='block h-20 cursor-pointer bg-game-white hover:scale-110'></div>
                       </Link>
                     ))}
                   </td>
