@@ -68,7 +68,7 @@ export default async function Page() {
               <div className='space-y-4'>
                 {/* @ts-ignore */}
                 {plans.map((plan) => (
-                  <PlanCard key={plan.id} plan={plan} />
+                  <PlanCard key={plan.id} plan={plan} streamer={streamer} games={games} />
                 ))}
               </div>
             </div>
