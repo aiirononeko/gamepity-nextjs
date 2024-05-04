@@ -13,7 +13,7 @@ export function ReviewForm() {
     <div className='flex items-center'>
       <svg
         onClick={() => handleChangeRating(1)}
-        className='ms-1 size-8 text-yellow-300 hover:-translate-y-1 dark:text-gray-500'
+        className='ms-1 size-8 text-yellow-300 hover:-translate-y-1'
         aria-hidden='true'
         xmlns='http://www.w3.org/2000/svg'
         fill='currentColor'
@@ -24,7 +24,7 @@ export function ReviewForm() {
       {rating >= 2 ? (
         <svg
           onClick={() => handleChangeRating(2)}
-          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1 dark:text-gray-500'
+          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1'
           aria-hidden='true'
           xmlns='http://www.w3.org/2000/svg'
           fill='currentColor'
@@ -47,7 +47,7 @@ export function ReviewForm() {
       {rating >= 3 ? (
         <svg
           onClick={() => handleChangeRating(3)}
-          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1 dark:text-gray-500'
+          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1'
           aria-hidden='true'
           xmlns='http://www.w3.org/2000/svg'
           fill='currentColor'
@@ -70,7 +70,7 @@ export function ReviewForm() {
       {rating >= 4 ? (
         <svg
           onClick={() => handleChangeRating(4)}
-          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1 dark:text-gray-500'
+          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1'
           aria-hidden='true'
           xmlns='http://www.w3.org/2000/svg'
           fill='currentColor'
@@ -93,7 +93,7 @@ export function ReviewForm() {
       {rating >= 5 ? (
         <svg
           onClick={() => handleChangeRating(5)}
-          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1 dark:text-gray-500'
+          className='ms-1 size-8 text-yellow-300 hover:-translate-y-1'
           aria-hidden='true'
           xmlns='http://www.w3.org/2000/svg'
           fill='currentColor'
