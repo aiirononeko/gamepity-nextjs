@@ -49,7 +49,7 @@ export const createPlan = async (formData: FormData) => {
     .single()
   if (error) throw new Error(error.message)
 
-  createPlansGames(data.id, gameIds)
+  await createPlansGames(data.id, gameIds)
 
   revalidatePath('/streamers/mypage')
   redirect('/streamers/mypage')

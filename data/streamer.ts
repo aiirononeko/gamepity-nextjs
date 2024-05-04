@@ -92,13 +92,6 @@ export async function getStreamer(id: string): Promise<Streamer> {
       x_url,
       created_at,
       updated_at,
-      games (
-        id,
-        name,
-        description,
-        created_at,
-        updated_at
-      ),
       plans (
         id,
         name,

@@ -1,14 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { getGamesWithPlanId } from '@/data/game'
 import { Database } from '@/supabase/schema'
 
 type Props = {
   plan: Database['public']['Tables']['plans']['Row']
   streamer: Database['public']['Tables']['streamers']['Row']
-  games: Database['public']['Tables']['games']['Row'][]
 }
 
-export default function PlanCard({ plan, streamer, games }: Props) {
+export default async function PlanCard({ plan, streamer }: Props) {
+  const games = await getGamesWithPlanId(plan.id)
+  console.log(games)
+
   return (
     <div className='flex h-44 flex-row bg-game-gray-600 transition duration-300'>
       <div className='basis-2/12'>

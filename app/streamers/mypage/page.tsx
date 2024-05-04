@@ -18,7 +18,7 @@ export default async function Page() {
 
   const streamer = await getStreamer(user.id)
   // @ts-ignore
-  const { games, plans } = streamer
+  const { plans } = streamer
   const availableDateTimes = await getAvailableDateTimes(user.id)
   const hasSubmittedDetails = await hasDetailsSubmittedToStripe(
     streamer.stripe_account_id,
@@ -39,16 +39,6 @@ export default async function Page() {
           initialXUrl={streamer.x_url}
         />
       </div>
-      {games && games.length > 0 && (
-        <div className='mb-10'>
-          <div className='flex flex-row space-x-4 overflow-y-auto'>
-            {/* @ts-ignore */}
-            {games.map((game) => (
-              <Game key={game.id} game={game} />
-            ))}
-          </div>
-        </div>
-      )}
       {hasSubmittedDetails ? (
         <>
           {plans && plans.length > 0 ? (
@@ -68,7 +58,7 @@ export default async function Page() {
               <div className='space-y-4'>
                 {/* @ts-ignore */}
                 {plans.map((plan) => (
-                  <PlanCard key={plan.id} plan={plan} streamer={streamer} games={games} />
+                  <PlanCard key={plan.id} plan={plan} streamer={streamer} />
                 ))}
               </div>
             </div>

@@ -11,7 +11,7 @@ export default async function Page() {
   const games = await getGames()
   const options = games.map((game) => ({
     label: game.name,
-    value: game.name,
+    value: game.id,
   }))
 
   return (
