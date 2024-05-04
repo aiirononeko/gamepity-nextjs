@@ -30,3 +30,15 @@ export const getCompletedReservations = async (
 
   return data
 }
+
+export const getReservation = async (reservationId: number) => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('reservations')
+    .select('*')
+    .eq('id', reservationId)
+    .single()
+  if (error) throw error
+
+  return data
+}
