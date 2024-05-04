@@ -3,7 +3,7 @@
 import Select from 'react-select'
 
 type Props = {
-  options: { label: string; value: string }[]
+  options: { label: string; value: number }[]
 }
 
 export const DropDownSelect = ({ options }: Props) => {

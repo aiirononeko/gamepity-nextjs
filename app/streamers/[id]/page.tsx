@@ -2,7 +2,7 @@ import Image from 'next/image'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Review from '@/app/streamers/[id]/components/Review'
 import SnsCard from '@/app/streamers/[id]/components/SnsCard'
-import { getGames } from '@/data/game'
+import { getGames, getGamesWithPlanId } from '@/data/game'
 import { getStreamer } from '@/data/streamer'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
@@ -10,7 +10,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
   // @ts-ignore
   const { plans, reviews } = streamer
-  const tempGames = await getGames() // TODO: 消す
 
   return (
     <div className='container mx-auto mt-12'>
@@ -51,12 +50,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className='space-y-4'>
             {/* @ts-ignore */}
             {plans.map((plan) => (
-              <PlanCard
-                key={plan.id}
-                plan={plan}
-                streamer={streamer}
-                games={[tempGames[0], tempGames[1]]}
-              />
+              <PlanCard key={plan.id} plan={plan} streamer={streamer} />
             ))}
           </div>
         </div>

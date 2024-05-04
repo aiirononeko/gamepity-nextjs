@@ -10,7 +10,6 @@ type Props = {
 
 export default async function PlanCard({ plan, streamer }: Props) {
   const games = await getGamesWithPlanId(plan.id)
-  console.log(games)
 
   return (
     <div className='flex h-44 flex-row bg-game-gray-600 transition duration-300'>
