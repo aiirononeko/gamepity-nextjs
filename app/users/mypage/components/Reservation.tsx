@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
-import { Database } from '@/supabase/schema'
+import type { Reservation } from '@/types/reservation'
 import { date, format } from '@formkit/tempo'
 
 type Props = {
-  reservation: Database['public']['Tables']['reservations']['Row']
+  reservation: Reservation
 }
 
 export default async function Reservation({ reservation }: Props) {

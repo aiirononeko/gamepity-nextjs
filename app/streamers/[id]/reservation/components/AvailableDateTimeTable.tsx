@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
-import type { Database } from '@/supabase/schema'
+import type { AvailableDateTime } from '@/types/availableDateTime'
+import type { Plan } from '@/types/plan'
 import { tzDate } from '@formkit/tempo'
 
 type Props = {
-  availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
-  plan: Database['public']['Tables']['plans']['Row']
+  availableDateTimes: AvailableDateTime[]
+  plan: Plan
   oneWeekDateTimes: Date[]
 }
 

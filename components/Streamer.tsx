@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Database } from '@/supabase/schema'
+import type { Streamer } from '@/types/streamer'
 
 type Props = {
-  streamer: Database['public']['Tables']['streamers']['Row']
+  streamer: Streamer
   width: string
 }
 

@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { Database } from '@/supabase/schema'
+import type { Game } from '@/types/game'
 
 type Props = {
-  game: Database['public']['Tables']['games']['Row']
+  game: Game
 }
 
 export default function Game({ game }: Props) {

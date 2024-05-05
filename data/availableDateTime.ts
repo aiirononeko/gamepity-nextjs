@@ -1,10 +1,8 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { Database } from '@/supabase/schema'
+import { AvailableDateTime } from '@/types/availableDateTime'
 import { date } from '@formkit/tempo'
-
-type AvailableDateTime = Database['public']['Tables']['available_date_times']['Row']
 
 export async function getAvailableDateTimes(
   streamerId: string,
@@ -13,7 +11,7 @@ export async function getAvailableDateTimes(
   const today = date(new Date())
   const { data, error } = await supabase
     .from('available_date_times')
-    .select('*')
+    .select()
     .gte('start_date_time', today.toUTCString())
     .eq('streamer_id', streamerId)
     .eq('is_reserved', false)
@@ -29,7 +27,7 @@ export async function getAvailableDateTime(
   const supabase = createClient()
   const { data, error } = await supabase
     .from('available_date_times')
-    .select('*')
+    .select()
     .eq('id', availableDateTimeId)
     .limit(1)
     .single()

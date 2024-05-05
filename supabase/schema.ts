@@ -45,13 +45,13 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          created_at: string
+          created_at?: string
           id?: number
           is_reserved?: boolean
           reservation_id?: number | null
           start_date_time: string
           streamer_id: string
-          updated_at: string
+          updated_at?: string
         }
         Update: {
           created_at?: string
@@ -88,11 +88,11 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          created_at: string
+          created_at?: string
           description?: string | null
           id?: number
           name: string
-          updated_at: string
+          updated_at?: string
         }
         Update: {
           created_at?: string
@@ -118,7 +118,7 @@ export type Database = {
         }
         Insert: {
           amount: number
-          created_at: string
+          created_at?: string
           description?: string | null
           id?: number
           name: string
@@ -126,7 +126,7 @@ export type Database = {
           stripe_payment_link_id: string
           stripe_price_id: string
           stripe_product_id: string
-          updated_at: string
+          updated_at?: string
         }
         Update: {
           amount?: number
@@ -192,13 +192,13 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          created_at: string
+          created_at?: string
           id?: number
           is_available?: boolean
           plan_id: number
           start_date_dime: string
           streamer_id: string
-          updated_at: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -243,15 +243,17 @@ export type Database = {
           plan_id: number
           rating: number
           streamer_id: string
+          updated_at: string
           user_id: string
         }
         Insert: {
           comment?: string | null
-          created_at: string
+          created_at?: string
           id?: number
           plan_id: number
           rating: number
           streamer_id: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -261,6 +263,7 @@ export type Database = {
           plan_id?: number
           rating?: number
           streamer_id?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: [
@@ -333,14 +336,14 @@ export type Database = {
         }
         Insert: {
           avg_rating?: number | null
-          created_at: string
+          created_at?: string
           icon_url?: string | null
           id: string
           name: string
           profile?: string | null
           stripe_account_id?: string | null
           twitch_url?: string | null
-          updated_at: string
+          updated_at?: string
           x_url?: string | null
           youtube_url?: string | null
         }
@@ -376,11 +379,11 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          created_at: string
+          created_at?: string
           icon_url?: string | null
           id: string
           name: string
-          updated_at: string
+          updated_at?: string
         }
         Update: {
           created_at?: string

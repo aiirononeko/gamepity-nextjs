@@ -1,19 +1,20 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { Database } from '@/supabase/schema'
-
-type Streamer = Database['public']['Tables']['streamers']['Row']
+import type { Streamer } from '@/types/streamer'
 
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
-  const { data, error } = await supabase.from('streamers').select('*')
+  const { data, error } = await supabase.from('streamers').select()
 
   if (error) throw new Error(error.message)
 
   return data ?? []
 }
 
+/**
+ * TODO: 動いていないので直す
+ */
 export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select(
@@ -59,7 +60,6 @@ export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]
       )
     `,
   )
-  // .eq('games.id', gameId) // MEMO: これだとgames.idが1のデータだけを取得する、みたいな挙動になっていて、streamer自体は全件取得される
 
   // MEMO: CLIのfilterメソッドが使えたら消す
   const filteredData = data?.filter((streamer) => {

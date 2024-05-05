@@ -1,9 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { Database } from '@/supabase/schema'
-
-type Game = Database['public']['Tables']['games']['Row']
+import type { Game } from '@/types/game'
 
 export async function getGames(): Promise<Game[]> {
   const supabase = createClient()

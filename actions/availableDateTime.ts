@@ -2,9 +2,7 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { createClient as createServerClient } from '@/lib/supabase/server'
-import { Database } from '@/supabase/schema'
-
-type AvailableDateTime = Database['public']['Tables']['available_date_times']['Row']
+import { AvailableDateTime } from '@/types/availableDateTime'
 
 export const createAvailableDateTime = async (
   startDateTime: string,

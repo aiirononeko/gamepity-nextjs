@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { getGamesWithPlanId } from '@/data/game'
-import { Database } from '@/supabase/schema'
+import type { Plan } from '@/types/plan'
+import type { Streamer } from '@/types/streamer'
 
 type Props = {
-  plan: Database['public']['Tables']['plans']['Row']
-  streamer: Database['public']['Tables']['streamers']['Row']
+  plan: Plan
+  streamer: Streamer
 }
 
 export default async function PlanCard({ plan, streamer }: Props) {

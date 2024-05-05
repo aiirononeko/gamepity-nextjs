@@ -1,7 +1,7 @@
-import { Database } from '@/supabase/schema'
+import { Review } from '@/types/review'
 
 type Props = {
-  review: Database['public']['Tables']['reviews']['Row']
+  review: Review
 }
 
 export default function ReviewCard({ review }: Props) {

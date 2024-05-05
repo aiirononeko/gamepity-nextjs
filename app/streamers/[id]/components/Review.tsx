@@ -1,9 +1,10 @@
 import ReviewCard from '@/app/streamers/[id]/components/ReviewCard'
-import { Database } from '@/supabase/schema'
+import type { Review } from '@/types/review'
+import type { Streamer } from '@/types/streamer'
 
 type Props = {
-  reviews: Database['public']['Tables']['reviews']['Row'][]
-  streamer: Database['public']['Tables']['streamers']['Row']
+  reviews: Review[]
+  streamer: Streamer
 }
 
 export default function Review(props: Props) {

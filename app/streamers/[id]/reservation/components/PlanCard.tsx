@@ -1,10 +1,12 @@
 import Image from 'next/image'
-import { Database } from '@/supabase/schema'
+import type { Game } from '@/types/game'
+import type { Plan } from '@/types/plan'
+import type { Streamer } from '@/types/streamer'
 
 type Props = {
-  plan: Database['public']['Tables']['plans']['Row']
-  streamer: Database['public']['Tables']['streamers']['Row']
-  games: Database['public']['Tables']['games']['Row'][]
+  plan: Plan
+  streamer: Streamer
+  games: Game[]
 }
 
 export default function PlanCard({ plan, streamer, games }: Props) {

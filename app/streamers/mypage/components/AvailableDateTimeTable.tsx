@@ -6,17 +6,17 @@ import {
   deleteAvailableDateTime,
 } from '@/actions/availableDateTime'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
-import type { Database } from '@/supabase/schema'
+import type { AvailableDateTime } from '@/types/availableDateTime'
 import { addHour, dayStart, format, hourStart, isEqual, tzDate } from '@formkit/tempo'
 
 type Props = {
-  availableDateTimes: Database['public']['Tables']['available_date_times']['Row'][]
+  availableDateTimes: AvailableDateTime[]
   oneWeekDateTimes: Date[]
   streamerId: string
 }
 
 type AvailableDateTimesMap = {
-  [key: string]: Database['public']['Tables']['available_date_times']['Row']
+  [key: string]: AvailableDateTime
 }
 
 export default function AvailableDateTimeTable({

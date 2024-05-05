@@ -1,13 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
-import { Database } from '@/supabase/schema'
-
-type Reservation = Database['public']['Tables']['reservations']['Row']
+import type { Reservation } from '@/types/reservation'
 
 export const getReservations = async (userId: string): Promise<Reservation[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
-    .select('*')
+    .select()
     .eq('user_id', userId)
     .eq('is_available', true)
     .gt('start_date_dime', new Date().toUTCString())
@@ -22,7 +20,7 @@ export const getCompletedReservations = async (
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
-    .select('*')
+    .select()
     .eq('user_id', userId)
     .eq('is_available', true)
     .lt('start_date_dime', new Date().toUTCString())
@@ -35,7 +33,7 @@ export const getReservation = async (reservationId: number) => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
-    .select('*')
+    .select()
     .eq('id', reservationId)
     .single()
   if (error) throw error
