@@ -16,7 +16,6 @@ export const createReview = async (formData: FormData) => {
   const { error } = await supabase.from('reviews').insert({
     rating,
     comment,
-    created_at: new Date().toUTCString(),
     plan_id: planId,
     user_id: userId,
     streamer_id: streamerId,

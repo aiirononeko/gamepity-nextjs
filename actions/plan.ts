@@ -42,8 +42,6 @@ export const createPlan = async (formData: FormData) => {
       stripe_product_id: stripeProductId,
       stripe_price_id: stripePriceId,
       stripe_payment_link_id: '',
-      created_at: new Date().toLocaleString(),
-      updated_at: new Date().toLocaleString(),
     })
     .select()
     .single()

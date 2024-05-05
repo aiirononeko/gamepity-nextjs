@@ -29,8 +29,6 @@ export const createReservation = async (formData: FormData) => {
     .from('reservations')
     .insert({
       start_date_dime: startDateTime,
-      created_at: new Date().toUTCString(),
-      updated_at: new Date().toUTCString(),
       streamer_id: streamerId,
       user_id: userId,
       plan_id: planId,

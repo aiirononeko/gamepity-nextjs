@@ -16,8 +16,6 @@ export const createAvailableDateTime = async (
     .insert({
       start_date_time: startDateTime,
       streamer_id: streamerId,
-      created_at: new Date().toLocaleString(),
-      updated_at: new Date().toLocaleString(),
     })
     .select()
     .single()
