@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation'
 import { ReviewForm } from './components/ReviewForm'
-import { createReview } from '@/actions/review'
 import { getCurrentUser } from '@/data/auth'
 import { getPlan } from '@/data/plan'
 import { getReservation } from '@/data/reservation'
@@ -31,7 +30,7 @@ export default async function Page({
   )
 
   return (
-    <div className='container mx-auto mt-10 flex flex-col space-y-8'>
+    <div className='container mx-auto mt-10 flex flex-col items-center space-y-6'>
       <p className='text-2xl text-game-white'>
         {streamer.name}さんのレビューをしてください
       </p>
@@ -39,14 +38,7 @@ export default async function Page({
       <p className='text-game-white'>
         遊んだ日時: {startDateTime} ~ {endDateTime}
       </p>
-      <form action={createReview}>
-        <ReviewForm />
-        <textarea name='comment' />
-        <input name='planId' value={plan.id} hidden readOnly />
-        <input name='userId' value={user.id} hidden readOnly />
-        <input name='streamerId' value={streamer.id} hidden readOnly />
-        <button type='submit'>レビューを送信</button>
-      </form>
+      <ReviewForm userId={user.id} streamerId={streamer.id} planId={plan.id} />
     </div>
   )
 }

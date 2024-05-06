@@ -2,25 +2,26 @@
 
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createReviewSchema } from '@/schemas/review'
+import { parseWithZod } from '@conform-to/zod'
 
-export const createReview = async (formData: FormData) => {
-  const rating = Number(formData.get('rating'))
-  const comment = formData.get('comment')?.toString()
-  const planId = Number(formData.get('planId'))
-  const userId = formData.get('userId')?.toString()
-  const streamerId = formData.get('streamerId')?.toString()
+export const createReview = async (_: unknown, formData: FormData) => {
+  const submission = parseWithZod(formData, {
+    schema: createReviewSchema,
+  })
+  if (submission.status !== 'success') return submission.reply()
 
-  if (!rating || !planId || !userId || !streamerId) return
+  const { rating, comment, userId, streamerId, planId } = submission.value
 
   const supabase = createClient()
   const { error } = await supabase.from('reviews').insert({
     rating,
     comment,
-    plan_id: planId,
     user_id: userId,
     streamer_id: streamerId,
+    plan_id: planId,
   })
-  if (error) throw error
+  if (error) return submission.reply({ formErrors: [error.message] })
 
   redirect('/users/mypage')
 }

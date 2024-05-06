@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Game from '@/components/Game'
+import { GradationButton } from '@/components/GradationButton'
 import Streamer from '@/components/Streamer'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
@@ -20,9 +21,7 @@ export default async function Home() {
         <p className='mb-10 text-center text-7xl font-bold text-game-white'>Gamepity</p>
         <div className='flex w-full justify-center'>
           <Link href='/users/signup'>
-            <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'>
-              新規登録はこちら
-            </button>
+            <GradationButton>新規登録はこちら</GradationButton>
           </Link>
         </div>
       </div>
