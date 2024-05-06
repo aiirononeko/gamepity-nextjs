@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Reservation from './components/Reservation'
 import { signOut } from '@/actions/auth'
@@ -13,6 +14,11 @@ export default async function Page() {
 
   return (
     <div className='container mx-auto mt-10 grid space-y-8'>
+      <div className=''>
+        <Link href='/' className='text-game-gray-300'>
+          ← トップに戻る
+        </Link>
+      </div>
       <div className=''>
         <h2 className='text-xl font-bold text-game-white'>お支払い済みの予約</h2>
         <div className='mt-6 grid grid-cols-4 gap-6'>

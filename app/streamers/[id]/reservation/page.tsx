@@ -1,6 +1,7 @@
 import AvailableDateTimeTable from '@/app/streamers/[id]/reservation/components/AvailableDateTimeTable'
 import PlanCard from '@/app/streamers/[id]/reservation/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
+import { BreadCrumb } from '@/components/BreadCrumb'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getGames } from '@/data/game'
 import { getPlan } from '@/data/plan'
@@ -18,7 +19,8 @@ export default async function Page({
   const oneWeekDateTimes = getOneWeekDateTimes()
 
   return (
-    <div className='container mx-auto mt-10'>
+    <div className='container mx-auto'>
+      <BreadCrumb>← プラン選択に戻る</BreadCrumb>
       <div className='mb-10'>
         <p className='mb-4 text-xl font-bold text-game-white'>選択中のプラン</p>
         <PlanCard plan={plan} streamer={streamer} games={[tempGames[0], tempGames[1]]} />

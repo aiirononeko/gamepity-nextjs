@@ -1,8 +1,8 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Review from '@/app/streamers/[id]/components/Review'
 import SnsCard from '@/app/streamers/[id]/components/SnsCard'
-import { getGames, getGamesWithPlanId } from '@/data/game'
 import { getStreamer } from '@/data/streamer'
 
 // TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
@@ -13,7 +13,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className='container mx-auto mt-12'>
-      <div className='flex flex-row px-32 pb-12'>
+      <div className='mb-6'>
+        <Link href='/' className='text-game-gray-300'>
+          ← トップに戻る
+        </Link>
+      </div>
+      <div className='mx-32 flex flex-row pb-12'>
         {streamer.icon_url ? (
           <div className='relative mx-auto h-72 w-80 basis-2/5'>
             <Image

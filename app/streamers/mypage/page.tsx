@@ -6,7 +6,6 @@ import ProfileForm from './components/ProfileForm'
 import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
-import Game from '@/components/Game'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
@@ -28,6 +27,11 @@ export default async function Page() {
 
   return (
     <div className='container mx-auto mt-12'>
+      <div className='mb-6'>
+        <Link href='/' className='text-game-gray-300'>
+          ← トップに戻る
+        </Link>
+      </div>
       <div className='flex flex-row px-32 pb-12'>
         <IconUploadForm userId={streamer.id} initialIconUrl={streamer.icon_url} />
         <ProfileForm

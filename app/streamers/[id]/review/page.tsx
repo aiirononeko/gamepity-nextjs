@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ReviewForm } from './components/ReviewForm'
 import { getCurrentUser } from '@/data/auth'
@@ -30,15 +31,22 @@ export default async function Page({
   )
 
   return (
-    <div className='container mx-auto mt-10 flex flex-col items-center space-y-6'>
-      <p className='text-2xl text-game-white'>
-        {streamer.name}さんのレビューをしてください
-      </p>
-      <p className='text-game-white'>遊んだプラン: {plan.name}</p>
-      <p className='text-game-white'>
-        遊んだ日時: {startDateTime} ~ {endDateTime}
-      </p>
-      <ReviewForm userId={user.id} streamerId={streamer.id} planId={plan.id} />
+    <div className='container mx-auto'>
+      <div className='mb-8 mt-12'>
+        <Link href='/users/mypage' className='text-game-gray-300'>
+          ← マイページに戻る
+        </Link>
+      </div>
+      <div className='flex flex-col items-center space-y-6'>
+        <p className='text-2xl text-game-white'>
+          {streamer.name}さんのレビューをしてください
+        </p>
+        <p className='text-game-white'>遊んだプラン: {plan.name}</p>
+        <p className='text-game-white'>
+          遊んだ日時: {startDateTime} ~ {endDateTime}
+        </p>
+        <ReviewForm userId={user.id} streamerId={streamer.id} planId={plan.id} />
+      </div>
     </div>
   )
 }
