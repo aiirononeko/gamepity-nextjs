@@ -1,7 +1,7 @@
 'use client'
 
 import { signUpUserWithEmail } from '@/actions/auth'
-import { signUpSchema } from '@/schemas/signUp'
+import { signUpUserSchema } from '@/schemas/signUp'
 import { useForm } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
 import { useFormState } from 'react-dom'
@@ -11,7 +11,7 @@ export default function SignUpForm() {
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: signUpSchema })
+      return parseWithZod(formData, { schema: signUpUserSchema })
     },
     shouldValidate: 'onBlur',
   })
