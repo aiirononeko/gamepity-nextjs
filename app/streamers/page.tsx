@@ -7,7 +7,7 @@ export default async function Page() {
 
   return (
     <div className='container mx-auto'>
-      <div className='my-6'>
+      <div className='mb-4 mt-12'>
         <Link href='/' className='text-game-gray-300'>
           ← トップに戻る
         </Link>
