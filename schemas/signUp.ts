@@ -12,10 +12,10 @@ export const signUpUserSchema = z.object({
     .string({ required_error: 'パスワードは必須です' })
     .min(6, 'パスワードは6文字以上入力してください')
     .max(30, 'パスワードは30文字以内で入力してください'),
-  hasAgreedWithTermsOfService: z.literal(true, {
+  hasAgreedWithTermsOfService: z.literal('on', {
     errorMap: () => ({ message: '同意してください' }),
   }),
-  hasAgreedWithPrivacyPolicy: z.literal(true, {
+  hasAgreedWithPrivacyPolicy: z.literal('on', {
     errorMap: () => ({ message: '同意してください' }),
   }),
 })
@@ -32,10 +32,10 @@ export const signUpStreamerSchema = z.object({
     .string({ required_error: 'パスワードは必須です' })
     .min(6, 'パスワードは6文字以上入力してください')
     .max(30, 'パスワードは30文字以内で入力してください'),
-  hasAgreedWithTermsOfService: z.literal(true, {
+  hasAgreedWithTermsOfService: z.literal('on', {
     errorMap: () => ({ message: '同意してください' }),
   }),
-  hasAgreedWithPrivacyPolicy: z.literal(true, {
+  hasAgreedWithPrivacyPolicy: z.literal('on', {
     errorMap: () => ({ message: '同意してください' }),
   }),
 })

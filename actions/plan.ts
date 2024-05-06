@@ -1,55 +1,47 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createStripeProductAndPrice } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { createPlanSchema } from '@/schemas/plan'
+import { parseWithZod } from '@conform-to/zod'
 
-export const createPlan = async (formData: FormData) => {
-  const streamerId = formData.get('streamerId')?.toString()
-  const gameIds = formData.getAll('gameIds')
-  const name = formData.get('name')?.toString()
-  const description = formData.get('description')?.toString()
-  const amount = Number(formData.get('amount'))
+export const createPlan = async (_: unknown, formData: FormData) => {
+  const submission = parseWithZod(formData, {
+    schema: createPlanSchema,
+  })
+  if (submission.status !== 'success') return submission.reply()
 
-  if (
-    !streamerId ||
-    !gameIds ||
-    gameIds.length === 0 ||
-    !name ||
-    !description ||
-    !amount
-  ) {
-    console.error(
-      `invalid input values: ${streamerId}, ${gameIds}, ${name}, ${description}, ${amount}`,
-    )
-    return
+  const { name, description, amount, gameIds, streamerId } = submission.value
+
+  try {
+    const { stripeProductId, stripePriceId } = await createStripeProductAndPrice({
+      name,
+      amount,
+    })
+
+    const supabase = createClient()
+    const { data, error } = await supabase
+      .from('plans')
+      .insert({
+        streamer_id: streamerId,
+        name,
+        description,
+        amount,
+        stripe_product_id: stripeProductId,
+        stripe_price_id: stripePriceId,
+        stripe_payment_link_id: '',
+      })
+      .select()
+      .single()
+    if (error) return submission.reply({ formErrors: [error.message] })
+
+    await createPlansGames(data.id, gameIds)
+  } catch (e) {
+    console.error(e)
+    return submission.reply()
   }
 
-  const { stripeProductId, stripePriceId } = await createStripeProductAndPrice({
-    name,
-    amount,
-  })
-
-  const supabase = createClient()
-  const { data, error } = await supabase
-    .from('plans')
-    .insert({
-      streamer_id: streamerId,
-      name,
-      description,
-      amount,
-      stripe_product_id: stripeProductId,
-      stripe_price_id: stripePriceId,
-      stripe_payment_link_id: '',
-    })
-    .select()
-    .single()
-  if (error) throw new Error(error.message)
-
-  await createPlansGames(data.id, gameIds)
-
-  revalidatePath('/streamers/mypage')
   redirect('/streamers/mypage')
 }
 
@@ -63,5 +55,5 @@ const createPlansGames = async (planId: number, gameIds: FormDataEntryValue[]) =
   })
 
   const { error } = await supabase.from('plans_games').insert(relationRecords)
-  if (error) throw new Error(error.message)
+  if (error) throw error
 }

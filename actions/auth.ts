@@ -28,8 +28,6 @@ export async function signUpUserWithEmail(_: unknown, formData: FormData) {
     },
   })
   if (error) return submission.reply({ formErrors: [error.message] })
-
-  return redirect('/users/signup/completed')
 }
 
 export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
@@ -56,11 +54,12 @@ export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
       },
     })
     if (error) return submission.reply({ formErrors: [error.message] })
-
-    return redirect('/streamers/signup/completed')
   } catch (e) {
+    console.error(e)
     return submission.reply()
   }
+
+  redirect('/streamers/signup/completed')
 }
 
 export async function signInWithEmail(_: unknown, formData: FormData) {
@@ -77,8 +76,6 @@ export async function signInWithEmail(_: unknown, formData: FormData) {
     password,
   })
   if (error) return submission.reply({ formErrors: [error.message] })
-
-  return redirect('/users/mypage')
 }
 
 export async function signOut() {
@@ -86,6 +83,4 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut()
 
   if (error) throw error
-
-  redirect('/')
 }

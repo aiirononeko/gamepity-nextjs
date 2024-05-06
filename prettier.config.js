@@ -5,7 +5,7 @@ module.exports = {
   singleQuote: true, // シングルクォート使う
   printWidth: 90, // 折り返し
   tabWidth: 2, // スペースの単位
-  trailingComma: 'all', // ケツカンマつける
+  trailingComma: 'all', // 行末にカンマつける
   jsxSingleQuote: true, //　JSXでシングルクォートを使用
   importOrder: [
     '^(react/(.*)$)|^(react$)',
@@ -22,8 +22,5 @@ module.exports = {
   ],
   importOrderSeparation: false,
   importOrderSortSpecifiers: true,
-  importOrderBuiltinModulesToTop: true,
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  importOrderMergeDuplicateImports: true,
-  importOrderCombineTypeAndValueImports: true,
 }
