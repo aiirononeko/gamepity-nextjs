@@ -3,28 +3,17 @@
 import { redirect } from 'next/navigation'
 import { createStripeAccount } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { signUpSchema } from '@/schemas/signUp'
+import { parseWithZod } from '@conform-to/zod'
 import type { Session, User } from '@supabase/supabase-js'
 
-export async function signUpUserWithEmail(formData: FormData): Promise<
-  | {
-      user: User | null
-      session: Session | null
-    }
-  | {
-      user: null
-      session: null
-    }
-> {
-  const name = formData.get('name')?.toString()
-  const email = formData.get('email')?.toString()
-  const password = formData.get('password')?.toString()
+export async function signUpUserWithEmail(_: unknown, formData: FormData) {
+  const submission = parseWithZod(formData, {
+    schema: signUpSchema,
+  })
+  if (submission.status !== 'success') return submission.reply()
 
-  if (!name || !email || !password) {
-    return {
-      user: null,
-      session: null,
-    }
-  }
+  const { name, email, password } = submission.value
 
   const supabase = createClient()
   const { error } = await supabase.auth.signUp({
@@ -38,10 +27,9 @@ export async function signUpUserWithEmail(formData: FormData): Promise<
       emailRedirectTo: 'https://gamepity.com/',
     },
   })
+  if (error) return submission.reply({ formErrors: [error.message] })
 
-  if (error) throw error
-
-  redirect('/users/signup/completed')
+  return redirect('/users/signup/completed')
 }
 
 export async function signUpStreamerWithEmail(formData: FormData): Promise<
