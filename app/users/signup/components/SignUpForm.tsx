@@ -37,7 +37,7 @@ export default function SignUpForm() {
           type='text'
           placeholder='ゲームピティ男'
         />
-        <span className='mt-1 text-game-white'>{fields.name.errors}</span>
+        <span className='mt-1 text-red-500'>{fields.name.errors}</span>
       </div>
       <div className='mb-6 flex flex-col'>
         <label
@@ -52,7 +52,7 @@ export default function SignUpForm() {
           type='email'
           placeholder='gamepity@example.com'
         />
-        <span className='mt-1 text-game-white'>{fields.email.errors}</span>
+        <span className='mt-1 text-red-500'>{fields.email.errors}</span>
       </div>
       <div className='mb-10 flex flex-col'>
         <label
@@ -67,7 +67,7 @@ export default function SignUpForm() {
           type='password'
           placeholder='******************'
         />
-        <span className='mt-1 text-game-white'>{fields.password.errors}</span>
+        <span className='mt-1 text-red-500'>{fields.password.errors}</span>
       </div>
       <div className='mb-4'>
         <div className='mb-1 flex items-center'>
@@ -89,9 +89,7 @@ export default function SignUpForm() {
             </a>
           </label>
         </div>
-        <span className='text-game-white'>
-          {fields.hasAgreedWithTermsOfService.errors}
-        </span>
+        <span className='text-red-500'>{fields.hasAgreedWithTermsOfService.errors}</span>
       </div>
       <div className='mb-10'>
         <div className='mb-1 flex items-center'>
@@ -114,9 +112,7 @@ export default function SignUpForm() {
             </a>
           </label>
         </div>
-        <span className='text-game-white'>
-          {fields.hasAgreedWithPrivacyPolicy.errors}
-        </span>
+        <span className='text-red-500'>{fields.hasAgreedWithPrivacyPolicy.errors}</span>
       </div>
       <div className='md:flex md:items-center'>
         <button

@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { createStripeAccount } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { signInSchema } from '@/schemas/signIn'
 import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
 import { parseWithZod } from '@conform-to/zod'
 
@@ -62,22 +63,22 @@ export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
   }
 }
 
-export async function signInWithEmail(formData: FormData) {
-  const email = formData.get('email')?.toString()
-  const password = formData.get('password')?.toString()
+export async function signInWithEmail(_: unknown, formData: FormData) {
+  const submission = parseWithZod(formData, {
+    schema: signInSchema,
+  })
+  if (submission.status !== 'success') return submission.reply()
 
-  if (!email || !password) {
-    return
-  }
+  const { email, password } = submission.value
 
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
-  if (error) throw error
+  if (error) return submission.reply({ formErrors: [error.message] })
 
-  redirect('/users/mypage')
+  return redirect('/users/mypage')
 }
 
 export async function signOut() {
