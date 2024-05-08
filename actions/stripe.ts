@@ -14,7 +14,7 @@ export const createStripeAccount = async (
 ): Promise<Stripe.Response<Stripe.Account>> => {
   const stripe = createClient()
   const account = await stripe.accounts.create({
-    type: 'standard',
+    type: 'express',
     country: 'JP',
     email,
   })
