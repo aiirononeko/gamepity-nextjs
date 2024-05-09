@@ -2,12 +2,13 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Reservation from './components/Reservation'
 import { signOut } from '@/actions/auth'
-import { getCurrentUser } from '@/data/auth'
+import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getCompletedReservations, getReservations } from '@/data/reservation'
 
 export default async function Page() {
   const user = await getCurrentUser()
   if (!user) redirect('/signin')
+  if (isStreamer(user)) redirect('/streamers/mypage')
 
   const reservations = await getReservations(user.id)
   const completedReservations = await getCompletedReservations(user.id)
