@@ -95,3 +95,16 @@ export const createStripePaymentLink = async (
   })
   return paymentLink
 }
+
+export const createLoginLink = async (
+  stripeAccountId: string,
+): Promise<Stripe.Response<Stripe.LoginLink> | undefined> => {
+  const stripe = createClient()
+
+  if (!stripeAccountId) return
+
+  const hasDetailsSubmitted = await hasDetailsSubmittedToStripe(stripeAccountId)
+  if (!hasDetailsSubmitted) return
+
+  return await stripe.accounts.createLoginLink(stripeAccountId)
+}

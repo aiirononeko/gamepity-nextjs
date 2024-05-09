@@ -51,6 +51,11 @@ export default async function Page() {
         <h2 className='text-xl font-bold text-game-white'>ユーザーID</h2>
         <p className='mt-6 text-game-white'>{user.id}</p>
       </div>
+      <div>
+        <a href='/' className='text-game-gray-500 underline'>
+          運営に問い合わせ
+        </a>
+      </div>
       <form action={signOut} className=''>
         <button type='submit' className='text-game-gray-500 underline'>
           ログアウト

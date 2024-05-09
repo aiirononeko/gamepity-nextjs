@@ -28,6 +28,8 @@ export async function signUpUserWithEmail(_: unknown, formData: FormData) {
     },
   })
   if (error) return submission.reply({ formErrors: [error.message] })
+
+  redirect('/users/signup/completed')
 }
 
 export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
