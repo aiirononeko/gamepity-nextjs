@@ -1,7 +1,35 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Reservation } from '@/types/reservation'
 
-export const getReservations = async (userId: string): Promise<Reservation[]> => {
+export const getStreamerReservations = async (streamerId: string): Promise<Reservation[]> => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('reservations')
+    .select()
+    .eq('streamer_id', streamerId)
+    .eq('is_available', true)
+    .gt('start_date_dime', new Date().toUTCString())
+  if (error) throw error
+
+  return data
+}
+
+export const getCompletedStreamerReservations = async (
+  streamerId: string,
+): Promise<Reservation[]> => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('reservations')
+    .select()
+    .eq('streamer_id', streamerId)
+    .eq('is_available', true)
+    .lt('start_date_dime', new Date().toUTCString())
+  if (error) throw error
+
+  return data
+}
+
+export const getUserReservations = async (userId: string): Promise<Reservation[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
@@ -14,7 +42,7 @@ export const getReservations = async (userId: string): Promise<Reservation[]> =>
   return data
 }
 
-export const getCompletedReservations = async (
+export const getCompletedUserReservations = async (
   userId: string,
 ): Promise<Reservation[]> => {
   const supabase = createClient()

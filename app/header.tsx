@@ -39,7 +39,7 @@ export default async function Header() {
                 ストリーマー
               </Link>
             </li>
-            {stripeLoginLink && (
+            {streamer && stripeLoginLink && (
               <>
                 <li>
                   <a
@@ -52,7 +52,7 @@ export default async function Header() {
                 </li>
                 <li>
                   <Link
-                    href='/streamers/reservations'
+                    href={`/streamers/${streamer.id}/reservations`}
                     className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                   >
                     予約管理

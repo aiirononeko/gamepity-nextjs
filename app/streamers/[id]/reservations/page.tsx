@@ -1,17 +1,16 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Reservation from './components/Reservation'
-import { signOut } from '@/actions/auth'
 import { getCurrentUser, isStreamer } from '@/data/auth'
-import { getCompletedUserReservations, getUserReservations } from '@/data/reservation'
+import { getCompletedStreamerReservations, getStreamerReservations } from '@/data/reservation'
 
 export default async function Page() {
   const user = await getCurrentUser()
   if (!user) redirect('/signin')
-  if (isStreamer(user)) redirect('/streamers/mypage')
+  if (!isStreamer(user)) redirect('/signin')
 
-  const reservations = await getUserReservations(user.id)
-  const completedReservations = await getCompletedUserReservations(user.id)
+  const reservations = await getStreamerReservations(user.id)
+  const completedReservations = await getCompletedStreamerReservations(user.id)
 
   return (
     <div className='container mx-auto mt-10 grid space-y-8'>
@@ -48,23 +47,6 @@ export default async function Page() {
           )}
         </div>
       </div>
-      <div className=''>
-        <h2 className='text-xl font-bold text-game-white'>ユーザーID</h2>
-        <p className='mt-6 text-game-white'>{user.id}</p>
-      </div>
-      <div>
-        <a href='/' className='text-game-gray-500 underline'>
-          運営に問い合わせ
-        </a>
-      </div>
-      <form action={signOut} className=''>
-        <button type='submit' className='text-game-gray-500 underline'>
-          ログアウト
-        </button>
-      </form>
-      {/* <form action={withdrawal} className=''> */}
-      {/*   <button type='submit' className='text-game-gray-500 underline'>退会</button> */}
-      {/* </form> */}
     </div>
   )
 }
