@@ -8,7 +8,7 @@ import { getCompletedUserReservations, getUserReservations } from '@/data/reserv
 export default async function Page() {
   const user = await getCurrentUser()
   if (!user) redirect('/signin')
-  if (isStreamer(user)) redirect('/streamers/mypage')
+  // if (isStreamer(user)) redirect('/streamers/mypage')
 
   const reservations = await getUserReservations(user.id)
   const completedReservations = await getCompletedUserReservations(user.id)
