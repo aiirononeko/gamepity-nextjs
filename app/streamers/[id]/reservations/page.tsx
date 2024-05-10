@@ -2,7 +2,10 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Reservation from './components/Reservation'
 import { getCurrentUser, isStreamer } from '@/data/auth'
-import { getCompletedStreamerReservations, getStreamerReservations } from '@/data/reservation'
+import {
+  getCompletedStreamerReservations,
+  getStreamerReservations,
+} from '@/data/reservation'
 
 export default async function Page() {
   const user = await getCurrentUser()

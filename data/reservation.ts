@@ -1,7 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Reservation } from '@/types/reservation'
 
-export const getStreamerReservations = async (streamerId: string): Promise<Reservation[]> => {
+export const getStreamerReservations = async (
+  streamerId: string,
+): Promise<Reservation[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
