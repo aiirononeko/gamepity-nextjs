@@ -53,7 +53,10 @@ export default async function Page() {
         <p className='mt-6 text-game-white'>{user.id}</p>
       </div>
       <div>
-        <a href='/' className='text-game-gray-500 underline'>
+        <a
+          href='https://forms.gle/7q46iG3RpRTGw6Qa6'
+          className='text-game-gray-500 underline'
+        >
           運営に問い合わせ
         </a>
       </div>

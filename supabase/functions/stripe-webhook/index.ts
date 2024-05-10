@@ -78,7 +78,7 @@ const sendEmail = async (email: string) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY') as string}`
+      Authorization: `Bearer ${Deno.env.get('RESEND_API_KEY') as string}`,
     },
     body: JSON.stringify({
       from: 'Gamepity <noreply@gamepity.com>',
@@ -92,6 +92,6 @@ const sendEmail = async (email: string) => {
         <br>
         <p>Gamepity 運営</p>
       `,
-    })
+    }),
   })
 }
