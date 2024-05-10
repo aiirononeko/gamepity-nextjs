@@ -36,6 +36,9 @@ Deno.serve(async (req) => {
     // 仮予約データを有効化
     await activateTempReservation(temporaryReservation.id)
 
+    // 予約完了メールを送信
+    await sendEmail(receivedEvent.data.object.customer_details.email)
+
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
   } catch (err) {
     return new Response(err.message, { status: 400 })
@@ -48,6 +51,7 @@ const getTempReservation = async (userId: string, streamerId: string) => {
     .select('*')
     .eq('user_id', userId)
     .eq('streamer_id', streamerId)
+    .eq('is_available', false)
     .single()
   if (error) {
     console.error(error)
@@ -67,4 +71,27 @@ const activateTempReservation = async (tempReservationId: number) => {
     console.error(error)
     throw error
   }
+}
+
+const sendEmail = async (email: string) => {
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY') as string}`
+    },
+    body: JSON.stringify({
+      from: 'Gamepity <noreply@gamepity.com>',
+      to: [email],
+      subject: '予約が完了しました',
+      html: `
+        <p>この度はGamepityをご利用いただき誠にありがとうございます。</p>
+        <p>ストリーマーの予約が完了しましたのでお知らせいたします。</p>
+        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordから参加下さい。</p>
+        <a href="https://gamepity.com/users/mypage">マイページはこちら</a>
+        <br>
+        <p>Gamepity 運営</p>
+      `,
+    })
+  })
 }
