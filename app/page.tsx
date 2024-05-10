@@ -6,7 +6,7 @@ import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 
 export default async function Home() {
-  // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する
+  // // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する
   const streamers = await getStreamers()
   const games = await getGames()
 
@@ -26,21 +26,18 @@ export default async function Home() {
         </div>
       </div>
       <div className='container mx-auto'>
-        <div className='grid grid-cols-5'>
-          <div className='col-span-4'>
+        <div className='md:grid md:grid-cols-6'>
+          <div className='md:col-span-3'>
             <h2 className='mb-1 text-xl font-bold text-game-white'>注目ストリーマー</h2>
             <p className='mb-2 text-xs text-game-gray-300'>
               注目のストリーマーと一緒にゲームを楽しもう！
             </p>
           </div>
-          <Link
-            href='/streamers'
-            className='col-span-1 pt-3 text-end text-game-white underline'
-          >
-            すべてのストリーマーをみる →
-          </Link>
+          <div className='mb-6 text-game-white underline md:col-span-3 md:mt-3 md:text-end'>
+            <Link href='/streamers'>すべてのストリーマーをみる →</Link>
+          </div>
         </div>
-        <div className='flex flex-nowrap space-x-6 overflow-y-auto py-3'>
+        <div className='flex flex-nowrap space-x-6 overflow-y-auto md:py-3'>
           {streamers.map((streamer) => (
             <Streamer key={streamer.id} streamer={streamer} width={'w-80'} />
           ))}
@@ -48,33 +45,30 @@ export default async function Home() {
         <div className='mt-10 grid grid-cols-5'>
           <div className='col-span-4'>
             <h2 className='mb-1 text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
-            <p className='mb-2 text-xs text-game-gray-300'>
+            <p className='mb-6 text-xs text-game-gray-300 md:mb-4'>
               注目のゲームタイトルからストリーマーを探そう！
             </p>
           </div>
         </div>
-        <div className='flex h-20 flex-row space-x-4 overflow-y-auto py-3'>
+        <div className='flex flex-row space-x-4 overflow-y-auto md:h-20 md:pt-3'>
           {games.map((game) => (
             <Game key={game.id} game={game} />
           ))}
         </div>
-        <div className='mt-10 grid grid-cols-5'>
-          <div className='col-span-4'>
+        <div className='mt-10 md:grid md:grid-cols-6'>
+          <div className='md:col-span-3'>
             <h2 className='mb-1 text-xl font-bold text-game-white'>
               すべてのストリーマー
             </h2>
-            <p className='mb-5 text-xs text-game-gray-300'>
+            <p className='mb-2 text-xs text-game-gray-300 md:mb-6'>
               お気に入りのストリーマーを見つけよう！
             </p>
           </div>
-          <Link
-            href='/streamers'
-            className='col-span-1 pt-3 text-end text-game-white underline'
-          >
-            すべてのストリーマーをみる →
-          </Link>
+          <div className='mb-6 text-game-white underline md:col-span-3 md:mt-3 md:text-end'>
+            <Link href='/streamers'>すべてのストリーマーをみる →</Link>
+          </div>
         </div>
-        <div className='grid grid-cols-4 gap-6'>
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-6'>
           {streamers.slice(0, 8).map((streamer) => (
             <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
           ))}
