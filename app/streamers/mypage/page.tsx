@@ -48,12 +48,12 @@ export default async function Page() {
           {plans && plans.length > 0 ? (
             <div className='mb-10'>
               <div className='mb-2 mt-10 grid grid-cols-12'>
-                <h2 className='col-span-10 h-full text-2xl font-bold leading-loose text-game-white'>
+                <h2 className='text-game-white col-span-10 h-full text-2xl font-bold leading-loose'>
                   プラン
                 </h2>
                 <div className='col-span-2 mx-auto'>
                   <Link href='/plans/new'>
-                    <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end text-game-white'>
+                    <button className='border-game-white text-game-white rounded border-2 border-solid bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end'>
                       新しいプランを作成
                     </button>
                   </Link>
@@ -68,16 +68,16 @@ export default async function Page() {
             </div>
           ) : (
             <div className='mb-10 mt-6 flex flex-col items-center justify-center space-y-10'>
-              <p className='text-xl font-bold text-game-white'>プランがありません</p>
+              <p className='text-game-white text-xl font-bold'>プランがありません</p>
               <Link href='/plans/new'>
-                <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end text-game-white'>
+                <button className='border-game-white text-game-white rounded border-2 border-solid bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-2 text-end'>
                   新しいプランを作成
                 </button>
               </Link>
             </div>
           )}
           <div className='mb-10'>
-            <h2 className='mb-4 h-full text-2xl font-bold leading-loose text-game-white'>
+            <h2 className='text-game-white mb-4 h-full text-2xl font-bold leading-loose'>
               予約可能日時登録
             </h2>
             <AvailableDateTimeTable
@@ -89,7 +89,7 @@ export default async function Page() {
         </>
       ) : (
         <div className='mb-10 flex flex-col items-center space-y-6'>
-          <p className='text-center text-xl font-bold text-game-white'>
+          <p className='text-game-white text-center text-xl font-bold'>
             Stripeでビジネス情報を登録してください
           </p>
           <form action={linkToStripeAccount}>
@@ -99,7 +99,7 @@ export default async function Page() {
               value={streamer.stripe_account_id ?? ''}
               readOnly
             />
-            <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-10 py-2 text-end text-game-white'>
+            <button className='border-game-white text-game-white rounded border-2 border-solid bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-10 py-2 text-end'>
               登録する
             </button>
           </form>

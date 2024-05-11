@@ -13,18 +13,18 @@ export default async function Header() {
     : undefined
 
   return (
-    <header className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
+    <header className='from-game-gray-900 via-game-gray-700 to-game-gray-900 bg-gradient-to-r'>
       <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-6'>
         <Link
           href='/'
-          className='self-center whitespace-nowrap text-4xl font-bold text-game-white'
+          className='text-game-white self-center whitespace-nowrap text-4xl font-bold'
         >
           Gamepity
         </Link>
         <button
           data-collapse-toggle='navbar-default'
           type='button'
-          className='inline-flex size-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
+          className='inline-flex size-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden'
           aria-controls='navbar-default'
           aria-expanded='false'
         >
@@ -50,7 +50,7 @@ export default async function Header() {
             <li>
               <Link
                 href='/about'
-                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
               </Link>
@@ -58,7 +58,7 @@ export default async function Header() {
             <li>
               <Link
                 href='/streamers'
-                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 ストリーマー
               </Link>
@@ -69,7 +69,7 @@ export default async function Header() {
                   <a
                     href={stripeLoginLink.url}
                     target='_blank'
-                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                    className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                   >
                     売上管理
                   </a>
@@ -77,7 +77,7 @@ export default async function Header() {
                 <li>
                   <Link
                     href={`/streamers/${streamer.id}/reservations`}
-                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                    className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                   >
                     予約管理
                   </Link>
@@ -88,7 +88,7 @@ export default async function Header() {
               <li>
                 <Link
                   href={'/users/mypage'}
-                  className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                  className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ
                 </Link>

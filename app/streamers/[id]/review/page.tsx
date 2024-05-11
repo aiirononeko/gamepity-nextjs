@@ -38,7 +38,7 @@ export default async function Page({
         </Link>
       </div>
       <div className='flex flex-col items-center space-y-6'>
-        <p className='text-2xl text-game-white'>
+        <p className='text-game-white text-2xl'>
           {streamer.name}さんのレビューをしてください
         </p>
         <p className='text-game-white'>遊んだプラン: {plan.name}</p>

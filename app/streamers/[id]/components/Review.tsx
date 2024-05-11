@@ -11,12 +11,12 @@ export default function Review(props: Props) {
   const { reviews, streamer } = props
 
   return (
-    <div className='flex h-72 w-full flex-row items-center justify-center gap-16 bg-game-gray-600'>
+    <div className='bg-game-gray-600 flex h-72 w-full flex-row items-center justify-center gap-16'>
       <div className='space-y-3'>
-        <p className='text-center text-5xl font-bold text-game-white'>
+        <p className='text-game-white text-center text-5xl font-bold'>
           {streamer.avg_rating?.toFixed(1)}
         </p>
-        <p className='text-center text-game-gray-300'>{reviews.length}レビュー</p>
+        <p className='text-game-gray-300 text-center'>{reviews.length}レビュー</p>
       </div>
       <div className='w-1/2 space-y-3'>
         {reviews.slice(0, 2).map((review) => (

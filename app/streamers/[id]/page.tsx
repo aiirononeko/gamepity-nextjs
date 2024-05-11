@@ -28,10 +28,10 @@ export default async function Page({ params }: { params: { id: string } }) {
             />
           </div>
         ) : (
-          <div className='relative mx-auto h-72 w-80 basis-2/5 bg-game-gray-600'></div>
+          <div className='bg-game-gray-600 relative mx-auto h-72 w-80 basis-2/5'></div>
         )}
         <div className='relative basis-3/5 space-y-6 pl-10'>
-          <p className='text-3xl font-bold text-game-white'>{streamer.name}</p>
+          <p className='text-game-white text-3xl font-bold'>{streamer.name}</p>
           <p className='text-game-white'>{streamer.profile}</p>
           <div className='absolute right-0 top-56 flex flex-row items-center space-x-6'>
             {streamer.youtube_url && (
@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       {plans && plans.length > 0 && (
         <div className='mb-10'>
-          <h2 className='mb-5 text-2xl font-bold text-game-white'>プラン</h2>
+          <h2 className='text-game-white mb-5 text-2xl font-bold'>プラン</h2>
           <div className='space-y-4'>
             {/* @ts-ignore */}
             {plans.map((plan) => (
@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       )}
       <div className='mb-10'>
-        <h2 className='mb-5 text-2xl font-bold text-game-white'>ユーザーの評価</h2>
+        <h2 className='text-game-white mb-5 text-2xl font-bold'>ユーザーの評価</h2>
         {reviews && reviews.length > 0 ? (
           <Review reviews={reviews} streamer={streamer} />
         ) : (

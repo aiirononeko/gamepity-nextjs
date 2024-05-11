@@ -73,7 +73,7 @@ export default function AvailableDateTimeTable({
   }
 
   return (
-    <div className='w-full rounded-xl bg-game-gray-600 py-6 text-game-white'>
+    <div className='bg-game-gray-600 text-game-white w-full rounded-xl py-6'>
       <table className='mx-auto w-11/12'>
         <thead className='h-24'>
           <tr>
@@ -111,7 +111,7 @@ export default function AvailableDateTimeTable({
                       onClick={() => toggleDateTime(day, hour - 8)} // UTC時刻として渡す
                     >
                       {isActive && (
-                        <div className='block h-20 cursor-pointer bg-game-white'></div>
+                        <div className='bg-game-white block h-20 cursor-pointer'></div>
                       )}
                     </td>
                   )

@@ -37,7 +37,7 @@ export default async function Page({
     <div className='container mx-auto'>
       <BreadCrumb>← 予約可能日時選択に戻る</BreadCrumb>
       <form action={createReservation}>
-        <h2 className='mb-6 text-2xl font-bold text-game-white'>予約内容の確認</h2>
+        <h2 className='text-game-white mb-6 text-2xl font-bold'>予約内容の確認</h2>
         <div className='flex flex-row px-32 pb-12'>
           {streamer.icon_url ? (
             <div className='relative mx-auto h-72 w-80 basis-2/5'>
@@ -48,25 +48,25 @@ export default async function Page({
               />
             </div>
           ) : (
-            <div className='relative mx-auto h-72 w-80 basis-2/5 bg-game-gray-600'></div>
+            <div className='bg-game-gray-600 relative mx-auto h-72 w-80 basis-2/5'></div>
           )}
           <div className='relative flex basis-3/5 flex-col space-y-6 pl-10'>
-            <p className='basis-1/6 text-3xl font-bold text-game-white'>
+            <p className='text-game-white basis-1/6 text-3xl font-bold'>
               {streamer.name}
             </p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
-            <p className='basis-3/6 text-game-white'>{plan.description}</p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>
+            <p className='text-game-white basis-1/6 text-xl font-bold'>{plan.name}</p>
+            <p className='text-game-white basis-3/6'>{plan.description}</p>
+            <p className='text-game-white basis-1/6 text-xl font-bold'>
               {startDateTime} ~ {endDateTime}
             </p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>
+            <p className='text-game-white basis-1/6 text-xl font-bold'>
               {plan.amount}円 / 60分
             </p>
           </div>
         </div>
         <div className='mb-10 flex justify-center'>
           <a
-            className='text-center font-bold text-game-white underline hover:text-blue-500'
+            className='text-game-white text-center font-bold underline hover:text-blue-500'
             target='_blank'
             href='https://brash-ferry-996.notion.site/54ac9ecf2f41440dac1744f1bc94aedc'
           >
@@ -92,7 +92,7 @@ export default async function Page({
         <input name='stripePriceId' value={plan.stripe_price_id} hidden readOnly />
         <input name='amount' value={plan.amount} hidden readOnly />
         <div className='flex justify-center'>
-          <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white hover:-translate-y-1'>
+          <button className='border-game-white text-game-white rounded border-2 border-solid bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 hover:-translate-y-1'>
             この内容で予約する
           </button>
         </div>

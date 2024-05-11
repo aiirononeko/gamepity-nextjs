@@ -7,7 +7,7 @@ type Props = {
 export default function ReviewCard({ review }: Props) {
   return (
     <div className='p-2'>
-      <p className='line-clamp-2 text-game-white'>{review.comment}</p>
+      <p className='text-game-white line-clamp-2'>{review.comment}</p>
     </div>
   )
 }

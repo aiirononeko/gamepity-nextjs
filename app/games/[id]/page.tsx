@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <div className='container mx-auto mt-12'>
-        <h2 className='m-10 text-center text-xl font-bold text-game-white'>
+        <h2 className='text-game-white m-10 text-center text-xl font-bold'>
           {`${game.name}を募集中のストリーマー`}
         </h2>
         <div className='grid grid-cols-4 gap-6'>
