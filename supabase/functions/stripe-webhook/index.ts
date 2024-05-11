@@ -78,17 +78,18 @@ const activateTempReservation = async (tempReservationId: number) => {
 }
 
 const getStreamerEmail = async (streamerId: string) => {
-  const { data, error } = await supabase.auth.getUser(streamerId)
+  const { data, error } = await supabase
+    .from('streamers')
+    .select()
+    .eq('id', streamerId)
+    .single()
   if (error) {
     console.error(error)
     throw error
   }
-  if (!data.user.email) {
-    console.error('streamer was not found.')
-    throw new Error()
-  }
 
-  return data.user.email
+  const stripeAccount = await stripe.accounts.retrieve(data.stripe_account_id)
+  return stripeAccount.email
 }
 
 const sendEmailToUser = async (email: string) => {
