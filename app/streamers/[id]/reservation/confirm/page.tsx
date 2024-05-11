@@ -83,7 +83,14 @@ export default async function Page({
         <input name='streamerId' value={streamer.id} hidden readOnly />
         <input name='userId' value={user.id} hidden readOnly />
         <input name='planId' value={plan.id} hidden readOnly />
+        <input
+          name='stripeAccountId'
+          value={streamer.stripe_account_id ?? ''}
+          hidden
+          readOnly
+        />
         <input name='stripePriceId' value={plan.stripe_price_id} hidden readOnly />
+        <input name='amount' value={plan.amount} hidden readOnly />
         <div className='flex justify-center'>
           <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white hover:-translate-y-1'>
             この内容で予約する

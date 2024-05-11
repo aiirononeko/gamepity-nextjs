@@ -11,7 +11,9 @@ export const createReservation = async (formData: FormData) => {
   const streamerId = formData.get('streamerId')?.toString()
   const userId = formData.get('userId')?.toString()
   const planId = Number(formData.get('planId'))
+  const stripeAccountId = formData.get('stripeAccountId')?.toString()
   const stripePriceId = formData.get('stripePriceId')?.toString()
+  const amount = Number(formData.get('amount'))
 
   if (
     !availableDateTimeId ||
@@ -19,7 +21,9 @@ export const createReservation = async (formData: FormData) => {
     !streamerId ||
     !userId ||
     !planId ||
-    !stripePriceId
+    !stripeAccountId ||
+    !stripePriceId ||
+    !amount
   )
     return
 
@@ -40,7 +44,13 @@ export const createReservation = async (formData: FormData) => {
   await disableAvailableDateTime(availableDateTimeId, data.id)
 
   // payment_link作成
-  const paymentLink = await createStripePaymentLink(stripePriceId, userId, streamerId)
+  const paymentLink = await createStripePaymentLink(
+    stripeAccountId,
+    stripePriceId,
+    userId,
+    streamerId,
+    amount,
+  )
 
   // 作成したpayment_linkに遷移
   redirect(paymentLink.url)
