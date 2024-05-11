@@ -36,8 +36,12 @@ Deno.serve(async (req) => {
     // 仮予約データを有効化
     await activateTempReservation(temporaryReservation.id)
 
-    // 予約完了メールを送信
-    await sendEmail(receivedEvent.data.object.customer_details.email)
+    // ユーザーに予約完了メールを送信
+    await sendEmailToUser(receivedEvent.data.object.customer_details.email)
+
+    // ストリーマーに予約通知メールを送信
+    const streamerEmail = await getStreamerEmail(streamerId)
+    await sendEmailToStreamer(streamerEmail)
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
   } catch (err) {
@@ -73,7 +77,21 @@ const activateTempReservation = async (tempReservationId: number) => {
   }
 }
 
-const sendEmail = async (email: string) => {
+const getStreamerEmail = async (streamerId: string) => {
+  const { data, error } = await supabase.auth.getUser(streamerId)
+  if (error) {
+    console.error(error)
+    throw error
+  }
+  if (!data.user.email) {
+    console.error('streamer was not found.')
+    throw new Error()
+  }
+
+  return data.user.email
+}
+
+const sendEmailToUser = async (email: string) => {
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -89,6 +107,28 @@ const sendEmail = async (email: string) => {
         <p>ストリーマーの予約が完了しましたのでお知らせいたします。</p>
         <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordから参加下さい。</p>
         <a href="https://gamepity.com/users/mypage">マイページはこちら</a>
+        <br>
+        <p>Gamepity 運営</p>
+      `,
+    }),
+  })
+}
+
+const sendEmailToStreamer = async (email: string) => {
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${Deno.env.get('RESEND_API_KEY') as string}`,
+    },
+    body: JSON.stringify({
+      from: 'Gamepity <noreply@gamepity.com>',
+      to: [email],
+      subject: '【Gamepity】予約通知',
+      html: `
+        <p>ユーザーがあなたのプランを購入しましたのでお知らせいたします。</p>
+        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordから参加下さい。</p>
+        <a href="https://gamepity.com/streamers/mypage">マイページはこちら</a>
         <br>
         <p>Gamepity 運営</p>
       `,

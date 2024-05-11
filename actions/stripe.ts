@@ -81,7 +81,7 @@ export const createStripePaymentLink = async (
         quantity: 1,
       },
     ],
-    application_fee_percent: 0, // TODO: Betaが完了したら修正する
+    // application_fee_percent: 0, // TODO: Betaが完了したら修正する
     metadata: {
       userId,
       streamerId,
