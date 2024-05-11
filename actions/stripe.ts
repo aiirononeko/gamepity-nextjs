@@ -84,10 +84,6 @@ export const createStripePaymentLink = async (
       },
     ],
     application_fee_amount: 0, // TODO: Betaが完了したら修正する
-    transfer_data: {
-      destination: stripeAccountId,
-      amount, // TODO: Betaが完了したら修正する
-    },
     metadata: {
       userId,
       streamerId,
