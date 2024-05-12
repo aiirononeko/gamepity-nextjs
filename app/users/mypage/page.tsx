@@ -21,7 +21,7 @@ export default async function Page() {
         </Link>
       </div>
       <div className=''>
-        <h2 className='text-game-white text-xl font-bold'>お支払い済みの予約</h2>
+        <h2 className='text-xl font-bold text-game-white'>お支払い済みの予約</h2>
         <div className='mt-6 grid grid-cols-4 gap-6'>
           {reservations.length > 0 ? (
             <>
@@ -35,7 +35,7 @@ export default async function Page() {
         </div>
       </div>
       <div className=''>
-        <h2 className='text-game-white text-xl font-bold'>完了した予約</h2>
+        <h2 className='text-xl font-bold text-game-white'>完了した予約</h2>
         <div className='mt-6 grid grid-cols-4 gap-6'>
           {completedReservations.length > 0 ? (
             <>
@@ -49,8 +49,8 @@ export default async function Page() {
         </div>
       </div>
       <div className=''>
-        <h2 className='text-game-white text-xl font-bold'>ユーザーID</h2>
-        <p className='text-game-white mt-6'>{user.id}</p>
+        <h2 className='text-xl font-bold text-game-white'>ユーザーID</h2>
+        <p className='mt-6 text-game-white'>{user.id}</p>
       </div>
       <div>
         <a

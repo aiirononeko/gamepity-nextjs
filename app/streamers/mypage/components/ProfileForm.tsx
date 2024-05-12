@@ -79,40 +79,40 @@ export default function ProfileForm({
   return (
     <form className='basis-3/5 space-y-4 pl-10'>
       <input
-        className='border-game-gray-500 bg-game-gray-700 text-game-white block border-2 text-3xl font-bold'
+        className='block border-2 border-game-gray-500 bg-game-gray-700 text-3xl font-bold text-game-white'
         value={name}
         onChange={handleNameChange}
         onBlur={handleNameBlur}
       />
       <textarea
-        className='border-game-gray-500 bg-game-gray-700 text-game-white h-32 w-full border-2'
+        className='h-32 w-full border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
         value={profile}
         onChange={handleProfileChange}
         onBlur={handleProfileBlur}
       />
       <div className='flex flex-row space-x-3'>
         <div>
-          <label className='text-game-white block text-xs'>Youtube</label>
+          <label className='block text-xs text-game-white'>Youtube</label>
           <input
-            className='border-game-gray-500 bg-game-gray-700 text-game-white block border-2'
+            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
             value={youtubeUrl}
             onChange={handleYoutubeUrlChange}
             onBlur={handleYoutubeUrlBlur}
           />
         </div>
         <div>
-          <label className='text-game-white block text-xs'>Twitch</label>
+          <label className='block text-xs text-game-white'>Twitch</label>
           <input
-            className='border-game-gray-500 bg-game-gray-700 text-game-white block border-2'
+            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
             value={twitchUrl}
             onChange={handleTwitchUrlChange}
             onBlur={handleTwitchUrlBlur}
           />
         </div>
         <div>
-          <label className='text-game-white block text-xs'>X</label>
+          <label className='block text-xs text-game-white'>X</label>
           <input
-            className='border-game-gray-500 bg-game-gray-700 text-game-white block border-2'
+            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
             value={xUrl}
             onChange={handleXUrlChange}
             onBlur={handleXUrlBlur}

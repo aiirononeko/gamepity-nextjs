@@ -12,7 +12,7 @@ export default async function Page() {
           ← トップに戻る
         </Link>
       </div>
-      <h2 className='text-game-white mb-12 text-center text-xl font-bold'>
+      <h2 className='mb-12 text-center text-xl font-bold text-game-white'>
         すべてのストリーマー
       </h2>
       <div className='grid grid-cols-4 gap-6'>

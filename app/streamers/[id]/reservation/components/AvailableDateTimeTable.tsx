@@ -18,7 +18,7 @@ export default function AvailableDateTimeTable({
   oneWeekDateTimes,
 }: Props) {
   return (
-    <div className='bg-game-gray-600 text-game-white w-full rounded-xl py-6'>
+    <div className='w-full rounded-xl bg-game-gray-600 py-6 text-game-white'>
       <table className='mx-auto w-11/12'>
         <thead className='h-24'>
           <tr>
@@ -50,7 +50,7 @@ export default function AvailableDateTimeTable({
                         key={dateTime.id}
                         href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${dateTime.id}`}
                       >
-                        <div className='bg-game-white block h-20 cursor-pointer hover:scale-110'></div>
+                        <div className='block h-20 cursor-pointer bg-game-white hover:scale-110'></div>
                       </Link>
                     ))}
                   </td>

@@ -27,7 +27,7 @@ export default function SignUpForm() {
       <div className='mb-6 flex flex-col'>
         <label
           htmlFor={fields.name.id}
-          className='text-game-gray-500 mb-1 block pr-4 text-left font-bold'
+          className='mb-1 block pr-4 text-left font-bold text-game-gray-500'
         >
           ユーザー名
         </label>
@@ -78,7 +78,7 @@ export default function SignUpForm() {
           />
           <label
             htmlFor={fields.hasAgreedWithTermsOfService.id}
-            className='text-game-white ms-2 text-sm font-medium'
+            className='ms-2 text-sm font-medium text-game-white'
           >
             <a
               href='https://www.notion.so/9f18b38032884fe8915c7addad0e7f0e?pvs=4'
@@ -100,7 +100,7 @@ export default function SignUpForm() {
           />
           <label
             htmlFor={fields.hasAgreedWithPrivacyPolicy.id}
-            className='text-game-white ms-2 text-sm font-medium'
+            className='ms-2 text-sm font-medium text-game-white'
           >
             <a
               href='https://www.notion.so/116df216216d478d9ab909e53d6475a9?pvs=4'
@@ -116,7 +116,7 @@ export default function SignUpForm() {
       </div>
       <div className='md:flex md:items-center'>
         <button
-          className='border-game-white text-game-white w-full rounded border-2 border-solid px-8 py-3'
+          className='w-full rounded border-2 border-solid border-game-white px-8 py-3 text-game-white'
           type='submit'
         >
           新規会員登録

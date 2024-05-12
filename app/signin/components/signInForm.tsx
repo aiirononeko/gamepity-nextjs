@@ -58,7 +58,7 @@ export default function SignInForm() {
         </div>
         <div className='md:flex md:items-center'>
           <button
-            className='border-game-white text-game-white w-full rounded border-2 border-solid bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3'
+            className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'
             type='submit'
           >
             ログイン
@@ -66,10 +66,10 @@ export default function SignInForm() {
         </div>
       </form>
       <div className='mx-auto w-full max-w-sm'>
-        <p className='text-game-gray-500 my-6 text-center'>または</p>
+        <p className='my-6 text-center text-game-gray-500'>または</p>
         <Link href='/users/signup'>
           <button
-            className='border-game-white text-game-white w-full rounded border-2 border-solid bg-gradient-to-r px-8 py-3'
+            className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r px-8 py-3 text-game-white'
             type='button'
           >
             新規会員登録

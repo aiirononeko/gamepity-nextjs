@@ -13,11 +13,11 @@ export default async function Header() {
     : undefined
 
   return (
-    <header className='from-game-gray-900 via-game-gray-700 to-game-gray-900 bg-gradient-to-r'>
+    <header className='bg-gradient-to-r from-game-gray-900 via-game-gray-700 to-game-gray-900'>
       <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-6'>
         <Link
           href='/'
-          className='text-game-white self-center whitespace-nowrap text-4xl font-bold'
+          className='self-center whitespace-nowrap text-4xl font-bold text-game-white'
         >
           Gamepity
         </Link>
@@ -50,7 +50,7 @@ export default async function Header() {
             <li>
               <Link
                 href='/about'
-                className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
               </Link>
@@ -58,7 +58,7 @@ export default async function Header() {
             <li>
               <Link
                 href='/streamers'
-                className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 ストリーマー
               </Link>
@@ -69,7 +69,7 @@ export default async function Header() {
                   <a
                     href={stripeLoginLink.url}
                     target='_blank'
-                    className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                   >
                     売上管理
                   </a>
@@ -77,7 +77,7 @@ export default async function Header() {
                 <li>
                   <Link
                     href={`/streamers/${streamer.id}/reservations`}
-                    className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                   >
                     予約管理
                   </Link>
@@ -88,7 +88,7 @@ export default async function Header() {
               <li>
                 <Link
                   href={'/users/mypage'}
-                  className='text-game-white block rounded px-3 py-2 font-bold leading-10 hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                  className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
                 >
                   マイページ
                 </Link>

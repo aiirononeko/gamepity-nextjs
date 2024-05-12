@@ -20,11 +20,11 @@ export default function Streamer({ streamer, width }: Props) {
             />
           </div>
         ) : (
-          <div className={`bg-game-gray-500 h-52 ${width}`}></div>
+          <div className={`h-52 bg-game-gray-500 ${width}`}></div>
         )}
-        <div className={`bg-game-gray-700 h-48 rounded-b-xl p-5 ${width}`}>
-          <p className='text-game-white mb-4 text-xl font-bold'>{streamer.name}</p>
-          <p className='text-game-gray-300 mb-4 line-clamp-6 text-xs'>
+        <div className={`h-48 rounded-b-xl bg-game-gray-700 p-5 ${width}`}>
+          <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>
+          <p className='mb-4 line-clamp-6 text-xs text-game-gray-300'>
             {streamer.profile}
           </p>
         </div>

@@ -24,15 +24,15 @@ export default async function Reservation({ reservation }: Props) {
           <Image alt={`${streamer.name}のアイコン`} src={streamer.icon_url} fill={true} />
         </div>
       ) : (
-        <div className='bg-game-gray-500 h-52 w-full'></div>
+        <div className='h-52 w-full bg-game-gray-500'></div>
       )}
-      <div className='bg-game-gray-700 h-56 w-full rounded-b-xl p-5'>
-        <p className='text-game-white mb-2 text-xs'>ストリーマー</p>
-        <p className='text-game-white mb-4 font-bold'>{streamer.name}</p>
-        <p className='text-game-white mb-2 text-xs'>プラン</p>
-        <p className='text-game-white mb-4 font-bold'>{plan.name}</p>
-        <p className='text-game-white mb-2 text-xs'>開始日時</p>
-        <p className='text-game-white font-bold'>{formattedStartDateTime}</p>
+      <div className='h-56 w-full rounded-b-xl bg-game-gray-700 p-5'>
+        <p className='mb-2 text-xs text-game-white'>ストリーマー</p>
+        <p className='mb-4 font-bold text-game-white'>{streamer.name}</p>
+        <p className='mb-2 text-xs text-game-white'>プラン</p>
+        <p className='mb-4 font-bold text-game-white'>{plan.name}</p>
+        <p className='mb-2 text-xs text-game-white'>開始日時</p>
+        <p className='font-bold text-game-white'>{formattedStartDateTime}</p>
       </div>
     </div>
   )
