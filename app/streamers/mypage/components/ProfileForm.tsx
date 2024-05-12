@@ -10,6 +10,7 @@ type Props = {
   initialYoutubeUrl: string | null
   initialTwitchUrl: string | null
   initialXUrl: string | null
+  initialDiscordUrl: string | null
 }
 
 export default function ProfileForm({
@@ -19,12 +20,14 @@ export default function ProfileForm({
   initialYoutubeUrl,
   initialTwitchUrl,
   initialXUrl,
+  initialDiscordUrl,
 }: Props) {
   const [name, setName] = useState<string>(initialName)
   const [profile, setProfile] = useState<string>(initialProfile ?? '')
   const [youtubeUrl, setYoutubeUrl] = useState<string>(initialYoutubeUrl ?? '')
   const [twitchUrl, setTwitchUrl] = useState<string>(initialTwitchUrl ?? '')
   const [xUrl, setXUrl] = useState<string>(initialXUrl ?? '')
+  const [discordUrl, setDiscordUrl] = useState<string>(initialDiscordUrl ?? '')
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
@@ -76,6 +79,16 @@ export default function ProfileForm({
     }
   }
 
+  const handleDiscordUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDiscordUrl(e.target.value)
+  }
+
+  const handleDiscordUrlBlur = async () => {
+    if (initialDiscordUrl !== discordUrl) {
+      await updateProfile({ streamerId, discordUrl })
+    }
+  }
+
   return (
     <form className='basis-3/5 space-y-4 pl-10'>
       <input
@@ -118,6 +131,17 @@ export default function ProfileForm({
             onBlur={handleXUrlBlur}
           />
         </div>
+      </div>
+      <div>
+        <label className='block text-xs text-game-white'>
+          Discordサーバーの招待リンク
+        </label>
+        <input
+          className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
+          value={discordUrl}
+          onChange={handleDiscordUrlChange}
+          onBlur={handleDiscordUrlBlur}
+        />
       </div>
     </form>
   )

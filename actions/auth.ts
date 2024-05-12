@@ -24,7 +24,7 @@ export async function signUpUserWithEmail(_: unknown, formData: FormData) {
         is_streamer: false,
         name,
       },
-      emailRedirectTo: 'https://gamepity.com/',
+      emailRedirectTo: 'https://gamepity.com/signin',
     },
   })
   if (error) return submission.reply({ formErrors: [error.message] })

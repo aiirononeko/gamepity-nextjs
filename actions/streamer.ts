@@ -1,7 +1,6 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/client'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 type UpdateParams = {
   streamerId: string
@@ -10,13 +9,14 @@ type UpdateParams = {
   youtubeUrl?: string
   twitchUrl?: string
   xUrl?: string
+  discordUrl?: string
 }
 
 export const updateStripeAccountId = async (
   streamerId: string,
   stripeAccountId: string,
 ) => {
-  const supabase = createServerClient()
+  const supabase = createClient()
   const { error } = await supabase
     .from('streamers')
     .update({
@@ -33,9 +33,8 @@ export const updateProfile = async ({
   youtubeUrl,
   twitchUrl,
   xUrl,
+  discordUrl,
 }: UpdateParams): Promise<void> => {
-  'use client'
-
   const supabase = createClient()
   const { error } = await supabase
     .from('streamers')
@@ -45,7 +44,8 @@ export const updateProfile = async ({
       youtube_url: youtubeUrl,
       twitch_url: twitchUrl,
       x_url: xUrl,
+      discord_url: discordUrl,
     })
     .eq('id', streamerId)
-  if (error) throw new Error(error.message)
+  if (error) throw error
 }

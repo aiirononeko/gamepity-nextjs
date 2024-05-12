@@ -324,6 +324,7 @@ export type Database = {
         Row: {
           avg_rating: number | null
           created_at: string
+          discord_url: string | null
           icon_url: string | null
           id: string
           name: string
@@ -337,6 +338,7 @@ export type Database = {
         Insert: {
           avg_rating?: number | null
           created_at?: string
+          discord_url?: string | null
           icon_url?: string | null
           id: string
           name: string
@@ -350,6 +352,7 @@ export type Database = {
         Update: {
           avg_rating?: number | null
           created_at?: string
+          discord_url?: string | null
           icon_url?: string | null
           id?: string
           name?: string

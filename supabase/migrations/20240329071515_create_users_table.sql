@@ -28,6 +28,7 @@ create table public.streamers (
   icon_url varchar(255),
   profile varchar(255),
   stripe_account_id varchar(255) unique,
+  discord_url varchar(255),
   avg_rating numeric(2, 1) default 0,
   youtube_url varchar(255),
   x_url varchar(255),

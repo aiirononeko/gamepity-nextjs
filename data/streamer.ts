@@ -28,6 +28,7 @@ export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]
       youtube_url,
       twitch_url,
       x_url,
+      discord_url,
       created_at,
       updated_at,
       games (
@@ -90,6 +91,7 @@ export async function getStreamer(id: string): Promise<Streamer> {
       youtube_url,
       twitch_url,
       x_url,
+      discord_url,
       created_at,
       updated_at,
       plans (

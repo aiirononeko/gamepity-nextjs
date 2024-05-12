@@ -41,6 +41,7 @@ export default async function Page() {
           initialYoutubeUrl={streamer.youtube_url}
           initialTwitchUrl={streamer.twitch_url}
           initialXUrl={streamer.x_url}
+          initialDiscordUrl={streamer.discord_url}
         />
       </div>
       {hasSubmittedDetails ? (
