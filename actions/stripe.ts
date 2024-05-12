@@ -83,6 +83,7 @@ export const createStripePaymentLink = async (
         quantity: 1,
       },
     ],
+    currency: 'jpy',
     application_fee_amount: 0, // TODO: Betaが完了したら修正する
     transfer_data: {
       destination: stripeAccountId,
