@@ -15,7 +15,7 @@ export default async function Page() {
       <h2 className='mb-12 text-center text-xl font-bold text-game-white'>
         すべてのストリーマー
       </h2>
-      <div className='grid grid-cols-4 gap-6'>
+      <div className='grid grid-cols-4 gap-8'>
         {streamers.map((streamer) => (
           <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
         ))}

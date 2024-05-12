@@ -37,7 +37,7 @@ export default async function Home() {
             <Link href='/streamers'>すべてのストリーマーをみる →</Link>
           </div>
         </div>
-        <div className='flex flex-nowrap space-x-6 overflow-y-auto md:py-3'>
+        <div className='flex flex-nowrap space-x-8 overflow-y-auto md:py-3'>
           {streamers.map((streamer) => (
             <Streamer key={streamer.id} streamer={streamer} width={'w-80'} />
           ))}
@@ -68,7 +68,7 @@ export default async function Home() {
             <Link href='/streamers'>すべてのストリーマーをみる →</Link>
           </div>
         </div>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-6'>
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-8'>
           {streamers.slice(0, 8).map((streamer) => (
             <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
           ))}
