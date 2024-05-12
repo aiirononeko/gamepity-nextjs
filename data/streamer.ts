@@ -3,11 +3,14 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Streamer } from '@/types/streamer'
 
+/**
+ * トップページに表示するストリーマーを取得します
+ */
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select()
 
-  if (error) throw new Error(error.message)
+  if (error) throw error
 
   return data ?? []
 }

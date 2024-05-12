@@ -37,7 +37,8 @@ Deno.serve(async (req) => {
     await activateTempReservation(temporaryReservation.id)
 
     // ユーザーに予約完了メールを送信
-    await sendEmailToUser(receivedEvent.data.object.customer_details.email)
+    const discordUrl = await getStreamerDiscordUrl(streamerId)
+    await sendEmailToUser(receivedEvent.data.object.customer_details.email, discordUrl)
 
     // ストリーマーに予約通知メールを送信
     const streamerEmail = await getStreamerEmail(streamerId)
@@ -77,6 +78,20 @@ const activateTempReservation = async (tempReservationId: number) => {
   }
 }
 
+const getStreamerDiscordUrl = async (streamerId: string) => {
+  const { data, error } = await supabase
+    .from('streamers')
+    .select()
+    .eq('id', streamerId)
+    .single()
+  if (error) {
+    console.error(error)
+    throw error
+  }
+
+  return data.discord_url
+}
+
 const getStreamerEmail = async (streamerId: string) => {
   const { data, error } = await supabase
     .from('streamers')
@@ -92,7 +107,7 @@ const getStreamerEmail = async (streamerId: string) => {
   return stripeAccount.email
 }
 
-const sendEmailToUser = async (email: string) => {
+const sendEmailToUser = async (email: string, discordUrl: string) => {
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -106,7 +121,10 @@ const sendEmailToUser = async (email: string) => {
       html: `
         <p>この度はGamepityをご利用いただき誠にありがとうございます。</p>
         <p>ストリーマーの予約が完了しましたのでお知らせいたします。</p>
-        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordから参加下さい。</p>
+        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
+        <br>
+        <a href=${discordUrl}>専用のDiscordサーバーはこちら</a>
+        <br>
         <a href="https://gamepity.com/users/mypage">マイページはこちら</a>
         <br>
         <p>Gamepity 運営</p>
@@ -125,10 +143,11 @@ const sendEmailToStreamer = async (email: string) => {
     body: JSON.stringify({
       from: 'Gamepity <noreply@gamepity.com>',
       to: [email],
-      subject: '【Gamepity】予約通知',
+      subject: 'あなたのプランが予約されました',
       html: `
         <p>ユーザーがあなたのプランを購入しましたのでお知らせいたします。</p>
-        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordから参加下さい。</p>
+        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
+        <br>
         <a href="https://gamepity.com/streamers/mypage">マイページはこちら</a>
         <br>
         <p>Gamepity 運営</p>
