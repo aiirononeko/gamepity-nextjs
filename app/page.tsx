@@ -24,7 +24,7 @@ export default async function Page() {
           <Link href='/users/signup'>
             <Button
               variant='outline'
-              className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground hover:-translate-y-1'
+              className='primary-gradient h-12 w-48 text-primary-foreground hover:-translate-y-1 hover:text-primary-foreground'
             >
               新規登録はこちら
             </Button>

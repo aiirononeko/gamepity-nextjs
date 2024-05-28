@@ -1,8 +1,8 @@
 'use server'
 
+import { manageImage } from './image-upload'
 import { createClient } from '@/lib/supabase/server'
 import { streamerSchema } from '@/schemas/streamer'
-import { manageImage } from './image-upload'
 import { z } from 'zod'
 
 export const updateStripeAccountId = async (
@@ -20,18 +20,19 @@ export const updateStripeAccountId = async (
 }
 
 export const updateProfile = async (data: z.infer<typeof streamerSchema>) => {
-  const result = streamerSchema.safeParse(data);
+  const result = streamerSchema.safeParse(data)
 
   if (!result.success) {
     return {
       success: false,
       errors: result.error.errors,
-    };
+    }
   }
 
   const supabase = createClient()
 
-  const { streamerId, name, profile, iconUrl, youtubeUrl, twitchUrl, xUrl, discordUrl } = data
+  const { streamerId, name, profile, iconUrl, youtubeUrl, twitchUrl, xUrl, discordUrl } =
+    data
 
   const storagePath = await manageImage(supabase, iconUrl, streamerId)
 

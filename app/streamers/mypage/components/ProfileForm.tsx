@@ -30,7 +30,7 @@ export default function ProfileForm({ streamer }: Props) {
       discordUrl: streamer.discord_url ?? undefined,
       youtubeUrl: streamer.youtube_url ?? undefined,
       twitchUrl: streamer.twitch_url ?? undefined,
-      xUrl: streamer.x_url ?? undefined 
+      xUrl: streamer.x_url ?? undefined,
     },
   })
 
@@ -39,7 +39,7 @@ export default function ProfileForm({ streamer }: Props) {
   const onSubmit = async (data: z.infer<typeof streamerSchema>) => {
     await updateProfile(data)
     toast({
-      description: "プロフィールを更新しました",
+      description: 'プロフィールを更新しました',
     })
   }
 
@@ -144,10 +144,16 @@ export default function ProfileForm({ streamer }: Props) {
 
         <Button
           variant='outline'
-          disabled={!form.formState.isDirty || !form.formState.isValid || form.formState.isSubmitting}
-          className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground hover:-translate-y-1'
+          disabled={
+            !form.formState.isDirty ||
+            !form.formState.isValid ||
+            form.formState.isSubmitting
+          }
+          className='primary-gradient h-12 w-48 text-primary-foreground hover:-translate-y-1 hover:text-primary-foreground'
         >
-          {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {form.formState.isSubmitting && (
+            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+          )}
           更新
         </Button>
       </form>
