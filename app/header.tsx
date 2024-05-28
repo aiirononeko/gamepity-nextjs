@@ -48,12 +48,12 @@ export default async function Header() {
         <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
           <ul className='mt-4 flex flex-col rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse'>
             <li>
-              <Link
-                href='/about'
+              <a
+                href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
                 className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
               >
                 遊び方
-              </Link>
+              </a>
             </li>
             <li>
               <Link
