@@ -39,7 +39,9 @@ export default function PlanCard({ plan, streamer, games }: Props) {
         </div>
       </div>
       <div className='basis-7/12'>
-        <p className='my-10 mr-8 line-clamp-4 text-game-white'>{plan.description}</p>
+        <p className='my-10 mr-8 line-clamp-4 whitespace-pre-wrap text-game-white'>
+          {plan.description}
+        </p>
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ export default function Streamer({ streamer, width }: Props) {
         )}
         <div className={`h-48 rounded-b-xl bg-game-gray-700 p-5 ${width}`}>
           <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>
-          <p className='mb-4 line-clamp-6 text-xs text-game-gray-300'>
+          <p className='mb-4 line-clamp-6 whitespace-pre-wrap text-xs text-game-gray-300'>
             {streamer.profile}
           </p>
         </div>

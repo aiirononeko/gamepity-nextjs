@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         )}
         <div className='relative basis-3/5 space-y-6 pl-10'>
           <p className='text-3xl font-bold text-game-white'>{streamer.name}</p>
-          <p className='text-game-white'>{streamer.profile}</p>
+          <p className='whitespace-pre-wrap text-game-white'>{streamer.profile}</p>
           <div className='absolute right-0 top-56 flex flex-row items-center space-x-6'>
             {streamer.youtube_url && (
               <SnsCard

@@ -26,7 +26,7 @@ export const PlanCard = ({ plan }: Props) => {
         <CardDescription>{gameNames.join(', ')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className='mb-4'>{plan.description}</p>
+        <p className='mb-4 whitespace-pre-wrap'>{plan.description}</p>
         <p className='font-semibold'>{`${plan.amount}円 / 60分`}</p>
       </CardContent>
       <CardFooter>
