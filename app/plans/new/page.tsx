@@ -1,5 +1,13 @@
 import { redirect } from 'next/navigation'
 import { PlanForm } from '@/app/plans/new/components/PlanForm'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
 
@@ -9,5 +17,24 @@ export default async function Page() {
 
   const games = await getGames()
 
-  return <PlanForm streamerId={user.id} games={games} />
+  return (
+    <div className='container mx-auto my-12'>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/plans'>プラン管理</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>プラン作成</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <PlanForm streamerId={user.id} games={games} />
+    </div>
+  )
 }

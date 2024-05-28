@@ -1,7 +1,7 @@
 'use client'
 
 import { createPlan } from '@/actions/plan'
-import { createPlanSchema } from '@/schemas/plan'
+import { planSchema } from '@/schemas/plan'
 import { Game } from '@/types/game'
 import { useForm } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
@@ -18,7 +18,7 @@ export function PlanForm({ streamerId, games }: Props) {
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: createPlanSchema })
+      return parseWithZod(formData, { schema: planSchema })
     },
     shouldValidate: 'onBlur',
   })
@@ -34,7 +34,7 @@ export function PlanForm({ streamerId, games }: Props) {
       onSubmit={form.onSubmit}
       action={action}
       noValidate
-      className='mx-auto mt-20 w-full max-w-sm'
+      className='w-full max-w-sm pt-10'
     >
       <div className='mb-6 flex flex-col'>
         <label

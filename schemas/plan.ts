@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createPlanSchema = z.object({
+export const planSchema = z.object({
   name: z
     .string({ required_error: 'プラン名は必須です' })
     .max(30, 'プラン名は30文字以内で入力してください'),

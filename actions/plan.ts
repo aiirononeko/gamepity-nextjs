@@ -3,12 +3,12 @@
 import { redirect } from 'next/navigation'
 import { createStripeProductAndPrice } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
-import { createPlanSchema } from '@/schemas/plan'
+import { planSchema } from '@/schemas/plan'
 import { parseWithZod } from '@conform-to/zod'
 
 export const createPlan = async (_: unknown, formData: FormData) => {
   const submission = parseWithZod(formData, {
-    schema: createPlanSchema,
+    schema: planSchema,
   })
   if (submission.status !== 'success') return submission.reply()
 
@@ -42,7 +42,7 @@ export const createPlan = async (_: unknown, formData: FormData) => {
     return submission.reply()
   }
 
-  redirect('/streamers/mypage')
+  redirect('/plans')
 }
 
 const createPlansGames = async (planId: number, gameIds: FormDataEntryValue[]) => {
