@@ -90,6 +90,17 @@ export async function getStreamer(id: string): Promise<Streamer> {
       discord_url,
       created_at,
       updated_at,
+      plans (
+        id,
+        name,
+        description,
+        amount,
+        stripe_product_id,
+        stripe_price_id,
+        created_at,
+        updated_at,
+        streamer_id
+      ),
       reviews (
         id,
         rating,
