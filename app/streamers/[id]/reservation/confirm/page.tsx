@@ -20,21 +20,20 @@ export default async function Page({
   const availableDateTime = await getAvailableDateTime(
     Number(searchParams.availableDateTimeId),
   )
-  console.log(availableDateTime)
   const streamer = await getStreamer(plan.streamer_id)
 
   const startDateTime = format({
     date: availableDateTime.start_date_time,
     format: 'YYYY/MM/DD hh:mm',
     locale: 'ja',
-    tz: 'Asia/Tokyo'
+    tz: 'Asia/Tokyo',
   })
-  
+
   const endDateTime = format({
     date: addHour(availableDateTime.start_date_time, 1),
     format: 'YYYY/MM/DD hh:mm',
     locale: 'ja',
-    tz: 'Asia/Tokyo'
+    tz: 'Asia/Tokyo',
   })
 
   return (

@@ -8,7 +8,12 @@ import type { Streamer } from '@/types/streamer'
  */
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
-  const { data, error } = await supabase.from('streamers').select()
+  const { data, error } = await supabase
+    .from('streamers')
+    .select()
+    .neq('icon_url', null)
+    .neq('discord_url', null)
+    .neq('profile', null)
 
   if (error) throw error
 
@@ -40,18 +45,6 @@ export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]
         description,
         created_at,
         updated_at
-      ),
-      plans (
-        id,
-        name,
-        description,
-        amount,
-        stripe_product_id,
-        stripe_price_id,
-        stripe_payment_link_id,
-        created_at,
-        updated_at,
-        streamer_id
       ),
       reviews (
         id,
@@ -97,18 +90,6 @@ export async function getStreamer(id: string): Promise<Streamer> {
       discord_url,
       created_at,
       updated_at,
-      plans (
-        id,
-        name,
-        description,
-        amount,
-        stripe_product_id,
-        stripe_price_id,
-        stripe_payment_link_id,
-        created_at,
-        updated_at,
-        streamer_id
-      ),
       reviews (
         id,
         rating,
