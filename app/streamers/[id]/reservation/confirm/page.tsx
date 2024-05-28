@@ -22,14 +22,8 @@ export default async function Page({
   )
   const streamer = await getStreamer(plan.streamer_id)
 
-  const startDateTime = format(
-    tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'),
-    'YYYY/MM/DD hh:mm'
-  )
-  const endDateTime = format(
-    addHour(tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'), 1),
-    'YYYY/MM/DD hh:mm'
-  )
+  const jstStartDateTime = tzDate(availableDateTime.start_date_time, 'Asia/Tokyo')
+  const jstEndDateTime = addHour(jstStartDateTime, 1)
 
   return (
     <div className='container mx-auto'>
@@ -55,7 +49,7 @@ export default async function Page({
             <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
             <p className='basis-3/6 text-game-white'>{plan.description}</p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
-              {startDateTime} ~ {endDateTime}
+              {jstStartDateTime.toLocaleString()} ~ {jstEndDateTime.toLocaleString()}
             </p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
               {plan.amount}円 / 60分
