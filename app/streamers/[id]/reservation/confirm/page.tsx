@@ -6,7 +6,7 @@ import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
-import { addHour, date, format } from '@formkit/tempo'
+import { addHour, format, tzDate } from '@formkit/tempo'
 
 export default async function Page({
   searchParams,
@@ -23,12 +23,12 @@ export default async function Page({
   const streamer = await getStreamer(plan.streamer_id)
 
   const startDateTime = format(
-    date(availableDateTime.start_date_time),
+    tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'),
     'YYYY/MM/DD hh:mm',
     'ja',
   )
   const endDateTime = format(
-    addHour(date(availableDateTime.start_date_time), 1),
+    addHour(tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'), 1),
     'YYYY/MM/DD hh:mm',
     'ja',
   )
