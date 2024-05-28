@@ -144,12 +144,8 @@ export default function ProfileForm({ streamer }: Props) {
 
         <Button
           variant='outline'
-          disabled={
-            !form.formState.isDirty ||
-            !form.formState.isValid ||
-            form.formState.isSubmitting
-          }
-          className='primary-gradient h-12 w-48 text-primary-foreground hover:-translate-y-1 hover:text-primary-foreground'
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
+          className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground'
         >
           {form.formState.isSubmitting && (
             <Loader2 className='mr-2 h-4 w-4 animate-spin' />

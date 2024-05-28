@@ -82,6 +82,22 @@ export default async function Header() {
                     予約管理
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href={`/plans`}
+                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                  >
+                    プラン管理
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={`/available-date-times`}
+                    className='block rounded px-3 py-2 font-bold leading-10 text-game-white hover:bg-gray-700 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-500'
+                  >
+                    予約可能日時管理
+                  </Link>
+                </li>
               </>
             )}
             {user ? (
