@@ -49,7 +49,9 @@ export default async function Page({
             <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
             <p className='basis-3/6 text-game-white'>{plan.description}</p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
-              {jstStartDateTime.toLocaleString()} ~ {jstEndDateTime.toLocaleString()}
+              {jstStartDateTime.toString()} ~ {jstEndDateTime.toString()}<br/>
+              {format(jstStartDateTime, 'YYYY/MM/DD hh:mm')} ~ {format(jstStartDateTime, 'YYYY/MM/DD hh:mm')}<br/>
+              {jstStartDateTime.getHours()} ~ {jstEndDateTime.getHours()}
             </p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
               {plan.amount}円 / 60分
