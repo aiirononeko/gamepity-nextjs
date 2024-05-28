@@ -6,7 +6,7 @@ import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
-import { addHour, format, tzDate } from '@formkit/tempo'
+import { addHour, format } from '@formkit/tempo'
 
 export default async function Page({
   searchParams,
@@ -20,10 +20,22 @@ export default async function Page({
   const availableDateTime = await getAvailableDateTime(
     Number(searchParams.availableDateTimeId),
   )
+  console.log(availableDateTime)
   const streamer = await getStreamer(plan.streamer_id)
 
-  const jstStartDateTime = tzDate(availableDateTime.start_date_time, 'Asia/Tokyo')
-  const jstEndDateTime = addHour(jstStartDateTime, 1)
+  const startDateTime = format({
+    date: availableDateTime.start_date_time,
+    format: 'YYYY/MM/DD hh:mm',
+    locale: 'ja',
+    tz: 'Asia/Tokyo'
+  })
+  
+  const endDateTime = format({
+    date: addHour(availableDateTime.start_date_time, 1),
+    format: 'YYYY/MM/DD hh:mm',
+    locale: 'ja',
+    tz: 'Asia/Tokyo'
+  })
 
   return (
     <div className='container mx-auto'>
@@ -49,9 +61,7 @@ export default async function Page({
             <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
             <p className='basis-3/6 text-game-white'>{plan.description}</p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
-              {jstStartDateTime.toString()} ~ {jstEndDateTime.toString()}<br/>
-              {format(jstStartDateTime, 'YYYY/MM/DD hh:mm')} ~ {format(jstStartDateTime, 'YYYY/MM/DD hh:mm')}<br/>
-              {jstStartDateTime.getHours()} ~ {jstEndDateTime.getHours()}
+              {startDateTime} ~ {endDateTime}
             </p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
               {plan.amount}円 / 60分
