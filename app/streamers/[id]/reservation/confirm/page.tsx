@@ -24,13 +24,11 @@ export default async function Page({
 
   const startDateTime = format(
     tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'),
-    'YYYY/MM/DD hh:mm',
-    'ja',
+    'YYYY/MM/DD hh:mm'
   )
   const endDateTime = format(
     addHour(tzDate(availableDateTime.start_date_time, 'Asia/Tokyo'), 1),
-    'YYYY/MM/DD hh:mm',
-    'ja',
+    'YYYY/MM/DD hh:mm'
   )
 
   return (
