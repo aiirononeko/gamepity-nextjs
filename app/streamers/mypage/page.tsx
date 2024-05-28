@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import AvailableDateTimeTable from './components/AvailableDateTimeTable'
-import IconUploadForm from './components/IconUploadForm'
 import ProfileForm from './components/ProfileForm'
 import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
@@ -33,16 +32,7 @@ export default async function Page() {
         </Link>
       </div>
       <div className='flex flex-row px-32 pb-12'>
-        <IconUploadForm userId={streamer.id} initialIconUrl={streamer.icon_url} />
-        <ProfileForm
-          streamerId={streamer.id}
-          initialName={streamer.name}
-          initialProfile={streamer.profile}
-          initialYoutubeUrl={streamer.youtube_url}
-          initialTwitchUrl={streamer.twitch_url}
-          initialXUrl={streamer.x_url}
-          initialDiscordUrl={streamer.discord_url}
-        />
+        <ProfileForm streamer={streamer} />
       </div>
       {hasSubmittedDetails ? (
         <>

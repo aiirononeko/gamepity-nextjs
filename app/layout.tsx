@@ -4,6 +4,7 @@ import Footer from '@/app/footer'
 import '@/app/globals.css'
 import Header from '@/app/header'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/toaster'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <Header />
         {children}
+        <Toaster />
         <Footer />
       </body>
     </html>

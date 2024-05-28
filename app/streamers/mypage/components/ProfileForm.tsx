@@ -1,148 +1,156 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
 import { updateProfile } from '@/actions/streamer'
+import ImageSelector from '@/app/streamers/mypage/components/ImageSelector'
+import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useToast } from '@/components/ui/use-toast'
+import { streamerSchema } from '@/schemas/streamer'
+import { Streamer } from '@/types/streamer'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 type Props = {
-  streamerId: string
-  initialName: string
-  initialProfile: string | null
-  initialYoutubeUrl: string | null
-  initialTwitchUrl: string | null
-  initialXUrl: string | null
-  initialDiscordUrl: string | null
+  streamer: Streamer
 }
 
-export default function ProfileForm({
-  streamerId,
-  initialName,
-  initialProfile,
-  initialYoutubeUrl,
-  initialTwitchUrl,
-  initialXUrl,
-  initialDiscordUrl,
-}: Props) {
-  const [name, setName] = useState<string>(initialName)
-  const [profile, setProfile] = useState<string>(initialProfile ?? '')
-  const [youtubeUrl, setYoutubeUrl] = useState<string>(initialYoutubeUrl ?? '')
-  const [twitchUrl, setTwitchUrl] = useState<string>(initialTwitchUrl ?? '')
-  const [xUrl, setXUrl] = useState<string>(initialXUrl ?? '')
-  const [discordUrl, setDiscordUrl] = useState<string>(initialDiscordUrl ?? '')
+export default function ProfileForm({ streamer }: Props) {
+  const form = useForm<z.infer<typeof streamerSchema>>({
+    resolver: zodResolver(streamerSchema),
+    defaultValues: {
+      streamerId: streamer.id,
+      name: streamer.name,
+      profile: streamer.profile ?? undefined,
+      iconUrl: streamer.icon_url ?? undefined,
+      discordUrl: streamer.discord_url ?? undefined,
+      youtubeUrl: streamer.youtube_url ?? undefined,
+      twitchUrl: streamer.twitch_url ?? undefined,
+      xUrl: streamer.x_url ?? undefined 
+    },
+  })
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value)
-  }
+  const { toast } = useToast()
 
-  const handleNameBlur = async () => {
-    if (initialName !== name) {
-      await updateProfile({ streamerId, name })
-    }
-  }
-
-  const handleProfileChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setProfile(e.target.value)
-  }
-
-  const handleProfileBlur = async () => {
-    if (initialProfile !== profile) {
-      await updateProfile({ streamerId, profile })
-    }
-  }
-
-  const handleYoutubeUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setYoutubeUrl(e.target.value)
-  }
-
-  const handleYoutubeUrlBlur = async () => {
-    if (initialYoutubeUrl !== youtubeUrl) {
-      await updateProfile({ streamerId, youtubeUrl })
-    }
-  }
-
-  const handleTwitchUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTwitchUrl(e.target.value)
-  }
-
-  const handleTwitchUrlBlur = async () => {
-    if (initialTwitchUrl !== twitchUrl) {
-      await updateProfile({ streamerId, twitchUrl })
-    }
-  }
-
-  const handleXUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setXUrl(e.target.value)
-  }
-
-  const handleXUrlBlur = async () => {
-    if (initialXUrl !== xUrl) {
-      await updateProfile({ streamerId, xUrl })
-    }
-  }
-
-  const handleDiscordUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDiscordUrl(e.target.value)
-  }
-
-  const handleDiscordUrlBlur = async () => {
-    if (initialDiscordUrl !== discordUrl) {
-      await updateProfile({ streamerId, discordUrl })
-    }
+  const onSubmit = async (data: z.infer<typeof streamerSchema>) => {
+    await updateProfile(data)
+    toast({
+      description: "プロフィールを更新しました",
+    })
   }
 
   return (
-    <form className='basis-3/5 space-y-4 pl-10'>
-      <input
-        className='block border-2 border-game-gray-500 bg-game-gray-700 text-3xl font-bold text-game-white'
-        value={name}
-        onChange={handleNameChange}
-        onBlur={handleNameBlur}
-      />
-      <textarea
-        className='h-32 w-full border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
-        value={profile}
-        onChange={handleProfileChange}
-        onBlur={handleProfileBlur}
-      />
-      <div className='flex flex-row space-x-3'>
-        <div>
-          <label className='block text-xs text-game-white'>Youtube</label>
-          <input
-            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
-            value={youtubeUrl}
-            onChange={handleYoutubeUrlChange}
-            onBlur={handleYoutubeUrlBlur}
-          />
-        </div>
-        <div>
-          <label className='block text-xs text-game-white'>Twitch</label>
-          <input
-            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
-            value={twitchUrl}
-            onChange={handleTwitchUrlChange}
-            onBlur={handleTwitchUrlBlur}
-          />
-        </div>
-        <div>
-          <label className='block text-xs text-game-white'>X</label>
-          <input
-            className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
-            value={xUrl}
-            onChange={handleXUrlChange}
-            onBlur={handleXUrlBlur}
-          />
-        </div>
-      </div>
-      <div>
-        <label className='block text-xs text-game-white'>
-          Discordサーバーの招待リンク
-        </label>
-        <input
-          className='block border-2 border-game-gray-500 bg-game-gray-700 text-game-white'
-          value={discordUrl}
-          onChange={handleDiscordUrlChange}
-          onBlur={handleDiscordUrlBlur}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <FormField
+          name='iconUrl'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>アイコン</Label>
+              <FormControl>
+                <ImageSelector
+                  width='320px'
+                  resultWidth={320}
+                  aspectRatio={320 / 208}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-    </form>
+
+        <FormField
+          name='name'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>名前</Label>
+              <FormControl>
+                <Input {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='profile'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>プロフィール</Label>
+              <FormControl>
+                <Textarea {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='discordUrl'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>Discordサーバー URL</Label>
+              <FormControl>
+                <Input {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='youtubeUrl'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>Youtube URL</Label>
+              <FormControl>
+                <Input {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='twitchUrl'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>Twich URL</Label>
+              <FormControl>
+                <Input {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='xUrl'
+          render={({ field }) => (
+            <FormItem>
+              <Label className='text-primary-foreground'>X URL</Label>
+              <FormControl>
+                <Input {...field} className='w-80 text-primary-foreground' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          variant='outline'
+          disabled={!form.formState.isDirty || !form.formState.isValid || form.formState.isSubmitting}
+          className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground hover:-translate-y-1'
+        >
+          {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          更新
+        </Button>
+      </form>
+    </Form>
   )
 }

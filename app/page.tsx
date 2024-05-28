@@ -1,39 +1,47 @@
 import Link from 'next/link'
 import Game from '@/components/Game'
-import { GradationButton } from '@/components/GradationButton'
 import Streamer from '@/components/Streamer'
+import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 
-export default async function Home() {
-  // // TODO: 全件検索ではなく、注目ストリーマーと最新ストリーマー10件ずつ取得するよう修正する
+export default async function Page() {
   const streamers = await getStreamers()
   const games = await getGames()
 
   return (
     <>
-      <div className='mb-12 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] pb-8 pt-10'>
-        <p className='mb-5 text-center text-xl font-bold text-game-white'>
+      <div className='primary-gradient mb-12 flex flex-col items-center pb-8 pt-10'>
+        <p className='mb-5 text-center text-xl font-bold text-primary-foreground'>
           憧れのストリーマーとゲームができる
           <br />
           ゲーマー向けマッチングプラットフォーム
         </p>
-        <p className='mb-10 text-center text-7xl font-bold text-game-white'>Gamepity</p>
+        <p className='mb-10 text-center text-7xl font-bold text-primary-foreground'>
+          Gamepity
+        </p>
         <div className='flex w-full justify-center'>
           <Link href='/users/signup'>
-            <GradationButton>新規登録はこちら</GradationButton>
+            <Button
+              variant='outline'
+              className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground hover:-translate-y-1'
+            >
+              新規登録はこちら
+            </Button>
           </Link>
         </div>
       </div>
       <div className='container mx-auto'>
         <div className='md:grid md:grid-cols-6'>
           <div className='md:col-span-3'>
-            <h2 className='mb-1 text-xl font-bold text-game-white'>注目ストリーマー</h2>
-            <p className='mb-2 text-xs text-game-gray-300'>
+            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
+              注目ストリーマー
+            </h2>
+            <p className='mb-2 text-xs text-secondary-foreground'>
               注目のストリーマーと一緒にゲームを楽しもう！
             </p>
           </div>
-          <div className='mb-6 text-game-white underline md:col-span-3 md:mt-3 md:text-end'>
+          <div className='mb-6 text-primary-foreground underline md:col-span-3 md:mt-3 md:text-end'>
             <Link href='/streamers'>すべてのストリーマーをみる →</Link>
           </div>
         </div>
@@ -44,8 +52,10 @@ export default async function Home() {
         </div>
         <div className='mt-10 grid grid-cols-5'>
           <div className='col-span-4'>
-            <h2 className='mb-1 text-xl font-bold text-game-white'>注目ゲームタイトル</h2>
-            <p className='mb-6 text-xs text-game-gray-300 md:mb-4'>
+            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
+              注目ゲームタイトル
+            </h2>
+            <p className='mb-6 text-xs text-secondary-foreground md:mb-4'>
               注目のゲームタイトルからストリーマーを探そう！
             </p>
           </div>
@@ -57,14 +67,14 @@ export default async function Home() {
         </div>
         <div className='mt-10 md:grid md:grid-cols-6'>
           <div className='md:col-span-3'>
-            <h2 className='mb-1 text-xl font-bold text-game-white'>
+            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
               すべてのストリーマー
             </h2>
-            <p className='mb-2 text-xs text-game-gray-300 md:mb-6'>
+            <p className='mb-2 text-xs text-secondary-foreground md:mb-6'>
               お気に入りのストリーマーを見つけよう！
             </p>
           </div>
-          <div className='mb-6 text-game-white underline md:col-span-3 md:mt-3 md:text-end'>
+          <div className='mb-6 text-primary-foreground underline md:col-span-3 md:mt-3 md:text-end'>
             <Link href='/streamers'>すべてのストリーマーをみる →</Link>
           </div>
         </div>
