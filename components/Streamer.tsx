@@ -9,7 +9,7 @@ type Props = {
 
 export default function Streamer({ streamer }: Props) {
   return (
-    <div className='h-[380px] w-[352px] transition duration-300 hover:-translate-y-1'>
+    <div className='h-[380px] w-[352px] transition duration-300 hover:-translate-y-3'>
       <Link href={`/streamers/${streamer.id}`}>
         <Card>
           <CardHeader className='p-0 pb-5'>
