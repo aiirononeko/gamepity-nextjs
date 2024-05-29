@@ -11,8 +11,8 @@ export default async function Page() {
   const games = await getGames()
 
   return (
-    <>
-      <div className='mb-10 flex flex-col items-center py-12 border-b'>
+    <div className='mb-12'>
+      <div className='mb-10 flex flex-col items-center border-b py-12'>
         <p className='mb-5 text-center text-xl font-bold'>
           憧れのストリーマーとゲームができる
           <br />
@@ -85,6 +85,6 @@ export default async function Page() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
