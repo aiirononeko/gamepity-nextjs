@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className='mb-10 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] py-12'>
+      <div className='mb-10 flex flex-col items-center py-12 border-b'>
         <p className='mb-5 text-center text-xl font-bold'>
           憧れのストリーマーとゲームができる
           <br />
