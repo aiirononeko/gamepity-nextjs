@@ -1,33 +1,39 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Card, CardContent, CardHeader } from './ui/card'
 import type { Streamer } from '@/types/streamer'
 
 type Props = {
   streamer: Streamer
-  width: string
 }
 
-export default function Streamer({ streamer, width }: Props) {
+export default function Streamer({ streamer }: Props) {
   return (
-    <div className='transition duration-300 hover:-translate-y-1'>
+    <div className='h-[380px] w-[352px] transition duration-300 hover:-translate-y-1'>
       <Link href={`/streamers/${streamer.id}`}>
-        {streamer.icon_url ? (
-          <div className={`relative h-52 ${width}`}>
-            <Image
-              alt={`${streamer.name}のアイコン`}
-              src={streamer.icon_url}
-              fill={true}
-            />
-          </div>
-        ) : (
-          <div className={`h-52 bg-game-gray-500 ${width}`}></div>
-        )}
-        <div className={`h-48 rounded-b-xl bg-game-gray-700 p-5 ${width}`}>
-          <p className='mb-4 text-xl font-bold text-game-white'>{streamer.name}</p>
-          <p className='mb-4 line-clamp-6 whitespace-pre-wrap text-xs text-game-gray-300'>
-            {streamer.profile}
-          </p>
-        </div>
+        <Card>
+          <CardHeader className='p-0 pb-5'>
+            {streamer.icon_url ? (
+              <div className='relative h-[220px] w-[352px]'>
+                <Image
+                  alt={`${streamer.name}のアイコン`}
+                  src={streamer.icon_url}
+                  fill={true}
+                />
+              </div>
+            ) : (
+              <div className='h-220px h-52 w-[352px]'></div>
+            )}
+          </CardHeader>
+          <CardContent>
+            <div className='h-[140px]'>
+              <p className='mb-4 text-xl font-bold'>{streamer.name}</p>
+              <p className='mb-4 line-clamp-6 whitespace-pre-wrap text-xs'>
+                {streamer.profile}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </Link>
     </div>
   )

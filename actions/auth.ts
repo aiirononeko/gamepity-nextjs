@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { signInSchema } from '@/schemas/signIn'
 import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
 import { parseWithZod } from '@conform-to/zod'
+import { z } from 'zod'
 
 export async function signUpUserWithEmail(_: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
@@ -64,20 +65,23 @@ export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
   redirect('/streamers/signup/completed')
 }
 
-export async function signInWithEmail(_: unknown, formData: FormData) {
-  const submission = parseWithZod(formData, {
-    schema: signInSchema,
-  })
-  if (submission.status !== 'success') return submission.reply()
-
-  const { email, password } = submission.value
+export async function signInWithEmail(data: z.infer<typeof signInSchema>) {
+  const result = signInSchema.safeParse(data)
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.errors,
+    }
+  }
 
   const supabase = createClient()
+
+  const { email, password } = data
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
-  if (error) return submission.reply({ formErrors: [error.message] })
+  if (error) throw error
 }
 
 export async function signOut() {

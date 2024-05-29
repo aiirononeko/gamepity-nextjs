@@ -4,6 +4,7 @@ import Streamer from '@/components/Streamer'
 import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
+import { ChevronRight } from 'lucide-react'
 
 export default async function Page() {
   const streamers = await getStreamers()
@@ -11,77 +12,79 @@ export default async function Page() {
 
   return (
     <>
-      <div className='primary-gradient mb-12 flex flex-col items-center pb-8 pt-10'>
-        <p className='mb-5 text-center text-xl font-bold text-primary-foreground'>
+      <div className='mb-10 flex flex-col items-center bg-gradient-to-r from-[#F0DA53] via-[#EA5E7F] to-[#3D7CEA] py-12'>
+        <p className='mb-5 text-center text-xl font-bold'>
           憧れのストリーマーとゲームができる
           <br />
           ゲーマー向けマッチングプラットフォーム
         </p>
-        <p className='mb-10 text-center text-7xl font-bold text-primary-foreground'>
-          Gamepity
-        </p>
+        <p className='mb-10 text-center text-7xl font-bold'>Gamepity</p>
         <div className='flex w-full justify-center'>
           <Link href='/users/signup'>
-            <Button
-              variant='outline'
-              className='primary-gradient h-12 w-48 text-primary-foreground hover:-translate-y-1 hover:text-primary-foreground'
-            >
+            <Button variant='default' className='h-12 w-48 hover:-translate-y-1'>
               新規登録はこちら
             </Button>
           </Link>
         </div>
       </div>
-      <div className='container mx-auto'>
-        <div className='md:grid md:grid-cols-6'>
-          <div className='md:col-span-3'>
-            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
-              注目ストリーマー
-            </h2>
-            <p className='mb-2 text-xs text-secondary-foreground'>
-              注目のストリーマーと一緒にゲームを楽しもう！
-            </p>
+      <div className='container mx-auto space-y-12'>
+        <div>
+          <div className='md:grid md:grid-cols-6'>
+            <div className='md:col-span-3'>
+              <h2 className='mb-1 text-xl font-bold'>注目ストリーマー</h2>
+              <p className='mb-2 text-xs'>注目のストリーマーと一緒にゲームを楽しもう！</p>
+            </div>
+            <div className='md:col-span-3 md:mt-3 md:text-end'>
+              <Link href='/streamers'>
+                <Button variant='link'>
+                  すべてのストリーマーをみる
+                  <ChevronRight className='h-4 w-4' />
+                </Button>
+              </Link>
+            </div>
           </div>
-          <div className='mb-6 text-primary-foreground underline md:col-span-3 md:mt-3 md:text-end'>
-            <Link href='/streamers'>すべてのストリーマーをみる →</Link>
-          </div>
-        </div>
-        <div className='flex flex-nowrap space-x-8 overflow-y-auto md:py-3'>
-          {streamers.map((streamer) => (
-            <Streamer key={streamer.id} streamer={streamer} width={'w-80'} />
-          ))}
-        </div>
-        <div className='mt-10 grid grid-cols-5'>
-          <div className='col-span-4'>
-            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
-              注目ゲームタイトル
-            </h2>
-            <p className='mb-6 text-xs text-secondary-foreground md:mb-4'>
-              注目のゲームタイトルからストリーマーを探そう！
-            </p>
+          <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
+            {streamers.map((streamer) => (
+              <Streamer key={streamer.id} streamer={streamer} />
+            ))}
           </div>
         </div>
-        <div className='flex flex-row space-x-4 overflow-y-auto md:h-20 md:pt-3'>
-          {games.map((game) => (
-            <Game key={game.id} game={game} />
-          ))}
-        </div>
-        <div className='mt-10 md:grid md:grid-cols-6'>
-          <div className='md:col-span-3'>
-            <h2 className='mb-1 text-xl font-bold text-primary-foreground'>
-              すべてのストリーマー
-            </h2>
-            <p className='mb-2 text-xs text-secondary-foreground md:mb-6'>
-              お気に入りのストリーマーを見つけよう！
-            </p>
+        <div>
+          <div className='grid grid-cols-5'>
+            <div className='col-span-4'>
+              <h2 className='mb-1 text-xl font-bold'>注目ゲームタイトル</h2>
+              <p className='mb-6 text-xs md:mb-4'>
+                注目のゲームタイトルからストリーマーを探そう！
+              </p>
+            </div>
           </div>
-          <div className='mb-6 text-primary-foreground underline md:col-span-3 md:mt-3 md:text-end'>
-            <Link href='/streamers'>すべてのストリーマーをみる →</Link>
+          <div className='flex flex-row space-x-4 overflow-y-auto md:h-[60px]'>
+            {games.map((game) => (
+              <Game key={game.id} game={game} />
+            ))}
           </div>
         </div>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-8'>
-          {streamers.slice(0, 8).map((streamer) => (
-            <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
-          ))}
+
+        <div>
+          <div className='md:grid md:grid-cols-6'>
+            <div className='md:col-span-3'>
+              <h2 className='mb-1 text-xl font-bold'>すべてのストリーマー</h2>
+              <p className='mb-2 text-xs'>お気に入りのストリーマーを見つけよう！</p>
+            </div>
+            <div className='md:col-span-3 md:mt-3 md:text-end'>
+              <Link href='/streamers'>
+                <Button variant='link'>
+                  すべてのストリーマーをみる
+                  <ChevronRight className='h-4 w-4' />
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
+            {streamers.map((streamer) => (
+              <Streamer key={streamer.id} streamer={streamer} />
+            ))}
+          </div>
         </div>
       </div>
     </>

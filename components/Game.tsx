@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Button } from './ui/button'
 import type { Game } from '@/types/game'
 
 type Props = {
@@ -7,12 +8,8 @@ type Props = {
 
 export default function Game({ game }: Props) {
   return (
-    <div className='transition duration-300 hover:-translate-y-1'>
-      <Link href={`/games/${game.id}`}>
-        <div className='flex h-10 w-40 items-center justify-center rounded-full bg-game-gray-600'>
-          <p className='text-game-white'>{game.name}</p>
-        </div>
-      </Link>
-    </div>
+    <Link href={`/games/${game.id}`}>
+      <Button variant='ghost'>{game.name}</Button>
+    </Link>
   )
 }

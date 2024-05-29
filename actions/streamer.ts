@@ -21,7 +21,6 @@ export const updateStripeAccountId = async (
 
 export const updateProfile = async (data: z.infer<typeof streamerSchema>) => {
   const result = streamerSchema.safeParse(data)
-
   if (!result.success) {
     return {
       success: false,

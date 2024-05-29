@@ -54,8 +54,8 @@ export default function ProfileForm({ streamer }: Props) {
               <FormControl>
                 <ImageSelector
                   width='320px'
-                  resultWidth={320}
-                  aspectRatio={320 / 208}
+                  resultWidth={352}
+                  aspectRatio={352 / 220}
                   {...field}
                 />
               </FormControl>
