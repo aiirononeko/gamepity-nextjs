@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </h2>
         <div className='grid grid-cols-4 gap-6'>
           {streamers.map((streamer) => (
-            <Streamer key={streamer.id} streamer={streamer} width={'w-full'} />
+            <Streamer key={streamer.id} streamer={streamer} />
           ))}
         </div>
       </div>

@@ -20,11 +20,9 @@ export default async function Page() {
         </p>
         <p className='mb-10 text-center text-7xl font-bold'>Gamepity</p>
         <div className='flex w-full justify-center'>
-          <Link href='/users/signup'>
-            <Button variant='default' className='h-12 w-48 hover:-translate-y-1'>
-              新規登録はこちら
-            </Button>
-          </Link>
+          <Button variant='default' className='h-12 w-48 hover:-translate-y-1' asChild>
+            <Link href='/users/signup'>新規登録はこちら</Link>
+          </Button>
         </div>
       </div>
       <div className='container mx-auto space-y-12'>
@@ -35,12 +33,12 @@ export default async function Page() {
               <p className='mb-2 text-xs'>注目のストリーマーと一緒にゲームを楽しもう！</p>
             </div>
             <div className='md:col-span-3 md:mt-3 md:text-end'>
-              <Link href='/streamers'>
-                <Button variant='link'>
+              <Button variant='link' asChild>
+                <Link href='/streamers'>
                   すべてのストリーマーをみる
                   <ChevronRight className='h-4 w-4' />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
           <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
@@ -72,12 +70,12 @@ export default async function Page() {
               <p className='mb-2 text-xs'>お気に入りのストリーマーを見つけよう！</p>
             </div>
             <div className='md:col-span-3 md:mt-3 md:text-end'>
-              <Link href='/streamers'>
-                <Button variant='link'>
+              <Button variant='link' asChild>
+                <Link href='/streamers'>
                   すべてのストリーマーをみる
                   <ChevronRight className='h-4 w-4' />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
           <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
