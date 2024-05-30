@@ -14,7 +14,7 @@ export default async function Page() {
   const games = await getGames()
 
   return (
-    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[330px] md:mt-10 md:flex-none md:space-y-12'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

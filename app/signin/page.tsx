@@ -10,12 +10,12 @@ import {
 import { getCurrentUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
 
-export default async function SignIn() {
+export default async function Page() {
   const user = await getCurrentUser()
   if (user) redirect('/')
 
   return (
-    <div className='container mx-auto mt-12'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -27,9 +27,8 @@ export default async function SignIn() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className='my-8'>
-        <SignInForm />
-      </div>
+      <h2 className='text-xl font-bold'>ログイン</h2>
+      <SignInForm />
     </div>
   )
 }

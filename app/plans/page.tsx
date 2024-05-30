@@ -20,7 +20,7 @@ export default async function Page() {
   const plans = await getPlans(user.id)
 
   return (
-    <div className='container mx-auto mt-12'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[330px] md:mt-10 md:flex-none md:space-y-12'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -32,15 +32,12 @@ export default async function Page() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+      <h2 className='text-xl font-bold'>プラン管理</h2>
       <div className='my-8'>
-        <div className='mb-6'>
-          <Link href='/plans/new'>
-            <Button variant='outline' className='w-44 text-primary-foreground'>
-              プランを追加
-            </Button>
-          </Link>
-        </div>
-        <div className='flex flex-nowrap space-x-8 overflow-y-auto md:py-3'>
+        <Button variant='outline' className='w-44' asChild>
+          <Link href='/plans/new'>プランを追加</Link>
+        </Button>
+        <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
           {plans.map((plan) => (
             // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
             <PlanCard key={plan.id} plan={plan} />

@@ -32,7 +32,10 @@ export default function SignUpForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex flex-col items-center space-y-8'
+      >
         <FormField
           control={form.control}
           name='name'
@@ -87,7 +90,9 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>登録</Button>
+        <Button type='submit' className='w-40'>
+          登録
+        </Button>
       </form>
     </Form>
   )

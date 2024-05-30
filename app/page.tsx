@@ -22,7 +22,7 @@ export default async function Page() {
           <Link href='/users/signup'>新規登録はこちら</Link>
         </Button>
       </div>
-      <div className='space-y-8 md:mx-[330px] md:space-y-12'>
+      <div className='space-y-8 md:mx-[160px] md:space-y-12'>
         <div className='space-y-4'>
           <div className='flex flex-col items-center space-y-2 md:grid md:flex-none md:grid-cols-12'>
             <div className='space-y-2 md:col-span-8'>
@@ -52,16 +52,26 @@ export default async function Page() {
         </div>
         <div className='space-y-4'>
           <div className='flex flex-col items-center space-y-2'>
-            <h2 className='text-xl font-bold'>注目ゲームタイトル</h2>
-            <p className='text-xs'>
-              注目のゲームタイトルからストリーマーを探そう！
-            </p>
-            <Button variant='link' asChild>
-              <Link href='/games'>
-                すべてのゲームタイトルをみる
-                <ChevronRight className='size-4' />
-              </Link>
-            </Button>
+            <div className='flex flex-col items-center space-y-2 md:grid md:flex-none md:grid-cols-12'>
+              <div className='space-y-2 md:col-span-8'>
+                <h2 className='text-center text-xl font-bold md:text-start'>
+                  注目ゲームタイトル
+                </h2>
+                <p className='text-center text-xs md:text-start'>
+                  注目のゲームタイトルからストリーマーを探そう！
+                </p>
+              </div>
+              <Button
+                variant='link'
+                asChild
+                className='md:col-span-2 md:col-start-11 md:p-0'
+              >
+                <Link href='/games'>
+                  すべてのゲームタイトルをみる
+                  <ChevronRight className='size-4' />
+                </Link>
+              </Button>
+            </div>
           </div>
           <div className='grid gap-2 md:grid-cols-8 md:gap-4'>
             {games.map((game) => (
