@@ -27,7 +27,7 @@ export default function StreamerCard({ streamer }: Props) {
           </CardHeader>
           <CardContent className='h-[140px] w-[352px]'>
             <p className='mb-4 text-xl font-bold'>{streamer.name}</p>
-            <p className='mb-4 line-clamp-4 md:line-clamp-6 whitespace-pre-wrap text-xs'>
+            <p className='mb-4 line-clamp-4 whitespace-pre-wrap text-xs md:line-clamp-6'>
               {streamer.profile}
             </p>
           </CardContent>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 
 export default function Footer() {
   return (
-    <footer className='md:px-[320px] sticky top-full flex flex-col md:flex-row md:flex-row py-2 md:h-16 items-center md:justify-end md:gap-3 border-t'>
+    <footer className='sticky top-full flex flex-col items-center border-t py-2 md:h-16 md:flex-row md:justify-end md:gap-3 md:px-[330px]'>
       <div className='flex md:flex-none'>
         <Button asChild variant='link'>
           <a
