@@ -5,16 +5,18 @@ import { createStripeAccount } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { signInSchema } from '@/schemas/signIn'
 import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
-import { parseWithZod } from '@conform-to/zod'
 import { z } from 'zod'
 
-export async function signUpUserWithEmail(_: unknown, formData: FormData) {
-  const submission = parseWithZod(formData, {
-    schema: signUpUserSchema,
-  })
-  if (submission.status !== 'success') return submission.reply()
+export async function signUpUserWithEmail(data: z.infer<typeof signUpUserSchema>) {
+  const result = signUpUserSchema.safeParse(data)
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.errors,
+    }
+  }
 
-  const { name, email, password } = submission.value
+  const { name, email, password } = data
 
   const supabase = createClient()
   const { error } = await supabase.auth.signUp({
@@ -28,18 +30,23 @@ export async function signUpUserWithEmail(_: unknown, formData: FormData) {
       emailRedirectTo: 'https://gamepity.com/signin',
     },
   })
-  if (error) return submission.reply({ formErrors: [error.message] })
+  if (error) throw error
 
   redirect('/users/signup/completed')
 }
 
-export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
-  const submission = parseWithZod(formData, {
-    schema: signUpStreamerSchema,
-  })
-  if (submission.status !== 'success') return submission.reply()
+export async function signUpStreamerWithEmail(
+  data: z.infer<typeof signUpStreamerSchema>,
+) {
+  const result = signUpStreamerSchema.safeParse(data)
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.errors,
+    }
+  }
 
-  const { name, email, password } = submission.value
+  const { name, email, password } = data
 
   try {
     const stripeAccount = await createStripeAccount(email)
@@ -56,10 +63,10 @@ export async function signUpStreamerWithEmail(_: unknown, formData: FormData) {
         emailRedirectTo: 'https://gamepity.com/signin',
       },
     })
-    if (error) return submission.reply({ formErrors: [error.message] })
+    if (error) throw error
   } catch (e) {
     console.error(e)
-    return submission.reply()
+    throw e
   }
 
   redirect('/streamers/signup/completed')
