@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@/data/auth'
+import { currentUser } from '@/data/auth'
 import { getPlan } from '@/data/plan'
 import { getReservation } from '@/data/reservation'
 import { getStreamer } from '@/data/streamer'
@@ -12,7 +12,7 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (!user) redirect('/signin')
 
   const reservation = await getReservation(Number(searchParams.reservationId))

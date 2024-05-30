@@ -7,11 +7,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { getCurrentUser } from '@/data/auth'
+import { currentUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (user) redirect('/')
 
   return (

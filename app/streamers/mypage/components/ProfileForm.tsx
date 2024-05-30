@@ -13,12 +13,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/components/ui/use-toast'
 import { streamerSchema } from '@/schemas/streamer'
 import type { Streamer } from '@/types/streamer'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import type { z } from 'zod'
 
 type Props = {
@@ -40,12 +40,11 @@ export default function ProfileForm({ streamer }: Props) {
     },
   })
 
-  const { toast } = useToast()
-
   const onSubmit = async (data: z.infer<typeof streamerSchema>) => {
     await updateProfile(data)
-    toast({
-      description: 'プロフィールを更新しました',
+    toast.success('プロフィールを更新しました', {
+      position: 'top-right',
+      duration: 5000,
     })
   }
 

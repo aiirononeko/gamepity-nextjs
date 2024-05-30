@@ -1,4 +1,12 @@
 import StreamerCard from '@/components/StreamerCard'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getGame } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 
@@ -7,11 +15,20 @@ export default async function Page({ params }: { params: { id: string } }) {
   const streamers = await getStreamers()
 
   return (
-    <div className='container mx-auto mt-12'>
-      <h2 className='m-10 text-center text-xl font-bold text-game-white'>
-        {`${game.name}を募集中のストリーマー`}
-      </h2>
-      <div className='grid grid-cols-4 gap-6'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{game.name}を募集中のストリーマー</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h2 className='text-xl font-bold'>{game.name}を募集中のストリーマー</h2>
+      <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
         {streamers.map((streamer) => (
           <StreamerCard key={streamer.id} streamer={streamer} />
         ))}

@@ -7,11 +7,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { getCurrentUser } from '@/data/auth'
+import { currentUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
 
-export default async function Page() {
-  const user = await getCurrentUser()
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const user = await currentUser()
   if (user) redirect('/')
 
   return (
@@ -28,7 +32,11 @@ export default async function Page() {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>ログイン</h2>
-      <SignInForm />
+      <SignInForm
+        hasConfirmationRedirected={
+          searchParams.code !== undefined && searchParams.code !== ''
+        }
+      />
     </div>
   )
 }

@@ -90,7 +90,10 @@ export async function signInWithEmail(data: z.infer<typeof signInSchema>) {
     email,
     password,
   })
-  if (error) throw error
+  if (error) {
+    console.error(error)
+    throw error
+  }
 }
 
 export async function signOut() {

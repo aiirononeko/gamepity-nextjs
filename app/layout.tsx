@@ -1,7 +1,7 @@
 import Footer from '@/app/footer'
 import '@/app/globals.css'
 import Header from '@/app/header'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
-        <Toaster />
+        <Toaster richColors />
         <Footer />
       </body>
     </html>

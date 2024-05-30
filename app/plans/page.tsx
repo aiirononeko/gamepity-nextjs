@@ -7,14 +7,14 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import { getCurrentUser, isStreamer } from '@/data/auth'
+import { currentUser, isStreamer } from '@/data/auth'
 import { getPlans } from '@/data/plan'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { PlanCard } from './components/PlanCard'
 
 export default async function Page() {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const plans = await getPlans(user.id)

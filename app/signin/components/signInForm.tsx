@@ -11,13 +11,20 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { toast } from '@/components/ui/use-toast'
 import { signInSchema } from '@/schemas/signIn'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import type { z } from 'zod'
 
-export default function SignInForm() {
+type Props = {
+  hasConfirmationRedirected?: boolean
+}
+
+export default function SignInForm({
+  hasConfirmationRedirected = false,
+}: Props) {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -26,11 +33,28 @@ export default function SignInForm() {
     },
   })
 
+  useEffect(() => {
+    if (hasConfirmationRedirected) {
+      toast.success('アカウントの本登録が完了しました。', {
+        position: 'top-right',
+        duration: 5000,
+      })
+    }
+  }, [hasConfirmationRedirected])
+
   async function onSubmit(data: z.infer<typeof signInSchema>) {
-    await signInWithEmail(data)
-    toast({
-      description: 'ログインしました',
-    })
+    try {
+      await signInWithEmail(data)
+      toast.success('ログインしました', {
+        position: 'top-right',
+        duration: 5000,
+      })
+    } catch (e) {
+      toast.error('ログインに失敗しました。', {
+        position: 'top-right',
+        duration: 5000,
+      })
+    }
   }
 
   return (

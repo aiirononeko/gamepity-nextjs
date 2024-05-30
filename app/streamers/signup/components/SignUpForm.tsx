@@ -2,6 +2,7 @@
 
 import { signUpStreamerWithEmail } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -13,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { signUpStreamerSchema } from '@/schemas/signUp'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
 
@@ -23,6 +25,8 @@ export default function SignUpForm() {
       name: '',
       email: '',
       password: '',
+      hasAgreedWithTermsOfService: undefined,
+      hasAgreedWithPrivacyPolicy: undefined,
     },
   })
 
@@ -90,7 +94,68 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-40'>
+        <FormField
+          control={form.control}
+          name='hasAgreedWithTermsOfService'
+          render={({ field }) => (
+            <FormItem className='flex w-80 flex-row space-x-3 space-y-0'>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className='space-y-1 leading-none'>
+                <FormLabel>
+                  <a
+                    href='https://brash-ferry-996.notion.site/9f18b38032884fe8915c7addad0e7f0e'
+                    target='_blank'
+                    className='cursor-pointer underline hover:text-gray-600'
+                  >
+                    利用規約
+                  </a>
+                  に同意する
+                </FormLabel>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='hasAgreedWithPrivacyPolicy'
+          render={({ field }) => (
+            <FormItem className='flex w-80 flex-row space-x-3 space-y-0'>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className='space-y-1 leading-none'>
+                <FormLabel>
+                  <a
+                    href='https://brash-ferry-996.notion.site/116df216216d478d9ab909e53d6475a9'
+                    target='_blank'
+                    className='cursor-pointer underline hover:text-gray-600'
+                  >
+                    プライバシーポリシー
+                  </a>
+                  に同意する
+                </FormLabel>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type='submit'
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
+          className='w-40'
+        >
+          {form.formState.isSubmitting && (
+            <Loader2 className='mr-2 size-4 animate-spin' />
+          )}
           登録
         </Button>
       </form>

@@ -7,12 +7,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { getCurrentUser, isStreamer } from '@/data/auth'
+import { currentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const games = await getGames()

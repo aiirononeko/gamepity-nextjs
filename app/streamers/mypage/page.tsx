@@ -11,7 +11,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { getCurrentUser, isStreamer } from '@/data/auth'
+import { currentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
 import { redirect } from 'next/navigation'
@@ -19,7 +19,7 @@ import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 import ProfileForm from './components/ProfileForm'
 
 export default async function Page() {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const streamer = await getStreamer(user.id)

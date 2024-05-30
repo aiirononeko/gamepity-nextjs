@@ -1,5 +1,5 @@
 import { createReservation } from '@/actions/reservation'
-import { getCurrentUser } from '@/data/auth'
+import { currentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
@@ -12,7 +12,7 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const user = await getCurrentUser()
+  const user = await currentUser()
   if (!user) redirect('/signin')
 
   const plan = await getPlan(Number(searchParams.planId))
