@@ -27,9 +27,14 @@ export default async function Page() {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>すべてのゲームタイトル</h2>
-      <div className='grid grid-cols-2 gap-4 md:grid-cols-8'>
+      <div className='grid gap-4 md:grid-cols-4'>
         {games.map((game) => (
-          <Button key={game.id} variant='outline' asChild className='col-auto'>
+          <Button
+            key={game.id}
+            variant='outline'
+            asChild
+            className='w-72 md:col-auto md:w-[260px]'
+          >
             <Link href={`/games/${game.id}`}>{game.name}</Link>
           </Button>
         ))}

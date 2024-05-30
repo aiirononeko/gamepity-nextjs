@@ -10,7 +10,7 @@ export default async function Page() {
   const games = await getGames()
 
   return (
-    <div className='mb-16 mt-6 flex flex-col items-center md:mt-10'>
+    <div className='mb-16 flex flex-col items-center md:mt-4'>
       <div className='mb-8 flex w-full flex-col items-center border-b py-12 md:mb-10'>
         <p className='mb-5 text-center text-lg font-bold md:text-xl'>
           憧れのストリーマーとゲームができる
@@ -71,9 +71,14 @@ export default async function Page() {
               </Link>
             </Button>
           </div>
-          <div className='grid gap-2 md:grid-cols-8 md:gap-4'>
+          <div className='grid gap-4 md:grid-cols-4'>
             {games.map((game) => (
-              <Button key={game.id} variant='outline' asChild>
+              <Button
+                key={game.id}
+                variant='outline'
+                asChild
+                className='md:col-auto md:w-[260px]'
+              >
                 <Link href={`/games/${game.id}`}>{game.name}</Link>
               </Button>
             ))}
