@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { AvailableDateTime } from '@/types/availableDateTime'
-import { addDay, date, format } from '@formkit/tempo'
+import { addDay, date } from '@formkit/tempo'
 
 export async function getAvailableDateTimes(
   streamerId: string,

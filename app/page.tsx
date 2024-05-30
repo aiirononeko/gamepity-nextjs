@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import Game from '@/components/Game'
 import Streamer from '@/components/Streamer'
 import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Page() {
   const streamers = await getStreamers()
@@ -20,7 +20,11 @@ export default async function Page() {
         </p>
         <p className='mb-10 text-center text-7xl font-bold'>Gamepity</p>
         <div className='flex w-full justify-center'>
-          <Button variant='default' className='h-12 w-48 hover:-translate-y-1' asChild>
+          <Button
+            variant='default'
+            className='h-12 w-48 hover:-translate-y-1'
+            asChild
+          >
             <Link href='/users/signup'>新規登録はこちら</Link>
           </Button>
         </div>
@@ -30,13 +34,15 @@ export default async function Page() {
           <div className='md:grid md:grid-cols-6'>
             <div className='md:col-span-3'>
               <h2 className='mb-1 text-xl font-bold'>注目ストリーマー</h2>
-              <p className='mb-2 text-xs'>注目のストリーマーと一緒にゲームを楽しもう！</p>
+              <p className='mb-2 text-xs'>
+                注目のストリーマーと一緒にゲームを楽しもう！
+              </p>
             </div>
             <div className='md:col-span-3 md:mt-3 md:text-end'>
               <Button variant='link' asChild>
                 <Link href='/streamers'>
                   すべてのストリーマーをみる
-                  <ChevronRight className='h-4 w-4' />
+                  <ChevronRight className='size-4' />
                 </Link>
               </Button>
             </div>
@@ -67,13 +73,15 @@ export default async function Page() {
           <div className='md:grid md:grid-cols-6'>
             <div className='md:col-span-3'>
               <h2 className='mb-1 text-xl font-bold'>すべてのストリーマー</h2>
-              <p className='mb-2 text-xs'>お気に入りのストリーマーを見つけよう！</p>
+              <p className='mb-2 text-xs'>
+                お気に入りのストリーマーを見つけよう！
+              </p>
             </div>
             <div className='md:col-span-3 md:mt-3 md:text-end'>
               <Button variant='link' asChild>
                 <Link href='/streamers'>
                   すべてのストリーマーをみる
-                  <ChevronRight className='h-4 w-4' />
+                  <ChevronRight className='size-4' />
                 </Link>
               </Button>
             </div>

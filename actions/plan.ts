@@ -1,10 +1,10 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { createStripeProductAndPrice } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { planSchema } from '@/schemas/plan'
 import { parseWithZod } from '@conform-to/zod'
+import { redirect } from 'next/navigation'
 
 export const createPlan = async (_: unknown, formData: FormData) => {
   const submission = parseWithZod(formData, {
@@ -15,10 +15,11 @@ export const createPlan = async (_: unknown, formData: FormData) => {
   const { name, description, amount, gameIds, streamerId } = submission.value
 
   try {
-    const { stripeProductId, stripePriceId } = await createStripeProductAndPrice({
-      name,
-      amount,
-    })
+    const { stripeProductId, stripePriceId } =
+      await createStripeProductAndPrice({
+        name,
+        amount,
+      })
 
     const supabase = createClient()
     const { data, error } = await supabase
@@ -45,7 +46,10 @@ export const createPlan = async (_: unknown, formData: FormData) => {
   redirect('/plans')
 }
 
-const createPlansGames = async (planId: number, gameIds: FormDataEntryValue[]) => {
+const createPlansGames = async (
+  planId: number,
+  gameIds: FormDataEntryValue[],
+) => {
   const supabase = createClient()
   const relationRecords = gameIds.map((gameId) => {
     return {

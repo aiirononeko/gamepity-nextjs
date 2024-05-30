@@ -30,7 +30,11 @@ export async function getPlans(streamerId: string) {
 export async function getPlan(planId: number) {
   const supabase = createClient()
 
-  const { data, error } = await supabase.from('plans').select().eq('id', planId).single()
+  const { data, error } = await supabase
+    .from('plans')
+    .select()
+    .eq('id', planId)
+    .single()
   if (error) throw error
 
   return data

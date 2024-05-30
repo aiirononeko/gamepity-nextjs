@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation'
 import { PlanForm } from '@/app/plans/new/components/PlanForm'
 import {
   Breadcrumb,
@@ -10,6 +9,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
+import { redirect } from 'next/navigation'
 
 export default async function Page() {
   const user = await getCurrentUser()

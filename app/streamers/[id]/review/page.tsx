@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import { ReviewForm } from './components/ReviewForm'
 import { getCurrentUser } from '@/data/auth'
 import { getPlan } from '@/data/plan'
 import { getReservation } from '@/data/reservation'
 import { getStreamer } from '@/data/streamer'
 import { addHour, date, format } from '@formkit/tempo'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { ReviewForm } from './components/ReviewForm'
 
 export default async function Page({
   searchParams,
@@ -45,7 +45,11 @@ export default async function Page({
         <p className='text-game-white'>
           遊んだ日時: {startDateTime} ~ {endDateTime}
         </p>
-        <ReviewForm userId={user.id} streamerId={streamer.id} planId={plan.id} />
+        <ReviewForm
+          userId={user.id}
+          streamerId={streamer.id}
+          planId={plan.id}
+        />
       </div>
     </div>
   )

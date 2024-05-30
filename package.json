@@ -29,8 +29,6 @@
     "base64-arraybuffer": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
     "lucide-react": "^0.378.0",
     "next": "^14.2.3",
     "postcss": "8.4.27",
@@ -48,13 +46,16 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/react-avatar-editor": "^13.0.2",
     "@types/stripe": "^8.0.417",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-plugin-tailwindcss": "^3.15.1",
-    "prettier": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.5.12",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.17.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-organize-imports": "^3.2.4",
     "supabase": "^1.148.6"
   }
 }

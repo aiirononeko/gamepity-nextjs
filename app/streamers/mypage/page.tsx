@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation'
-import AvailableDateTimeTable from './components/AvailableDateTimeTable'
-import ProfileForm from './components/ProfileForm'
-import { hasDetailsSubmittedToStripe, linkToStripeAccount } from '@/actions/stripe'
+import {
+  hasDetailsSubmittedToStripe,
+  linkToStripeAccount,
+} from '@/actions/stripe'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
 import {
   Breadcrumb,
@@ -14,6 +14,9 @@ import {
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
+import { redirect } from 'next/navigation'
+import AvailableDateTimeTable from './components/AvailableDateTimeTable'
+import ProfileForm from './components/ProfileForm'
 
 export default async function Page() {
   const user = await getCurrentUser()

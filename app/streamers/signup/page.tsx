@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation'
 import SignUpForm from '@/app/streamers/signup/components/SignUpForm'
 import {
   Breadcrumb,
@@ -9,6 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { getCurrentUser } from '@/data/auth'
+import { redirect } from 'next/navigation'
 
 export default async function StreamerSignUp() {
   const user = await getCurrentUser()

@@ -1,7 +1,7 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/stripe'
+import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
 type CreateProductParams = {
@@ -49,7 +49,10 @@ export const linkToStripeAccount = async (formData: FormData) => {
 export const createStripeProductAndPrice = async ({
   name,
   amount,
-}: CreateProductParams): Promise<{ stripeProductId: string; stripePriceId: string }> => {
+}: CreateProductParams): Promise<{
+  stripeProductId: string
+  stripePriceId: string
+}> => {
   const stripe = createClient()
   const product = await stripe.products.create({
     name,

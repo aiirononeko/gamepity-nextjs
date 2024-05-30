@@ -2,15 +2,22 @@ import { createClient } from '@/lib/supabase/client'
 
 const supabase = createClient()
 
-export const uploadFile = async (file: File, userId: string): Promise<string> => {
+export const uploadFile = async (
+  file: File,
+  userId: string,
+): Promise<string> => {
   const filePath = `icons/${userId}/${file.name}`
-  const { error } = await supabase.storage.from('gamepity-images').upload(filePath, file)
+  const { error } = await supabase.storage
+    .from('gamepity-images')
+    .upload(filePath, file)
 
   // すでにアップロード済みのファイルの場合はiconUrlのみ設定する
   if (error && error.message !== 'The resource already exists')
     throw new Error(error.message)
 
-  const { data } = supabase.storage.from('gamepity-images').getPublicUrl(filePath)
+  const { data } = supabase.storage
+    .from('gamepity-images')
+    .getPublicUrl(filePath)
   return data.publicUrl
 }
 
@@ -34,6 +41,8 @@ export const insertIconUrl = async (
 }
 
 const deleteFile = async (filePath: string): Promise<void> => {
-  const { error } = await supabase.storage.from('gamepity-images').remove([filePath])
+  const { error } = await supabase.storage
+    .from('gamepity-images')
+    .remove([filePath])
   if (error) throw new Error(error.message)
 }

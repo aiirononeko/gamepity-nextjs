@@ -23,7 +23,11 @@ export default async function Page({
       <BreadCrumb>← プラン選択に戻る</BreadCrumb>
       <div className='mb-10'>
         <p className='mb-4 text-xl font-bold text-game-white'>選択中のプラン</p>
-        <PlanCard plan={plan} streamer={streamer} games={[tempGames[0], tempGames[1]]} />
+        <PlanCard
+          plan={plan}
+          streamer={streamer}
+          games={[tempGames[0], tempGames[1]]}
+        />
       </div>
       <div className='mb-10'>
         {availableDateTimes && (

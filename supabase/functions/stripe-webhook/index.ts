@@ -38,7 +38,10 @@ Deno.serve(async (req) => {
 
     // ユーザーに予約完了メールを送信
     const discordUrl = await getStreamerDiscordUrl(streamerId)
-    await sendEmailToUser(receivedEvent.data.object.customer_details.email, discordUrl)
+    await sendEmailToUser(
+      receivedEvent.data.object.customer_details.email,
+      discordUrl,
+    )
 
     // ストリーマーに予約通知メールを送信
     const streamerEmail = await getStreamerEmail(streamerId)

@@ -23,7 +23,9 @@ export async function getStreamers(): Promise<Streamer[]> {
 /**
  * TODO: 動いていないので直す
  */
-export async function getStreamersWithGameId(gameId: number): Promise<Streamer[]> {
+export async function getStreamersWithGameId(
+  gameId: number,
+): Promise<Streamer[]> {
   const supabase = createClient()
   const { data, error } = await supabase.from('streamers').select(
     `

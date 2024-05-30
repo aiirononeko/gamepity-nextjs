@@ -1,6 +1,3 @@
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import { PlanCard } from './components/PlanCard'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,6 +9,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { getCurrentUser, isStreamer } from '@/data/auth'
 import { getPlans } from '@/data/plan'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { PlanCard } from './components/PlanCard'
 
 export default async function Page() {
   const user = await getCurrentUser()

@@ -1,9 +1,12 @@
+import { signOut } from '@/actions/auth'
+import { getCurrentUser, isStreamer } from '@/data/auth'
+import {
+  getCompletedUserReservations,
+  getUserReservations,
+} from '@/data/reservation'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import Reservation from './components/Reservation'
-import { signOut } from '@/actions/auth'
-import { getCurrentUser, isStreamer } from '@/data/auth'
-import { getCompletedUserReservations, getUserReservations } from '@/data/reservation'
 
 export default async function Page() {
   const user = await getCurrentUser()
@@ -21,7 +24,9 @@ export default async function Page() {
         </Link>
       </div>
       <div className=''>
-        <h2 className='text-xl font-bold text-game-white'>お支払い済みの予約</h2>
+        <h2 className='text-xl font-bold text-game-white'>
+          お支払い済みの予約
+        </h2>
         <div className='mt-6 grid grid-cols-4 gap-6'>
           {reservations.length > 0 ? (
             <>

@@ -17,7 +17,9 @@ type Props = {
 
 export const PlanCard = ({ plan }: Props) => {
   // @ts-ignore
-  const gameNames = plan.plans_games.map((plans_game) => plans_game.game_id.name)
+  const gameNames = plan.plans_games.map(
+    (plans_game) => plans_game.game_id.name,
+  )
 
   return (
     <Card className='w-[350px]'>

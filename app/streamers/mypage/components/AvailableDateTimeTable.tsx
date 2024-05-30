@@ -1,13 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import {
   createAvailableDateTime,
   deleteAvailableDateTime,
 } from '@/actions/availableDateTime'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
-import { addHour, dayStart, format, hourStart, isEqual, tzDate } from '@formkit/tempo'
+import {
+  addHour,
+  dayStart,
+  format,
+  hourStart,
+  isEqual,
+  tzDate,
+} from '@formkit/tempo'
+import { useEffect, useState } from 'react'
 
 type Props = {
   availableDateTimes: AvailableDateTime[]
@@ -30,7 +37,10 @@ export default function AvailableDateTimeTable({
   useEffect(() => {
     const dateTimeMap: AvailableDateTimesMap = {}
     availableDateTimes.forEach((availableDateTime) => {
-      const jstStartDateTime = tzDate(availableDateTime.start_date_time, 'Asia/Tokyo')
+      const jstStartDateTime = tzDate(
+        availableDateTime.start_date_time,
+        'Asia/Tokyo',
+      )
       const key = format({
         date: hourStart(jstStartDateTime),
         format: 'YYYY-MM-DDTHH:mm:ss',
@@ -46,16 +56,18 @@ export default function AvailableDateTimeTable({
       targetHour,
     )
 
-    const found = Object.entries(availableDateTimesMap).find(([startDateTime, _]) => {
-      return isEqual(startDateTime, jstTargetDateTimeString)
-    })
+    const found = Object.entries(availableDateTimesMap).find(
+      ([startDateTime, _]) => {
+        return isEqual(startDateTime, jstTargetDateTimeString)
+      },
+    )
 
     if (found) {
       // 予約可能日時を削除
       await deleteAvailableDateTime(found[1].id)
-      const newAvailableDateTimeMap = Object.entries(availableDateTimesMap).filter(
-        ([_, value]) => value.id !== found[1].id,
-      )
+      const newAvailableDateTimeMap = Object.entries(
+        availableDateTimesMap,
+      ).filter(([_, value]) => value.id !== found[1].id)
       setAvailableDateTimesMap(Object.fromEntries(newAvailableDateTimeMap))
     } else {
       // 予約可能日時を追加

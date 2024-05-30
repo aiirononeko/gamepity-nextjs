@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { getGamesWithPlanId } from '@/data/game'
 import type { Plan } from '@/types/plan'
 import type { Streamer } from '@/types/streamer'
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Props = {
   plan: Plan
@@ -29,8 +29,12 @@ export default async function PlanCard({ plan, streamer }: Props) {
       </div>
       <div className='basis-3/12'>
         <div>
-          <p className='mb-4 mt-8 text-2xl font-bold text-game-white'>{plan.name}</p>
-          <p className='mb-4 text-xl font-bold text-game-white'>{plan.amount}円 / 60分</p>
+          <p className='mb-4 mt-8 text-2xl font-bold text-game-white'>
+            {plan.name}
+          </p>
+          <p className='mb-4 text-xl font-bold text-game-white'>
+            {plan.amount}円 / 60分
+          </p>
           <div className='flex flex-row space-x-4'>
             {games.map((game) => (
               <div key={game.id} className=''>
@@ -41,10 +45,14 @@ export default async function PlanCard({ plan, streamer }: Props) {
         </div>
       </div>
       <div className='basis-5/12'>
-        <p className='my-10 mr-8 line-clamp-4 text-game-white'>{plan.description}</p>
+        <p className='my-10 mr-8 line-clamp-4 text-game-white'>
+          {plan.description}
+        </p>
       </div>
       <div className='basis-2/12'>
-        <Link href={`/streamers/${plan.streamer_id}/reservation/?planId=${plan.id}`}>
+        <Link
+          href={`/streamers/${plan.streamer_id}/reservation/?planId=${plan.id}`}
+        >
           <button className='my-16 rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-6 py-3 text-game-white hover:-translate-y-1'>
             このプランで予約
           </button>

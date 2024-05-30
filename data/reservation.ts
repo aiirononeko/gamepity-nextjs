@@ -31,7 +31,9 @@ export const getCompletedStreamerReservations = async (
   return data
 }
 
-export const getUserReservations = async (userId: string): Promise<Reservation[]> => {
+export const getUserReservations = async (
+  userId: string,
+): Promise<Reservation[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')

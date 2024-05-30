@@ -6,14 +6,17 @@
 # 使用技術
 
 ## Development
+
 - Nextjs AppRouter
 - TypeScript
 - TailwindCSS
 
 ## BaaS
+
 - Supabase
 
 ## Hosting
+
 - Vercel
 
 # コマンド

@@ -3,7 +3,13 @@
 import { updateProfile } from '@/actions/streamer'
 import ImageSelector from '@/app/streamers/mypage/components/ImageSelector'
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -94,7 +100,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='discordUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>Discordサーバー URL</Label>
+              <Label className='text-primary-foreground'>
+                Discordサーバー URL
+              </Label>
               <FormControl>
                 <Input {...field} className='w-80 text-primary-foreground' />
               </FormControl>

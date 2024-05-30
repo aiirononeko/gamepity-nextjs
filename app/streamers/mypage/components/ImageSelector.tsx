@@ -1,12 +1,12 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog'
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
 import { ImagePlus, X } from 'lucide-react'
+import Image from 'next/image'
+import { useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import { useDropzone } from 'react-dropzone'
 
@@ -45,7 +45,11 @@ export default function ImageSelector({
 
   const cropImage = async () => {
     const dataUrl = editor.current?.getImage().toDataURL('image/jpeg')
-    const result = await resizeBase64Img(dataUrl!, resultWidth, resultWidth / aspectRatio)
+    const result = await resizeBase64Img(
+      dataUrl!,
+      resultWidth,
+      resultWidth / aspectRatio,
+    )
     setOpen(false)
     onChange(result)
   }
@@ -66,7 +70,13 @@ export default function ImageSelector({
         >
           {!value && <ImagePlus className='h-10 w-10 text-gray-300' />}
           {value && (
-            <Image unoptimized className='object-cover' fill src={value} alt='' />
+            <Image
+              unoptimized
+              className='object-cover'
+              fill
+              src={value}
+              alt=''
+            />
           )}
           <input {...getInputProps()} className='hidden' />
           <span className='sr-only'>画像を選択</span>

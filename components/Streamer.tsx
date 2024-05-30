@@ -1,7 +1,7 @@
+import type { Streamer } from '@/types/streamer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from './ui/card'
-import type { Streamer } from '@/types/streamer'
 
 type Props = {
   streamer: Streamer

@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import Streamer from '@/components/Streamer'
 import { getStreamers } from '@/data/streamer'
+import Link from 'next/link'
 
 export default async function Page() {
   const streamers = await getStreamers()

@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import type { Game } from '@/types/game'
 import type { Plan } from '@/types/plan'
 import type { Streamer } from '@/types/streamer'
+import Image from 'next/image'
 
 type Props = {
   plan: Plan
@@ -27,8 +27,12 @@ export default function PlanCard({ plan, streamer, games }: Props) {
       </div>
       <div className='basis-3/12'>
         <div>
-          <p className='mb-4 mt-8 text-2xl font-bold text-game-white'>{plan.name}</p>
-          <p className='mb-4 text-xl font-bold text-game-white'>{plan.amount}円 / 60分</p>
+          <p className='mb-4 mt-8 text-2xl font-bold text-game-white'>
+            {plan.name}
+          </p>
+          <p className='mb-4 text-xl font-bold text-game-white'>
+            {plan.amount}円 / 60分
+          </p>
           <div className='flex flex-row space-x-4'>
             {games.map((game) => (
               <div key={game.id} className=''>

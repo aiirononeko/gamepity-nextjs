@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import type { Reservation } from '@/types/reservation'
 import { date, format } from '@formkit/tempo'
+import Image from 'next/image'
 
 type Props = {
   reservation: Reservation
@@ -21,7 +21,11 @@ export default async function Reservation({ reservation }: Props) {
     <div>
       {streamer.icon_url ? (
         <div className={`relative h-52 w-full`}>
-          <Image alt={`${streamer.name}のアイコン`} src={streamer.icon_url} fill={true} />
+          <Image
+            alt={`${streamer.name}のアイコン`}
+            src={streamer.icon_url}
+            fill={true}
+          />
         </div>
       ) : (
         <div className='h-52 w-full bg-game-gray-500'></div>

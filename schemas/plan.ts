@@ -9,5 +9,7 @@ export const planSchema = z.object({
     .number({ required_error: 'プランの価格は必須です' })
     .min(100, 'プランの価格は100円以上にしてください'),
   gameIds: z.string().array().nonempty(),
-  streamerId: z.string({ required_error: 'ストリーマーIDが選択されていません' }),
+  streamerId: z.string({
+    required_error: 'ストリーマーIDが選択されていません',
+  }),
 })

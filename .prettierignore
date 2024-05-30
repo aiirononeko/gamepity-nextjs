@@ -1,20 +1,12 @@
-# Ignore artifacts:
-build
-coverage
+node_modules/
+.next/
+.nuxt/
+.astro/
+build/
+dist/
+out/
+public/
+package-lock.json
 yarn.lock
-
-# dotfile
-.env*
-
-# markdown
-*.md
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# yarn
-/.yarn/
+pnpm-lock.yaml
+next.config.js

@@ -1,6 +1,6 @@
+import type { Game } from '@/types/game'
 import Link from 'next/link'
 import { Button } from './ui/button'
-import type { Game } from '@/types/game'
 
 type Props = {
   game: Game

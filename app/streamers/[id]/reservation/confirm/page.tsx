@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import { redirect } from 'next/navigation'
 import { createReservation } from '@/actions/reservation'
 import { BreadCrumb } from '@/components/BreadCrumb'
 import { getCurrentUser } from '@/data/auth'
@@ -7,6 +5,8 @@ import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import { addHour, format } from '@formkit/tempo'
+import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
 export default async function Page({
   searchParams,
@@ -40,7 +40,9 @@ export default async function Page({
     <div className='container mx-auto'>
       <BreadCrumb>← 予約可能日時選択に戻る</BreadCrumb>
       <form action={createReservation}>
-        <h2 className='mb-6 text-2xl font-bold text-game-white'>予約内容の確認</h2>
+        <h2 className='mb-6 text-2xl font-bold text-game-white'>
+          予約内容の確認
+        </h2>
         <div className='flex flex-row px-32 pb-12'>
           {streamer.icon_url ? (
             <div className='relative mx-auto h-72 w-80 basis-2/5'>
@@ -57,7 +59,9 @@ export default async function Page({
             <p className='basis-1/6 text-3xl font-bold text-game-white'>
               {streamer.name}
             </p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>{plan.name}</p>
+            <p className='basis-1/6 text-xl font-bold text-game-white'>
+              {plan.name}
+            </p>
             <p className='basis-3/6 text-game-white'>{plan.description}</p>
             <p className='basis-1/6 text-xl font-bold text-game-white'>
               {startDateTime} ~ {endDateTime}
@@ -76,7 +80,12 @@ export default async function Page({
             ※ご購入前に予約時の注意事項をご確認ください
           </a>
         </div>
-        <input name='availableDateTimeId' value={availableDateTime.id} hidden readOnly />
+        <input
+          name='availableDateTimeId'
+          value={availableDateTime.id}
+          hidden
+          readOnly
+        />
         <input
           name='startDateTime'
           value={availableDateTime.start_date_time}
@@ -92,7 +101,12 @@ export default async function Page({
           hidden
           readOnly
         />
-        <input name='stripePriceId' value={plan.stripe_price_id} hidden readOnly />
+        <input
+          name='stripePriceId'
+          value={plan.stripe_price_id}
+          hidden
+          readOnly
+        />
         <input name='amount' value={plan.amount} hidden readOnly />
         <div className='flex justify-center'>
           <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white hover:-translate-y-1'>

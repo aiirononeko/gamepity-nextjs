@@ -1,10 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
 import type { Plan } from '@/types/plan'
 import { tzDate } from '@formkit/tempo'
+import Link from 'next/link'
 
 type Props = {
   availableDateTimes: AvailableDateTime[]
@@ -36,15 +36,24 @@ export default function AvailableDateTimeTable({
             <tr key={hour}>
               <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
-                const matchingDateTimes = availableDateTimes.filter((dateTime) => {
-                  const jstStartDateTime = tzDate(dateTime.start_date_time, 'Asia/Tokyo')
-                  return (
-                    jstStartDateTime.getDate() === tzDate(day, 'Asia/Tokyo').getDate() &&
-                    jstStartDateTime.getHours() === hour + 1
-                  )
-                })
+                const matchingDateTimes = availableDateTimes.filter(
+                  (dateTime) => {
+                    const jstStartDateTime = tzDate(
+                      dateTime.start_date_time,
+                      'Asia/Tokyo',
+                    )
+                    return (
+                      jstStartDateTime.getDate() ===
+                        tzDate(day, 'Asia/Tokyo').getDate() &&
+                      jstStartDateTime.getHours() === hour + 1
+                    )
+                  },
+                )
                 return (
-                  <td key={`${i}_${day.toISOString()}`} className='border border-solid'>
+                  <td
+                    key={`${i}_${day.toISOString()}`}
+                    className='border border-solid'
+                  >
                     {matchingDateTimes.map((dateTime) => (
                       <Link
                         key={dateTime.id}

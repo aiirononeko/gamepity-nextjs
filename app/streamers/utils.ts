@@ -1,4 +1,4 @@
-import { addDay, date, format, parse, tzDate } from '@formkit/tempo'
+import { addDay, date, parse, tzDate } from '@formkit/tempo'
 
 /**
  * 1週間分のDateオブジェクトを取得します.
@@ -12,7 +12,10 @@ export const getOneWeekDateTimes = () => {
 }
 
 export const nowUtc = () => {
-  return tzDate(parse(new Date().toUTCString(), 'ddd, DD MMM YYYY HH:mm:ss'), 'UTC')
+  return tzDate(
+    parse(new Date().toUTCString(), 'ddd, DD MMM YYYY HH:mm:ss'),
+    'UTC',
+  )
 }
 
 export const parseISOFormat = (utcDateString: string) => {
