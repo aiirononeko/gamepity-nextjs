@@ -42,7 +42,7 @@ export default async function Page() {
         </div>
         <div className='flex flex-nowrap space-x-8 overflow-y-auto md:py-3'>
           {plans.map((plan) => (
-            // @ts-ignore
+            // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
             <PlanCard key={plan.id} plan={plan} />
           ))}
         </div>

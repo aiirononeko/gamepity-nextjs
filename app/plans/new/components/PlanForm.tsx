@@ -2,7 +2,7 @@
 
 import { createPlan } from '@/actions/plan'
 import { planSchema } from '@/schemas/plan'
-import { Game } from '@/types/game'
+import type { Game } from '@/types/game'
 import { useForm } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
 import { useFormState } from 'react-dom'

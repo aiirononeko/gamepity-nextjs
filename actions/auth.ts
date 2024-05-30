@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { signInSchema } from '@/schemas/signIn'
 import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
+import type { z } from 'zod'
 
 export async function signUpUserWithEmail(
   data: z.infer<typeof signUpUserSchema>,

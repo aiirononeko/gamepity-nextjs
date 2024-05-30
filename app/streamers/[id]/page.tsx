@@ -5,10 +5,9 @@ import { getStreamer } from '@/data/streamer'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// TODO: gamesとplansがStreamerの型として認識されていない問題を修正する
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
-  // @ts-ignore
+  // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
   const { plans, reviews } = streamer
 
   return (
@@ -39,17 +38,17 @@ export default async function Page({ params }: { params: { id: string } }) {
             {streamer.youtube_url && (
               <SnsCard
                 sns_url={streamer.youtube_url}
-                image_src={'/sns/youtube_logo.png'}
+                image_src='/sns/youtube_logo.png'
               />
             )}
             {streamer.twitch_url && (
               <SnsCard
                 sns_url={streamer.twitch_url}
-                image_src={'/sns/twitch_logo.png'}
+                image_src='/sns/twitch_logo.png'
               />
             )}
             {streamer.x_url && (
-              <SnsCard sns_url={streamer.x_url} image_src={'/sns/x_logo.png'} />
+              <SnsCard sns_url={streamer.x_url} image_src='/sns/x_logo.png' />
             )}
           </div>
         </div>
@@ -58,7 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className='mb-10'>
           <h2 className='mb-5 text-2xl font-bold text-game-white'>プラン</h2>
           <div className='space-y-4'>
-            {/* @ts-ignore */}
+            {/* @ts-expect-error: Supabaseの型解決がうまくいかないのでignore */}
             {plans.map((plan) => (
               <PlanCard key={plan.id} plan={plan} streamer={streamer} />
             ))}

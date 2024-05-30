@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { streamerSchema } from '@/schemas/streamer'
-import { z } from 'zod'
+import type { z } from 'zod'
 import { manageImage } from './image-upload'
 
 export const updateStripeAccountId = async (

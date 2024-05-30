@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { AvailableDateTime } from '@/types/availableDateTime'
+import type { AvailableDateTime } from '@/types/availableDateTime'
 import { addDay, date } from '@formkit/tempo'
 
 export async function getAvailableDateTimes(

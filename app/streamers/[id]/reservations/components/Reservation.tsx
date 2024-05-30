@@ -20,7 +20,7 @@ export default async function Reservation({ reservation }: Props) {
   return (
     <div>
       {streamer.icon_url ? (
-        <div className={`relative h-52 w-full`}>
+        <div className='relative h-52 w-full'>
           <Image
             alt={`${streamer.name}のアイコン`}
             src={streamer.icon_url}

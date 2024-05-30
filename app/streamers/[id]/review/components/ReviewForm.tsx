@@ -147,7 +147,7 @@ export function ReviewForm({ userId, streamerId, planId }: Props) {
         <textarea
           name={fields.comment.name}
           rows={4}
-          className='block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+          className='dark:placeholder:gray-400 block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500'
           placeholder='一緒に遊んだ感想を記入してください'
         />
         <span className='mt-1 text-red-500'>{fields.comment.errors}</span>

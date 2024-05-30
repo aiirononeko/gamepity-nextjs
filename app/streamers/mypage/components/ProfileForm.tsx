@@ -15,11 +15,11 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import { streamerSchema } from '@/schemas/streamer'
-import { Streamer } from '@/types/streamer'
+import type { Streamer } from '@/types/streamer'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import type { z } from 'zod'
 
 type Props = {
   streamer: Streamer
@@ -156,7 +156,7 @@ export default function ProfileForm({ streamer }: Props) {
           className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground'
         >
           {form.formState.isSubmitting && (
-            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+            <Loader2 className='mr-2 size-4 animate-spin' />
           )}
           更新
         </Button>

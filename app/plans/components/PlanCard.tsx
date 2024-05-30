@@ -9,15 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Plan } from '@/types/plan'
+import type { Plan } from '@/types/plan'
 
 type Props = {
   plan: Plan
 }
 
 export const PlanCard = ({ plan }: Props) => {
-  // @ts-ignore
+  // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
   const gameNames = plan.plans_games.map(
+    // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
     (plans_game) => plans_game.game_id.name,
   )
 

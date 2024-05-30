@@ -68,7 +68,7 @@ export default function ImageSelector({
           }}
           {...getRootProps()}
         >
-          {!value && <ImagePlus className='h-10 w-10 text-gray-300' />}
+          {!value && <ImagePlus className='size-10 text-gray-300' />}
           {value && (
             <Image
               unoptimized

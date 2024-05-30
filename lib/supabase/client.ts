@@ -1,4 +1,4 @@
-import { Database } from '@/supabase/schema'
+import type { Database } from '@/supabase/schema'
 import { createBrowserClient } from '@supabase/ssr'
 
 export function createClient() {

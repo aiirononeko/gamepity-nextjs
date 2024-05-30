@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input'
 import { signUpUserSchema } from '@/schemas/signUp'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import type { z } from 'zod'
 
 export default function SignUpForm() {
   const form = useForm<z.infer<typeof signUpUserSchema>>({

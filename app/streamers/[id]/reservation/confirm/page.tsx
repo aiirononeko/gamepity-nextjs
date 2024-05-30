@@ -1,5 +1,4 @@
 import { createReservation } from '@/actions/reservation'
-import { BreadCrumb } from '@/components/BreadCrumb'
 import { getCurrentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
@@ -38,7 +37,6 @@ export default async function Page({
 
   return (
     <div className='container mx-auto'>
-      <BreadCrumb>← 予約可能日時選択に戻る</BreadCrumb>
       <form action={createReservation}>
         <h2 className='mb-6 text-2xl font-bold text-game-white'>
           予約内容の確認
