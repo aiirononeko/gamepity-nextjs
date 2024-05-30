@@ -7,7 +7,7 @@ type Props = {
   streamer: Streamer
 }
 
-export default function Streamer({ streamer }: Props) {
+export default function StreamerCard({ streamer }: Props) {
   return (
     <div className='h-[380px] w-[352px] transition duration-300 hover:-translate-y-3'>
       <Link href={`/streamers/${streamer.id}`}>
@@ -22,16 +22,14 @@ export default function Streamer({ streamer }: Props) {
                 />
               </div>
             ) : (
-              <div className='h-220px h-52 w-[352px]'></div>
+              <div className='h-[220px] w-[352px]'></div>
             )}
           </CardHeader>
-          <CardContent>
-            <div className='h-[140px]'>
-              <p className='mb-4 text-xl font-bold'>{streamer.name}</p>
-              <p className='mb-4 line-clamp-6 whitespace-pre-wrap text-xs'>
-                {streamer.profile}
-              </p>
-            </div>
+          <CardContent className='h-[140px] w-[352px]'>
+            <p className='mb-4 text-xl font-bold'>{streamer.name}</p>
+            <p className='mb-4 line-clamp-4 md:line-clamp-6 whitespace-pre-wrap text-xs'>
+              {streamer.profile}
+            </p>
           </CardContent>
         </Card>
       </Link>

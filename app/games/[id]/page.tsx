@@ -1,23 +1,21 @@
-import Streamer from '@/components/Streamer'
+import StreamerCard from '@/components/StreamerCard'
 import { getGame } from '@/data/game'
-import { getStreamersWithGameId } from '@/data/streamer'
+import { getStreamers } from '@/data/streamer'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const game = await getGame(Number(params.id))
-  const streamers = await getStreamersWithGameId(Number(params.id))
+  const streamers = await getStreamers()
 
   return (
-    <>
-      <div className='container mx-auto mt-12'>
-        <h2 className='m-10 text-center text-xl font-bold text-game-white'>
-          {`${game.name}を募集中のストリーマー`}
-        </h2>
-        <div className='grid grid-cols-4 gap-6'>
-          {streamers.map((streamer) => (
-            <Streamer key={streamer.id} streamer={streamer} />
-          ))}
-        </div>
+    <div className='container mx-auto mt-12'>
+      <h2 className='m-10 text-center text-xl font-bold text-game-white'>
+        {`${game.name}を募集中のストリーマー`}
+      </h2>
+      <div className='grid grid-cols-4 gap-6'>
+        {streamers.map((streamer) => (
+          <StreamerCard key={streamer.id} streamer={streamer} />
+        ))}
       </div>
-    </>
+    </div>
   )
 }

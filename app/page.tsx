@@ -1,5 +1,5 @@
 import Game from '@/components/Game'
-import Streamer from '@/components/Streamer'
+import StreamerCard from '@/components/StreamerCard'
 import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
@@ -29,7 +29,7 @@ export default async function Page() {
           </Button>
         </div>
       </div>
-      <div className='container mx-auto space-y-12'>
+      <div className='md:mx-[320px] space-y-12'>
         <div>
           <div className='md:grid md:grid-cols-6'>
             <div className='md:col-span-3'>
@@ -49,7 +49,7 @@ export default async function Page() {
           </div>
           <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
             {streamers.map((streamer) => (
-              <Streamer key={streamer.id} streamer={streamer} />
+              <StreamerCard key={streamer.id} streamer={streamer} />
             ))}
           </div>
         </div>
@@ -88,7 +88,7 @@ export default async function Page() {
           </div>
           <div className='flex h-[440px] flex-nowrap space-x-6 overflow-x-scroll md:pt-4'>
             {streamers.map((streamer) => (
-              <Streamer key={streamer.id} streamer={streamer} />
+              <StreamerCard key={streamer.id} streamer={streamer} />
             ))}
           </div>
         </div>
