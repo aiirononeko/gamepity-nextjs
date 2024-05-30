@@ -1,4 +1,3 @@
-import Game from '@/components/Game'
 import StreamerCard from '@/components/StreamerCard'
 import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
@@ -29,7 +28,7 @@ export default async function Page() {
           </Button>
         </div>
       </div>
-      <div className='md:mx-[320px] space-y-12'>
+      <div className='space-y-12 md:mx-[320px]'>
         <div>
           <div className='md:grid md:grid-cols-6'>
             <div className='md:col-span-3'>
@@ -64,7 +63,9 @@ export default async function Page() {
           </div>
           <div className='flex flex-row space-x-4 overflow-y-auto md:h-[60px]'>
             {games.map((game) => (
-              <Game key={game.id} game={game} />
+              <Button key={game.id} variant='outline' asChild>
+                <Link href={`/games/${game.id}`}>{game.name}</Link>
+              </Button>
             ))}
           </div>
         </div>
