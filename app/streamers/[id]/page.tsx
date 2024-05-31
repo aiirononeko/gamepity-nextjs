@@ -1,6 +1,14 @@
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import Review from '@/app/streamers/[id]/components/Review'
-import SnsCard from '@/app/streamers/[id]/components/SnsCard'
+import SnsIcon from '@/app/streamers/[id]/components/SnsIcon'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getStreamer } from '@/data/streamer'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,15 +19,22 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { plans, reviews } = streamer
 
   return (
-    <div className='container mx-auto mt-12'>
-      <div className='mb-6'>
-        <Link href='/' className='text-game-gray-300'>
-          ← トップに戻る
-        </Link>
-      </div>
-      <div className='mx-32 flex flex-row pb-12'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{streamer.name}のページ</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h2 className='text-xl font-bold'>{streamer.name}のページ</h2>
+      <div className='space-y-6 md:flex md:flex-row md:space-x-8 md:space-y-0'>
         {streamer.icon_url ? (
-          <div className='relative mx-auto h-72 w-80 basis-2/5'>
+          <div className='relative h-[220px] w-[352px]'>
             <Image
               alt={`${streamer.name}のアイコン`}
               src={streamer.icon_url}
@@ -27,55 +42,64 @@ export default async function Page({ params }: { params: { id: string } }) {
             />
           </div>
         ) : (
-          <div className='relative mx-auto h-72 w-80 basis-2/5 bg-game-gray-600'></div>
+          <div className='h-[220px] w-[352px]'></div>
         )}
-        <div className='relative basis-3/5 space-y-6 pl-10'>
-          <p className='text-3xl font-bold text-game-white'>{streamer.name}</p>
-          <p className='whitespace-pre-wrap text-game-white'>
+        <div className='w-[352px] space-y-6 md:w-2/3'>
+          <p className='text-center text-2xl font-bold md:text-start md:text-3xl'>
+            {streamer.name}
+          </p>
+          <p className='whitespace-pre-wrap md:line-clamp-6'>
             {streamer.profile}
           </p>
-          <div className='absolute right-0 top-56 flex flex-row items-center space-x-6'>
-            {streamer.youtube_url && (
-              <SnsCard
-                sns_url={streamer.youtube_url}
-                image_src='/sns/youtube_logo.png'
-              />
-            )}
-            {streamer.twitch_url && (
-              <SnsCard
-                sns_url={streamer.twitch_url}
-                image_src='/sns/twitch_logo.png'
-              />
-            )}
-            {streamer.x_url && (
-              <SnsCard sns_url={streamer.x_url} image_src='/sns/x_logo.png' />
-            )}
-          </div>
         </div>
       </div>
-      {plans && plans.length > 0 && (
-        <div className='mb-10'>
-          <h2 className='mb-5 text-2xl font-bold text-game-white'>プラン</h2>
-          <div className='space-y-4'>
-            {/* @ts-expect-error: Supabaseの型解決がうまくいかないのでignore */}
-            {plans.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} streamer={streamer} />
-            ))}
-          </div>
-        </div>
-      )}
-      <div className='mb-10'>
-        <h2 className='mb-5 text-2xl font-bold text-game-white'>
-          ユーザーの評価
-        </h2>
-        {reviews && reviews.length > 0 ? (
-          <Review reviews={reviews} streamer={streamer} />
-        ) : (
-          <p className='text-game-white'>
-            まだ評価されていないストリーマーです
-          </p>
+      <div className='flex flex-row items-center space-x-6'>
+        {streamer.youtube_url && (
+          <SnsIcon
+            sns_url={streamer.youtube_url}
+            image_src='/sns/youtube_logo.png'
+          />
+        )}
+        {streamer.twitch_url && (
+          <SnsIcon
+            sns_url={streamer.twitch_url}
+            image_src='/sns/twitch_logo.png'
+          />
+        )}
+        {streamer.x_url && (
+          <Link href={streamer.x_url}>
+            <svg
+              width='30'
+              height='30'
+              viewBox='0 0 1200 1227'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z'
+                fill='white'
+              />
+            </svg>
+          </Link>
         )}
       </div>
+      <h2 className='text-xl font-bold'>プラン</h2>
+      {plans && plans.length > 0 ? (
+        <div className='space-y-4'>
+          {/* @ts-expect-error: Supabaseの型解決がうまくいかないのでignore */}
+          {plans.map((plan) => (
+            <PlanCard key={plan.id} plan={plan} streamer={streamer} />
+          ))}
+        </div>
+      ) : (
+        <p>まだプランがありません</p>
+      )}
+      <h2 className='text-xl font-bold'>レビュー</h2>
+      {reviews && reviews.length > 0 ? (
+        <Review reviews={reviews} streamer={streamer} />
+      ) : (
+        <p>まだ評価されていないストリーマーです</p>
+      )}
     </div>
   )
 }
