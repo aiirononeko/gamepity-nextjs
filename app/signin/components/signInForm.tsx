@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { signInSchema } from '@/schemas/signIn'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -100,6 +101,9 @@ export default function SignInForm({
           )}
         />
         <Button type='submit' className='w-40'>
+          {form.formState.isSubmitting && (
+            <Loader2 className='mr-2 size-4 animate-spin' />
+          )}
           ログイン
         </Button>
       </form>

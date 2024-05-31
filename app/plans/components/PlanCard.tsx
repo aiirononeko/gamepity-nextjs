@@ -32,15 +32,21 @@ export const PlanCard = ({ plan }: Props) => {
         <p className='mb-4 whitespace-pre-wrap'>{plan.description}</p>
         <p className='font-semibold'>{`${plan.amount}円 / 60分`}</p>
       </CardContent>
-      <CardFooter>
-        <div className='space-x-4'>
-          <Button variant='destructive' onClick={() => alert('開発中')}>
-            削除
-          </Button>
-          <Button variant='default' onClick={() => alert('開発中')}>
-            売り切れにする
-          </Button>
-        </div>
+      <CardFooter className='flex flex-row items-start space-x-4'>
+        <Button
+          variant='destructive'
+          onClick={() => alert('開発中')}
+          className='w-40'
+        >
+          削除
+        </Button>
+        <Button
+          variant='default'
+          onClick={() => alert('開発中')}
+          className='w-40'
+        >
+          売り切れにする
+        </Button>
       </CardFooter>
     </Card>
   )

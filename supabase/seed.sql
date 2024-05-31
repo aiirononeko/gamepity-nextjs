@@ -27,6 +27,9 @@ set twitch_url = 'https://localhost:3000/';
 update public.streamers
 set youtube_url = 'https://localhost:3000/';
 
+update public.streamers
+set discord_url = 'https://localhost:3000/';
+
 /**
  * Games
  */
@@ -44,26 +47,26 @@ values
   ('Battle Flelds4', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!'),
   ('Battle Flelds5', '一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!一緒に遊びましょう!');
 
-/**
- * Plans
- */
-insert into public.plans
-  (name, description, amount, stripe_product_id, stripe_price_id, stripe_payment_link_id, streamer_id)
-values
-  ('一緒に遊べるプラン1', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12345', '12345', '12345', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
-  ('一緒に遊べるプラン2', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12341', '12341', '12341', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
-  ('一緒に遊べるプラン3', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 5000, '12342', '12342', '12342', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
-  ('一緒に遊べるプラン4', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12343', '12343', '12343', '185f2f83-d63a-4c9b-b4a0-7e4a885799e3'),
-  ('一緒に遊べるプラン5', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12344', '12344', '12344', '185f2f83-d63a-4c9b-b4a0-7e4a885799e3');
-
-insert into public.plans_games
-  (plan_id, game_id)
-values
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (2, 1),
-  (2, 2);
+-- /**
+--  * Plans
+--  */
+-- insert into public.plans
+--   (name, description, amount, stripe_product_id, stripe_price_id, stripe_payment_link_id, streamer_id)
+-- values
+--   ('一緒に遊べるプラン1', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12345', '12345', '12345', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
+--   ('一緒に遊べるプラン2', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12341', '12341', '12341', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
+--   ('一緒に遊べるプラン3', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 5000, '12342', '12342', '12342', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2'),
+--   ('一緒に遊べるプラン4', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 3000, '12343', '12343', '12343', '185f2f83-d63a-4c9b-b4a0-7e4a885799e3'),
+--   ('一緒に遊べるプラン5', '一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます一緒に遊べます', 2000, '12344', '12344', '12344', '185f2f83-d63a-4c9b-b4a0-7e4a885799e3');
+--
+-- insert into public.plans_games
+--   (plan_id, game_id)
+-- values
+--   (1, 1),
+--   (1, 2),
+--   (1, 3),
+--   (2, 1),
+--   (2, 2);
 
 -- /**
 --  * Reviews
@@ -75,19 +78,19 @@ values
 --   (2, '楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった', NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e1', '285f2f83-d63a-4c9b-b4a0-7e4a885799e2', 2),
 --   (4, '楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった楽しかった', NOW(), '185f2f83-d63a-4c9b-b4a0-7e4a885799e1', '285f2f83-d63a-4c9b-b4a0-7e4a885799e2', 3);
 
-/**
- * AvailableDateTimes
- */
-DO $$
-DECLARE
-  start_ts TIMESTAMP;
-BEGIN
-  -- 現在時刻からちょうど1日後の日時を計算します
-  start_ts := NOW() + INTERVAL '1 day';
-
-  -- 1時間ごとにデータを挿入するためのループを生成します
-  FOR i IN 0..23 LOOP
-    INSERT INTO public.available_date_times (start_date_time, streamer_id)
-    VALUES (start_ts + INTERVAL '1 hour' * i, '185f2f83-d63a-4c9b-b4a0-7e4a885799e2');
-  END LOOP;
-END $$;
+-- /**
+--  * AvailableDateTimes
+--  */
+-- DO $$
+-- DECLARE
+--   start_ts TIMESTAMP;
+-- BEGIN
+--   -- 現在時刻からちょうど1日後の日時を計算します
+--   start_ts := NOW() + INTERVAL '1 day';
+--
+--   -- 1時間ごとにデータを挿入するためのループを生成します
+--   FOR i IN 0..23 LOOP
+--     INSERT INTO public.available_date_times (start_date_time, streamer_id)
+--     VALUES (start_ts + INTERVAL '1 hour' * i, '185f2f83-d63a-4c9b-b4a0-7e4a885799e2');
+--   END LOOP;
+-- END $$;

@@ -14,7 +14,6 @@ export async function getAvailableDateTimes(
     .select()
     .gte('start_date_time', startDateTime.toUTCString())
     .eq('streamer_id', streamerId)
-    .eq('is_reserved', false)
 
   if (error) throw new Error(error.message)
 

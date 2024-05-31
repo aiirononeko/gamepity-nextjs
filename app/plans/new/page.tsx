@@ -1,4 +1,4 @@
-import { PlanForm } from '@/app/plans/new/components/PlanForm'
+import PlanForm from '@/app/plans/new/components/PlanForm'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,7 +18,7 @@ export default async function Page() {
   const games = await getGames()
 
   return (
-    <div className='container mx-auto my-12'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -34,6 +34,7 @@ export default async function Page() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+      <h2 className='text-xl font-bold'>プランを作成</h2>
       <PlanForm streamerId={user.id} games={games} />
     </div>
   )

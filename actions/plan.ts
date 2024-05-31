@@ -3,22 +3,24 @@
 import { createStripeProductAndPrice } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { planSchema } from '@/schemas/plan'
-import { parseWithZod } from '@conform-to/zod'
 import { redirect } from 'next/navigation'
+import type { z } from 'zod'
 
-export const createPlan = async (_: unknown, formData: FormData) => {
-  const submission = parseWithZod(formData, {
-    schema: planSchema,
-  })
-  if (submission.status !== 'success') return submission.reply()
+export const createPlan = async (data: z.infer<typeof planSchema>) => {
+  const result = planSchema.safeParse(data)
+  if (!result.success) {
+    return {
+      success: false,
+      error: result.error.errors,
+    }
+  }
 
-  const { name, description, amount, gameIds, streamerId } = submission.value
-
+  const { name, description, amount, gameId, streamerId } = data
   try {
     const { stripeProductId, stripePriceId } =
       await createStripeProductAndPrice({
         name,
-        amount,
+        amount: Number(amount),
       })
 
     const supabase = createClient()
@@ -28,36 +30,31 @@ export const createPlan = async (_: unknown, formData: FormData) => {
         streamer_id: streamerId,
         name,
         description,
-        amount,
+        amount: Number(amount),
         stripe_product_id: stripeProductId,
         stripe_price_id: stripePriceId,
-        stripe_payment_link_id: '',
       })
       .select()
       .single()
-    if (error) return submission.reply({ formErrors: [error.message] })
+    if (error) {
+      console.error(error)
+      throw error
+    }
 
-    await createPlansGames(data.id, gameIds)
+    await createPlansGames(data.id, Number(gameId))
   } catch (e) {
     console.error(e)
-    return submission.reply()
+    throw e
   }
 
   redirect('/plans')
 }
 
-const createPlansGames = async (
-  planId: number,
-  gameIds: FormDataEntryValue[],
-) => {
+const createPlansGames = async (planId: number, gameId: number) => {
   const supabase = createClient()
-  const relationRecords = gameIds.map((gameId) => {
-    return {
-      plan_id: planId,
-      game_id: Number(gameId),
-    }
+  const { error } = await supabase.from('plans_games').insert({
+    plan_id: planId,
+    game_id: gameId,
   })
-
-  const { error } = await supabase.from('plans_games').insert(relationRecords)
   if (error) throw error
 }

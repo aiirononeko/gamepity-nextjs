@@ -1,111 +1,157 @@
 'use client'
 
 import { createPlan } from '@/actions/plan'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { planSchema } from '@/schemas/plan'
 import type { Game } from '@/types/game'
-import { useForm } from '@conform-to/react'
-import { parseWithZod } from '@conform-to/zod'
-import { useFormState } from 'react-dom'
-import Select from 'react-select'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import type { z } from 'zod'
 
 type Props = {
   streamerId: string
   games: Game[]
 }
 
-export function PlanForm({ streamerId, games }: Props) {
-  const [lastResult, action] = useFormState(createPlan, undefined)
-  const [form, fields] = useForm({
-    lastResult,
-    onValidate({ formData }) {
-      return parseWithZod(formData, { schema: planSchema })
+export default function PlanForm({ streamerId, games }: Props) {
+  const form = useForm<z.infer<typeof planSchema>>({
+    resolver: zodResolver(planSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+      amount: '',
+      gameId: '',
+      streamerId,
     },
-    shouldValidate: 'onBlur',
   })
 
-  const options = games.map((game) => ({
-    label: game.name,
-    value: game.id,
-  }))
+  async function onSubmit(data: z.infer<typeof planSchema>) {
+    await createPlan(data)
+    toast.success('プランを作成しました', {
+      position: 'top-right',
+      duration: 5000,
+    })
+  }
 
   return (
-    <form
-      id={form.id}
-      onSubmit={form.onSubmit}
-      action={action}
-      noValidate
-      className='w-full max-w-sm pt-10'
-    >
-      <div className='mb-6 flex flex-col'>
-        <label
-          htmlFor={fields.name.id}
-          className='mb-1 block pr-4 text-left font-bold text-game-gray-500'
-        >
-          プラン名
-        </label>
-        <input
-          name={fields.name.name}
-          type='text'
-          placeholder='ガチランクプラン'
-          className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex flex-col items-center space-y-8 md:items-start'
+      >
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>プラン名</FormLabel>
+              <FormControl>
+                <Input
+                  type='text'
+                  placeholder='みっちりコーチングプラン'
+                  {...field}
+                  className='w-80'
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className='mb-6 flex flex-col'>
-        <label
-          htmlFor={fields.description.id}
-          className='mb-1 block pr-4 text-left font-bold text-gray-500'
-        >
-          プラン説明
-        </label>
-        <textarea
-          name={fields.description.name}
-          placeholder='ガチでランク回しましょう！Apexダイヤランク以上推奨です。'
-          className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
+        <FormField
+          control={form.control}
+          name='description'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <FormItem>
+                  <Label>プラン内容</Label>
+                  <FormControl>
+                    <Textarea
+                      placeholder='1時間コーチングしながらカジュアル回しましょう！'
+                      {...field}
+                      className='w-80'
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className='mb-6 flex flex-col'>
-        <label
-          htmlFor={fields.amount.id}
-          className='mb-1 block pr-4 text-left font-bold text-gray-500'
-        >
-          値段
-        </label>
-        <input
-          name={fields.amount.name}
-          type='number'
-          placeholder='3000'
-          className='w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none'
+        <FormField
+          control={form.control}
+          name='amount'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>料金</FormLabel>
+              <FormControl>
+                <Input
+                  type='number'
+                  placeholder='3000'
+                  {...field}
+                  className='w-80'
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className='mb-10 flex flex-col'>
-        <label
-          htmlFor={fields.gameIds.id}
-          className='mb-1 block pr-4 text-left font-bold text-gray-500'
-        >
-          ゲームタイトル(複数選択可)
-        </label>
-        <Select
-          options={options}
-          name={fields.gameIds.name}
-          isMulti={true}
-          placeholder='選択してください'
+        <FormField
+          control={form.control}
+          name='gameId'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ゲームタイトル</FormLabel>
+              <Select onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger className='w-80 border-border bg-background'>
+                    <SelectValue placeholder='ゲームタイトルを選択してください' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {games.map((game) => (
+                    <SelectItem key={game.id} value={game.id.toString()}>
+                      {game.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <input
-        name={fields.streamerId.name}
-        type='text'
-        value={streamerId}
-        hidden
-        readOnly
-      />
-      <div className='md:flex md:items-center'>
-        <button
-          className='w-full rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white'
+        <Button
           type='submit'
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
+          className='w-40'
         >
-          プラン作成
-        </button>
-      </div>
-    </form>
+          {form.formState.isSubmitting && (
+            <Loader2 className='mr-2 size-4 animate-spin' />
+          )}
+          プランを作成
+        </Button>
+      </form>
+    </Form>
   )
 }

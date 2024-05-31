@@ -50,12 +50,15 @@ export default function ProfileForm({ streamer }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex flex-col items-center space-y-8 md:items-start'
+      >
         <FormField
           name='iconUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>アイコン</Label>
+              <Label>アイコン</Label>
               <FormControl>
                 <ImageSelector
                   width='320px'
@@ -73,9 +76,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='name'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>名前</Label>
+              <Label>名前</Label>
               <FormControl>
-                <Input {...field} className='w-80 text-primary-foreground' />
+                <Input {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,9 +89,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='profile'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>プロフィール</Label>
+              <Label>プロフィール</Label>
               <FormControl>
-                <Textarea {...field} className='w-80 text-primary-foreground' />
+                <Textarea {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,11 +102,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='discordUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>
-                Discordサーバー URL
-              </Label>
+              <Label>Discordサーバー URL</Label>
               <FormControl>
-                <Input {...field} className='w-80 text-primary-foreground' />
+                <Input {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -114,9 +115,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='youtubeUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>Youtube URL</Label>
+              <Label>Youtube URL</Label>
               <FormControl>
-                <Input {...field} className='w-80 text-primary-foreground' />
+                <Input {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -127,9 +128,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='twitchUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>Twich URL</Label>
+              <Label>Twich URL</Label>
               <FormControl>
-                <Input {...field} className='w-80 text-primary-foreground' />
+                <Input {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -140,9 +141,9 @@ export default function ProfileForm({ streamer }: Props) {
           name='xUrl'
           render={({ field }) => (
             <FormItem>
-              <Label className='text-primary-foreground'>X URL</Label>
+              <Label>X URL</Label>
               <FormControl>
-                <Input {...field} className='w-80 text-primary-foreground' />
+                <Input {...field} className='w-80' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -150,9 +151,8 @@ export default function ProfileForm({ streamer }: Props) {
         />
 
         <Button
-          variant='outline'
           disabled={!form.formState.isValid || form.formState.isSubmitting}
-          className='primary-gradient h-12 w-48 text-primary-foreground hover:text-primary-foreground'
+          className='w-40'
         >
           {form.formState.isSubmitting && (
             <Loader2 className='mr-2 size-4 animate-spin' />
