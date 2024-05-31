@@ -106,9 +106,7 @@ export const createStripePaymentLink = async (
   return paymentLink
 }
 
-export const createLoginLink = async (
-  stripeAccountId: string,
-): Promise<Stripe.Response<Stripe.LoginLink> | undefined> => {
+export const createLoginLink = async (stripeAccountId: string) => {
   const stripe = createClient()
 
   if (!stripeAccountId) return

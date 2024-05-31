@@ -11,6 +11,13 @@ export const getOneWeekDateTimes = () => {
   })
 }
 
+export const getOneWeekDateTimesFromToday = () => {
+  const today = date(new Date())
+  return [...Array(7)].map((_, i) => {
+    return addDay(today, i)
+  })
+}
+
 export const nowUtc = () => {
   return tzDate(
     parse(new Date().toUTCString(), 'ddd, DD MMM YYYY HH:mm:ss'),

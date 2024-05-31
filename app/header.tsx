@@ -1,3 +1,4 @@
+import { createLoginLink } from '@/actions/stripe'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -12,7 +13,12 @@ import Link from 'next/link'
 
 export default async function Header() {
   const user = await currentUser()
-  const streamer = user && isStreamer(user) && (await getStreamer(user.id))
+  const streamer =
+    user && isStreamer(user) ? await getStreamer(user.id) : undefined
+
+  const stripeLoginLink = await createLoginLink(
+    streamer?.stripe_account_id ?? '',
+  )
 
   return (
     <header className='flex h-20 items-center justify-between gap-2 border-b px-10 md:px-[160px]'>
@@ -38,16 +44,34 @@ export default async function Header() {
                   <Link href='/reservations'>予約管理</Link>
                 </Button>
                 <Button variant='link' asChild>
-                  <a href=''>売上管理</a>
+                  <a
+                    href={
+                      stripeLoginLink?.url ??
+                      'https://gamepity.com/available-date-times'
+                    }
+                    target='_blank'
+                  >
+                    売上管理
+                  </a>
                 </Button>
                 <Button variant='link' asChild>
                   <Link href='/streamers/mypage'>マイページ</Link>
                 </Button>
               </>
             ) : (
-              <Button variant='link' asChild>
-                <Link href='/users/mypage'>マイページ</Link>
-              </Button>
+              <>
+                <Button variant='link' asChild>
+                  <a
+                    href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
+                    target='_blank'
+                  >
+                    遊び方
+                  </a>
+                </Button>
+                <Button variant='link' asChild>
+                  <Link href='/users/mypage'>マイページ</Link>
+                </Button>
+              </>
             )}
           </>
         ) : (
