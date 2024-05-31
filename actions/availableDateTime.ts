@@ -1,12 +1,30 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/client'
-import type { AvailableDateTime } from '@/types/availableDateTime'
+
+// import { createClient } from '@/lib/supabase/server'
+// import type { AvailableDateTime } from '@/types/availableDateTime'
+
+// export const createAvailableDateTimes = async (
+//   availableDateTimes: AvailableDateTime[],
+// ) => {
+//   const supabase = createClient()
+//
+//   availableDateTimes.forEach(async (availableDateTime) => {
+//     const { error } = await supabase
+//       .from('available_date_times')
+//       .upsert(availableDateTime)
+//     if (error) {
+//       console.error(error)
+//       throw error
+//     }
+//   })
+// }
 
 export const createAvailableDateTime = async (
   startDateTime: string,
   streamerId: string,
-): Promise<AvailableDateTime> => {
+) => {
   'use client'
 
   const supabase = createClient()

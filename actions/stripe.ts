@@ -1,8 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/stripe'
-import { redirect } from 'next/navigation'
-import Stripe from 'stripe'
+import type Stripe from 'stripe'
 
 type CreateProductParams = {
   name: string
@@ -31,10 +30,7 @@ export const hasDetailsSubmittedToStripe = async (
   return details_submitted
 }
 
-export const linkToStripeAccount = async (formData: FormData) => {
-  const stripeAccountId = formData.get('stripeAccountId')?.toString()
-  if (!stripeAccountId) return
-
+export const createLinkToStripeAccountUrl = async (stripeAccountId: string) => {
   const stripe = createClient()
   const accountLink = await stripe.accountLinks.create({
     account: stripeAccountId,
@@ -43,7 +39,7 @@ export const linkToStripeAccount = async (formData: FormData) => {
     type: 'account_onboarding',
   })
 
-  redirect(accountLink.url)
+  return accountLink.url
 }
 
 export const createStripeProductAndPrice = async ({
