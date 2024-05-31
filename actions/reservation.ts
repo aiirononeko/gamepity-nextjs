@@ -5,7 +5,6 @@ import { createClient } from '@/lib/supabase/server'
 import { reservationSchema } from '@/schemas/reservation'
 import { redirect } from 'next/navigation'
 import type { z } from 'zod'
-import { disableAvailableDateTime } from './availableDateTime'
 
 export const createReservation = async (
   input: z.infer<typeof reservationSchema>,
@@ -26,7 +25,9 @@ export const createReservation = async (
     planId,
     stripeAccountId,
     stripePriceId,
-    amount,
+    streamerEmail,
+    streamerDiscordUrl,
+    userEmail,
   } = input
 
   const supabase = createClient()
@@ -37,20 +38,21 @@ export const createReservation = async (
       streamer_id: streamerId,
       user_id: userId,
       plan_id: planId,
+      available_date_time_id: availableDateTimeId,
     })
     .select('*')
     .single()
   if (error) throw error
 
-  await disableAvailableDateTime(availableDateTimeId, data.id)
-
   // payment_link作成
   const paymentLink = await createStripePaymentLink(
     stripeAccountId,
     stripePriceId,
-    userId,
-    streamerId,
-    amount,
+    data.id,
+    availableDateTimeId,
+    streamerEmail,
+    streamerDiscordUrl,
+    userEmail,
   )
 
   // 作成したpayment_linkに遷移

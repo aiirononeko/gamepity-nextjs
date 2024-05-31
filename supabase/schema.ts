@@ -38,8 +38,6 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          is_reserved: boolean
-          reservation_id: number | null
           start_date_time: string
           streamer_id: string
           updated_at: string
@@ -47,8 +45,6 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: number
-          is_reserved?: boolean
-          reservation_id?: number | null
           start_date_time: string
           streamer_id: string
           updated_at?: string
@@ -56,26 +52,17 @@ export type Database = {
         Update: {
           created_at?: string
           id?: number
-          is_reserved?: boolean
-          reservation_id?: number | null
           start_date_time?: string
           streamer_id?: string
           updated_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'available_date_times_reservation_id_fkey'
-            columns: ['reservation_id']
+            foreignKeyName: "available_date_times_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'reservations'
-            referencedColumns: ['id']
-          },
-          {
-            foreignKeyName: 'available_date_times_streamer_id_fkey'
-            columns: ['streamer_id']
-            isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -111,7 +98,6 @@ export type Database = {
           id: number
           name: string
           streamer_id: string
-          stripe_payment_link_id: string
           stripe_price_id: string
           stripe_product_id: string
           updated_at: string
@@ -123,7 +109,6 @@ export type Database = {
           id?: number
           name: string
           streamer_id: string
-          stripe_payment_link_id: string
           stripe_price_id: string
           stripe_product_id: string
           updated_at?: string
@@ -135,18 +120,17 @@ export type Database = {
           id?: number
           name?: string
           streamer_id?: string
-          stripe_payment_link_id?: string
           stripe_price_id?: string
           stripe_product_id?: string
           updated_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: 'plans_streamer_id_fkey'
-            columns: ['streamer_id']
+            foreignKeyName: "plans_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -165,23 +149,24 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'plans_games_game_id_fkey'
-            columns: ['game_id']
+            foreignKeyName: "plans_games_game_id_fkey"
+            columns: ["game_id"]
             isOneToOne: false
-            referencedRelation: 'games'
-            referencedColumns: ['id']
+            referencedRelation: "games"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'plans_games_plan_id_fkey'
-            columns: ['plan_id']
+            foreignKeyName: "plans_games_plan_id_fkey"
+            columns: ["plan_id"]
             isOneToOne: false
-            referencedRelation: 'plans'
-            referencedColumns: ['id']
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
           },
         ]
       }
       reservations: {
         Row: {
+          available_date_time_id: number
           created_at: string
           id: number
           is_available: boolean
@@ -192,6 +177,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          available_date_time_id: number
           created_at?: string
           id?: number
           is_available?: boolean
@@ -202,6 +188,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          available_date_time_id?: number
           created_at?: string
           id?: number
           is_available?: boolean
@@ -213,25 +200,32 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'reservations_plan_id_fkey'
-            columns: ['plan_id']
+            foreignKeyName: "reservations_available_date_time_id_fkey"
+            columns: ["available_date_time_id"]
             isOneToOne: false
-            referencedRelation: 'plans'
-            referencedColumns: ['id']
+            referencedRelation: "available_date_times"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'reservations_streamer_id_fkey'
-            columns: ['streamer_id']
+            foreignKeyName: "reservations_plan_id_fkey"
+            columns: ["plan_id"]
             isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'reservations_user_id_fkey'
-            columns: ['user_id']
+            foreignKeyName: "reservations_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'users'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -268,25 +262,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'reviews_plan_id_fkey'
-            columns: ['plan_id']
+            foreignKeyName: "reviews_plan_id_fkey"
+            columns: ["plan_id"]
             isOneToOne: false
-            referencedRelation: 'plans'
-            referencedColumns: ['id']
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'reviews_streamer_id_fkey'
-            columns: ['streamer_id']
+            foreignKeyName: "reviews_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'reviews_user_id_fkey'
-            columns: ['user_id']
+            foreignKeyName: "reviews_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: 'users'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -305,18 +299,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'streamer_games_game_id_fkey'
-            columns: ['game_id']
+            foreignKeyName: "streamer_games_game_id_fkey"
+            columns: ["game_id"]
             isOneToOne: false
-            referencedRelation: 'games'
-            referencedColumns: ['id']
+            referencedRelation: "games"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'streamer_games_streamer_id_fkey'
-            columns: ['streamer_id']
+            foreignKeyName: "streamer_games_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -325,6 +319,7 @@ export type Database = {
           avg_rating: number | null
           created_at: string
           discord_url: string | null
+          email: string
           icon_url: string | null
           id: string
           name: string
@@ -339,6 +334,7 @@ export type Database = {
           avg_rating?: number | null
           created_at?: string
           discord_url?: string | null
+          email: string
           icon_url?: string | null
           id: string
           name: string
@@ -353,6 +349,7 @@ export type Database = {
           avg_rating?: number | null
           created_at?: string
           discord_url?: string | null
+          email?: string
           icon_url?: string | null
           id?: string
           name?: string
@@ -365,11 +362,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'streamers_id_fkey'
-            columns: ['id']
+            foreignKeyName: "streamers_id_fkey"
+            columns: ["id"]
             isOneToOne: true
-            referencedRelation: 'users'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -397,11 +394,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'users_id_fkey'
-            columns: ['id']
+            foreignKeyName: "users_id_fkey"
+            columns: ["id"]
             isOneToOne: true
-            referencedRelation: 'users'
-            referencedColumns: ['id']
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -414,11 +411,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'reviews_streamer_id_fkey'
-            columns: ['streamer_id']
+            foreignKeyName: "reviews_streamer_id_fkey"
+            columns: ["streamer_id"]
             isOneToOne: false
-            referencedRelation: 'streamers'
-            referencedColumns: ['id']
+            referencedRelation: "streamers"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -537,11 +534,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'objects_bucketId_fkey'
-            columns: ['bucket_id']
+            foreignKeyName: "objects_bucketId_fkey"
+            columns: ["bucket_id"]
             isOneToOne: false
-            referencedRelation: 'buckets'
-            referencedColumns: ['id']
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -578,11 +575,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 's3_multipart_uploads_bucket_id_fkey'
-            columns: ['bucket_id']
+            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey"
+            columns: ["bucket_id"]
             isOneToOne: false
-            referencedRelation: 'buckets'
-            referencedColumns: ['id']
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -625,18 +622,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 's3_multipart_uploads_parts_bucket_id_fkey'
-            columns: ['bucket_id']
+            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey"
+            columns: ["bucket_id"]
             isOneToOne: false
-            referencedRelation: 'buckets'
-            referencedColumns: ['id']
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 's3_multipart_uploads_parts_upload_id_fkey'
-            columns: ['upload_id']
+            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey"
+            columns: ["upload_id"]
             isOneToOne: false
-            referencedRelation: 's3_multipart_uploads'
-            referencedColumns: ['id']
+            referencedRelation: "s3_multipart_uploads"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -740,27 +737,27 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, 'public'>]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
-        PublicSchema['Views'])
-    ? (PublicSchema['Tables'] &
-        PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -769,19 +766,19 @@ export type Tables<
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -790,19 +787,19 @@ export type TablesInsert<
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -811,13 +808,14 @@ export type TablesUpdate<
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema['Enums']
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
-    ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
+

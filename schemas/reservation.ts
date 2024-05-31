@@ -8,7 +8,9 @@ export const reservationSchema = z.object({
   userId: z.string(),
   stripeAccountId: z.string(),
   stripePriceId: z.string(),
-  amount: z.number(),
+  streamerEmail: z.string(),
+  streamerDiscordUrl: z.string(),
+  userEmail: z.string(),
   hasConfirmedAndAgreedWithWarningInfo: z.literal(true, {
     errorMap: () => ({ message: '同意してください' }),
   }),

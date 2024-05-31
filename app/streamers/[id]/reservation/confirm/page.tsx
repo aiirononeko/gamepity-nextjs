@@ -110,7 +110,6 @@ export default async function Page({
         </div>
       </div>
       <ConfirmationForm
-        amount={plan.amount}
         availableDateTimeId={availableDateTime.id}
         startDateTime={availableDateTime.start_date_time}
         streamerId={streamer.id}
@@ -118,6 +117,9 @@ export default async function Page({
         planId={plan.id}
         stripeAccountId={streamer.stripe_account_id ?? ''}
         stripePriceId={plan.stripe_price_id}
+        streamerEmail={streamer.email}
+        streamerDiscordUrl={streamer.discord_url ?? ''}
+        userEmail={user.email ?? ''}
       />
     </div>
   )

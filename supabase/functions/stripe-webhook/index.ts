@@ -29,22 +29,24 @@ Deno.serve(async (req) => {
     )
     console.log(`🔔 Event received: ${receivedEvent.id}`)
 
-    // 決済したユーザーの仮予約データを取得
-    const { userId, streamerId } = receivedEvent.data.object.metadata
-    const temporaryReservation = await getTempReservation(userId, streamerId)
+    const {
+      reservationId,
+      availableDateTimeId,
+      streamerEmail,
+      streamerDiscordUrl,
+      userEmail,
+    } = receivedEvent.data.object.metadata
 
     // 仮予約データを有効化
-    await activateTempReservation(temporaryReservation.id)
+    await activateTempReservation(reservationId)
+
+    // 予約可能日時を削除
+    await deleteAvailableDateTime(availableDateTimeId)
 
     // ユーザーに予約完了メールを送信
-    const discordUrl = await getStreamerDiscordUrl(streamerId)
-    await sendEmailToUser(
-      receivedEvent.data.object.customer_details.email,
-      discordUrl,
-    )
+    await sendEmailToUser(userEmail, streamerDiscordUrl)
 
     // ストリーマーに予約通知メールを送信
-    const streamerEmail = await getStreamerEmail(streamerId)
     await sendEmailToStreamer(streamerEmail)
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
@@ -52,23 +54,6 @@ Deno.serve(async (req) => {
     return new Response(err.message, { status: 400 })
   }
 })
-
-const getTempReservation = async (userId: string, streamerId: string) => {
-  const { data, error } = await supabase
-    .from('reservations')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('streamer_id', streamerId)
-    .eq('is_available', false)
-    .single()
-  if (error) {
-    console.error(error)
-    throw error
-  }
-  if (!data) console.error('Reservation data is not found.')
-
-  return data
-}
 
 const activateTempReservation = async (tempReservationId: number) => {
   const { error } = await supabase
@@ -81,33 +66,15 @@ const activateTempReservation = async (tempReservationId: number) => {
   }
 }
 
-const getStreamerDiscordUrl = async (streamerId: string) => {
-  const { data, error } = await supabase
-    .from('streamers')
-    .select()
-    .eq('id', streamerId)
-    .single()
+const deleteAvailableDateTime = async (availableDateTimeId: number) => {
+  const { error } = await supabase
+    .from('available_date_times')
+    .delete()
+    .eq('id', availableDateTimeId)
   if (error) {
     console.error(error)
     throw error
   }
-
-  return data.discord_url
-}
-
-const getStreamerEmail = async (streamerId: string) => {
-  const { data, error } = await supabase
-    .from('streamers')
-    .select()
-    .eq('id', streamerId)
-    .single()
-  if (error) {
-    console.error(error)
-    throw error
-  }
-
-  const stripeAccount = await stripe.accounts.retrieve(data.stripe_account_id)
-  return stripeAccount.email
 }
 
 const sendEmailToUser = async (email: string, discordUrl: string) => {

@@ -31,6 +31,7 @@ export async function getStreamersWithGameId(
     `
       id,
       name,
+      email,
       icon_url,
       profile,
       stripe_account_id,
@@ -82,6 +83,7 @@ export async function getStreamer(id: string): Promise<Streamer> {
       `
       id,
       name,
+      email,
       icon_url,
       profile,
       stripe_account_id,

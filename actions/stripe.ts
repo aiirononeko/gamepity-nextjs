@@ -74,9 +74,11 @@ export const createStripeProductAndPrice = async ({
 export const createStripePaymentLink = async (
   stripeAccountId: string,
   stripePriceId: string,
-  userId: string,
-  streamerId: string,
-  amount: number,
+  reservationId: number,
+  availableDateTimeId: number,
+  streamerEmail: string,
+  streamerDiscordUrl: string,
+  userEmail: string,
 ) => {
   const stripe = createClient()
   const paymentLink = await stripe.paymentLinks.create({
@@ -92,8 +94,11 @@ export const createStripePaymentLink = async (
       destination: stripeAccountId,
     },
     metadata: {
-      userId,
-      streamerId,
+      reservationId,
+      availableDateTimeId,
+      streamerEmail,
+      streamerDiscordUrl,
+      userEmail,
     },
     after_completion: {
       type: 'redirect',

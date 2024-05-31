@@ -18,7 +18,6 @@ import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
 
 type Props = {
-  amount: number
   availableDateTimeId: number
   startDateTime: string
   streamerId: string
@@ -26,10 +25,12 @@ type Props = {
   planId: number
   stripeAccountId: string
   stripePriceId: string
+  streamerEmail: string
+  streamerDiscordUrl: string
+  userEmail: string
 }
 
 export default function ConfirmationForm({
-  amount,
   availableDateTimeId,
   startDateTime,
   streamerId,
@@ -37,11 +38,13 @@ export default function ConfirmationForm({
   planId,
   stripeAccountId,
   stripePriceId,
+  streamerEmail,
+  streamerDiscordUrl,
+  userEmail,
 }: Props) {
   const form = useForm<z.infer<typeof reservationSchema>>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
-      amount,
       availableDateTimeId,
       startDateTime,
       streamerId,
@@ -49,6 +52,9 @@ export default function ConfirmationForm({
       planId,
       stripeAccountId,
       stripePriceId,
+      streamerEmail,
+      streamerDiscordUrl,
+      userEmail,
       hasConfirmedAndAgreedWithWarningInfo: undefined,
     },
   })
