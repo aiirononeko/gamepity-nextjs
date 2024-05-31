@@ -1,4 +1,12 @@
-import { createReservation } from '@/actions/reservation'
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { currentUser } from '@/data/auth'
 import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
@@ -6,6 +14,7 @@ import { getStreamer } from '@/data/streamer'
 import { addHour, format } from '@formkit/tempo'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+import ConfirmationForm from './components/ConfirmationForm'
 
 export default async function Page({
   searchParams,
@@ -36,82 +45,80 @@ export default async function Page({
   })
 
   return (
-    <div className='container mx-auto'>
-      <form action={createReservation}>
-        <h2 className='mb-6 text-2xl font-bold text-game-white'>
-          予約内容の確認
-        </h2>
-        <div className='flex flex-row px-32 pb-12'>
-          {streamer.icon_url ? (
-            <div className='relative mx-auto h-72 w-80 basis-2/5'>
-              <Image
-                alt={`${streamer.name}のアイコン`}
-                src={streamer.icon_url}
-                fill={true}
-              />
-            </div>
-          ) : (
-            <div className='relative mx-auto h-72 w-80 basis-2/5 bg-game-gray-600'></div>
-          )}
-          <div className='relative flex basis-3/5 flex-col space-y-6 pl-10'>
-            <p className='basis-1/6 text-3xl font-bold text-game-white'>
-              {streamer.name}
-            </p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>
-              {plan.name}
-            </p>
-            <p className='basis-3/6 text-game-white'>{plan.description}</p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-8 md:mx-[160px] md:mt-10 md:items-start'>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbEllipsis />
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              href={`/streamers/${streamer.id}/reservation?planId=${plan.id}`}
+            >
+              予約日時選択
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>予約内容確認</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h2 className='text-xl font-bold'>予約内容を確認してください</h2>
+      <div className='space-y-8 md:w-full'>
+        {streamer.icon_url ? (
+          <div className='relative h-[220px] w-[352px]'>
+            <Image
+              alt={`${streamer.name}のアイコン`}
+              src={streamer.icon_url}
+              fill={true}
+            />
+          </div>
+        ) : (
+          <div className='h-[220px] w-[352px]'></div>
+        )}
+        <div className='space-y-6'>
+          <div className='space-y-2'>
+            <h3 className='text-md text-center font-bold md:text-start'>
+              選択したストリーマー
+            </h3>
+            <p className='text-md text-center md:text-start'>{streamer.name}</p>
+          </div>
+          <div className='space-y-2'>
+            <h3 className='text-md text-center font-bold md:text-start'>
+              選択したプラン
+            </h3>
+            <p className='text-md text-center md:text-start'>{plan.name}</p>
+          </div>
+          <div className='space-y-2'>
+            <h3 className='text-md text-center font-bold md:text-start'>
+              選択した予約日時
+            </h3>
+            <p className='text-md text-center md:text-start'>
               {startDateTime} ~ {endDateTime}
             </p>
-            <p className='basis-1/6 text-xl font-bold text-game-white'>
-              {plan.amount}円 / 60分
-            </p>
+          </div>
+          <div className='space-y-2'>
+            <h3 className='text-md text-center font-bold md:text-start'>
+              お支払い金額
+            </h3>
+            <p className='text-md text-center md:text-start'>{plan.amount}円</p>
           </div>
         </div>
-        <div className='mb-10 flex justify-center'>
-          <a
-            className='text-center font-bold text-game-white underline hover:text-blue-500'
-            target='_blank'
-            href='https://brash-ferry-996.notion.site/54ac9ecf2f41440dac1744f1bc94aedc'
-          >
-            ※ご購入前に予約時の注意事項をご確認ください
-          </a>
-        </div>
-        <input
-          name='availableDateTimeId'
-          value={availableDateTime.id}
-          hidden
-          readOnly
-        />
-        <input
-          name='startDateTime'
-          value={availableDateTime.start_date_time}
-          hidden
-          readOnly
-        />
-        <input name='streamerId' value={streamer.id} hidden readOnly />
-        <input name='userId' value={user.id} hidden readOnly />
-        <input name='planId' value={plan.id} hidden readOnly />
-        <input
-          name='stripeAccountId'
-          value={streamer.stripe_account_id ?? ''}
-          hidden
-          readOnly
-        />
-        <input
-          name='stripePriceId'
-          value={plan.stripe_price_id}
-          hidden
-          readOnly
-        />
-        <input name='amount' value={plan.amount} hidden readOnly />
-        <div className='flex justify-center'>
-          <button className='rounded border-2 border-solid border-game-white bg-gradient-to-r from-[#FFB13C] to-[#EF3CFF] px-8 py-3 text-game-white hover:-translate-y-1'>
-            この内容で予約する
-          </button>
-        </div>
-      </form>
+      </div>
+      <ConfirmationForm
+        amount={plan.amount}
+        availableDateTimeId={availableDateTime.id}
+        startDateTime={availableDateTime.start_date_time}
+        streamerId={streamer.id}
+        userId={user.id}
+        planId={plan.id}
+        stripeAccountId={streamer.stripe_account_id ?? ''}
+        stripePriceId={plan.stripe_price_id}
+      />
     </div>
   )
 }

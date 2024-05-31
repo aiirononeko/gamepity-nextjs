@@ -2,32 +2,33 @@
 
 import { createStripePaymentLink } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { reservationSchema } from '@/schemas/reservation'
 import { redirect } from 'next/navigation'
+import type { z } from 'zod'
 import { disableAvailableDateTime } from './availableDateTime'
 
-export const createReservation = async (formData: FormData) => {
-  const availableDateTimeId = Number(formData.get('availableDateTimeId'))
-  const startDateTime = formData.get('startDateTime')?.toString()
-  const streamerId = formData.get('streamerId')?.toString()
-  const userId = formData.get('userId')?.toString()
-  const planId = Number(formData.get('planId'))
-  const stripeAccountId = formData.get('stripeAccountId')?.toString()
-  const stripePriceId = formData.get('stripePriceId')?.toString()
-  const amount = Number(formData.get('amount'))
+export const createReservation = async (
+  input: z.infer<typeof reservationSchema>,
+) => {
+  const result = reservationSchema.safeParse(input)
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.errors,
+    }
+  }
 
-  if (
-    !availableDateTimeId ||
-    !startDateTime ||
-    !streamerId ||
-    !userId ||
-    !planId ||
-    !stripeAccountId ||
-    !stripePriceId ||
-    !amount
-  )
-    return
+  const {
+    availableDateTimeId,
+    startDateTime,
+    streamerId,
+    userId,
+    planId,
+    stripeAccountId,
+    stripePriceId,
+    amount,
+  } = input
 
-  // reservationデータ作成
   const supabase = createClient()
   const { data, error } = await supabase
     .from('reservations')
