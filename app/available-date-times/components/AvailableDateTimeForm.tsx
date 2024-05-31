@@ -73,7 +73,7 @@ export default function AvailableDateTimeForm({
           <tbody>
             {hours.map((hour) => (
               <tr key={hour}>
-                <th className='h-10 text-left md:h-14'>{`${hour + 1}:00`}</th>
+                <th className='h-10 text-left md:h-14'>{`${hour}:00`}</th>
                 {oneWeekDateTimes.map((day, i) => {
                   const isActive = availableDateTimes.some(
                     (availableDateTime) =>
@@ -84,14 +84,13 @@ export default function AvailableDateTimeForm({
                       tzDate(
                         availableDateTime.start_date_time,
                         'Asia/Tokyo',
-                      ).getHours() ===
-                        hour + 1,
+                      ).getHours() === hour,
                   )
                   return (
                     <td
                       key={`${i}_${day}`}
                       className='border border-solid'
-                      onClick={() => toggleDateTime(day, hour - 8)} // UTC時刻として渡す
+                      onClick={() => toggleDateTime(day, hour - 9)} // UTC時刻として渡す
                     >
                       {isActive && (
                         <div className='block h-10 cursor-pointer bg-zinc-300 hover:bg-zinc-400 md:h-14'></div>
