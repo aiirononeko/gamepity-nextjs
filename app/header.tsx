@@ -104,7 +104,7 @@ export default async function Header() {
               </>
             ) : (
               <DropdownMenuItem>
-                <Button variant='outline' asChild className='text-zinc-950'>
+                <Button variant='link' asChild className='text-zinc-950'>
                   <Link href='/signin'>ログイン</Link>
                 </Button>
               </DropdownMenuItem>
