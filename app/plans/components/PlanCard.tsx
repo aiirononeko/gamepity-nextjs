@@ -34,18 +34,10 @@ export const PlanCard = ({ plan }: Props) => {
       </CardContent>
       <CardFooter>
         <div className='space-x-4'>
-          <Button
-            variant='destructive'
-            className='text-white'
-            onClick={() => alert('開発中')}
-          >
+          <Button variant='destructive' onClick={() => alert('開発中')}>
             削除
           </Button>
-          <Button
-            variant='default'
-            className='text-white'
-            onClick={() => alert('開発中')}
-          >
+          <Button variant='default' onClick={() => alert('開発中')}>
             売り切れにする
           </Button>
         </div>

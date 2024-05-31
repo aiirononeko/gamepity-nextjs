@@ -9,14 +9,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { getPlans } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
+  const plans = await getPlans(streamer.id)
   // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
-  const { plans, reviews } = streamer
+  const { reviews } = streamer
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
@@ -27,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{streamer.name}のページ</BreadcrumbPage>
+            <BreadcrumbPage>ストリーマー詳細</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -85,10 +87,10 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <h2 className='text-xl font-bold'>プラン</h2>
       {plans && plans.length > 0 ? (
-        <div className='space-y-4'>
-          {/* @ts-expect-error: Supabaseの型解決がうまくいかないのでignore */}
+        <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
           {plans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} streamer={streamer} />
+            // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
+            <PlanCard key={plan.id} plan={plan} />
           ))}
         </div>
       ) : (

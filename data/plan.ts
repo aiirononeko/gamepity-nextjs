@@ -13,6 +13,7 @@ export async function getPlans(streamerId: string) {
       name,
       description,
       amount,
+      streamer_id,
       plans_games!inner (
         game_id (
           id,
