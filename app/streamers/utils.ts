@@ -7,7 +7,7 @@ import { addDay, date, parse, tzDate } from '@formkit/tempo'
 export const getOneWeekDateTimes = () => {
   const today = date(new Date())
   return [...Array(7)].map((_, i) => {
-    return addDay(today, i)
+    return addDay(today, i + 1)
   })
 }
 

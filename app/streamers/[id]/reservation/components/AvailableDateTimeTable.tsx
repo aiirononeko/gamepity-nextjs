@@ -1,5 +1,3 @@
-'use client'
-
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
 import type { Plan } from '@/types/plan'
@@ -17,24 +15,30 @@ export default function AvailableDateTimeTable({
   plan,
   oneWeekDateTimes,
 }: Props) {
+  const hours = [...Array(24)].map((_, index) => (index + 9) % 24).slice(0, 20)
+
   return (
-    <div className='w-full rounded-xl bg-game-gray-600 py-6 text-game-white'>
-      <table className='mx-auto w-11/12'>
-        <thead className='h-24'>
+    <div className='w-[352px] md:w-full'>
+      <div className='mb-2 flex flex-row items-center space-x-2'>
+        <div className='size-4 cursor-pointer bg-zinc-300 md:size-6'></div>
+        <p>...予約可能</p>
+      </div>
+      <table className='md:w-full'>
+        <thead>
           <tr>
-            <th className='w-12'></th>
+            <th className='w-20 md:w-12'></th>
             {oneWeekDateTimes.map((dateTime) => (
               <th key={dateTime.toISOString()} className='w-28'>
                 <span className='block'>{DAYS_LABEL[dateTime.getDay()]}</span>
-                <p className='text-3xl'>{dateTime.getDate()}</p>
+                <p className='md:text-2xl'>{dateTime.getDate()}</p>
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {[...Array(24)].map((_, hour) => (
+          {hours.map((hour) => (
             <tr key={hour}>
-              <th className='h-20 text-left'>{`${hour + 1}:00`}</th>
+              <th className='h-10 text-left md:h-14'>{`${hour}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
                 const matchingDateTimes = availableDateTimes.filter(
                   (dateTime) => {
@@ -45,7 +49,7 @@ export default function AvailableDateTimeTable({
                     return (
                       jstStartDateTime.getDate() ===
                         tzDate(day, 'Asia/Tokyo').getDate() &&
-                      jstStartDateTime.getHours() === hour + 1
+                      jstStartDateTime.getHours() === hour
                     )
                   },
                 )
@@ -59,7 +63,7 @@ export default function AvailableDateTimeTable({
                         key={dateTime.id}
                         href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${dateTime.id}`}
                       >
-                        <div className='block h-20 cursor-pointer bg-game-white hover:scale-110'></div>
+                        <div className='block h-10 cursor-pointer bg-zinc-300 hover:bg-zinc-400 md:h-14'></div>
                       </Link>
                     ))}
                   </td>

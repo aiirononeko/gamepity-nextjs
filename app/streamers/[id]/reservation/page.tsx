@@ -1,10 +1,16 @@
-import AvailableDateTimeTable from '@/app/streamers/[id]/reservation/components/AvailableDateTimeTable'
-import PlanCard from '@/app/streamers/[id]/reservation/components/PlanCard'
 import { getOneWeekDateTimes } from '@/app/streamers/utils'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
-import { getGames } from '@/data/game'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
+import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 
 export default async function Page({
   searchParams,
@@ -13,29 +19,34 @@ export default async function Page({
 }) {
   const plan = await getPlan(Number(searchParams.planId))
   const streamer = await getStreamer(plan.streamer_id)
-  const tempGames = await getGames()
   const availableDateTimes = await getAvailableDateTimes(plan.streamer_id)
   const oneWeekDateTimes = getOneWeekDateTimes()
 
   return (
-    <div className='container mx-auto'>
-      <div className='mb-10'>
-        <p className='mb-4 text-xl font-bold text-game-white'>選択中のプラン</p>
-        <PlanCard
-          plan={plan}
-          streamer={streamer}
-          games={[tempGames[0], tempGames[1]]}
-        />
-      </div>
-      <div className='mb-10'>
-        {availableDateTimes && (
-          <AvailableDateTimeTable
-            availableDateTimes={availableDateTimes}
-            plan={plan}
-            oneWeekDateTimes={oneWeekDateTimes}
-          />
-        )}
-      </div>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/streamers/${streamer.id}`}>
+              ストリーマー詳細
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>予約日時選択</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h2 className='text-xl font-bold'>予約する日時を選択してください</h2>
+      <AvailableDateTimeTable
+        availableDateTimes={availableDateTimes}
+        oneWeekDateTimes={oneWeekDateTimes}
+        plan={plan}
+      />
     </div>
   )
 }
