@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>{streamer.name}のページ</h2>
-      <div className='space-y-6 md:flex md:flex-row md:space-x-8 md:space-y-0'>
+      <div className='space-y-6 md:flex md:w-full md:flex-row md:space-x-8 md:space-y-0'>
         {streamer.icon_url ? (
           <div className='relative h-[220px] w-[352px]'>
             <Image
