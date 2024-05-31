@@ -69,6 +69,9 @@ export default async function Header() {
                   </a>
                 </Button>
                 <Button variant='link' asChild>
+                  <Link href='/users/reservations'>予約管理</Link>
+                </Button>
+                <Button variant='link' asChild>
                   <Link href='/users/mypage'>マイページ</Link>
                 </Button>
               </>
@@ -90,36 +93,47 @@ export default async function Header() {
               <>
                 {streamer ? (
                   <>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className='flex flex-col'>
                       <Button variant='link' asChild className='text-zinc-950'>
                         <Link href='/plans'>プラン管理</Link>
                       </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
                       <Button variant='link' asChild className='text-zinc-950'>
                         <Link href='/available-date-times'>
                           予約可能日時管理
                         </Link>
                       </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
                       <Button variant='link' asChild className='text-zinc-950'>
                         <Link href='/reservations'>予約管理</Link>
                       </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
                       <Button variant='link' asChild className='text-zinc-950'>
-                        <a href=''>売上管理</a>
+                        <a
+                          href={
+                            stripeLoginLink?.url ??
+                            'https://gamepity.com/available-date-times'
+                          }
+                          target='_blank'
+                        >
+                          売上管理
+                        </a>
                       </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
                       <Button variant='link' asChild className='text-zinc-950'>
                         <Link href='/streamers/mypage'>マイページ</Link>
                       </Button>
                     </DropdownMenuItem>
                   </>
                 ) : (
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className='flex flex-col'>
+                    <Button variant='link' asChild className='text-zinc-950'>
+                      <a
+                        href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
+                        target='_blank'
+                      >
+                        遊び方
+                      </a>
+                    </Button>
+                    <Button variant='link' asChild className='text-zinc-950'>
+                      <Link href='/users/reservations'>予約管理</Link>
+                    </Button>
                     <Button variant='link' asChild className='text-zinc-950'>
                       <Link href='/users/mypage'>マイページ</Link>
                     </Button>

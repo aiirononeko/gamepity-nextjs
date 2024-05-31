@@ -32,7 +32,7 @@ export const ReservationCard = async ({ reservation }: Props) => {
 
   return (
     <Card className='w-[350px] md:transition md:duration-300 md:hover:-translate-y-3'>
-      <CardHeader>
+      <CardHeader className='space-y-3'>
         <CardTitle>{user.name}</CardTitle>
         <CardDescription>
           {startDateTime} ~ {endDateTime}
