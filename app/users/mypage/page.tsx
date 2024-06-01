@@ -10,6 +10,8 @@ import { currentUser, isStreamer } from '@/data/auth'
 import { getUser } from '@/data/user'
 import { redirect } from 'next/navigation'
 import ProfileForm from './components/ProfileForm'
+import SignOutForm from './components/SignOutForm'
+import WithdrawalForm from './components/WithdrawalForm'
 
 export default async function Page() {
   const user = await currentUser()
@@ -32,6 +34,10 @@ export default async function Page() {
       </Breadcrumb>
       <h2 className='text-xl font-bold'>プロフィール編集</h2>
       <ProfileForm user={userFromTable} />
+      <h2 className='text-xl font-bold'>ログアウト</h2>
+      <SignOutForm />
+      <h2 className='text-xl font-bold'>退会</h2>
+      <WithdrawalForm userId={user.id} />
     </div>
   )
 }

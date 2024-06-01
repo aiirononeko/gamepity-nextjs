@@ -98,7 +98,17 @@ export async function signInWithEmail(data: z.infer<typeof signInSchema>) {
 
 export async function signOut() {
   const supabase = createClient()
-  const { error } = await supabase.auth.signOut()
 
+  const { error } = await supabase.auth.signOut()
   if (error) throw error
+}
+
+export async function withdrawal(id: string) {
+  const supabase = createClient()
+
+  const { error } = await supabase.auth.admin.deleteUser(id)
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 }
