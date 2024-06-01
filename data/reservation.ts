@@ -16,21 +16,6 @@ export const getStreamerReservations = async (
   return data
 }
 
-export const getCompletedStreamerReservations = async (
-  streamerId: string,
-): Promise<Reservation[]> => {
-  const supabase = createClient()
-  const { data, error } = await supabase
-    .from('reservations')
-    .select()
-    .eq('streamer_id', streamerId)
-    .eq('is_available', true)
-    .lt('start_date_dime', new Date().toUTCString())
-  if (error) throw error
-
-  return data
-}
-
 export const getUserReservations = async (
   userId: string,
 ): Promise<Reservation[]> => {
