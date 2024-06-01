@@ -16,7 +16,6 @@ export default async function Page() {
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const reservations = await getStreamerReservations(user.id)
-  console.log(`DEBUG: ${reservations}`)
   // const oneWeekDateTimes = getOneWeekDateTimesFromToday()
 
   return (

@@ -11,7 +11,10 @@ export const getStreamerReservations = async (
     .eq('streamer_id', streamerId)
     .eq('is_available', true)
     .gt('start_date_dime', new Date().toUTCString())
-  if (error) throw error
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 
   return data
 }
@@ -26,7 +29,10 @@ export const getUserReservations = async (
     .eq('user_id', userId)
     .eq('is_available', true)
     .gt('start_date_dime', new Date().toUTCString())
-  if (error) throw error
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 
   return data
 }
@@ -41,7 +47,10 @@ export const getCompletedUserReservations = async (
     .eq('user_id', userId)
     .eq('is_available', true)
     .lt('start_date_dime', new Date().toUTCString())
-  if (error) throw error
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 
   return data
 }
@@ -53,7 +62,10 @@ export const getReservation = async (reservationId: number) => {
     .select()
     .eq('id', reservationId)
     .single()
-  if (error) throw error
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 
   return data
 }

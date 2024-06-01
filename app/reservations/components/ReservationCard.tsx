@@ -16,9 +16,7 @@ type Props = {
 
 export const ReservationCard = async ({ reservation }: Props) => {
   const user = await getUser(reservation.user_id)
-  console.log(`DEBUG: ${user}`)
   const plan = await getPlan(reservation.plan_id)
-  console.log(`DEBUG: ${plan}`)
 
   const startDateTime = format({
     date: date(reservation.start_date_dime),
