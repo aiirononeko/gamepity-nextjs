@@ -1,7 +1,9 @@
+'use client'
+
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
 import type { Plan } from '@/types/plan'
-import { tzDate } from '@formkit/tempo'
+import { date } from '@formkit/tempo'
 import Link from 'next/link'
 
 type Props = {
@@ -40,16 +42,14 @@ export default function AvailableDateTimeTable({
             <tr key={hour}>
               <th className='h-10 text-left md:h-14'>{`${hour}:00`}</th>
               {oneWeekDateTimes.map((day, i) => {
-                const matchingDateTimes = availableDateTimes.filter(
-                  (dateTime) => {
-                    const jstStartDateTime = tzDate(
-                      dateTime.start_date_time,
-                      'Asia/Tokyo',
+                const matchingDateTime = availableDateTimes.find(
+                  (availableDateTime) => {
+                    const startDateTime = date(
+                      availableDateTime.start_date_time,
                     )
                     return (
-                      jstStartDateTime.getDate() ===
-                        tzDate(day, 'Asia/Tokyo').getDate() &&
-                      jstStartDateTime.getHours() === hour
+                      startDateTime.getDate() === date(day).getDate() &&
+                      startDateTime.getHours() === hour
                     )
                   },
                 )
@@ -58,14 +58,14 @@ export default function AvailableDateTimeTable({
                     key={`${i}_${day.toISOString()}`}
                     className='border border-solid'
                   >
-                    {matchingDateTimes.map((dateTime) => (
+                    {matchingDateTime && (
                       <Link
-                        key={dateTime.id}
-                        href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${dateTime.id}`}
+                        key={matchingDateTime.id}
+                        href={`/streamers/${plan.streamer_id}/reservation/confirm/?planId=${plan.id}&availableDateTimeId=${matchingDateTime.id}`}
                       >
                         <div className='block h-10 cursor-pointer bg-zinc-300 hover:bg-zinc-400 md:h-14'></div>
                       </Link>
-                    ))}
+                    )}
                   </td>
                 )
               })}
