@@ -1,19 +1,9 @@
 'use client'
 
-import {
-  createAvailableDateTime,
-  deleteAvailableDateTime,
-} from '@/actions/availableDateTime'
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
-import {
-  addHour,
-  dayStart,
-  format,
-  hourStart,
-  isEqual,
-  tzDate,
-} from '@formkit/tempo'
+import { addHour, date, dayStart } from '@formkit/tempo'
+import AvailableDateTimeCard from './AvailableDateTimeCard'
 
 type Props = {
   availableDateTimes: AvailableDateTime[]
@@ -27,29 +17,6 @@ export default function AvailableDateTimeForm({
   streamerId,
 }: Props) {
   const hours = [...Array(24)].map((_, index) => (index + 9) % 24).slice(0, 20)
-
-  const toggleDateTime = async (targetDateTime: Date, targetHour: number) => {
-    const jstTargetDateTimeString = addHour(
-      dayStart(tzDate(targetDateTime, 'Asia/Tokyo')),
-      targetHour,
-    )
-
-    const found = availableDateTimes.find((availableDateTime) => {
-      return isEqual(availableDateTime.start_date_time, jstTargetDateTimeString)
-    })
-
-    if (found) {
-      // 予約可能日時を削除
-      await deleteAvailableDateTime(found.id)
-    } else {
-      // 予約可能日時を追加
-      const targetDateTime = format({
-        date: hourStart(jstTargetDateTimeString),
-        format: 'YYYY-MM-DDTHH:mm:ss',
-      })
-      await createAvailableDateTime(targetDateTime, streamerId)
-    }
-  }
 
   return (
     <div className='w-[352px] md:w-full'>
@@ -69,39 +36,32 @@ export default function AvailableDateTimeForm({
             ))}
           </tr>
         </thead>
-        {availableDateTimes && (
-          <tbody>
-            {hours.map((hour) => (
-              <tr key={hour}>
-                <th className='h-10 text-left md:h-14'>{`${hour}:00`}</th>
-                {oneWeekDateTimes.map((day, i) => {
-                  const isActive = availableDateTimes.some(
-                    (availableDateTime) =>
-                      tzDate(
-                        availableDateTime.start_date_time,
-                        'Asia/Tokyo',
-                      ).getDate() === tzDate(day, 'Asia/Tokyo').getDate() &&
-                      tzDate(
-                        availableDateTime.start_date_time,
-                        'Asia/Tokyo',
-                      ).getHours() === hour,
-                  )
-                  return (
-                    <td
-                      key={`${i}_${day}`}
-                      className='border border-solid'
-                      onClick={() => toggleDateTime(day, hour - 9)} // UTC時刻として渡す
-                    >
-                      {isActive && (
-                        <div className='block h-10 cursor-pointer bg-zinc-300 hover:bg-zinc-400 md:h-14'></div>
-                      )}
-                    </td>
-                  )
-                })}
-              </tr>
-            ))}
-          </tbody>
-        )}
+        <tbody>
+          {hours.map((hour) => (
+            <tr key={hour}>
+              <th className='h-10 text-left md:h-14'>{`${hour}:00`}</th>
+              {oneWeekDateTimes.map((day, i) => {
+                const targetStartDateTime = addHour(dayStart(date(day)), hour)
+                const matchedAvailableDateTime = availableDateTimes.find(
+                  (availableDateTime) =>
+                    date(availableDateTime.start_date_time).getDate() ===
+                      targetStartDateTime.getDate() &&
+                    date(availableDateTime.start_date_time).getHours() ===
+                      targetStartDateTime.getHours(),
+                )
+                return (
+                  <AvailableDateTimeCard
+                    key={`${i}_${day}_${hour}`}
+                    isActive={matchedAvailableDateTime ? true : false}
+                    availableDateTime={matchedAvailableDateTime}
+                    targetStartDateTime={targetStartDateTime}
+                    streamerId={streamerId}
+                  />
+                )
+              })}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   )

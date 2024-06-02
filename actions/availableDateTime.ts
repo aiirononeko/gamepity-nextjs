@@ -34,5 +34,8 @@ export const deleteAvailableDateTime = async (availableDateTimeId: number) => {
     .from('available_date_times')
     .delete()
     .eq('id', availableDateTimeId)
-  if (error) throw new Error(error.message)
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
 }
