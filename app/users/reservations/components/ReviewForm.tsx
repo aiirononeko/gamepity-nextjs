@@ -61,7 +61,7 @@ export function ReviewForm({
     await createReview(data)
     toast.success('レビューを投稿しました', {
       position: 'top-right',
-      duration: 3000,
+      duration: 2000,
     })
   }
 

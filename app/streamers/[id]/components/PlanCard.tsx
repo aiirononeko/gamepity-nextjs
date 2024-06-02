@@ -22,7 +22,7 @@ export default function PlanCard({ plan }: Props) {
   )
 
   return (
-    <Card className='w-[350px] md:transition md:duration-300 md:hover:-translate-y-3'>
+    <Card className='w-[350px]'>
       <CardHeader>
         <CardTitle>{plan.name}</CardTitle>
         <CardDescription>{gameNames.join(', ')}</CardDescription>

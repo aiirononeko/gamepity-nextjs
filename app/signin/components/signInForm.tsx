@@ -38,7 +38,7 @@ export default function SignInForm({
     if (hasConfirmationRedirected) {
       toast.success('アカウントの本登録が完了しました。', {
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
       })
     }
   }, [hasConfirmationRedirected])
@@ -48,12 +48,12 @@ export default function SignInForm({
       await signInWithEmail(data)
       toast.success('ログインしました', {
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
       })
     } catch (e) {
       toast.error('ログインに失敗しました。', {
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
       })
     }
   }

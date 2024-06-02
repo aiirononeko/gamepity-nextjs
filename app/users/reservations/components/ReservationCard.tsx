@@ -48,7 +48,7 @@ export const ReservationCard = async ({
   })
 
   return (
-    <Card className='w-[350px] md:transition md:duration-300 md:hover:-translate-y-3'>
+    <Card className='w-[350px]'>
       <CardHeader className='space-y-3'>
         <CardTitle>{streamer.name}</CardTitle>
         <CardDescription>

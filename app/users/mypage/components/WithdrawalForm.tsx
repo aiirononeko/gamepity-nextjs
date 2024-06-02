@@ -17,7 +17,7 @@ export default function WithdrawalForm({ userId }: Props) {
     await withdrawal(userId)
     toast.success('退会しました', {
       position: 'top-right',
-      duration: 3000,
+      duration: 2000,
     })
   }
 

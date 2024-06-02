@@ -44,7 +44,7 @@ export default function ProfileForm({ streamer }: Props) {
     await updateProfile(data)
     toast.success('プロフィールを更新しました', {
       position: 'top-right',
-      duration: 5000,
+      duration: 2000,
     })
   }
 

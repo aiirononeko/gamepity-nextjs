@@ -13,7 +13,7 @@ export default function SignOutForm() {
     await signOut()
     toast.success('ログアウトしました', {
       position: 'top-right',
-      duration: 3000,
+      duration: 2000,
     })
   }
 

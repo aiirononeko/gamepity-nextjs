@@ -38,7 +38,7 @@ export default function ProfileForm({ user }: Props) {
     await updateProfile(data)
     toast.success('プロフィールを更新しました', {
       position: 'top-right',
-      duration: 5000,
+      duration: 2000,
     })
   }
 

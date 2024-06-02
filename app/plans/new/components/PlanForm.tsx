@@ -49,7 +49,7 @@ export default function PlanForm({ streamerId, games }: Props) {
     await createPlan(data)
     toast.success('プランを作成しました', {
       position: 'top-right',
-      duration: 5000,
+      duration: 2000,
     })
   }
 
