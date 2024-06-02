@@ -38,7 +38,6 @@ export const createReservation = async (
       streamer_id: streamerId,
       user_id: userId,
       plan_id: planId,
-      available_date_time_id: availableDateTimeId,
     })
     .select('*')
     .single()

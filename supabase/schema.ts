@@ -166,7 +166,6 @@ export type Database = {
       }
       reservations: {
         Row: {
-          available_date_time_id: number
           created_at: string
           id: number
           is_available: boolean
@@ -177,7 +176,6 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          available_date_time_id: number
           created_at?: string
           id?: number
           is_available?: boolean
@@ -188,7 +186,6 @@ export type Database = {
           user_id: string
         }
         Update: {
-          available_date_time_id?: number
           created_at?: string
           id?: number
           is_available?: boolean
@@ -199,13 +196,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "reservations_available_date_time_id_fkey"
-            columns: ["available_date_time_id"]
-            isOneToOne: false
-            referencedRelation: "available_date_times"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "reservations_plan_id_fkey"
             columns: ["plan_id"]

@@ -91,11 +91,11 @@ const sendEmailToUser = async (email: string, discordUrl: string) => {
       html: `
         <p>この度はGamepityをご利用いただき誠にありがとうございます。</p>
         <p>ストリーマーの予約が完了しましたのでお知らせいたします。</p>
-        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
+        <p>Gamepityの予約確認画面から予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
         <br>
         <a href=${discordUrl}>専用のDiscordサーバーはこちら</a>
         <br>
-        <a href="https://gamepity.com/users/mypage">マイページはこちら</a>
+        <a href="https://gamepity.com/users/reservations">予約確認はこちら</a>
         <br>
         <p>Gamepity 運営</p>
       `,
@@ -116,9 +116,9 @@ const sendEmailToStreamer = async (email: string) => {
       subject: 'あなたのプランが予約されました',
       html: `
         <p>ユーザーがあなたのプランを購入しましたのでお知らせいたします。</p>
-        <p>Gamepityのマイページから予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
+        <p>Gamepityの予約確認画面から予約を確認いただき、予定の時間になりましたらDiscordからご参加下さい。</p>
         <br>
-        <a href="https://gamepity.com/streamers/mypage">マイページはこちら</a>
+        <a href="https://gamepity.com/reservations">予約管理はこちら</a>
         <br>
         <p>Gamepity 運営</p>
       `,
