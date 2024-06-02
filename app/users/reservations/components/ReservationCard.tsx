@@ -59,24 +59,29 @@ export const ReservationCard = async ({
       </CardContent>
       {completed && (
         <CardFooter>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button>レビューする</Button>
-            </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
-              <DialogHeader className='space-y-3'>
-                <DialogTitle>ストリーマーをレビューしよう</DialogTitle>
-                <DialogDescription>
-                  {streamer.name} / {plan.name}
-                </DialogDescription>
-              </DialogHeader>
-              <ReviewForm
-                userId={reservation.user_id}
-                streamerId={reservation.streamer_id}
-                planId={reservation.plan_id}
-              />
-            </DialogContent>
-          </Dialog>
+          {!reservation.review_id ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>レビューする</Button>
+              </DialogTrigger>
+              <DialogContent className='sm:max-w-[425px]'>
+                <DialogHeader className='space-y-3'>
+                  <DialogTitle>ストリーマーをレビューしよう</DialogTitle>
+                  <DialogDescription>
+                    {streamer.name} / {plan.name}
+                  </DialogDescription>
+                </DialogHeader>
+                <ReviewForm
+                  userId={reservation.user_id}
+                  streamerId={reservation.streamer_id}
+                  planId={reservation.plan_id}
+                  reservationId={reservation.id}
+                />
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <p>レビューしました</p>
+          )}
         </CardFooter>
       )}
     </Card>

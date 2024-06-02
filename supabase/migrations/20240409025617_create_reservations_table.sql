@@ -7,6 +7,7 @@ create table public.reservations (
   streamer_id uuid not null references public.streamers(id),
   user_id uuid not null references auth.users(id),
   plan_id bigint not null references public.plans(id),
+  review_id bigint references public.reviews(id),
 
   primary key (id)
 );

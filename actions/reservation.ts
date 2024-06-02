@@ -62,3 +62,19 @@ export const createReservation = async (
   // 決済完了してreservationデータが有効化された場合、availableDateTimeを削除する
   // 決済が完了せずreservationデータが有効化されていない場合、availableDateTimeのisDisabledをfalseに戻す
 }
+
+export const updateReviewId = async (
+  reservationId: number,
+  reviewId: number,
+) => {
+  const supabase = createClient()
+
+  const { error } = await supabase
+    .from('reservations')
+    .update({ review_id: reviewId })
+    .eq('id', reservationId)
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
+}

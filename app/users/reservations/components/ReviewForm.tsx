@@ -30,9 +30,15 @@ type Props = {
   userId: string
   streamerId: string
   planId: number
+  reservationId: number
 }
 
-export function ReviewForm({ userId, streamerId, planId }: Props) {
+export function ReviewForm({
+  userId,
+  streamerId,
+  planId,
+  reservationId,
+}: Props) {
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
@@ -41,6 +47,7 @@ export function ReviewForm({ userId, streamerId, planId }: Props) {
       userId,
       streamerId,
       planId,
+      reservationId,
     },
   })
 

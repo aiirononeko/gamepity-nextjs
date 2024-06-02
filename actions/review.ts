@@ -3,9 +3,10 @@
 import { createClient } from '@/lib/supabase/server'
 import { reviewSchema } from '@/schemas/review'
 import type { z } from 'zod'
+import { updateReviewId } from './reservation'
 
-export const createReview = async (data: z.infer<typeof reviewSchema>) => {
-  const result = reviewSchema.safeParse(data)
+export const createReview = async (input: z.infer<typeof reviewSchema>) => {
+  const result = reviewSchema.safeParse(input)
   if (!result.success) {
     return {
       success: false,
@@ -13,18 +14,23 @@ export const createReview = async (data: z.infer<typeof reviewSchema>) => {
     }
   }
 
-  const { rating, comment, userId, streamerId, planId } = data
+  const { rating, comment, userId, streamerId, planId, reservationId } = input
 
   const supabase = createClient()
-  const { error } = await supabase.from('reviews').insert({
-    rating: Number(rating),
-    comment,
-    user_id: userId,
-    streamer_id: streamerId,
-    plan_id: planId,
-  })
+  const { data, error } = await supabase
+    .from('reviews')
+    .insert({
+      rating: Number(rating),
+      comment,
+      user_id: userId,
+      streamer_id: streamerId,
+      plan_id: planId,
+    })
+    .select()
+    .single()
   if (error) {
     console.error(error)
     throw error
   }
+  await updateReviewId(reservationId, data.id)
 }

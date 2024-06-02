@@ -170,6 +170,7 @@ export type Database = {
           id: number
           is_available: boolean
           plan_id: number
+          review_id: number | null
           start_date_dime: string
           streamer_id: string
           updated_at: string
@@ -180,6 +181,7 @@ export type Database = {
           id?: number
           is_available?: boolean
           plan_id: number
+          review_id?: number | null
           start_date_dime: string
           streamer_id: string
           updated_at?: string
@@ -190,12 +192,20 @@ export type Database = {
           id?: number
           is_available?: boolean
           plan_id?: number
+          review_id?: number | null
           start_date_dime?: string
           streamer_id?: string
           updated_at?: string
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_review_id"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "reviews"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "reservations_plan_id_fkey"
             columns: ["plan_id"]

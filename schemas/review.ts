@@ -8,4 +8,5 @@ export const reviewSchema = z.object({
   userId: z.string({ required_error: 'ユーザーIDは必須です' }),
   streamerId: z.string({ required_error: 'ストリーマーIDは必須です' }),
   planId: z.number({ required_error: 'プランIDは必須です' }),
+  reservationId: z.number({ required_error: '予約IDは必須です' }),
 })
