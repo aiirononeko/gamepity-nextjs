@@ -1,5 +1,6 @@
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import SnsIcon from '@/app/streamers/[id]/components/SnsIcon'
+import { Badge } from '@/components/ui/badge'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -48,9 +49,12 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className='h-[220px] w-[352px]'></div>
         )}
         <div className='w-[352px] space-y-6 md:w-2/3'>
-          <p className='text-center text-2xl font-bold md:text-start md:text-3xl'>
-            {streamer.name}
-          </p>
+          <div className='flex space-x-4'>
+            <p className='text-center text-2xl font-bold md:text-start md:text-3xl'>
+              {streamer.name}
+            </p>
+            <Badge variant='secondary'>{streamer.avg_rating}</Badge>
+          </div>
           <p className='whitespace-pre-wrap md:line-clamp-6'>
             {streamer.profile}
           </p>
