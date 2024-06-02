@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { reviewSchema } from '@/schemas/review'
 import type { z } from 'zod'
+import { sendReviewdEmailToStreamer } from './resend'
 import { updateReviewId } from './reservation'
 
 export const createReview = async (input: z.infer<typeof reviewSchema>) => {
@@ -14,7 +15,16 @@ export const createReview = async (input: z.infer<typeof reviewSchema>) => {
     }
   }
 
-  const { rating, comment, userId, streamerId, planId, reservationId } = input
+  const {
+    rating,
+    comment,
+    userId,
+    userName,
+    streamerId,
+    streamerEmail,
+    planId,
+    reservationId,
+  } = input
 
   const supabase = createClient()
   const { data, error } = await supabase
@@ -32,5 +42,9 @@ export const createReview = async (input: z.infer<typeof reviewSchema>) => {
     console.error(error)
     throw error
   }
+
   await updateReviewId(reservationId, data.id)
+
+  // ストリーマーにメールを送信
+  await sendReviewdEmailToStreamer(streamerEmail, userName, data)
 }

@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/dialog'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
+import { getUser } from '@/data/user'
 import type { Reservation } from '@/types/reservation'
 import { addHour, date, format } from '@formkit/tempo'
 import { ReviewForm } from './ReviewForm'
@@ -30,6 +31,7 @@ export const ReservationCard = async ({
   reservation,
   completed = false,
 }: Props) => {
+  const user = await getUser(reservation.user_id)
   const streamer = await getStreamer(reservation.streamer_id)
   const plan = await getPlan(reservation.plan_id)
 
@@ -72,8 +74,10 @@ export const ReservationCard = async ({
                   </DialogDescription>
                 </DialogHeader>
                 <ReviewForm
-                  userId={reservation.user_id}
-                  streamerId={reservation.streamer_id}
+                  userId={user.id}
+                  userName={user.name}
+                  streamerId={streamer.id}
+                  streamerEmail={streamer.email}
                   planId={reservation.plan_id}
                   reservationId={reservation.id}
                 />

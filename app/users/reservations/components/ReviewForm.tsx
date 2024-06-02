@@ -28,14 +28,18 @@ import { toast } from 'sonner'
 
 type Props = {
   userId: string
+  userName: string
   streamerId: string
+  streamerEmail: string
   planId: number
   reservationId: number
 }
 
 export function ReviewForm({
   userId,
+  userName,
   streamerId,
+  streamerEmail,
   planId,
   reservationId,
 }: Props) {
@@ -45,7 +49,9 @@ export function ReviewForm({
       rating: undefined,
       comment: '',
       userId,
+      userName,
       streamerId,
+      streamerEmail,
       planId,
       reservationId,
     },
