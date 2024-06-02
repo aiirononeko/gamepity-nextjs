@@ -3,6 +3,7 @@ import '@/app/globals.css'
 import Header from '@/app/header'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Toaster richColors />
+        <Analytics />
         <Footer />
       </body>
     </html>
