@@ -28,7 +28,7 @@ begin
   where id = new.streamer_id;
   return new;
 end;
-$$ language plpgsql;
+$$ language plpgsql security definer;
 
 create trigger update_streamer_avg_rating_trigger
 after insert or update or delete on reviews

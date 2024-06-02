@@ -1,5 +1,4 @@
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
-import Review from '@/app/streamers/[id]/components/Review'
 import SnsIcon from '@/app/streamers/[id]/components/SnsIcon'
 import {
   Breadcrumb,
@@ -13,10 +12,12 @@ import { getPlans } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import Image from 'next/image'
 import Link from 'next/link'
+import ReviewCard from './components/ReviewCard'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
   const plans = await getPlans(streamer.id)
+
   // @ts-expect-error: Supabaseの型解決がうまくいかないのでignore
   const { reviews } = streamer
 
@@ -98,7 +99,12 @@ export default async function Page({ params }: { params: { id: string } }) {
       )}
       <h2 className='text-xl font-bold'>レビュー</h2>
       {reviews && reviews.length > 0 ? (
-        <Review reviews={reviews} streamer={streamer} />
+        <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
+          {/* @ts-expect-error: Supabaseの型解決がうまくいかないのでignore */}
+          {reviews.map((review) => (
+            <ReviewCard key={review.id} review={review} />
+          ))}
+        </div>
       ) : (
         <p>まだ評価されていないストリーマーです</p>
       )}

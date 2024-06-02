@@ -50,6 +50,11 @@ create policy "Streamers can insert their own data."
   on streamers for insert
   with check ( auth.uid() = id );
 
+create policy "Admin can update streamer rating."
+  on streamers for update
+  using ( auth.role() = 'admin' )
+  with check ( auth.role() = 'admin' );
+
 create policy "Streamers can update own data."
   on streamers for update
   using ( auth.uid() = id );
