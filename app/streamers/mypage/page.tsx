@@ -34,7 +34,7 @@ export default async function Page() {
   )
 
   return (
-    <div className='mb-16 mt-8 flex flex-col items-center space-y-8 md:mx-[160px] md:mt-10 md:items-start'>
+    <div className='mb-16 mt-8 flex flex-col items-center space-y-10 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -46,9 +46,9 @@ export default async function Page() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className='flex flex-col space-y-4'>
+      <div className='flex flex-col space-y-5 pb-10'>
         <h2 className='text-xl font-bold'>プロフィール登録</h2>
-        <div className='grid w-80 grid-cols-1 gap-16 md:w-full md:grid-cols-2 md:gap-28'>
+        <div className='grid w-80 grid-cols-1 gap-20 md:mb-0 md:w-full md:grid-cols-2'>
           <ProfileForm streamer={streamer} />
           <StreamerRegistrationStepper
             currentStep={step}
