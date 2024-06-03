@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 type RatingProps = {
   star: number
+  totalCount?: number
   size?: number
   readOnly?: boolean
   withLabel?: boolean
@@ -12,6 +13,7 @@ type RatingProps = {
 
 const Rating = ({
   star,
+  totalCount = undefined,
   size = 20,
   readOnly = false,
   withLabel = false,
@@ -62,6 +64,7 @@ const Rating = ({
 
   return (
     <div className='flex items-center gap-2'>
+      {withLabel && <span className=''>{clickValue}</span>}
       <div
         className='relative inline-block select-none items-center'
         style={{
@@ -109,7 +112,7 @@ const Rating = ({
           })}
         </div>
       </div>
-      {withLabel && <span className=''>({clickValue})</span>}
+      {totalCount && <span className=''>({totalCount})</span>}
     </div>
   )
 }

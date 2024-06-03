@@ -28,12 +28,11 @@ export default function StreamerCard({ streamer }: Props) {
           </CardHeader>
           <CardContent className='h-[140px] w-[352px] space-y-2'>
             <div>
-              <p className='text-xl font-bold'>{streamer.name}</p>
+              <p className='line-clamp-1 text-xl font-bold'>{streamer.name}</p>
               <Rating
                 star={streamer.avg_rating ?? 0}
-                size={12}
+                size={14}
                 readOnly={true}
-                withLabel={true}
               />
             </div>
             <p className='line-clamp-4 whitespace-pre-wrap text-xs'>

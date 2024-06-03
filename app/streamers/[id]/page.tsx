@@ -53,6 +53,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <p className='text-2xl font-bold md:text-3xl'>{streamer.name}</p>
             <Rating
               star={streamer.avg_rating ?? 0}
+              totalCount={reviews.length}
               size={16}
               readOnly={true}
               withLabel={true}
