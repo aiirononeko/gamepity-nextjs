@@ -10,6 +10,7 @@ export default function Footer() {
           <a
             href='https://www.notion.so/9f18b38032884fe8915c7addad0e7f0e?pvs=4'
             target='_blank'
+            className='decoration-accent'
           >
             利用規約
           </a>
@@ -18,6 +19,7 @@ export default function Footer() {
           <a
             href='https://www.notion.so/116df216216d478d9ab909e53d6475a9?pvs=4'
             target='_blank'
+            className='decoration-accent'
           >
             プライバシーポリシー
           </a>
@@ -27,14 +29,13 @@ export default function Footer() {
         <a
           href='https://brash-ferry-996.notion.site/7e76538f95c642c7b3ce1292b5ba0ff6'
           target='_blank'
+          className='decoration-accent'
         >
           特定商取引法に基づく表記
         </a>
       </Button>
-      <Button asChild variant='link'>
-        <p className='text-sm text-muted-foreground'>
-          &copy;2024 Gamepity. All rights reserved.
-        </p>
+      <Button asChild variant='link' className='hover:no-underline'>
+        <p className='text-sm'>&copy;2024 Gamepity. All rights reserved.</p>
       </Button>
     </footer>
   )

@@ -21,13 +21,15 @@ export default async function Header() {
   )
 
   return (
-    <header className='flex h-20 items-center justify-between gap-2 border-b px-10 md:px-[160px]'>
+    <header className='flex h-20 items-center justify-between gap-2 border-b px-10  md:px-[160px]'>
       <Button
         variant='link'
         asChild
         className='text-2xl font-bold hover:no-underline md:text-3xl'
       >
-        <Link href='/'>Gamepity β</Link>
+        <Link href='/'>
+          Gamepity<span className='pl-2 text-accent'>β</span>
+        </Link>
       </Button>
       <div className='hidden md:block'>
         {user ? (
@@ -35,13 +37,22 @@ export default async function Header() {
             {streamer ? (
               <>
                 <Button variant='link' asChild>
-                  <Link href='/plans'>プラン管理</Link>
+                  <Link href='/plans' className='decoration-accent'>
+                    プラン管理
+                  </Link>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/available-date-times'>予約可能日時管理</Link>
+                  <Link
+                    href='/available-date-times'
+                    className='decoration-accent'
+                  >
+                    予約可能日時管理
+                  </Link>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/reservations'>予約管理</Link>
+                  <Link href='/reservations' className='decoration-accent'>
+                    予約管理
+                  </Link>
                 </Button>
                 <Button variant='link' asChild>
                   <a
@@ -50,12 +61,15 @@ export default async function Header() {
                       'https://gamepity.com/available-date-times'
                     }
                     target='_blank'
+                    className='decoration-accent'
                   >
                     売上管理
                   </a>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/streamers/mypage'>マイページ</Link>
+                  <Link href='/streamers/mypage' className='decoration-accent'>
+                    マイページ
+                  </Link>
                 </Button>
               </>
             ) : (
@@ -64,22 +78,32 @@ export default async function Header() {
                   <a
                     href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
                     target='_blank'
+                    className='decoration-accent'
                   >
                     遊び方
                   </a>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/users/reservations'>予約管理</Link>
+                  <Link
+                    href='/users/reservations'
+                    className='decoration-accent'
+                  >
+                    予約管理
+                  </Link>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/users/mypage'>マイページ</Link>
+                  <Link href='/users/mypage' className='decoration-accent'>
+                    マイページ
+                  </Link>
                 </Button>
               </>
             )}
           </>
         ) : (
           <Button variant='outline' asChild>
-            <Link href='/signin'>ログイン</Link>
+            <Link href='/signin' className='decoration-accent'>
+              ログイン
+            </Link>
           </Button>
         )}
       </div>

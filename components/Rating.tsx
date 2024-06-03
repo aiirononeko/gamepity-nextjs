@@ -92,7 +92,7 @@ const Rating = ({
             return (
               <span
                 key={`star-${num}`}
-                className='pr-0.5'
+                className='pr-0.5 text-accent'
                 onMouseMove={readOnly ? () => {} : (e) => handleOnHover(num, e)}
                 onClick={readOnly ? () => {} : (e) => handleOnClick(num, e)}
               >
@@ -113,7 +113,7 @@ const Rating = ({
         >
           {arr.map((num: number) => {
             return (
-              <span key={`star-active-${num}`} className='pr-0.5'>
+              <span key={`star-active-${num}`} className='pr-0.5 text-accent'>
                 ★
               </span>
             )

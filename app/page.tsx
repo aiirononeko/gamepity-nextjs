@@ -38,7 +38,7 @@ export default async function Page() {
               asChild
               className='md:col-span-2 md:col-start-11 md:p-0'
             >
-              <Link href='/streamers'>
+              <Link href='/streamers' className='decoration-accent'>
                 すべてのストリーマーをみる
                 <ChevronRight className='size-4' />
               </Link>
@@ -65,7 +65,7 @@ export default async function Page() {
               asChild
               className='md:col-span-2 md:col-start-11 md:p-0'
             >
-              <Link href='/games'>
+              <Link href='/games' className='decoration-accent'>
                 すべてのタイトルをみる
                 <ChevronRight className='size-4' />
               </Link>
