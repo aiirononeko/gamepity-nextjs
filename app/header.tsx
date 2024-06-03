@@ -21,11 +21,11 @@ export default async function Header() {
   )
 
   return (
-    <header className='flex h-20 items-center justify-between gap-2 border-b px-10  md:px-[160px]'>
+    <header className='flex h-20 items-center justify-between gap-2 border-b px-10 md:px-[160px]'>
       <Button
         variant='link'
         asChild
-        className='text-2xl font-bold hover:no-underline md:text-3xl'
+        className='text-2xl font-bold hover:no-underline md:pl-0 md:text-3xl'
       >
         <Link href='/'>
           Gamepity<span className='pl-2 text-accent'>β</span>
@@ -67,7 +67,10 @@ export default async function Header() {
                   </a>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/streamers/mypage' className='decoration-accent'>
+                  <Link
+                    href='/streamers/mypage'
+                    className='decoration-accent md:pr-0'
+                  >
                     マイページ
                   </Link>
                 </Button>
@@ -92,7 +95,10 @@ export default async function Header() {
                   </Link>
                 </Button>
                 <Button variant='link' asChild>
-                  <Link href='/users/mypage' className='decoration-accent'>
+                  <Link
+                    href='/users/mypage'
+                    className='decoration-accent md:pr-0'
+                  >
                     マイページ
                   </Link>
                 </Button>
@@ -101,7 +107,7 @@ export default async function Header() {
           </>
         ) : (
           <Button variant='outline' asChild>
-            <Link href='/signin' className='decoration-accent'>
+            <Link href='/signin' className='decoration-accent md:pr-0'>
               ログイン
             </Link>
           </Button>
