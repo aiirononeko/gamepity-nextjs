@@ -3,7 +3,7 @@ import '@/app/globals.css'
 import Header from '@/app/header'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <GoogleTagManager gtmId='GTM-TK6HQMNS' />
+      <GoogleAnalytics gaId='G-EN8FNP2MLW' />
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
