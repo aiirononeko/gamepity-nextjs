@@ -3,8 +3,16 @@
 import { createPlan } from '@/actions/plan'
 import { Button } from '@/components/ui/button'
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command'
+import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,17 +21,16 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { Textarea } from '@/components/ui/textarea'
+import { cn } from '@/lib/utils'
 import { planSchema } from '@/schemas/plan'
 import type { Game } from '@/types/game'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import type { z } from 'zod'
@@ -43,6 +50,13 @@ export default function PlanForm({ streamerId, games }: Props) {
       gameId: '',
       streamerId,
     },
+  })
+
+  const gameOptions = games.map((game) => {
+    return {
+      label: game.name,
+      value: game.id.toString(),
+    }
   })
 
   async function onSubmit(data: z.infer<typeof planSchema>) {
@@ -113,6 +127,9 @@ export default function PlanForm({ streamerId, games }: Props) {
                   className='w-80'
                 />
               </FormControl>
+              <FormDescription>
+                プランの料金は100円 ~ 999999円の範囲で設定してください
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -121,22 +138,58 @@ export default function PlanForm({ streamerId, games }: Props) {
           control={form.control}
           name='gameId'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='flex flex-col'>
               <FormLabel>ゲームタイトル</FormLabel>
-              <Select onValueChange={field.onChange}>
-                <FormControl>
-                  <SelectTrigger className='w-80 border-border bg-background'>
-                    <SelectValue placeholder='ゲームタイトルを選択してください' />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {games.map((game) => (
-                    <SelectItem key={game.id} value={game.id.toString()}>
-                      {game.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant='outline'
+                      role='combobox'
+                      className={cn(
+                        'w-80 justify-between',
+                        !field.value && 'text-muted-foreground',
+                      )}
+                    >
+                      {field.value
+                        ? gameOptions.find(
+                            (option) => option.value === field.value,
+                          )?.label
+                        : '選択してください'}
+                      <ChevronsUpDown className='ml-2 size-4 shrink-0 opacity-50' />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className='w-80 p-0'>
+                  <Command>
+                    <CommandInput placeholder='タイトル名で検索' />
+                    <CommandEmpty className='py-2 text-center text-xs'>
+                      タイトルが見つかりません
+                    </CommandEmpty>
+                    <CommandGroup>
+                      {gameOptions.map((option) => (
+                        <CommandItem
+                          value={option.label}
+                          key={option.value}
+                          onSelect={() => {
+                            form.setValue('gameId', option.value)
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              option.value === field.value
+                                ? 'opacity-100'
+                                : 'opacity-0',
+                            )}
+                          />
+                          {option.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
