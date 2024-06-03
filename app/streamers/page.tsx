@@ -7,6 +7,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { getStreamers } from '@/data/streamer'
 
 export default async function Page() {
@@ -26,6 +28,10 @@ export default async function Page() {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>すべてのストリーマー</h2>
+      <div className='flex space-x-4'>
+        <Input placeholder='ストリーマー名で検索' />
+        <Button variant='outline'>検索</Button>
+      </div>
       <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
         {streamers.map((streamer) => (
           <StreamerCard key={streamer.id} streamer={streamer} />

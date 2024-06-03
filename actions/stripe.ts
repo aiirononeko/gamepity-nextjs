@@ -3,6 +3,8 @@
 import { createClient } from '@/lib/stripe'
 import type Stripe from 'stripe'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gamepity.com'
+
 type CreateProductParams = {
   name: string
   amount: number
@@ -34,8 +36,8 @@ export const createLinkToStripeAccountUrl = async (stripeAccountId: string) => {
   const stripe = createClient()
   const accountLink = await stripe.accountLinks.create({
     account: stripeAccountId,
-    refresh_url: 'https://www.gamepity.com/streamers/mypage',
-    return_url: 'https://www.gamepity.com/streamers/mypage',
+    refresh_url: `${baseUrl}/streamers/mypage`,
+    return_url: `${baseUrl}/streamers/mypage`,
     type: 'account_onboarding',
   })
 
@@ -99,7 +101,7 @@ export const createStripePaymentLink = async (
     after_completion: {
       type: 'redirect',
       redirect: {
-        url: 'https://www.gamepity.com/users/mypage',
+        url: `${baseUrl}/users/mypage`,
       },
     },
   })

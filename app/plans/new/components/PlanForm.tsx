@@ -127,7 +127,7 @@ export default function PlanForm({ streamerId, games }: Props) {
                   className='w-80'
                 />
               </FormControl>
-              <FormDescription>
+              <FormDescription className='w-80'>
                 プランの料金は100円 ~ 999999円の範囲で設定してください
               </FormDescription>
               <FormMessage />
@@ -160,13 +160,13 @@ export default function PlanForm({ streamerId, games }: Props) {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className='w-80 p-0'>
+                <PopoverContent side='top' className='w-80 p-0'>
                   <Command>
                     <CommandInput placeholder='タイトル名で検索' />
                     <CommandEmpty className='py-2 text-center text-xs'>
                       タイトルが見つかりません
                     </CommandEmpty>
-                    <CommandGroup>
+                    <CommandGroup className='h-80 overflow-auto'>
                       {gameOptions.map((option) => (
                         <CommandItem
                           value={option.label}

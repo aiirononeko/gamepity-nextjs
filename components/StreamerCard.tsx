@@ -10,10 +10,10 @@ type Props = {
 
 export default function StreamerCard({ streamer }: Props) {
   return (
-    <div className='h-[380px] w-[352px] transition duration-300 hover:-translate-y-3'>
+    <div className='h-[380px] w-[352px] md:transition md:duration-300 md:hover:-translate-y-3'>
       <Link href={`/streamers/${streamer.id}`}>
         <Card>
-          <CardHeader className='p-0 pb-3'>
+          <CardHeader className='p-0 pb-4'>
             {streamer.icon_url ? (
               <div className='relative h-[220px] w-[352px]'>
                 <Image
@@ -26,11 +26,12 @@ export default function StreamerCard({ streamer }: Props) {
               <div className='h-[220px] w-[352px]'></div>
             )}
           </CardHeader>
-          <CardContent className='h-[140px] w-[352px] space-y-2'>
-            <div>
+          <CardContent className='h-[148px] w-[352px] space-y-3'>
+            <div className='space-y-1'>
               <p className='line-clamp-1 text-xl font-bold'>{streamer.name}</p>
               <Rating
                 star={streamer.avg_rating ?? 0}
+                withLabel={true}
                 size={14}
                 readOnly={true}
               />

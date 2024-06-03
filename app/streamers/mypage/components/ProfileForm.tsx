@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -106,6 +107,10 @@ export default function ProfileForm({ streamer }: Props) {
               <FormControl>
                 <Input {...field} className='w-80' />
               </FormControl>
+              <FormDescription className='w-80'>
+                ユーザーと一緒にゲームをする際に使用するサーバーの招待URLを入力してください。
+                有効期限と回数は無期限に設定してください。
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

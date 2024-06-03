@@ -7,6 +7,8 @@ import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
 import { redirect } from 'next/navigation'
 import type { z } from 'zod'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gamepity.com'
+
 export async function signUpUserWithEmail(
   data: z.infer<typeof signUpUserSchema>,
 ) {
@@ -29,7 +31,7 @@ export async function signUpUserWithEmail(
         is_streamer: false,
         name,
       },
-      emailRedirectTo: 'https://gamepity.com/signin',
+      emailRedirectTo: `${baseUrl}/signin`,
     },
   })
   if (error) throw error
@@ -62,7 +64,7 @@ export async function signUpStreamerWithEmail(
           name,
           stripe_account_id: stripeAccount.id,
         },
-        emailRedirectTo: 'https://gamepity.com/signin',
+        emailRedirectTo: `${baseUrl}/signin`,
       },
     })
     if (error) throw error
