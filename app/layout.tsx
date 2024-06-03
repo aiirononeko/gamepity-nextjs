@@ -3,11 +3,11 @@ import '@/app/globals.css'
 import Header from '@/app/header'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
-import Head from 'next/head'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -27,12 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ja'>
-      <Head>
-        <meta
-          name='google-site-verification'
-          content='jOCusXSflUNvldiKGj5iCAzBnht-QNlZj5no5mB0t04'
-        />
-      </Head>
+      <GoogleTagManager gtmId='GTM-TK6HQMNS' />
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
