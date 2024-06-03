@@ -24,6 +24,14 @@ const Rating = ({
   const [isHovered, setIsHovered] = useState(false)
   const arr = [1, 2, 3, 4, 5]
 
+  const formatNumber = (number: number): string => {
+    if (Number.isInteger(number)) {
+      return `${number}.0`
+    } else {
+      return number.toString()
+    }
+  }
+
   const calcRes = (
     amount: number,
     event: React.MouseEvent<HTMLSpanElement>,
@@ -64,7 +72,7 @@ const Rating = ({
 
   return (
     <div className='flex items-center gap-2'>
-      {withLabel && <span className=''>{clickValue}</span>}
+      {withLabel && <span className=''>{formatNumber(clickValue)}</span>}
       <div
         className='relative inline-block select-none items-center'
         style={{
