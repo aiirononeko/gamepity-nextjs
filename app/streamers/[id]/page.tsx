@@ -1,6 +1,6 @@
 import PlanCard from '@/app/streamers/[id]/components/PlanCard'
 import SnsIcon from '@/app/streamers/[id]/components/SnsIcon'
-import { Badge } from '@/components/ui/badge'
+import Rating from '@/components/Rating'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -49,11 +49,14 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className='h-[220px] w-[352px]'></div>
         )}
         <div className='w-[352px] space-y-6 md:w-2/3'>
-          <div className='flex space-x-4'>
-            <p className='text-center text-2xl font-bold md:text-start md:text-3xl'>
-              {streamer.name}
-            </p>
-            <Badge variant='secondary'>{streamer.avg_rating}</Badge>
+          <div className='md:flex md:space-x-4'>
+            <p className='text-2xl font-bold md:text-3xl'>{streamer.name}</p>
+            <Rating
+              star={streamer.avg_rating ?? 0}
+              size={16}
+              readOnly={true}
+              withLabel={true}
+            />
           </div>
           <p className='whitespace-pre-wrap md:line-clamp-6'>
             {streamer.profile}
