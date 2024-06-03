@@ -4,7 +4,6 @@ import Header from '@/app/header'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
-import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
@@ -18,6 +17,9 @@ export const metadata: Metadata = {
   title: 'Gamepity',
   description:
     'ストリーマーと一緒にゲームが遊べる、ゲーマー向けマッチングプラットフォーム',
+  verification: {
+    google: 'jOCusXSflUNvldiKGj5iCAzBnht-QNlZj5no5mB0t04',
+  },
 }
 
 export default function RootLayout({
@@ -38,7 +40,6 @@ export default function RootLayout({
         <Header />
         {children}
         <Toaster richColors />
-        <Analytics />
         <SpeedInsights />
         <Footer />
       </body>
