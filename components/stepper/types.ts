@@ -6,6 +6,7 @@ type StepItem = {
   id?: string
   label?: string
   description?: string
+  externalLink?: string
   link?: string
   icon?: IconType
   optional?: boolean

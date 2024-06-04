@@ -2,7 +2,7 @@
 
 import { Step, Stepper, type StepItem } from '@/components/stepper'
 import { Button } from '@/components/ui/button'
-import { PartyPopperIcon } from 'lucide-react'
+import { ExternalLink, PartyPopperIcon } from 'lucide-react'
 import Link from 'next/link'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gamepity.com'
@@ -25,6 +25,8 @@ export default function StreamerRegistrationStepper({
     {
       label: 'Stripe にビジネス情報を登録しましょう',
       description: `Stripeに売上の受け取り口座やビジネスの情報を登録しましょう。`,
+      externalLink:
+        'https://brash-ferry-996.notion.site/Stripe-c7906fe2b9744ea3a4840993f46d4bfd?pvs=4',
       link: stripeAccountLinkUrl,
     },
     {
@@ -44,16 +46,33 @@ export default function StreamerRegistrationStepper({
   return (
     <div className='flex w-full flex-col gap-8'>
       <Stepper initialStep={currentStep} steps={steps} orientation='vertical'>
-        {steps.map(({ label, description, link }) => {
+        {steps.map(({ label, description, externalLink, link }) => {
           return (
             <Step key={label} label={label}>
               <div className='h-full whitespace-pre-wrap text-wrap p-2 pt-4 text-primary'>
                 <p>{description}</p>
-                {link && (
-                  <Button variant='outline' asChild className='mt-4'>
-                    <Link href={link}>登録はこちら</Link>
-                  </Button>
-                )}
+                <div className='flex flex-col space-y-2'>
+                  {externalLink && (
+                    <Button variant='link' asChild className='mt-4'>
+                      <Link
+                        href={externalLink}
+                        target='_blank'
+                        className='decoration-accent'
+                      >
+                        手順はこちら
+                        <ExternalLink className='ml-1 size-4' />
+                      </Link>
+                    </Button>
+                  )}
+                  {link && (
+                    <Button variant='outline' asChild>
+                      <Link href={link} target='_blank'>
+                        登録はこちら
+                        <ExternalLink className='ml-1 size-4' />
+                      </Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </Step>
           )

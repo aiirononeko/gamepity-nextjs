@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
+import { ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import AvailableDateTimeForm from './components/AvailableDateTimeForm'
@@ -66,7 +67,9 @@ export default async function Page() {
             Stripeでビジネス情報を登録してください
           </p>
           <Button className='w-80 md:w-60' asChild>
-            <a href={accountLinkUrl}>ビジネス情報を登録する</a>
+            <a href={accountLinkUrl} target='_blank'>
+              ビジネス情報を登録する <ExternalLink className='ml-1 size-4' />
+            </a>
           </Button>
         </div>
       )}

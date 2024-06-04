@@ -90,7 +90,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           />
         )}
         {streamer.x_url && (
-          <Link href={streamer.x_url}>
+          <Link href={streamer.x_url} target='_blank'>
             <svg
               width='30'
               height='30'

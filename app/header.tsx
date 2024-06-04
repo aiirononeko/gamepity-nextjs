@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getStreamer } from '@/data/streamer'
-import { MenuIcon } from 'lucide-react'
+import { ExternalLink, MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function Header() {
@@ -64,6 +64,7 @@ export default async function Header() {
                     className='decoration-accent'
                   >
                     売上管理
+                    <ExternalLink className='ml-1 size-4' />
                   </a>
                 </Button>
                 <Button variant='link' asChild>
