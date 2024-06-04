@@ -3,7 +3,13 @@ import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 import { ChevronRight } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'トップ | Gamepity',
+  description: 'トップページ',
+}
 
 export default async function Page() {
   const streamers = await getStreamers()

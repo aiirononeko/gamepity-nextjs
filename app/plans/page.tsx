@@ -9,9 +9,15 @@ import {
 import { Button } from '@/components/ui/button'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getPlans } from '@/data/plan'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { PlanCard } from './components/PlanCard'
+
+export const metadata: Metadata = {
+  title: 'プラン管理 | Gamepity',
+  description: 'プラン管理ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

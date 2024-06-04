@@ -8,7 +8,13 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { currentUser } from '@/data/auth'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+
+export const metadata: Metadata = {
+  title: 'ストリーマー登録 | Gamepity',
+  description: 'ストリーマー登録ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

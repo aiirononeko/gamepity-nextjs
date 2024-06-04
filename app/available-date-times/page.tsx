@@ -15,8 +15,14 @@ import { Button } from '@/components/ui/button'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import AvailableDateTimeForm from './components/AvailableDateTimeForm'
+
+export const metadata: Metadata = {
+  title: '予約可能日時管理 | Gamepity',
+  description: '予約可能日時管理ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

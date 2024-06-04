@@ -10,6 +10,12 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { getStreamers } from '@/data/streamer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'すべてのストリーマー | Gamepity',
+  description: 'ストリーマー一覧ページ',
+}
 
 export default async function Page() {
   const streamers = await getStreamers()

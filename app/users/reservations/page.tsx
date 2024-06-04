@@ -11,8 +11,14 @@ import {
   getCompletedUserReservations,
   getUserReservations,
 } from '@/data/reservation'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { ReservationCard } from './components/ReservationCard'
+
+export const metadata: Metadata = {
+  title: 'ユーザー予約管理 | Gamepity',
+  description: 'ユーザー予約管理ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

@@ -8,7 +8,13 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import { getGames } from '@/data/game'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'すべてのゲームタイトル | Gamepity',
+  description: 'ゲームタイトル一覧ページ',
+}
 
 export default async function Page() {
   const games = await getGames()

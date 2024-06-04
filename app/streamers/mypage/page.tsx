@@ -9,12 +9,18 @@ import {
 } from '@/components/ui/breadcrumb'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getStreamer } from '@/data/streamer'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import ProfileForm from './components/ProfileForm'
 import SignOutForm from './components/SignOutForm'
 import StreamerRegistrationStepper from './components/StreamerRegistrationStepper'
 import WithdrawalForm from './components/WithdrawalForm'
 import { currentStep } from './utils'
+
+export const metadata: Metadata = {
+  title: 'ストリーマーマイページ | Gamepity',
+  description: 'ストリーマーマイページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

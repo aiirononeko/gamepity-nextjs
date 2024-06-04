@@ -1,6 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { ChevronRight } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'About | Gamepity',
+  description: 'Aboutページ',
+}
 
 export default function About() {
   return (

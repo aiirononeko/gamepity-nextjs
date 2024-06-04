@@ -9,7 +9,13 @@ import {
 } from '@/components/ui/breadcrumb'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+
+export const metadata: Metadata = {
+  title: 'プラン作成 | Gamepity',
+  description: 'プラン作成ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()

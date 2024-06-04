@@ -8,8 +8,14 @@ import {
 } from '@/components/ui/breadcrumb'
 import { currentUser, isStreamer } from '@/data/auth'
 import { getStreamerReservations } from '@/data/reservation'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { ReservationCard } from './components/ReservationCard'
+
+export const metadata: Metadata = {
+  title: 'ストリーマー予約管理 | Gamepity',
+  description: 'ストリーマー予約管理ページ',
+}
 
 export default async function Page() {
   const user = await currentUser()
