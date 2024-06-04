@@ -15,6 +15,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ReviewCard from './components/ReviewCard'
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string }
+}) => {
+  const streamer = await getStreamer(params.id)
+  return {
+    title: `${streamer.name}のページ | Gamepity`,
+    descripton: `${streamer.name}のページ`,
+  }
+}
+
 export default async function Page({ params }: { params: { id: string } }) {
   const streamer = await getStreamer(params.id)
   const plans = await getPlans(streamer.id)

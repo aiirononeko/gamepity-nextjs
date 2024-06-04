@@ -10,6 +10,18 @@ import {
 import { getGame } from '@/data/game'
 import { getStreamers } from '@/data/streamer'
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string }
+}) => {
+  const game = await getGame(Number(params.id))
+  return {
+    title: `${game.name}のページ | Gamepity`,
+    descripton: `${game.name}のページ`,
+  }
+}
+
 export default async function Page({ params }: { params: { id: string } }) {
   const game = await getGame(Number(params.id))
   const streamers = await getStreamers()

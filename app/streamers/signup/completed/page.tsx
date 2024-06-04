@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'ストリーマー仮登録完了 | Gamepity',
+  description: 'ストリーマー仮登録完了ページ',
+}
 
 export default function Page() {
   return (

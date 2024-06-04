@@ -10,7 +10,13 @@ import {
 import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
+import type { Metadata } from 'next'
 import AvailableDateTimeTable from './components/AvailableDateTimeTable'
+
+export const metadata: Metadata = {
+  title: '予約日時選択 | Gamepity',
+  description: '予約日時選択ページ',
+}
 
 export default async function Page({
   searchParams,

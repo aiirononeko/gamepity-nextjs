@@ -15,6 +15,12 @@ import { addHour, format } from '@formkit/tempo'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import ConfirmationForm from './components/ConfirmationForm'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '予約内容確認 | Gamepity',
+  description: '予約内容確認ページ',
+}
 
 export default async function Page({
   searchParams,
