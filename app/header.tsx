@@ -106,11 +106,14 @@ export default async function Header() {
             )}
           </>
         ) : (
-          <Button variant='outline' asChild>
-            <Link href='/signin' className='decoration-accent'>
-              ログイン
-            </Link>
-          </Button>
+          <div className='md:flex md:flex-row md:space-x-4'>
+            <Button variant='default' asChild>
+              <Link href='/users/signup'>新規登録</Link>
+            </Button>
+            <Button variant='outline' asChild>
+              <Link href='/signin'>ログイン</Link>
+            </Button>
+          </div>
         )}
       </div>
       <div className='block md:hidden'>
