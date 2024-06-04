@@ -100,7 +100,11 @@ export default function SignInForm({
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-40'>
+        <Button
+          type='submit'
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
+          className='w-40'
+        >
           {form.formState.isSubmitting && (
             <Loader2 className='mr-2 size-4 animate-spin' />
           )}
