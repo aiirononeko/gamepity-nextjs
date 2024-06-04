@@ -107,7 +107,7 @@ export default async function Header() {
           </>
         ) : (
           <Button variant='outline' asChild>
-            <Link href='/signin' className='decoration-accent md:pr-0'>
+            <Link href='/signin' className='decoration-accent'>
               ログイン
             </Link>
           </Button>
