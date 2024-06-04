@@ -14,6 +14,7 @@ export async function getStreamers(): Promise<Streamer[]> {
     .neq('icon_url', null)
     .neq('discord_url', null)
     .neq('profile', null)
+    .order('created_at', { ascending: false })
 
   if (error) throw error
 
