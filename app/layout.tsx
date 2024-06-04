@@ -6,11 +6,10 @@ import { cn } from '@/lib/utils'
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { Inter as FontSans } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
-const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-sans',
+const inter = Inter({
+  subsets: ['cyrillic'],
 })
 
 export const metadata: Metadata = {
@@ -34,7 +33,7 @@ export default function RootLayout({
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontSans.variable,
+          inter.className,
         )}
       >
         <Header />
