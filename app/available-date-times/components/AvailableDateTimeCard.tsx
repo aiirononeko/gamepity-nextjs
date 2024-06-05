@@ -31,19 +31,32 @@ export default function AvailableDateTimeCard({
     if (loading) return
 
     if (availableDateTimeState) {
-      await deleteAvailableDateTime(availableDateTimeState?.id ?? 0)
-
       setLoading(true)
-      await sleep(500)
-      setLoading(false)
 
       setAvailableDateTimeState(undefined)
+      await deleteAvailableDateTime(availableDateTimeState?.id ?? 0)
+
+      // MEMO: 作成直後にdeleteをすると、データフェッチが間に合わず処理に失敗するため、
+      // 1秒間のsleep処理を入れて回避
+      await sleep(1000)
+      setLoading(false)
 
       toast.success('予約可能日時を削除しました', {
         position: 'top-right',
         duration: 1000,
       })
     } else {
+      setLoading(true)
+
+      // MEMO: 表示上クリックと同時に色が変わって欲しいのでダミーのデータを入れる
+      setAvailableDateTimeState({
+        id: 0,
+        start_date_time: '',
+        streamer_id: '',
+        created_at: '',
+        updated_at: '',
+      })
+
       const newAvailableDateTime = await createAvailableDateTime(
         targetStartDateTime.toUTCString(),
         streamerId,
@@ -51,9 +64,8 @@ export default function AvailableDateTimeCard({
 
       setAvailableDateTimeState(newAvailableDateTime)
 
-      // MEMO: 作成直後にdeleteをすると、データフェッチが間に合わず処理に失敗するため、
+      // MEMO: 作成直後にdeleteをされると、データフェッチが間に合わず処理に失敗するため、
       // 1.5秒間のsleep処理を入れて回避
-      setLoading(true)
       await sleep(1500)
       setLoading(false)
 
@@ -66,7 +78,7 @@ export default function AvailableDateTimeCard({
 
   return (
     <td className='border border-solid' onClick={toggleIsActive}>
-      {availableDateTimeState && (
+      {(availableDateTimeState || loading) && (
         <div
           className={cn(
             'block h-10 cursor-pointer bg-zinc-300 hover:bg-zinc-400 md:h-14',
