@@ -52,7 +52,6 @@ export default function AvailableDateTimeForm({
                 return (
                   <AvailableDateTimeCard
                     key={`${i}_${day}_${hour}`}
-                    isActive={matchedAvailableDateTime ? true : false}
                     availableDateTime={matchedAvailableDateTime}
                     targetStartDateTime={targetStartDateTime}
                     streamerId={streamerId}
