@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { userSchema } from '@/schemas/user'
+import { revalidatePath } from 'next/cache'
 import type { z } from 'zod'
 import { manageImage } from './image-upload'
 
@@ -28,4 +29,6 @@ export const updateProfile = async (data: z.infer<typeof userSchema>) => {
     })
     .eq('id', userId)
   if (error) throw error
+
+  revalidatePath('/users/mypage')
 }

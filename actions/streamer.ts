@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { streamerSchema } from '@/schemas/streamer'
+import { revalidatePath } from 'next/cache'
 import type { z } from 'zod'
 import { manageImage } from './image-upload'
 
@@ -56,4 +57,6 @@ export const updateProfile = async (data: z.infer<typeof streamerSchema>) => {
     })
     .eq('id', streamerId)
   if (error) throw error
+
+  revalidatePath('/streamers/mypage')
 }
