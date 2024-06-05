@@ -2,7 +2,6 @@
 
 import { createClient } from '@/lib/supabase/server'
 import type { AvailableDateTime } from '@/types/availableDateTime'
-import { revalidatePath } from 'next/cache'
 
 export const createAvailableDateTime = async (
   startDateTime: string,
@@ -24,8 +23,6 @@ export const createAvailableDateTime = async (
     throw error
   }
 
-  revalidatePath('/available-date-times')
-
   return data
 }
 
@@ -40,6 +37,4 @@ export const deleteAvailableDateTime = async (availableDateTimeId: number) => {
     console.error(error.message)
     throw error
   }
-
-  revalidatePath('/available-date-times')
 }
