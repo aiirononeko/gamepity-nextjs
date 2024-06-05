@@ -1,6 +1,6 @@
 'server-only'
 
-import { SupabaseClient } from '@supabase/supabase-js'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { decode } from 'base64-arraybuffer'
 
 export const manageImage = async (
@@ -21,9 +21,10 @@ export const manageImage = async (
     // 画像をアップロード
     const base64String = image.split(',')[1]
     const buffer = decode(base64String)
+    const now = new Date()
     const { data, error } = await supabase.storage
       .from('gamepity-images')
-      .upload(`icons/${userId}.jpeg`, buffer, {
+      .upload(`icons/${userId}_${now.toUTCString()}.jpeg`, buffer, {
         upsert: true,
         contentType: 'image/jpeg',
       })
