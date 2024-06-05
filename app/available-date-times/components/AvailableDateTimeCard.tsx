@@ -38,7 +38,7 @@ export default function AvailableDateTimeCard({
 
       // MEMO: 作成直後にdeleteをすると、データフェッチが間に合わず処理に失敗するため、
       // 1秒間のsleep処理を入れて回避
-      await sleep(1000)
+      await sleep(500)
       setLoading(false)
 
       toast.success('予約可能日時を削除しました', {
