@@ -67,7 +67,7 @@ export default function AvailableDateTimeCard({
             loading && 'flex items-center justify-center bg-zinc-400',
           )}
         >
-          {loading && <Loader />}
+          {loading && <Loader className='animate-spin' />}
         </div>
       )}
     </td>
