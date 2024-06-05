@@ -14,6 +14,7 @@ import {
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { ReservationCard } from './components/ReservationCard'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'ユーザー予約管理 | Gamepity',
@@ -32,7 +33,9 @@ export default async function Page() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

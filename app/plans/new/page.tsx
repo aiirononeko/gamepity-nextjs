@@ -10,6 +10,7 @@ import {
 import { currentUser, isStreamer } from '@/data/auth'
 import { getGames } from '@/data/game'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -27,13 +28,13 @@ export default async function Page() {
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href='/'>トップ</Link>
+          </BreadcrumbLink>
           <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/plans'>プラン管理</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href='/plans'>プラン管理</Link>
+          </BreadcrumbLink>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>プラン作成</BreadcrumbPage>

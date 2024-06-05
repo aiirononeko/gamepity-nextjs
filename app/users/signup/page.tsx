@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import { currentUser } from '@/data/auth'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -25,7 +26,9 @@ export default async function Page() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

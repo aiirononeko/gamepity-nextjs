@@ -29,9 +29,9 @@ export default async function Page() {
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href='/'>トップ</Link>
+          </BreadcrumbLink>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>プラン管理</BreadcrumbPage>

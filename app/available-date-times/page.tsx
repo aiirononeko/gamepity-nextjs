@@ -17,6 +17,7 @@ import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getStreamer } from '@/data/streamer'
 import { ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import AvailableDateTimeForm from './components/AvailableDateTimeForm'
 
@@ -46,7 +47,9 @@ export default async function Page() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

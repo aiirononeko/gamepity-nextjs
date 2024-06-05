@@ -12,10 +12,11 @@ import { getAvailableDateTime } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import { addHour, format } from '@formkit/tempo'
+import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import ConfirmationForm from './components/ConfirmationForm'
-import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: '予約内容確認 | Gamepity',
@@ -54,17 +55,19 @@ export default async function Page({
     <div className='mb-16 mt-8 flex flex-col items-center space-y-8 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href='/'>トップ</Link>
+          </BreadcrumbLink>
           <BreadcrumbSeparator />
           <BreadcrumbEllipsis />
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink
-              href={`/streamers/${streamer.id}/reservation?planId=${plan.id}`}
-            >
-              予約日時選択
+            <BreadcrumbLink asChild>
+              <Link
+                href={`/streamers/${streamer.id}/reservation?planId=${plan.id}`}
+              >
+                予約日時選択
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

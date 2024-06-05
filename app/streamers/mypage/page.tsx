@@ -10,6 +10,7 @@ import {
 import { currentUser, isStreamer } from '@/data/auth'
 import { getStreamer } from '@/data/streamer'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import ProfileForm from './components/ProfileForm'
 import SignOutForm from './components/SignOutForm'
@@ -43,9 +44,9 @@ export default async function Page() {
     <div className='mb-16 mt-8 flex flex-col items-center space-y-10 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href='/'>トップ</Link>
+          </BreadcrumbLink>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>マイページ</BreadcrumbPage>

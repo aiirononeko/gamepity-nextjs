@@ -11,6 +11,7 @@ import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getPlan } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import AvailableDateTimeTable from './components/AvailableDateTimeTable'
 
 export const metadata: Metadata = {
@@ -33,12 +34,14 @@ export default async function Page({
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/streamers/${streamer.id}`}>
-              ストリーマー詳細
+            <BreadcrumbLink asChild>
+              <Link href={`/streamers/${streamer.id}`}>ストリーマー詳細</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

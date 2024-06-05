@@ -24,7 +24,9 @@ export default async function Page() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

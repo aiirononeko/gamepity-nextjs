@@ -9,6 +9,7 @@ import {
 import { currentUser, isStreamer } from '@/data/auth'
 import { getUser } from '@/data/user'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import ProfileForm from './components/ProfileForm'
 import SignOutForm from './components/SignOutForm'
@@ -30,7 +31,9 @@ export default async function Page() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href='/'>トップ</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href='/'>トップ</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
