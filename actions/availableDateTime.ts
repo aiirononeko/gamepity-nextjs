@@ -1,15 +1,15 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/lib/supabase/server'
 import type { AvailableDateTime } from '@/types/availableDateTime'
+import { revalidatePath } from 'next/cache'
 
 export const createAvailableDateTime = async (
   startDateTime: string,
   streamerId: string,
 ): Promise<AvailableDateTime> => {
-  'use client'
-
   const supabase = createClient()
+
   const { data, error } = await supabase
     .from('available_date_times')
     .insert({
@@ -23,13 +23,15 @@ export const createAvailableDateTime = async (
     console.error(error.message)
     throw error
   }
+
+  revalidatePath('/available-date-times')
+
   return data
 }
 
 export const deleteAvailableDateTime = async (availableDateTimeId: number) => {
-  'use client'
-
   const supabase = createClient()
+
   const { error } = await supabase
     .from('available_date_times')
     .delete()
@@ -38,4 +40,6 @@ export const deleteAvailableDateTime = async (availableDateTimeId: number) => {
     console.error(error.message)
     throw error
   }
+
+  revalidatePath('/available-date-times')
 }
