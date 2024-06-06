@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { searchGamesSchema } from '@/schemas/game'
 import type { Game } from '@/types/game'
 
 export async function getGames(): Promise<Game[]> {
@@ -39,4 +40,22 @@ export const getGamesWithPlanId = async (planId: number): Promise<Game[]> => {
   })
 
   return await Promise.all(getRelatedGames)
+}
+
+export const searchGames = async (name: string) => {
+  const result = searchGamesSchema.safeParse({ name })
+  if (!result.success) return
+
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('games')
+    .select()
+    .ilike('name', `${name}%`)
+
+  if (error) {
+    console.error(error)
+    throw error
+  }
+
+  return data
 }

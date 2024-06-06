@@ -10,3 +10,7 @@ export const streamerSchema = z.object({
   twitchUrl: z.string().url().optional(),
   xUrl: z.string().url().optional(),
 })
+
+export const searchStreamersSchema = z.object({
+  name: z.string().max(50),
+})

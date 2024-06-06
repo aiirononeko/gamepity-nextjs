@@ -1,3 +1,4 @@
+import { GamesSearchForm } from '@/components/games-search-form'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import { getGames } from '@/data/game'
+import { getGames, searchGames } from '@/data/game'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -16,8 +17,14 @@ export const metadata: Metadata = {
   description: 'ゲームタイトル一覧ページ',
 }
 
-export default async function Page() {
-  const games = await getGames()
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const games = searchParams.searchText
+    ? await searchGames(searchParams.searchText[0])
+    : await getGames()
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
@@ -35,18 +42,23 @@ export default async function Page() {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>すべてのゲームタイトル</h2>
-      <div className='grid gap-4 md:grid-cols-4'>
-        {games.map((game) => (
-          <Button
-            key={game.id}
-            variant='outline'
-            asChild
-            className='w-72 md:col-auto md:w-[260px]'
-          >
-            <Link href={`/games/${game.id}`}>{game.name}</Link>
-          </Button>
-        ))}
-      </div>
+      <GamesSearchForm />
+      {games && games.length > 0 ? (
+        <div className='grid gap-4 md:grid-cols-4'>
+          {games.map((game) => (
+            <Button
+              key={game.id}
+              variant='outline'
+              asChild
+              className='w-72 md:col-auto md:w-[260px]'
+            >
+              <Link href={`/games/${game.id}`}>{game.name}</Link>
+            </Button>
+          ))}
+        </div>
+      ) : (
+        <p>ゲームタイトルがみつかりません</p>
+      )}
     </div>
   )
 }

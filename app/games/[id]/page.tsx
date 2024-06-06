@@ -50,7 +50,9 @@ export default async function Page({ params }: { params: { id: string } }) {
           ))}
         </div>
       ) : (
-        <p className='w-80'>{game.name}を募集中のストリーマーはいません</p>
+        <p className='w-80 md:w-full'>
+          {game.name}を募集中のストリーマーはいません
+        </p>
       )}
     </div>
   )
