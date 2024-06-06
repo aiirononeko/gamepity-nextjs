@@ -43,11 +43,15 @@ export default async function Page({ params }: { params: { id: string } }) {
         </BreadcrumbList>
       </Breadcrumb>
       <h2 className='text-xl font-bold'>{game.name}を募集中のストリーマー</h2>
-      <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
-        {streamers.map((streamer) => (
-          <StreamerCard key={streamer.id} streamer={streamer} />
-        ))}
-      </div>
+      {streamers.length > 0 ? (
+        <div className='grid gap-8 md:grid-cols-3 md:gap-12'>
+          {streamers.map((streamer) => (
+            <StreamerCard key={streamer.id} streamer={streamer} />
+          ))}
+        </div>
+      ) : (
+        <p className='w-80'>{game.name}を募集中のストリーマーはいません</p>
+      )}
     </div>
   )
 }

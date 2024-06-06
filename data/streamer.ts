@@ -54,6 +54,11 @@ export const getStreamersWithGameTitle = async (gameId: number) => {
     `,
     )
     .eq('streamer_games.game_id', gameId)
+    .neq('icon_url', null)
+    .neq('discord_url', null)
+    .neq('profile', null)
+    .order('created_at', { ascending: false })
+
   if (error) {
     console.error(error)
     throw error
