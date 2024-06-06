@@ -12,9 +12,9 @@ import {
   getUserReservations,
 } from '@/data/reservation'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ReservationCard } from './components/ReservationCard'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'ユーザー予約管理 | Gamepity',

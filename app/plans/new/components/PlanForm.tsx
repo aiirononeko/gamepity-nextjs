@@ -52,6 +52,13 @@ export default function PlanForm({ streamerId, games }: Props) {
     },
   })
 
+  const currentAmount = form.watch('amount')
+
+  const streamerSales = () => {
+    // MEMO: プラットフォーム手数料が変わったらロジック修正する
+    return Number(currentAmount) - Number(currentAmount) * 0
+  }
+
   const gameOptions = games.map((game) => {
     return {
       label: game.name,
@@ -128,8 +135,14 @@ export default function PlanForm({ streamerId, games }: Props) {
                 />
               </FormControl>
               <FormDescription className='w-80'>
-                プランの料金は100円 ~ 999999円の範囲で設定してください
+                プランの料金は100円以上で設定してください
               </FormDescription>
+              {Number(currentAmount) >= 100 && (
+                <FormDescription className='w-80'>
+                  ストリーマー様の売り上げは、プラットフォーム手数料 0%
+                  を差し引いた {streamerSales()}円 となります
+                </FormDescription>
+              )}
               <FormMessage />
             </FormItem>
           )}

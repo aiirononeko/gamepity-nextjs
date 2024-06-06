@@ -105,7 +105,7 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
                   })
                 }
               }}
-              className='data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up overflow-hidden'
+              className='overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down'
             >
               {children}
             </CollapsibleContent>
