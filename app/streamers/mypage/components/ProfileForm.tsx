@@ -133,7 +133,7 @@ export default function ProfileForm({ streamer }: Props) {
           name='twitchUrl'
           render={({ field }) => (
             <FormItem>
-              <Label>Twich URL</Label>
+              <Label>Twitch URL</Label>
               <FormControl>
                 <Input {...field} className='w-80' />
               </FormControl>
