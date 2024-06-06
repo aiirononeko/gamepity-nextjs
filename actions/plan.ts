@@ -41,6 +41,7 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
       throw error
     }
 
+    await createStreamerGames(streamerId, Number(gameId))
     await createPlansGames(data.id, Number(gameId))
   } catch (e) {
     console.error(e)
@@ -48,6 +49,19 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
   }
 
   redirect('/plans')
+}
+
+const createStreamerGames = async (streamerId: string, gameId: number) => {
+  const supabase = createClient()
+
+  const { error } = await supabase.from('streamer_games').insert({
+    streamer_id: streamerId,
+    game_id: gameId,
+  })
+  if (error) {
+    console.error(error)
+    throw error
+  }
 }
 
 const createPlansGames = async (planId: number, gameId: number) => {

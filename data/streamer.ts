@@ -8,6 +8,7 @@ import type { Streamer } from '@/types/streamer'
  */
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
+
   const { data, error } = await supabase
     .from('streamers')
     .select()
@@ -23,15 +24,39 @@ export async function getStreamers(): Promise<Streamer[]> {
 
 export async function getStreamer(id: string): Promise<Streamer> {
   const supabase = createClient()
-  const streamersWithGamesQuery = supabase
+
+  const { data, error } = await supabase
     .from('streamers')
     .select(`*, reviews (*), plans (*), available_date_times (*)`)
     .eq('id', id)
     .limit(1)
     .single()
+  if (error) {
+    console.error(error)
+    throw error
+  }
 
-  const { data, error } = await streamersWithGamesQuery
-  if (error) throw new Error(error.message)
+  return data
+}
 
+export const getStreamersWithGameTitle = async (gameId: number) => {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+    .from('streamers')
+    .select(
+      `
+      *, streamer_games!inner (
+        game_id (
+          *
+        )
+      ) 
+    `,
+    )
+    .eq('streamer_games.game_id', gameId)
+  if (error) {
+    console.error(error)
+    throw error
+  }
   return data
 }

@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { getGame } from '@/data/game'
-import { getStreamers } from '@/data/streamer'
+import { getStreamersWithGameTitle } from '@/data/streamer'
 import Link from 'next/link'
 
 export const generateMetadata = async ({
@@ -25,7 +25,7 @@ export const generateMetadata = async ({
 
 export default async function Page({ params }: { params: { id: string } }) {
   const game = await getGame(Number(params.id))
-  const streamers = await getStreamers()
+  const streamers = await getStreamersWithGameTitle(game.id)
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
