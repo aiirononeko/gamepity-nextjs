@@ -31,11 +31,17 @@ export default async function Header() {
           Gamepity<span className='pl-2 text-accent'>β</span>
         </Link>
       </Button>
+
       <div className='hidden md:block'>
         {user ? (
           <>
             {streamer ? (
-              <>
+              <div className='flex flex-row items-center space-x-2'>
+                <Button variant='link' asChild>
+                  <Link href='/streamers' className='decoration-accent'>
+                    ストリーマーを探す
+                  </Link>
+                </Button>
                 <Button variant='link' asChild>
                   <Link href='/plans' className='decoration-accent'>
                     プラン管理
@@ -75,9 +81,14 @@ export default async function Header() {
                     マイページ
                   </Link>
                 </Button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className='flex flex-row items-center space-x-2'>
+                <Button variant='link' asChild>
+                  <Link href='/streamers' className='decoration-accent'>
+                    ストリーマーを探す
+                  </Link>
+                </Button>
                 <Button variant='link' asChild>
                   <a
                     href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
@@ -103,16 +114,23 @@ export default async function Header() {
                     マイページ
                   </Link>
                 </Button>
-              </>
+              </div>
             )}
           </>
         ) : (
-          <div className='md:flex md:flex-row md:space-x-4'>
-            <Button variant='default' asChild>
-              <Link href='/users/signup'>新規登録</Link>
+          <div className='flex flex-row space-x-4'>
+            <Button variant='link' asChild>
+              <Link href='/streamers' className='decoration-accent'>
+                ストリーマーを探す
+              </Link>
             </Button>
-            <Button variant='outline' asChild>
-              <Link href='/signin'>ログイン</Link>
+            <Button variant='link' asChild>
+              <Link href='/signin' className='decoration-accent'>
+                ログイン
+              </Link>
+            </Button>
+            <Button variant='default' asChild className='w-32'>
+              <Link href='/users/signup'>新規登録</Link>
             </Button>
           </div>
         )}
@@ -128,6 +146,9 @@ export default async function Header() {
                 {streamer ? (
                   <>
                     <DropdownMenuItem className='flex flex-col'>
+                      <Button variant='link' asChild className='text-zinc-950'>
+                        <Link href='/streamers'>ストリーマーを探す</Link>
+                      </Button>
                       <Button variant='link' asChild className='text-zinc-950'>
                         <Link href='/plans'>プラン管理</Link>
                       </Button>
@@ -158,6 +179,9 @@ export default async function Header() {
                 ) : (
                   <DropdownMenuItem className='flex flex-col'>
                     <Button variant='link' asChild className='text-zinc-950'>
+                      <Link href='/streamers'>ストリーマーを探す</Link>
+                    </Button>
+                    <Button variant='link' asChild className='text-zinc-950'>
                       <a
                         href='https://brash-ferry-996.notion.site/Gamepity-c71b2d7f03584a19a5fc43aec8cc708b'
                         target='_blank'
@@ -175,7 +199,13 @@ export default async function Header() {
                 )}
               </>
             ) : (
-              <DropdownMenuItem>
+              <DropdownMenuItem className='flex flex-col'>
+                <Button variant='link' asChild className='text-zinc-950'>
+                  <Link href='/streamers'>ストリーマーを探す</Link>
+                </Button>
+                <Button variant='link' asChild className='text-zinc-950'>
+                  <Link href='/users/signup'>新規登録</Link>
+                </Button>
                 <Button variant='link' asChild className='text-zinc-950'>
                   <Link href='/signin'>ログイン</Link>
                 </Button>

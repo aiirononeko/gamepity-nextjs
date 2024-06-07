@@ -37,7 +37,7 @@ export default function RootLayout({
         )}
       >
         <Header />
-        {children}
+        <main>{children}</main>
         <Toaster richColors />
         <SpeedInsights />
         <Footer />
