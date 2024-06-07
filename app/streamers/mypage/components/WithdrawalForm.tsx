@@ -1,6 +1,6 @@
 'use client'
 
-import { withdrawal } from '@/actions/auth'
+import { signOut } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Loader2 } from 'lucide-react'
@@ -14,8 +14,9 @@ type Props = {
 export default function WithdrawalForm({ userId }: Props) {
   const form = useForm()
   const onSubmit = async () => {
-    await withdrawal(userId)
-    toast.success('退会しました', {
+    // await withdrawal(userId)
+    await signOut()
+    toast.success('ログアウトしました', {
       position: 'top-right',
       duration: 2000,
     })
