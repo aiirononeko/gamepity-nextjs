@@ -1,9 +1,19 @@
 'use client'
 
 import { withdrawal } from '@/actions/auth'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -13,6 +23,7 @@ type Props = {
 
 export default function WithdrawalForm({ userId }: Props) {
   const form = useForm()
+
   const onSubmit = async () => {
     await withdrawal(userId)
     toast.success('退会しました', {
@@ -22,22 +33,37 @@ export default function WithdrawalForm({ userId }: Props) {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col items-center space-y-8 md:items-start'
-      >
-        <Button
-          disabled={!form.formState.isValid || form.formState.isSubmitting}
-          className='w-40'
-          variant='destructive'
-        >
-          {form.formState.isSubmitting && (
-            <Loader2 className='mr-2 size-4 animate-spin' />
-          )}
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant='destructive' className='w-40'>
           退会
         </Button>
-      </form>
-    </Form>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className='flex flex-col items-center space-y-8 md:items-start'
+          >
+            <AlertDialogHeader>
+              <AlertDialogTitle className='text-primary-foreground'>
+                本当に退会しますか？
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                一度退会すると、ユーザー情報が削除されログインはできなくなりますがレビューデータ等は残ります。
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>キャンセル</AlertDialogCancel>
+              <AlertDialogAction>
+                <Button type='submit' variant='destructive' className='w-40'>
+                  確認しました
+                </Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </form>
+        </Form>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

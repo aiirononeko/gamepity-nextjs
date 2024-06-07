@@ -69,3 +69,30 @@ export const getReservation = async (reservationId: number) => {
 
   return data
 }
+
+export const checkAllReservationsCompleted = async (
+  userId: string,
+  isStreamer: boolean,
+) => {
+  const supabase = createClient()
+
+  const query = isStreamer
+    ? supabase
+        .from('reservations')
+        .select()
+        .eq('streamer_id', userId)
+        .lt('start_date_dime', new Date().toUTCString())
+    : supabase
+        .from('reservations')
+        .select()
+        .eq('user_id', userId)
+        .lt('start_date_dime', new Date().toUTCString())
+
+  const { data, error } = await query
+  if (error) {
+    console.error(error.message)
+    throw error
+  }
+
+  return data
+}

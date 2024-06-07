@@ -1,7 +1,7 @@
 'use server'
 
 import { createStripeAccount } from '@/actions/stripe'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient, createClient } from '@/lib/supabase/server'
 import { signInSchema } from '@/schemas/signIn'
 import { signUpStreamerSchema, signUpUserSchema } from '@/schemas/signUp'
 import { redirect } from 'next/navigation'
@@ -106,11 +106,12 @@ export async function signOut() {
 }
 
 export async function withdrawal(id: string) {
-  const supabase = createClient()
+  const supabase = createAdminClient()
 
-  const { error } = await supabase.auth.admin.deleteUser(id)
+  const { error } = await supabase.auth.admin.deleteUser(id, true)
   if (error) {
     console.error(error.message)
     throw error
   }
+  await supabase.auth.signOut()
 }

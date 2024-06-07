@@ -7,6 +7,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { currentUser, isStreamer } from '@/data/auth'
+import { getUserReservations } from '@/data/reservation'
 import { getUser } from '@/data/user'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -25,6 +26,7 @@ export default async function Page() {
   if (!user || isStreamer(user)) redirect('/signin')
 
   const userFromTable = await getUser(user.id)
+  const reservations = await getUserReservations(user.id)
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
@@ -46,7 +48,11 @@ export default async function Page() {
       <h2 className='text-xl font-bold'>ログアウト</h2>
       <SignOutForm />
       <h2 className='text-xl font-bold'>退会</h2>
-      <WithdrawalForm userId={user.id} />
+      {reservations.length === 0 ? (
+        <WithdrawalForm userId={user.id} />
+      ) : (
+        <p>未完了の予約があるため退会できません</p>
+      )}
     </div>
   )
 }
