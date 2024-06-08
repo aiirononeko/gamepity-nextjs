@@ -32,7 +32,7 @@ export default async function Page() {
             Gamepity
           </p>
         </div>
-        <div className='absolute top-24 flex flex-col items-center justify-center space-y-2'>
+        <div className='absolute top-16 flex flex-col items-center justify-center space-y-2 md:top-24'>
           <h1 className='text-6xl font-semibold tracking-wider md:text-8xl'>
             Gamepity
           </h1>
