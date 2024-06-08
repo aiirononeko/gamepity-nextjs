@@ -16,17 +16,30 @@ export default async function Page() {
   const games = await getGames()
 
   return (
-    <div className='mb-16 flex flex-col items-center md:mt-4'>
-      <div className='mb-8 flex w-full flex-col items-center border-b py-12 md:mb-10'>
-        <p className='mb-5 text-center text-lg font-bold md:text-xl'>
-          憧れのストリーマーとゲームができる
-          <br />
-          ゲーマー向けマッチングプラットフォーム
-        </p>
-        <p className='mb-10 text-6xl font-bold md:text-7xl'>Gamepity</p>
-        <Button variant='default' className='w-48' asChild>
-          <Link href='/users/signup'>新規登録はこちら</Link>
-        </Button>
+    <div className='mb-16 flex flex-col items-center'>
+      <div className='relative flex h-[220px] w-full flex-col items-center justify-center md:mb-8 md:justify-center'>
+        <div>
+          <p
+            className='relative -top-12 text-8xl text-background md:-top-0 md:text-[240px] md:tracking-[28px]'
+            style={{
+              WebkitTextStrokeWidth: '2px',
+              WebkitTextStrokeColor: 'rgb(30, 41, 59)',
+              WebkitTextFillColor: 'rgb(2, 8, 23)',
+              paintOrder: 'stroke fill',
+              fontWeight: 'bold',
+            }}
+          >
+            Gamepity
+          </p>
+        </div>
+        <div className='absolute top-16 flex flex-col items-center justify-center space-y-2'>
+          <h1 className='text-6xl font-semibold tracking-wider md:text-8xl'>
+            Gamepity
+          </h1>
+          <p className='text-lg font-semibold tracking-wider text-accent md:text-2xl'>
+            For All Gamers Platform
+          </p>
+        </div>
       </div>
       <div className='space-y-8 md:mx-[160px] md:space-y-12'>
         <div className='space-y-4'>
