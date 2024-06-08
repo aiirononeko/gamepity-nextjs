@@ -17,10 +17,10 @@ export default async function Page() {
 
   return (
     <div className='mb-16 flex flex-col items-center'>
-      <div className='relative flex h-[220px] w-full flex-col items-center justify-center md:mb-8 md:h-[260px] md:justify-center'>
+      <div className='relative flex h-[220px] w-full flex-col items-center justify-center md:mb-8 md:h-[240px] md:justify-center'>
         <div>
           <p
-            className='relative -top-12 text-8xl text-background md:-top-0 md:text-[240px] md:tracking-[28px]'
+            className='relative -top-12 text-8xl text-background md:-top-2 md:text-[240px] md:tracking-[28px]'
             style={{
               WebkitTextStrokeWidth: '2px',
               WebkitTextStrokeColor: 'rgb(30, 41, 59)',
@@ -32,7 +32,7 @@ export default async function Page() {
             Gamepity
           </p>
         </div>
-        <div className='absolute top-16 flex flex-col items-center justify-center space-y-2 md:top-24'>
+        <div className='absolute top-16 flex flex-col items-center justify-center space-y-2 md:top-20'>
           <h1 className='text-6xl font-semibold tracking-wider md:text-8xl'>
             Gamepity
           </h1>
