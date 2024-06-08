@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { getPlans } from '@/data/plan'
 import { getStreamer } from '@/data/streamer'
 import Image from 'next/image'
@@ -62,7 +63,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         ) : (
           <div className='h-[220px] w-[352px]'></div>
         )}
-        <div className='w-[352px] space-y-6 md:w-2/3'>
+        <div className='w-[352px] space-y-6 md:h-[220px] md:w-2/3'>
           <div className='md:flex md:space-x-4'>
             <p className='text-2xl font-bold md:text-3xl'>{streamer.name}</p>
             <Rating
@@ -73,9 +74,9 @@ export default async function Page({ params }: { params: { id: string } }) {
               withLabel={true}
             />
           </div>
-          <p className='whitespace-pre-wrap md:line-clamp-6'>
+          <ScrollArea className='h-full whitespace-pre-wrap'>
             {streamer.profile}
-          </p>
+          </ScrollArea>
         </div>
       </div>
       <div className='flex flex-row items-center space-x-6'>

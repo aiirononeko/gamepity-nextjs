@@ -3,6 +3,7 @@
 import { DAYS_LABEL } from '@/app/streamers/[id]/reservation/constants'
 import type { AvailableDateTime } from '@/types/availableDateTime'
 import { addHour, date, dayStart } from '@formkit/tempo'
+import { Info } from 'lucide-react'
 import AvailableDateTimeCard from './AvailableDateTimeCard'
 
 type Props = {
@@ -20,6 +21,13 @@ export default function AvailableDateTimeForm({
 
   return (
     <div className='w-[352px] md:w-full'>
+      <div className='mb-6 flex space-x-2 md:space-x-0'>
+        <Info className='w-10' />
+        <p>
+          予約可能日時をたくさん登録するほど、
+          トップページの「注目ストリーマー」に選出されやすくなります。
+        </p>
+      </div>
       <div className='mb-2 flex flex-row items-center space-x-2'>
         <div className='size-4 cursor-pointer bg-zinc-300 md:size-6'></div>
         <p>...予約可能</p>
