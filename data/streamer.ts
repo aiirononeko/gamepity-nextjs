@@ -4,9 +4,26 @@ import { createClient } from '@/lib/supabase/server'
 import { searchStreamersSchema } from '@/schemas/streamer'
 import type { Streamer } from '@/types/streamer'
 
-/**
- * トップページに表示するストリーマーを取得します
- */
+export async function getTopPageStreamers(): Promise<Streamer[]> {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+    .from('streamers')
+    .select()
+    .neq('icon_url', null)
+    .neq('discord_url', null)
+    .neq('profile', null)
+    // .neq('plans_count', 0)
+    .order('available_date_times_count', { ascending: false })
+    .order('avg_rating', { ascending: false })
+    .order('created_at', { ascending: false })
+    .limit(9)
+
+  if (error) throw error
+
+  return data ?? []
+}
+
 export async function getStreamers(): Promise<Streamer[]> {
   const supabase = createClient()
 

@@ -34,7 +34,7 @@ export default function AvailableDateTimeCard({
       setLoading(true)
 
       setAvailableDateTimeState(undefined)
-      await deleteAvailableDateTime(availableDateTimeState?.id ?? 0)
+      await deleteAvailableDateTime(availableDateTimeState?.id ?? 0, streamerId)
 
       // MEMO: 作成直後にdeleteをすると、データフェッチが間に合わず処理に失敗するため、
       // 1秒間のsleep処理を入れて回避

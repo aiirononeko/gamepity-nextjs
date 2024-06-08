@@ -316,6 +316,7 @@ export type Database = {
       }
       streamers: {
         Row: {
+          available_date_times_count: number | null
           avg_rating: number | null
           created_at: string
           discord_url: string | null
@@ -323,6 +324,7 @@ export type Database = {
           icon_url: string | null
           id: string
           name: string
+          plans_count: number | null
           profile: string | null
           stripe_account_id: string | null
           twitch_url: string | null
@@ -331,6 +333,7 @@ export type Database = {
           youtube_url: string | null
         }
         Insert: {
+          available_date_times_count?: number | null
           avg_rating?: number | null
           created_at?: string
           discord_url?: string | null
@@ -338,6 +341,7 @@ export type Database = {
           icon_url?: string | null
           id: string
           name: string
+          plans_count?: number | null
           profile?: string | null
           stripe_account_id?: string | null
           twitch_url?: string | null
@@ -346,6 +350,7 @@ export type Database = {
           youtube_url?: string | null
         }
         Update: {
+          available_date_times_count?: number | null
           avg_rating?: number | null
           created_at?: string
           discord_url?: string | null
@@ -353,6 +358,7 @@ export type Database = {
           icon_url?: string | null
           id?: string
           name?: string
+          plans_count?: number | null
           profile?: string | null
           stripe_account_id?: string | null
           twitch_url?: string | null

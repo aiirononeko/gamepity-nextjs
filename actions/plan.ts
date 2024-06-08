@@ -3,6 +3,7 @@
 import { createStripeProductAndPrice } from '@/actions/stripe'
 import { createClient } from '@/lib/supabase/server'
 import { planSchema } from '@/schemas/plan'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { redirect } from 'next/navigation'
 import type { z } from 'zod'
 
@@ -41,8 +42,11 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
       throw error
     }
 
-    await createStreamerGames(streamerId, Number(gameId))
-    await createPlansGames(data.id, Number(gameId))
+    await createStreamerGames(supabase, streamerId, Number(gameId))
+    await createPlansGames(supabase, data.id, Number(gameId))
+
+    const count = await getPlansCount(supabase, streamerId)
+    await updateStreamerPlansCount(supabase, streamerId, count)
   } catch (e) {
     console.error(e)
     throw e
@@ -51,9 +55,41 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
   redirect('/plans')
 }
 
-const createStreamerGames = async (streamerId: string, gameId: number) => {
-  const supabase = createClient()
+const getPlansCount = async (supabase: SupabaseClient, streamerId: string) => {
+  const { count, error } = await supabase
+    .from('plans')
+    .select('*', { count: 'exact', head: true })
+    .eq('streamer_id', streamerId)
 
+  if (error) {
+    console.error(error)
+    throw error
+  }
+
+  return count ?? 0
+}
+
+const updateStreamerPlansCount = async (
+  supabase: SupabaseClient,
+  streamerId: string,
+  count: number,
+) => {
+  const { error } = await supabase
+    .from('streamers')
+    .update({ plans_count: count })
+    .eq('id', streamerId)
+
+  if (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const createStreamerGames = async (
+  supabase: SupabaseClient,
+  streamerId: string,
+  gameId: number,
+) => {
   const { error } = await supabase.from('streamer_games').insert({
     streamer_id: streamerId,
     game_id: gameId,
@@ -64,8 +100,11 @@ const createStreamerGames = async (streamerId: string, gameId: number) => {
   }
 }
 
-const createPlansGames = async (planId: number, gameId: number) => {
-  const supabase = createClient()
+const createPlansGames = async (
+  supabase: SupabaseClient,
+  planId: number,
+  gameId: number,
+) => {
   const { error } = await supabase.from('plans_games').insert({
     plan_id: planId,
     game_id: gameId,
