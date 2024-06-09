@@ -52,12 +52,6 @@ export default function PlanForm({ streamerId, games }: Props) {
     },
   })
 
-  console.log(form.formState.isValid)
-  console.log(form.watch('name'))
-  console.log(form.watch('description'))
-  console.log(form.watch('amount'))
-  console.log(form.watch('gameId'))
-
   const currentAmount = form.watch('amount')
 
   const streamerSales = () => {
