@@ -35,17 +35,14 @@ export const PlanCard = ({ plan }: Props) => {
       <CardFooter className='flex flex-row items-start space-x-4'>
         <Button
           variant='destructive'
-          onClick={() => alert('開発中')}
+          onClick={() =>
+            alert(
+              '開発中のため、お手数ですが運営チームに削除依頼をお願いいたします。',
+            )
+          }
           className='w-40'
         >
           削除
-        </Button>
-        <Button
-          variant='default'
-          onClick={() => alert('開発中')}
-          className='w-40'
-        >
-          売り切れにする
         </Button>
       </CardFooter>
     </Card>
