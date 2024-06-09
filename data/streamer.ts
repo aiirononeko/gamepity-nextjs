@@ -13,7 +13,7 @@ export async function getTopPageStreamers(): Promise<Streamer[]> {
     .neq('icon_url', null)
     .neq('discord_url', null)
     .neq('profile', null)
-    // .neq('plans_count', 0)
+    .neq('plans_count', 0)
     .order('available_date_times_count', { ascending: false })
     .order('avg_rating', { ascending: false })
     .order('created_at', { ascending: false })
