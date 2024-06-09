@@ -75,6 +75,8 @@ export const getStreamersWithGameTitle = async (gameId: number) => {
     .neq('icon_url', null)
     .neq('discord_url', null)
     .neq('profile', null)
+    .order('available_date_times_count', { ascending: false })
+    .order('avg_rating', { ascending: false })
     .order('created_at', { ascending: false })
 
   if (error) {

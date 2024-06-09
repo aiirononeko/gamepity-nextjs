@@ -21,3 +21,15 @@ SET plans_count = 0;
 -- カラムのデフォルト値を設定
 ALTER TABLE public.streamers
 ALTER COLUMN plans_count SET DEFAULT 0;
+
+-- テーブルにカラムを追加する
+ALTER TABLE public.games
+ADD COLUMN plans_count integer DEFAULT 0;
+
+-- 既存データの初期化（必要に応じて）
+UPDATE public.games
+SET plans_count = 0;
+
+-- カラムのデフォルト値を設定
+ALTER TABLE public.games
+ALTER COLUMN plans_count SET DEFAULT 0;

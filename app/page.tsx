@@ -1,6 +1,6 @@
 import StreamerCard from '@/components/StreamerCard'
 import { Button } from '@/components/ui/button'
-import { getGames } from '@/data/game'
+import { getTopPageGames } from '@/data/game'
 import { getTopPageStreamers } from '@/data/streamer'
 import { ChevronRight } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const streamers = await getTopPageStreamers()
-  const games = await getGames()
+  const games = await getTopPageGames()
 
   return (
     <div className='mb-16 flex flex-col items-center'>
@@ -43,7 +43,7 @@ export default async function Page() {
       </div>
       <div className='space-y-8 md:mx-[160px] md:space-y-12'>
         <div className='space-y-4'>
-          <div className='flex flex-col items-center space-y-2 md:grid md:flex-none md:grid-cols-12'>
+          <div className='flex flex-col items-center space-y-2 md:flex-row md:justify-between'>
             <div className='space-y-2 md:col-span-8'>
               <h2 className='text-center text-xl font-bold md:text-start'>
                 注目ストリーマー
@@ -52,11 +52,7 @@ export default async function Page() {
                 注目のストリーマーと一緒にゲームを楽しもう！
               </p>
             </div>
-            <Button
-              variant='link'
-              asChild
-              className='md:col-span-2 md:col-start-11 md:p-0'
-            >
+            <Button variant='link' asChild>
               <Link href='/streamers' className='decoration-accent'>
                 すべてのストリーマーをみる
                 <ChevronRight className='size-4' />
@@ -70,7 +66,7 @@ export default async function Page() {
           </div>
         </div>
         <div className='space-y-4'>
-          <div className='flex flex-col items-center space-y-2 md:grid md:flex-none md:grid-cols-12'>
+          <div className='flex flex-col items-center space-y-2 md:flex-row md:justify-between'>
             <div className='space-y-2 md:col-span-8'>
               <h2 className='text-center text-xl font-bold md:text-start'>
                 注目ゲームタイトル
@@ -79,11 +75,7 @@ export default async function Page() {
                 注目のゲームタイトルからストリーマーを探そう！
               </p>
             </div>
-            <Button
-              variant='link'
-              asChild
-              className='md:col-span-2 md:col-start-11 md:p-0'
-            >
+            <Button variant='link' asChild>
               <Link href='/games' className='decoration-accent'>
                 すべてのタイトルをみる
                 <ChevronRight className='size-4' />
