@@ -47,6 +47,7 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
 
     const count = await getPlansCount(supabase, streamerId)
     await updateStreamerPlansCount(supabase, streamerId, count)
+    await updateGamePlansCount(supabase, gameId, count)
   } catch (e) {
     console.error(e)
     throw e
@@ -78,6 +79,22 @@ const updateStreamerPlansCount = async (
     .from('streamers')
     .update({ plans_count: count })
     .eq('id', streamerId)
+
+  if (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const updateGamePlansCount = async (
+  supabase: SupabaseClient,
+  gameId: string,
+  count: number,
+) => {
+  const { error } = await supabase
+    .from('games')
+    .update({ plans_count: count })
+    .eq('id', gameId)
 
   if (error) {
     console.error(error)
