@@ -8,6 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { currentUser, isStreamer } from '@/data/auth'
+import { getStreamerReservations } from '@/data/reservation'
 import { getStreamer } from '@/data/streamer'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -40,6 +41,8 @@ export default async function Page() {
     available_date_times.length,
   )
 
+  const reservations = await getStreamerReservations(user.id)
+
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-10 md:mx-[160px] md:mt-10 md:items-start'>
       <Breadcrumb>
@@ -69,7 +72,11 @@ export default async function Page() {
       </div>
       <div className='flex flex-col space-y-4'>
         <h2 className='text-xl font-bold'>退会</h2>
-        <WithdrawalForm userId={user.id} />
+        {reservations.length === 0 ? (
+          <WithdrawalForm />
+        ) : (
+          <p>未完了の予約があるため退会できません</p>
+        )}
       </div>
     </div>
   )
