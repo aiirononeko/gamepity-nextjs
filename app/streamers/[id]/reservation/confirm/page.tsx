@@ -39,14 +39,14 @@ export default async function Page({
 
   const startDateTime = format({
     date: availableDateTime.start_date_time,
-    format: 'YYYY/MM/DD hh:mm',
+    format: 'YYYY/MM/DD HH:mm',
     locale: 'ja',
     tz: 'Asia/Tokyo',
   })
 
   const endDateTime = format({
     date: addHour(availableDateTime.start_date_time, 1),
-    format: 'YYYY/MM/DD hh:mm',
+    format: 'YYYY/MM/DD HH:mm',
     locale: 'ja',
     tz: 'Asia/Tokyo',
   })
