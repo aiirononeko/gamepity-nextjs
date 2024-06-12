@@ -37,13 +37,15 @@ export const ReservationCard = async ({
 
   const startDateTime = format({
     date: date(reservation.start_date_dime),
-    format: 'YYYY-MM-DD hh:mm',
+    format: 'YYYY-MM-DD HH:mm',
+    locale: 'ja',
     tz: 'Asia/Tokyo',
   })
 
   const endDateTime = format({
     date: addHour(date(reservation.start_date_dime), 1),
-    format: 'YYYY-MM-DD hh:mm',
+    format: 'YYYY-MM-DD HH:mm',
+    locale: 'ja',
     tz: 'Asia/Tokyo',
   })
 
