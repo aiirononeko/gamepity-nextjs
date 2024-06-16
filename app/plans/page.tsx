@@ -13,17 +13,24 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { PlanCard } from './components/PlanCard'
+import { PlanDialog } from './components/PlanDialog'
 
 export const metadata: Metadata = {
   title: 'プラン管理 | Gamepity',
   description: 'プラン管理ページ',
 }
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   const user = await currentUser()
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const plans = await getPlans(user.id)
+
+  const open = Boolean(searchParams.open) ?? false
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
@@ -48,6 +55,7 @@ export default async function Page() {
           <PlanCard key={plan.id} plan={plan} />
         ))}
       </div>
+      <PlanDialog open={open} />
     </div>
   )
 }
