@@ -49,13 +49,12 @@ export const createPlan = async (data: z.infer<typeof planSchema>) => {
     const count = await getPlansCount(supabase, streamerId)
     await updateStreamerPlansCount(supabase, streamerId, count)
     await updateGamePlansCount(supabase, gameId, count)
-
-    const availableDateTimes = await getAvailableDateTimes(streamerId)
-    availableDateTimes.length === 0 ? redirect('/plans?open=true') : redirect('/plans')
   } catch (e) {
     console.error(e)
     throw e
   }
+
+  redirect('/plans')
 }
 
 const getPlansCount = async (supabase: SupabaseClient, streamerId: string) => {

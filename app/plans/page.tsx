@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import { currentUser, isStreamer } from '@/data/auth'
+import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { getPlans } from '@/data/plan'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -20,17 +21,15 @@ export const metadata: Metadata = {
   description: 'プラン管理ページ',
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
+export default async function Page() {
   const user = await currentUser()
   if (!user || !isStreamer(user)) redirect('/signin')
 
   const plans = await getPlans(user.id)
+  const availableDateTimes = await getAvailableDateTimes(user.id)
 
-  const open = Boolean(searchParams.open) ?? false
+  // MEMO: プランが1つ以上かつ予約可能日時が登録されていない場合、ダイアログ表示
+  const open = plans.length > 0 && availableDateTimes.length === 0
 
   return (
     <div className='mb-16 mt-8 flex flex-col items-center space-y-6 md:mx-[160px] md:mt-10 md:items-start'>
