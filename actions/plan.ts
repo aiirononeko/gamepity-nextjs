@@ -1,7 +1,6 @@
 'use server'
 
 import { createStripeProductAndPrice } from '@/actions/stripe'
-import { getAvailableDateTimes } from '@/data/availableDateTime'
 import { createClient } from '@/lib/supabase/server'
 import { planSchema } from '@/schemas/plan'
 import type { SupabaseClient } from '@supabase/supabase-js'

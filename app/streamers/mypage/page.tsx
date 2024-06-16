@@ -1,4 +1,5 @@
 import { createLinkToStripeAccountUrl } from '@/actions/stripe'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,10 +11,12 @@ import {
 import { currentUser, isStreamer } from '@/data/auth'
 import { getStreamerReservations } from '@/data/reservation'
 import { getStreamer } from '@/data/streamer'
+import { AlertCircle } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import ProfileForm from './components/ProfileForm'
+import { Share } from './components/Share'
 import SignOutForm from './components/SignOutForm'
 import StreamerRegistrationStepper from './components/StreamerRegistrationStepper'
 import WithdrawalForm from './components/WithdrawalForm'
@@ -57,7 +60,17 @@ export default async function Page() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className='flex flex-col space-y-5 pb-10'>
-        <h2 className='text-xl font-bold'>プロフィール登録</h2>
+        <Alert className='w-80 md:w-full'>
+          <AlertCircle className='size-4' color='#FFFFFF' />
+          <AlertTitle>お知らせ</AlertTitle>
+          <AlertDescription>
+            Gamepityは2024/7/31までβ版運用を実施しています。
+          </AlertDescription>
+        </Alert>
+        <div className='flex w-80 flex-row items-center justify-between'>
+          <h2 className='text-xl font-bold'>プロフィール登録</h2>
+          <Share streamerId={streamer.id} />
+        </div>
         <div className='grid w-80 grid-cols-1 gap-20 md:mb-0 md:w-full md:grid-cols-2'>
           <ProfileForm streamer={streamer} />
           <StreamerRegistrationStepper
