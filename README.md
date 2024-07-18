@@ -10,6 +10,9 @@
 - Nextjs AppRouter
 - TypeScript
 - TailwindCSS
+- Shadcn UI
+- Stripe
+- Resend
 
 ## BaaS
 
